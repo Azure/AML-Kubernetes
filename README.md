@@ -10,7 +10,7 @@ CMK8s project support two type K8s clutser: AKS(Azure managed), Arc (Azure not m
 
 To use CMAKS compute in private preview, you need follow these steps:
 
-1. [Provision a GPU enabled AKS cluster]()
+1. [Provision a GPU enabled AKS cluster](/docs/1. Provision a GPU enabled AKS cluster.md)
 2. [install agent manually]()
 3. [install SDK M2 demo prepare]()
 4. [attach CMAKS compute]()
