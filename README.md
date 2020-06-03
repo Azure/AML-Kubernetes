@@ -10,12 +10,12 @@ CMK8s project support two type K8s clutser: AKS(Azure managed), Arc (Azure not m
 
 To use CMAKS compute in private preview, you need follow these steps:
 
-1. [Provision a GPU enabled AKS cluster]()
-2. [install agent manually]()
-3. [install SDK M2 demo prepare]()
-4. [attach CMAKS compute]()
-5. [Submit runs to CMASK compute]()
-6. [View metrics in Compute level and runs level]()
+1. [Provision a GPU enabled AKS cluster](https://github.com/Azure/CMK8s-Sample/blob/master/docs/1.%20Provision%20a%20GPU%20enabled%20AKS%20cluster.md)
+2. [install agent manually](https://github.com/Azure/CMK8s-private-review-doc/blob/master/docs/2.%20install%20agent%20manually.markdown)
+3. [install SDK M2 demo prepare](https://github.com/Azure/CMK8s-private-review-doc/blob/master/docs/3.%20install%20SDK%20M2%20demo%20prepare.markdown)
+4. [attach CMAKS compute](https://github.com/Azure/CMK8s-private-review-doc/blob/master/docs/4.%20attach%20compute.markdown)
+5. [Submit AML training jobs to CMASK compute](https://github.com/Azure/CMK8s-private-review-doc/blob/master/docs/5.%20Submit%20runs%20to%20CMASK%20compute.markdown)
+6. [View metrics in Compute level and runs level](https://github.com/Azure/CMK8s-private-review-doc/blob/master/docs/6.%20View%20metrics%20in%20Compute%20level%20and%20runs%20level.markdown)
 
 
 # Contributing
