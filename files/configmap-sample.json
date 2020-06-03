@@ -1,0 +1,18 @@
+# Please edit the object below. Lines beginning with a '#' will be ignored,
+# and an empty file will abort the edit. If an error occurs while saving this file will be
+# reopened with the relevant failures.
+#
+apiVersion: v1
+data:
+  agentpool-mapping: '{"/subscriptions/4aaa645c-5ae2-4ae9-a17a-84b9023bc56a/resourceGroups/lochen-test/providers/Microsoft.MachineLearningServices/workspaces/westcentraluslochen/computes/lochen-test001":
+    "gputest"}'
+  metrics-mapping-data: '{"/subscriptions/4aaa645c-5ae2-4ae9-a17a-84b9023bc56a/resourceGroups/lochen-test/providers/Microsoft.MachineLearningServices/workspaces/westcentraluslochen/computes/lochen-test001":
+    "InstrumentationKey=41f02a43-5b1c-4d49-8403-da18005a5c7c"}'
+kind: ConfigMap
+metadata:
+  creationTimestamp: "2020-05-28T10:46:26Z"
+  name: compute-config
+  namespace: default
+  resourceVersion: "16034490"
+  selfLink: /api/v1/namespaces/default/configmaps/compute-config
+  uid: 7b09bf3b-a0d0-11ea-a7ed-96b20a124911

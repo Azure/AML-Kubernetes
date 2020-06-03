@@ -1,0 +1,32 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  labels:
+    app: cmaks-init-job
+  name: cmaks-init-job
+  namespace: default
+spec:
+  template:
+    metadata:
+      labels:
+        job-name: cmaks-init-job
+    spec:
+      containers:
+      - env:
+        - name: KUBE_CONF
+          value: {{kube_conf}}
+        - name: COMPUTE_ENTITY_JSON
+          value: '{"id":"mlc-aks-yuyu3","name":"mlc-aks-yuyu30fa819085","location":"eastus","tags":null,"properties":{"id":"2018a8b9-4455-4400-a387-38afc24d4f72","resourceId":"/subscriptions/e9b2ec51-5c94-4fa8-809a-dc1e695e4896/resourcegroups/itp/providers/Microsoft.ContainerService/managedClusters/cmk8s-aks-dev","description":null,"provisioningState":"Creating","provisioningErrors":null,"isAttachedCompute":true,"computeType":"CmAks","properties":{"clusterPurpose":"DevTest","nodePool":"agentPool","nodesCount":3}},"subscriptionId":"e9b2ec51-5c94-4fa8-809a-dc1e695e4896","workspaceId":"cmaks-test-ws-master\n","workspaceGuid":"ae67ce98-38b7-4fff-99f3-f5dcaa0a3280","computeId":"mlc-aks-yuyu3","resourceGroup":"itp","managedByResourceGroup":null,"isByokEnabled":false,"AsyncOperationId":null,"DeleteStartedOn":null,"partitionKey":"ae67ce98-38b7-4fff-99f3-f5dcaa0a3280","docType":null,"createdTime":"2020-05-25T16:59:24.4084757+08:00","deletedTime":null,"modifiedTime":"2020-05-25T16:59:24.4084757+08:00"}'
+        image: cmaksacr.azurecr.io/cmk8s/yuyu3/mlc/agent-setup:05-29
+        imagePullPolicy: Always
+        name: cmaks-init-job-container
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: cmaks-image-pull-secret
+      restartPolicy: OnFailure
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30

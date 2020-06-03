@@ -1,3 +1,22 @@
+# AML CMK8s -- Private Preview
+This repository is intended to serve as an information hub for customers and partners who are participating in the private preview for AML CMK8s(Custmer managed Kubernetes cluster). Use this repository for onboarding and testing instructions as well as an avenue to provide feedback, issues, enhancement requests and stay up to date as the preview progresses.
+
+## overview
+CMK8s project enable customer to use their exsiting K8s cluster as AML training workload (will also support in the near future). The DataScientists will have some experience as other compute target, they can submit different type training jobs to CMK8s compute target. CMK8s Will first support SDK, CIL and restapi will be supported later.
+
+CMK8s project support two type K8s clutser: AKS(Azure managed), Arc (Azure not managed), we will first support CMAKS.
+
+## Getting Started
+
+To use CMAKS compute in private preview, you need follow these steps:
+
+1. [Provision a GPU enabled AKS cluster]()
+2. [install agent manually]()
+3. [install SDK M2 demo prepare]()
+4. [attach CMAKS compute]()
+5. [Submit runs to CMASK compute]()
+6. [View metrics in Compute level and runs level]()
+
 
 # Contributing
 
