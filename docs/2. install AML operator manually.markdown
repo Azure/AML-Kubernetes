@@ -1,10 +1,10 @@
 By now, we only support install AML operator mannually, in the near future we will support automatically insall AML operator after attach compute target.
-## prerequisite
+## Prerequisite
 to install AML operator, you need:
 1. you need get the kubeconf from AKS CLI
 2. you need use the AKS cluster as kubeclt current context
 
-## one step installation（linux）
+## One step installation（linux）
 we provide a shell script to support one step installation. It is valiated in linux.
 1. download [install script package](https://github.com/Azure/CMK8s-Sample/raw/master/files/install_script.tar).
 2. extract install script
@@ -35,9 +35,10 @@ appinsight InstrumentationKey: the Connection String of this appinsight, you can
 
 ![application insights](/pics/2.3applicationinsights.png)
 
-![connection string][/pics/2.4connectionstring.png]
+![connection string](/pics/2.4connectionstring.png)
 
-### varifiy AML operator installation
+
+### Verify AML operator installation
 
 You have several methods to validate the AML operator installation
 
@@ -51,7 +52,7 @@ kubectl get job
 
 2. view controller status in UI
 
-![cmaks-init-job][/pics/2.5innijobui.png]
+![cmaks-init-job](/pics/2.5innijobui.png)
 
 ### Enable metrics monitoring
 
@@ -62,11 +63,11 @@ CMAKS use application insights of AML worksapce to show the metrics of compute l
 ![ennable custom metrics](/pics/2.7ennablecustommetrics.png)
 
 
-After AML operator is sucessful installed, you can [attach CMAKS compute](https://github.com/Azure/CMK8s-Sample/blob/master/docs/3.%20attach%20CMAKS%20compute.markdown)
+After AML operator is sucessful installed, you can [attach CMAKS compute](https://github.com/Azure/CMK8s-Sample/blob/master/docs/3.%20Attach%20CMAKS%20compute.markdown)
 
 ## Step by step installation(TBD)
 
-## useful commands
+## Useful commands
 
 ### Azure CLI
 
