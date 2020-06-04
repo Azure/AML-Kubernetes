@@ -9,9 +9,9 @@ This project needs you have installed following things in your local machine.
 
 ### install metrics UX
 
-1. Please unzip the [demo.zip](/files/demo.zip)
+1. Please unzip the [demo.zip](https://github.com/Azure/CMK8s-Sample/raw/master/files/demo.zip)
 
-2. Delete build document and unzip [build.zip](/files/build.zip) into demo folder.
+2. Delete build document and unzip [build.zip](https://github.com/Azure/CMK8s-Sample/raw/master/files/build.zip) into demo folder.
 
 3. Then run “start.bat”
 
@@ -21,15 +21,15 @@ After you see this window, you can go to http://localhost:3000/selectWorkspace?f
 
 ### view compute level metrics
 
-To view the CMKAKS compute level metrics, you can go to attached compute > compute detail > Monitoring. Note, only CMAKS compute target support this page.
+To view the CMKAKS compute level metrics, you can go to `attached compute > compute detail > Monitoring`. Note, only CMAKS compute target support this page.
 
 ![compute level metrics](/pics/5.2computemetrics.png)
 
 ### view run level metrics
 
 To view the CMKAKS run level metrics, you can use to two workflow:
-1. compute detail > runs > Monitoring
-2. experiment > runs > Monitoring
+1. `compute detail > runs > Monitoring`
+2. `experiment > runs > Monitoring`
 
 ![run level metrics](/pics/5.3runmetrics.png)
 
