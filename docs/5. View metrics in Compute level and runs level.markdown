@@ -1,4 +1,4 @@
-To view metrics, please make sure you have provide correct instrument kay of application insight AML workspace and enable cumstom metrics, according to [install AML operator manually](https://github.com/Azure/CMK8s-Sample/blob/master/docs/2.%20install%20AML%20operator%20manually.markdown).
+To view metrics, please make sure you have provide correct instrument kay of application insight AML workspace and enable cumstom metrics, according to [install AML agent manually](https://github.com/Azure/CMK8s-Sample/blob/master/docs/2.%20install%20AML%20operator%20manually.markdown).
 
 ## install Metric UX locally
 

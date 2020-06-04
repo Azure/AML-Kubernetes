@@ -1,4 +1,4 @@
-By now, we only support install AML operator mannually, in the near future we will support automatically insall AML operator after attach compute target.
+By now, we only support install AML agent mannually, in the near future we will support automatically insall AML agent after attach compute target.
 ## Prerequisite
 to install AML operator, you need:
 1. you need get the kubeconf from AKS CLI
@@ -15,7 +15,7 @@ tar xvf install_script.tar
 ```
 cd install_script
 ```
-4. install AML operator.
+4. install AML agent.
 ```
 bash install.sh <installer image> <compute target resource id> <node pool> <appinsight InstrumentationKey>
 ```
@@ -39,11 +39,11 @@ appinsight InstrumentationKey: the Connection String of this appinsight, you can
 
 ## Option two: Step by step installation(TBD)
 
-## Verify AML operator installation
+## Verify AML agent installation
 
-You have several methods to validate the AML operator installation
+You have several methods to validate the AML agent installation
 
-if the `cmaks-init-job` is compeled, the AML operator installation is finished.
+if the `cmaks-init-job` is compeled, the AML agent installation is finished.
 
 1. view init job status via kubectl
 
@@ -64,7 +64,7 @@ CMAKS use application insights of AML worksapce to show the metrics of compute l
 ![ennable custom metrics](/pics/2.7ennablecustommetrics.png)
 
 
-After AML operator is sucessful installed, you can [attach CMAKS compute](https://github.com/Azure/CMK8s-Sample/blob/master/docs/3.%20attach%20CMAKS%20compute.markdown)
+After AML agnet is sucessful installed, you can [attach CMAKS compute](https://github.com/Azure/CMK8s-Sample/blob/master/docs/3.%20attach%20CMAKS%20compute.markdown)
 
 
 ## Useful commands
