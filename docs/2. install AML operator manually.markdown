@@ -6,7 +6,7 @@ to install AML operator, you need:
 
 ## one step installation（linux）
 we provide a shell script to support one step installation. It is valiated in linux.
-1. download [install script package](/files/install_script.tar).
+1. download [install script package](https://github.com/Azure/CMK8s-Sample/raw/master/files/install_script.tar).
 2. extract install script
 ```
 tar xvf install_script.tar
@@ -19,9 +19,9 @@ cd install_script
 ```
 bash install.sh <installer image> <compute target resource id> <node pool> <appinsight InstrumentationKey>
 ```
-installer image: the install image, the newest image is: cmaksacr.azurecr.io/cmk8s/private-build-pytorch-operator/mlc/agent-setup:06-03
+installer image: the install image, the newest image is: `cmaksacr.azurecr.io/cmk8s/private-build-pytorch-operator/mlc/agent-setup:06-03`
 
-compute target resource id: the resource id of this compute in Azure. It is structure is: <AML workspace resource id>/computes/<compute name>, due to in this time the compute target is not created yet, you need aliegn to use the same compute target name in [attch CMAKS compute step](https://github.com/Azure/CMK8s-private-review-doc/blob/master/docs/4.%20attach%20compute.markdown)
+compute target resource id: the resource id of this compute in Azure. It is structure is: <AML workspace resource id>/computes/<compute name>, due to in this time the compute target is not created yet, you need aliegn to use the same compute target name in  [attach CMAKS compute](https://github.com/Azure/CMK8s-Sample/blob/master/docs/4.%20attach%20CMAKS%20compute.markdown)
 
 You can find the AML workspace resource id from AML workspace > settings > properties.
 
@@ -50,6 +50,7 @@ kubectl get job
 ```
 
 2. view controller status in UI
+
 ![cmaks-init-job][/pics/2.5innijobui.png]
 
 ### Enable metrics monitoring
