@@ -27,3 +27,4 @@ cmaks_target = CmAksCompute.attach(ws, <compute name>, attach_config)
 
 TBD
 
+After sucessfully attached CMKAK compute, [Submit AML training jobs to CMASK compute](https://github.com/Azure/CMK8s-Sample/blob/master/docs/4.%20Submit%20AML%20training%20jobs%20to%20CMASK%20compute.markdown)

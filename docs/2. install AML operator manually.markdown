@@ -52,7 +52,16 @@ kubectl get job
 2. view controller status in UI
 ![cmaks-init-job][/pics/2.5innijobui.png]
 
-After AML operator is sucessful installed, you can [attach CMAKS compute]()
+### Enable metrics monitoring
+
+CMAKS use application insights of AML worksapce to show the metrics of compute level and run level. To enable this function, you need enable custom metrics in appinsights>config>usage & estimated cost> custom metrics.
+
+![custom metrics](/pics/2.6custommetrics.png)
+
+![ennable custom metrics](/pics/2.7ennablecustommetrics.png)
+
+
+After AML operator is sucessful installed, you can [attach CMAKS compute](https://github.com/Azure/CMK8s-Sample/blob/master/docs/3.%20attach%20CMAKS%20compute.markdown)
 
 ## Step by step installation(TBD)
 

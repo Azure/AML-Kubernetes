@@ -1,0 +1,36 @@
+To view metrics, please make sure you have provide correct instrument kay of application insight AML workspace and enable cumstom metrics, according to [install AML operator manually](https://github.com/Azure/CMK8s-Sample/blob/master/docs/2.%20install%20AML%20operator%20manually.markdown).
+
+## install Metric UX locally
+
+### prerequisite
+This project needs you have installed following things in your local machine.
+1. Nodejs  https://nodejs.org/en/download/
+2. Azure cli https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-windows?view=azure-cli-latest
+
+### install metrics UX
+
+1. Please unzip the [demo.zip](files\demo.zip)
+
+2. Delete build document and unzip [build.zip](files\build.zip) into demo folder.
+
+3. Then run “start.bat”
+
+After you see this window, you can go to http://localhost:3000/selectWorkspace?flight=computeMetrics, and select the workspace.
+
+![localui](pics\5.1localui.png)
+
+### view compute level metrics
+
+To view the CMKAKS compute level metrics, you can go to attached compute > compute detail > Monitoring. Note, only CMAKS compute target support this page.
+
+![compute level metrics](pics\5.2computemetrics.png)
+
+### view run level metrics
+
+To view the CMKAKS run level metrics, you can use to two workflow:
+1. compute detail > runs > Monitoring
+2. experiment > runs > Monitoring
+
+![run level metrics](pics\5.3runmetrics.png)
+
+
