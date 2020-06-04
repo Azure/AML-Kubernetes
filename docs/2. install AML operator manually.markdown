@@ -63,7 +63,7 @@ CMAKS use application insights of AML worksapce to show the metrics of compute l
 ![ennable custom metrics](/pics/2.7ennablecustommetrics.png)
 
 
-After AML operator is sucessful installed, you can [attach CMAKS compute](https://github.com/Azure/CMK8s-Sample/blob/master/docs/3.%20Attach%20CMAKS%20compute.markdown)
+After AML operator is sucessful installed, you can [attach CMAKS compute](https://github.com/Azure/CMK8s-Sample/blob/master/docs/3.%20attach%20CMAKS%20compute.markdown)
 
 ## Step by step installation(TBD)
 

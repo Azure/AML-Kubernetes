@@ -1,7 +1,7 @@
 # AML CMK8s -- Private Preview
 This repository is intended to serve as an information hub for customers and partners who are participating in the private preview for AML CMK8s(Custmer managed Kubernetes cluster). Use this repository for onboarding and testing instructions as well as an avenue to provide feedback, issues, enhancement requests and stay up to date as the preview progresses.
 
-## overview
+## Overview
 CMK8s project enable customer to use their exsiting K8s cluster as AML training workload (will also support in the near future). The DataScientists will have some experience as other compute target, they can submit different type training jobs to CMK8s compute target. CMK8s Will first support SDK, CIL and restapi will be supported later.
 
 CMK8s project support two type K8s clutser: AKS(Azure managed), Arc (Azure not managed), we will first support CMAKS.
@@ -11,8 +11,8 @@ CMK8s project support two type K8s clutser: AKS(Azure managed), Arc (Azure not m
 To use CMAKS compute in private preview, you need follow these steps:
 
 1. [Provision a GPU enabled AKS cluster](https://github.com/Azure/CMK8s-Sample/blob/master/docs/1.%20Provision%20a%20GPU%20enabled%20AKS%20cluster.md)
-2. [Install AML operator manually](https://github.com/Azure/CMK8s-Sample/blob/master/docs/2.%20Install%20AML%20operator%20manually.markdown)
-3. [Attach CMAKS compute](https://github.com/Azure/CMK8s-Sample/blob/master/docs/4.%20Attach%20CMAKS%20compute.markdown)
+2. [Install AML operator manually](https://github.com/Azure/CMK8s-Sample/blob/master/docs/2.%20install%20AML%20operator%20manually.markdown)
+3. [Attach CMAKS compute](https://github.com/Azure/CMK8s-Sample/blob/master/docs/3.%20attach%20CMAKS%20compute.markdown)
 4. [Submit AML training jobs to CMASK compute](https://github.com/Azure/CMK8s-Sample/blob/master/docs/4.%20Submit%20AML%20training%20jobs%20to%20CMASK%20compute.markdown)
 5. [View metrics in Compute level and runs level](https://github.com/Azure/CMK8s-Sample/blob/master/docs/5.%20View%20metrics%20in%20Compute%20level%20and%20runs%20level.markdown)
 
