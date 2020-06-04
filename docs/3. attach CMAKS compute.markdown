@@ -7,9 +7,9 @@ pip install --disable-pip-version-check --extra-index-url https://azuremlsdktest
 ```
 ### attach CMAKS compute via SDK
 
-You need ensure that the cluster is sucessful [installed AML operator manually](https://github.com/Azure/CMK8s-Sample/blob/master/docs/2.%20install%20AML%20operator%20manually.markdown)
+You need ensure that the cluster is sucessful [installed AML agent manually](https://github.com/Azure/CMK8s-Sample/blob/master/docs/2.%20Install%20AML%20agent%20manually.markdown)
 
-To attatch CMAKS compute, you need provide the cluster name, resource group, node pool and compute name. Please the compute name you provide is same with compute name of resource id in [install AML operator manually](https://github.com/Azure/CMK8s-Sample/blob/master/docs/2.%20install%20AML%20operator%20manually.markdown).
+To attatch CMAKS compute, you need provide the cluster name, resource group, node pool and compute name. Please the compute name you provide is same with compute name of resource id in [install AML agent manually](https://github.com/Azure/CMK8s-Sample/blob/master/docs/2.%20Install%20AML%20agent%20manually.markdown).
 
 ```python
 from azureml.contrib.core.compute.cmakscompute import CmAksCompute
