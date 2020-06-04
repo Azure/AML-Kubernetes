@@ -20,7 +20,6 @@ attach_config = CmAksCompute.attach_configuration(cluster_name =<cluster_name>
                                                  )
 
 cmaks_target = CmAksCompute.attach(ws, <compute name>, attach_config)
-
 ```
 
 ## Attach compute from UI
