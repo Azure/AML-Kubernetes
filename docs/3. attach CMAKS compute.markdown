@@ -5,7 +5,7 @@ To attach CMAKS compute you need install private branch SDK
 ```
 pip install --disable-pip-version-check --extra-index-url https://azuremlsdktestpypi.azureedge.net/CmAks-Compute-Test/D58E86006C65 azureml-pipeline-steps azureml-contrib-pipeline-steps azureml_contrib_itp --upgrade
 ```
-### attach CMKAKS compute via SDK
+### attach CMAKS compute via SDK
 
 You need ensure that the cluster is sucessful [installed AML operator manually](https://github.com/Azure/CMK8s-Sample/blob/master/docs/2.%20install%20AML%20operator%20manually.markdown)
 
@@ -27,4 +27,4 @@ cmaks_target = CmAksCompute.attach(ws, <compute name>, attach_config)
 
 TBD
 
-After sucessfully attached CMKAK compute, [Submit AML training jobs to CMASK compute](https://github.com/Azure/CMK8s-Sample/blob/master/docs/4.%20Submit%20AML%20training%20jobs%20to%20CMASK%20compute.markdown)
+After sucessfully attached CMAKS compute, [Submit AML training jobs to CMASK compute](https://github.com/Azure/CMK8s-Sample/blob/master/docs/4.%20Submit%20AML%20training%20jobs%20to%20CMASK%20compute.markdown)

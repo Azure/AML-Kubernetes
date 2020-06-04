@@ -4,7 +4,7 @@ to install AML operator, you need:
 1. you need get the kubeconf from AKS CLI
 2. you need use the AKS cluster as kubeclt current context
 
-## One step installation（linux）
+## Option one: one step installation（linux）
 we provide a shell script to support one step installation. It is valiated in linux.
 1. download [install script package](https://github.com/Azure/CMK8s-Sample/raw/master/files/install_script.tar).
 2. extract install script
@@ -37,8 +37,9 @@ appinsight InstrumentationKey: the Connection String of this appinsight, you can
 
 ![connection string](/pics/2.4connectionstring.png)
 
+## Option two: Step by step installation(TBD)
 
-### Verify AML operator installation
+## Verify AML operator installation
 
 You have several methods to validate the AML operator installation
 
@@ -54,7 +55,7 @@ kubectl get job
 
 ![cmaks-init-job](/pics/2.5innijobui.png)
 
-### Enable metrics monitoring
+##2 Enable metrics monitoring
 
 CMAKS use application insights of AML worksapce to show the metrics of compute level and run level. To enable this function, you need enable custom metrics in ```appinsights>config>usage & estimated cost> custom metrics```.
 
@@ -65,7 +66,6 @@ CMAKS use application insights of AML worksapce to show the metrics of compute l
 
 After AML operator is sucessful installed, you can [attach CMAKS compute](https://github.com/Azure/CMK8s-Sample/blob/master/docs/3.%20attach%20CMAKS%20compute.markdown)
 
-## Step by step installation(TBD)
 
 ## Useful commands
 
