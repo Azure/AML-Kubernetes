@@ -1,4 +1,4 @@
-# AML CMK8s -- 
+# AML CMK8s Samples
 This repository is intended to serve as an information hub for customers and partners who are interested in  AML CMK8s(Custmer managed Kubernetes cluster). Use this repository for onboarding and testing instructions as well as an avenue to provide feedback, issues, enhancement requests and stay up to date as the preview progresses.
 
 ## Overview
