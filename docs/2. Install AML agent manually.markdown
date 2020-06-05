@@ -19,7 +19,7 @@ cd install_script
 ```
 bash install.sh <installer image> <compute target resource id> <node pool> <appinsight InstrumentationKey>
 ```
-installer image: the install image, the newest image is: `cmaksacr.azurecr.io/cmk8s/private-build-pytorch-operator/mlc/agent-setup:06-03`
+installer image: the install image, the newest image is: `cmaksacr.azurecr.io/cmk8s/zetia/mlc/agent-setup:06-05`
 
 compute target resource id: the resource id of this compute in Azure. It is structure is: `AML workspace resource id`/computes/`compute name`, due to in this time the compute target is not created yet, you need aliegn to use the same compute target name in  [attach CMAKS compute](https://github.com/Azure/CMK8s-Sample/blob/master/docs/3.%20attach%20CMAKS%20compute.markdown)
 
