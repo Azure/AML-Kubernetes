@@ -4,7 +4,7 @@ This repository is intended to serve as an information hub for customers and par
 ## Overview
 CMK8s project enable customer to use their exsiting K8s cluster as AML training workload (will also support in the near future). The DataScientists will have some experience as other compute target, they can submit different type training jobs to CMK8s compute target. CMK8s Will first support SDK, CIL and restapi will be supported later.
 
-CMK8s project support two type K8s clutser: AKS(Azure managed), Arc (Azure not managed), we will first support CMAKS.
+CMK8s project support two type K8s clutser: AKS(Azure managed), Arc (Non-Azure managed), we will first start with customer managed AKS (CMAKS).
 
 ## Getting Started
 
