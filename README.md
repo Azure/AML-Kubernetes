@@ -1,5 +1,5 @@
-# AML CMK8s -- Private Preview
-This repository is intended to serve as an information hub for customers and partners who are participating in the private preview for AML CMK8s(Custmer managed Kubernetes cluster). Use this repository for onboarding and testing instructions as well as an avenue to provide feedback, issues, enhancement requests and stay up to date as the preview progresses.
+# AML CMK8s -- 
+This repository is intended to serve as an information hub for customers and partners who are interested in  AML CMK8s(Custmer managed Kubernetes cluster). Use this repository for onboarding and testing instructions as well as an avenue to provide feedback, issues, enhancement requests and stay up to date as the preview progresses.
 
 ## Overview
 CMK8s project enable customer to use their exsiting K8s cluster as AML training workload (will also support in the near future). The DataScientists will have some experience as other compute target, they can submit different type training jobs to CMK8s compute target. CMK8s Will first support SDK, CIL and restapi will be supported later.
