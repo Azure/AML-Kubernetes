@@ -1,13 +1,13 @@
 To view metrics, please make sure you have provide correct instrument kay of application insight AML workspace and enable cumstom metrics, according to [install AML agent manually](https://github.com/Azure/CMK8s-Sample/blob/master/docs/2.%20Install%20AML%20agent%20manually.markdown).
 
-## install Metric UX locally
+## Install Metric UX locally
 
-### prerequisite
+### Prerequisite
 This project needs you have installed following things in your local machine.
 1. Nodejs  https://nodejs.org/en/download/
 2. Azure cli https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-windows?view=azure-cli-latest
 
-### install metrics UX
+### Install metrics UX
 
 1. Please unzip the [demo.zip](https://github.com/Azure/CMK8s-Sample/raw/master/files/demo.zip)
 
@@ -19,18 +19,27 @@ After you see this window, you can go to http://localhost:3000/selectWorkspace?f
 
 ![localui](/pics/5.1localui.png)
 
-### view compute level metrics
+### View compute level metrics
 
 To view the CMKAKS compute level metrics, you can go to `attached compute > compute detail > Monitoring`. Note, only CMAKS compute target support this page.
 
 ![compute level metrics](/pics/5.2computemetrics.png)
 
-### view run level metrics
+### View run level metrics
 
 To view the CMKAKS run level metrics, you can use to two workflow:
 1. `compute detail > runs > Monitoring`
 2. `experiment > runs > Monitoring`
 
 ![run level metrics](/pics/5.3runmetrics.png)
+
+## Useful chart toolkit
+We provide some useful functions in the charts:
+- Zoom: Zoom time range, mouse drag and drop on the charts 
+- Pan: change the time range through pan the x axis
+- Reset Axes: Reset axes to default value, double click on the chart
+- Switch Chart type: switch the chart type between bar chart and line chart
+- Select/unselect legends: click on the legend will select or unselect legend
+- Only select one legend: double click on one selected legend will only show the data of this legend, this is very helpful if you have many legend on the chart.
 
 
