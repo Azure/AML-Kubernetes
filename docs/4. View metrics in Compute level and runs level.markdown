@@ -1,4 +1,23 @@
-To view metrics, please make sure you have provide correct instrument kay of application insight AML workspace and enable cumstom metrics, according to [install AML agent manually](https://github.com/Azure/CMK8s-Sample/blob/master/docs/2.%20Install%20AML%20agent%20manually.markdown).
+
+For Data Scientists, job(run) level monitoring and reporting during training import to them, it can help them to:
+•	Understand the performance of their training script (does the job fully used capacity of GPUs, CPUs, what is the throughput of this model etc.)
+•	Find the bottleneck of this training job(run), GPU Memory, network etc.
+•	Better understand to different training parameters impact their job (batch size, epoch, learning rate etc.)
+For Admin, compute level monitor and reporting are important, it can help them to:
+•	Optimized quota(resource) allocation strategy
+•	Understand the utilization of resource
+
+## Enable custom metrics 
+
+CMAKS use application insights of AML worksapce to show the metrics of compute level and run level. To enable this function, you need enable custom metrics in ```appinsights>config>usage & estimated cost> custom metrics```.
+
+![custom metrics](/pics/2.6custommetrics.png)
+
+![ennable custom metrics](/pics/2.7ennablecustommetrics.png)
+
+
+After AML agnet is sucessful installed, you can [attach CMAKS compute](https://github.com/Azure/CMK8s-Sample/blob/master/docs/3.%20attach%20CMAKS%20compute.markdown)
+
 
 ## Install Metric UX locally
 

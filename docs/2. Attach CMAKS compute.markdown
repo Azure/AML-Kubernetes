@@ -7,10 +7,6 @@ pip install --disable-pip-version-check --extra-index-url https://azuremlsdktest
 ```
 ### Attach CMAKS compute via SDK
 
-You need ensure that the cluster is sucessful [installed AML agent manually](https://github.com/Azure/CMK8s-Sample/blob/master/docs/2.%20Install%20AML%20agent%20manually.markdown)
-
-To attatch CMAKS compute, you need provide the cluster name, resource group, node pool and compute name. Please the compute name you provide is same with compute name of resource id in [install AML agent manually](https://github.com/Azure/CMK8s-Sample/blob/master/docs/2.%20Install%20AML%20agent%20manually.markdown).
-
 ```python
 from azureml.contrib.core.compute.cmakscompute import CmAksCompute
 from azureml.core import Workspace
@@ -24,6 +20,27 @@ cmaks_target = CmAksCompute.attach(ws, <compute name>, attach_config)
 
 ## Attach compute from UI
 
-TBD
+1. Goto AML studio portal, compute > Attached compute, click "+New" button, and select "Kubernetes service"
 
-After sucessfully attached CMAKS compute, [Submit AML training jobs to CMASK compute](https://github.com/Azure/CMK8s-Sample/blob/master/docs/4.%20Submit%20AML%20training%20jobs%20to%20CMASK%20compute.markdown)
+![addcompute](/pics/2.1addcompute.png)
+
+2. Select Kubernetes service from the list.
+
+![cmask](/pics/2.2cmaks.png)
+
+3. Input compute name and select AKS cluster in the top-right pop-up.
+
+![akscluster](/pics/2.3akscluster.png)
+
+4. Select the node pool used to attatched with AML compute target. In CMAKS, one CMAKS compute target should belongs to one AKS node pool, which means nodes have the same VM size. 
+
+![aksnodepool](/pics/2.4aksnodepool.png)
+
+
+After attach a CMAKS compute you can [Submit AML training jobs to CMAKS compute](https://github.com/Azure/CMK8s-Sample/blob/master/docs/5.%20View%20metrics%20in%20Compute%20level%20and%20runs%20level.markdown)
+
+
+
+
+
+
