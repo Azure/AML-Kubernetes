@@ -37,7 +37,7 @@ cmaks_target = CmAksCompute.attach(ws, <compute name>, attach_config)
 ![aksnodepool](/pics/2.4aksnodepool.png)
 
 
-After attach a CMAKS compute you can [Submit AML training jobs to CMAKS compute](https://github.com/Azure/CMK8s-Sample/blob/master/docs/5.%20View%20metrics%20in%20Compute%20level%20and%20runs%20level.markdown)
+After attach a CMAKS compute you can [Submit AML training jobs to CMAKS compute](https://github.com/Azure/CMK8s-Samples/blob/master/docs/3.%20Submit%20AML%20training%20jobs%20to%20CMASK%20compute.markdown)
 
 
 

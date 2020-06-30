@@ -49,4 +49,4 @@ run
 
 You can find sample notebooks under: https://github.com/Azure/CMK8s-Sample/tree/master/sample_notebooks
 
-After submmit runs you can [View metrics in Compute level and runs level](https://github.com/Azure/CMK8s-Sample/blob/master/docs/5.%20View%20metrics%20in%20Compute%20level%20and%20runs%20level.markdown)
+After submmit runs you can [View metrics in Compute level and runs level](https://github.com/Azure/CMK8s-Samples/blob/master/docs/4.%20View%20metrics%20in%20Compute%20level%20and%20runs%20level.markdown)
