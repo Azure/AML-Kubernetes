@@ -39,7 +39,7 @@ to install AML operator, you need:
 
 ## Install/Upgrade(linux)
 we provide a shell script to support one step installation. It is valiated in linux.
-1. download [tools package](https://github.com/Azure/CMK8s-Sample/raw/master/files/tools.tar).
+1. download [tools package](https://github.com/Azure/AML-Kubernetes/blob/master/files/tools.zip).
 2. extract tools script
 ```
 tar xvf tools.tar
