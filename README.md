@@ -1,10 +1,10 @@
-# AML CMK8s Samples
-This repository is intended to serve as an information hub for customers and partners who are interested in  AML CMK8s(Custmer managed Kubernetes cluster). Use this repository for onboarding and testing instructions as well as an avenue to provide feedback, issues, enhancement requests and stay up to date as the preview progresses.
+# AML AMK8s Samples
+This repository is intended to serve as an information hub for customers and partners who are interested in  AML AMK8s(Custmer managed Kubernetes cluster). Use this repository for onboarding and testing instructions as well as an avenue to provide feedback, issues, enhancement requests and stay up to date as the preview progresses.
 
-#### CMK8s refers either to an Azure Kubernetes Service(AKS) cluster or any cluster that is registered in Azure using Arc. Currently, only AKS is supported.
+#### AMK8s refers either to an Azure Kubernetes Service(AKS) cluster or any cluster that is registered in Azure using Arc. Currently, only AKS is supported.
 
 ## Overview
-CMK8s project enables customer to use their exsiting AKS cluster as AML training workload (will also support Arc k8s clusters in the near future). Data scientists will have some experience as other compute target, they can submit different type training jobs to CMK8s compute target. CMK8s Will first support SDK, CLI and restapi will be supported later.
+AMK8s project enables customer to use their exsiting AKS cluster as AML training workload (will also support Arc k8s clusters in the near future). Data scientists will have some experience as other compute target, they can submit different type training jobs to AMK8s compute target. CMK8s Will first support SDK, CLI and restapi will be supported later.
 
 
 ## Getting Started
