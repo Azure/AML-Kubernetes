@@ -54,7 +54,7 @@ cd installer
     ```bash install.sh ${agent-installer-image}```
 
 
-installer image: the install image, the newest image is: `mcr.microsoft.com/azureml/cmk8s/agent-setup:amlop-07-08`
+installer image: the install image, the newest image is: `mcr.microsoft.com/azureml/cmk8s/agent-setup:amlop-07-14`
 
 compute target resource id: the resource id of this compute in Azure. It is structure is: `AML workspace resource id`/computes/`compute name`, due to in this time the compute target is not created yet, you need align to use the same compute target name in  [attach CMAKS compute](https://github.com/Azure/CMK8s-Samples/blob/master/docs/2.%20Attach%20CMAKS%20compute.markdown)
 
