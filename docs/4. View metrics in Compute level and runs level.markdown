@@ -20,6 +20,9 @@ CMAKS use application insights of AML worksapce to show the metrics of compute l
 
 After AML agnet is sucessful installed, you can [attach CMAKS compute](https://github.com/Azure/CMK8s-Samples/blob/master/docs/2.%20Attach%20CMAKS%20compute.markdown)
 
+### Using flight
+Because this function is under preview, you need use `flight=computeMetrics` to enble it manually.
+
 ### View compute level metrics
 
 To view the CMKAKS compute level metrics, you can go to `attached compute > compute detail > Monitoring`. Note, only CMAKS compute target support this page.
