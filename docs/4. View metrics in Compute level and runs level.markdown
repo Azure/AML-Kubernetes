@@ -1,14 +1,13 @@
 
 For Data Scientists, job(run) level monitoring and reporting during training import to them, it can help them to:
 
-•	Understand the performance of their training script (does the job fully used capacity of GPUs, CPUs, what is the throughput of this model etc.)
-•	Find the bottleneck of this training job(run), GPU Memory, network etc.
-•	Better understand to different training parameters impact their job (batch size, epoch, learning rate etc.)
+- Understand the performance of their training script (does the job fully used capacity of GPUs, CPUs, what is the throughput of this model etc.)
+- Find the bottleneck of this training job(run), GPU Memory, network etc.
+- Better understand to different training parameters impact their job (batch size, epoch, learning rate etc.)
 
 For Admin, compute level monitor and reporting are important, it can help them to:
-
-•	Optimized quota(resource) allocation strategy
-•	Understand the utilization of resource
+- Optimized quota(resource) allocation strategy
+- Understand the utilization of resource
 
 ## Enable custom metrics 
 
@@ -21,25 +20,8 @@ CMAKS use application insights of AML worksapce to show the metrics of compute l
 
 After AML agnet is sucessful installed, you can [attach CMAKS compute](https://github.com/Azure/CMK8s-Samples/blob/master/docs/2.%20Attach%20CMAKS%20compute.markdown)
 
-
-## Install Metric UX locally
-
-### Prerequisite
-This project needs you have installed following things in your local machine.
-1. Nodejs  https://nodejs.org/en/download/
-2. Azure cli https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-windows?view=azure-cli-latest
-
-### Install metrics UX
-
-1. Please unzip the [demo.zip](https://github.com/Azure/CMK8s-Sample/raw/master/files/demo.zip)
-
-2. Delete build document and unzip [build.zip](https://github.com/Azure/CMK8s-Sample/raw/master/files/build.zip) into demo folder.
-
-3. Then run “start.bat”
-
-After you see this window, you can go to http://localhost:3000/selectWorkspace?flight=computeMetrics, and select the workspace.
-
-![localui](/pics/5.1localui.png)
+### Using flight
+Because this function is under preview, you need use `flight=computeMetrics` to enble it manually.
 
 ### View compute level metrics
 

@@ -39,7 +39,7 @@ to install AML operator, you need:
 
 ## Install/Upgrade(linux)
 we provide a shell script to support one step installation. It is valiated in linux.
-1. download [tools package](https://github.com/Azure/CMK8s-Sample/raw/master/files/tools.tar).
+1. download [tools package](https://github.com/Azure/AML-Kubernetes/raw/master/files/tools.zip).
 2. extract tools script
 ```
 tar xvf tools.tar
@@ -54,9 +54,9 @@ cd installer
     ```bash install.sh ${agent-installer-image}```
 
 
-installer image: the install image, the newest image is: `mcr.microsoft.com/azureml/cmk8s/agent-setup:replace-kubeconf-06-28`
+installer image: the install image, the newest image is: `mcr.microsoft.com/azureml/cmk8s/agent-setup:amlop-07-21`
 
-compute target resource id: the resource id of this compute in Azure. It is structure is: `AML workspace resource id`/computes/`compute name`, due to in this time the compute target is not created yet, you need aliegn to use the same compute target name in  [attach CMAKS compute](https://github.com/Azure/CMK8s-Sample/blob/master/docs/3.%20attach%20CMAKS%20compute.markdown)
+compute target resource id: the resource id of this compute in Azure. It is structure is: `AML workspace resource id`/computes/`compute name`, due to in this time the compute target is not created yet, you need align to use the same compute target name in  [attach CMAKS compute](https://github.com/Azure/CMK8s-Samples/blob/master/docs/2.%20Attach%20CMAKS%20compute.markdown)
 
 You can find the AML workspace resource id from ```AML workspace > settings > properties```.
 
@@ -97,7 +97,7 @@ CMAKS use application insights of AML worksapce to show the metrics of compute l
 ![ennable custom metrics](/pics/2.7ennablecustommetrics.png)
 
 
-After AML agnet is sucessful installed, you can [attach CMAKS compute](https://github.com/Azure/CMK8s-Sample/blob/master/docs/3.%20attach%20CMAKS%20compute.markdown)
+After AML agnet is sucessful installed, you can [attach CMAKS compute](https://github.com/Azure/CMK8s-Samples/blob/master/docs/2.%20Attach%20CMAKS%20compute.markdown)
 
 ## Uninstall AML add-on mannually(linux)
 

@@ -20,6 +20,10 @@ cmaks_target = CmAksCompute.attach(ws, <compute name>, attach_config)
 
 ## Attach compute from UI
 
+### Enable the flight
+
+This function is under preview , so you need add `flight=cmAksAttachedCompute` to the URL to enable it mannually.
+
 1. Goto AML studio portal, compute > Attached compute, click "+New" button, and select "Kubernetes service"
 
 ![addcompute](/pics/2.1addcompute.png)
