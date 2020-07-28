@@ -11,11 +11,11 @@ The detail components of AML add-on：
 
 |  Name   | Description  |Namespace  |Version  |Creator  |
 |  ----   | -----------  | --------- | ------  | ------  |
-|AML-Operator 	|Used to handle AzureMLJobs, creating related resources and submit to kubernetes	|default	|V0.1	|AML K8s|
+|AML-Operator 	|Used to handle AzureMLJobs, creating related resources and submit to kubernetes	|azureml	|V0.1	|AML K8s|
 |REST-API 	|Used to handle requests from AML, directly talk to Kubernetes	|azureml	|V0.1	|AML K8s|
-|Job-exporter	|Collect job level metrics	|default	|V0.1	|AML K8s|
-|Compute-exporter	|Collector compute level metrics	|default	|V0.1|	AML K8s|
-|metrics-reporter 	|Upload metrics to Application Insights	|default	|V0.1|	AML K8s|
+|Job-exporter	|Collect job level metrics	|azureml	|V0.1	|AML K8s|
+|Compute-exporter	|Collector compute level metrics	|azureml	|V0.1|	AML K8s|
+|metrics-reporter 	|Upload metrics to Application Insights	|azureml	|V0.1|	AML K8s|
 |kubernetes-volume-drivers	|blobfuse FlexVolume driver for Kubernetes	|default	|sha256:d550ef47c21	|Azure|
 |tf-operator	|Used to run and manage distributed tensorflow jobs.|	Kubeflow	|v1.0	|Kubeflow|
 |pytorch-operator	|Used to run and manage distributed pytorch jobs.|	Kubeflow	|v1.0	|Kubeflow|
@@ -37,7 +37,7 @@ to install AML operator, you need:
 1. you need get the kubeconf from AKS CLI
 2. you need use the AKS cluster as kubeclt current context
 
-## Install/Upgrade(linux)
+### Install/Upgrade(linux)
 we provide a shell script to support one step installation. It is valiated in linux.
 1. download [tools package](https://github.com/Azure/AML-Kubernetes/raw/master/files/tools.zip).
 2. extract tools script
@@ -72,7 +72,7 @@ appinsight InstrumentationKey: the Connection String of this appinsight, you can
 
 ![connection string](/pics/2.4connectionstring.png)
 
-## Verify AML add-on installation
+### Verify AML add-on installation
 
 You have several methods to validate the AML agent installation
 
@@ -99,7 +99,7 @@ CMAKS use application insights of AML worksapce to show the metrics of compute l
 
 After AML agnet is sucessful installed, you can [attach CMAKS compute](https://github.com/Azure/CMK8s-Samples/blob/master/docs/2.%20Attach%20CMAKS%20compute.markdown)
 
-## Uninstall AML add-on mannually(linux)
+### Uninstall AML add-on mannually(linux)
 
 Use the AKS cluster as kubeclt current context.
 
