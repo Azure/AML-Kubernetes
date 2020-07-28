@@ -17,9 +17,11 @@ To use CMAKS compute in private preview, you need follow these steps:
 4. [View metrics in Compute level and runs level](https://github.com/Azure/CMK8s-Samples/blob/master/docs/4.%20View%20metrics%20in%20Compute%20level%20and%20runs%20level.markdown)
 5. [Manage AML Add-on](https://github.com/Azure/CMK8s-Samples/blob/master/docs/5.%20Manage%20AML%20add-on.markdown)
 
-## Recommend cluster resource
-
+## FAQ 
+### Q1. Recommend cluster resource 
 We recommend you use at least 3 nodes cluster, each node have at least 2C 4G. And if you want to running GPU jobs, you need some GPU nodes.
+### Q2. AML add-on version
+We will install the latest AML add-on services automatically when you first attach AKS cluster to AML workspace. You can check add-on components version using ```helm list``` and update according to [Manage AML Add-on](https://github.com/Azure/CMK8s-Samples/blob/master/docs/5.%20Manage%20AML%20add-on.markdown).
 
 # Contributing
 
