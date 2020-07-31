@@ -1,0 +1,5 @@
+name: cntk-env
+dependencies:
+  - numpy
+  - pip:
+    - cntk-gpu==2.6
