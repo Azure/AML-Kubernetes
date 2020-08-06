@@ -114,6 +114,18 @@ To delete all the components installed by the agents, run the following command,
 
 ### Azure CLI
 
+#### list cloud
+
+```
+az cloud list --output table
+```
+
+#### change cloud
+
+```
+az cloud set -n AzureCloud
+```
+
 #### list subs
 ```
 az account list --output table
