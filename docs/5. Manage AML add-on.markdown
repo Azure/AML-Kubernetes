@@ -103,7 +103,7 @@ After AML agnet is sucessful installed, you can [attach CMAKS compute](https://g
 
 Use the AKS cluster as kubeclt current context.
 
-Follow the steps 1-3 in the install process.
+Follow the steps 1-2 in the install process and go to the uninstaller script document.
 
 To delete all the components installed by the agents, run the following command, replace the cluster name with your cluster name.
 
@@ -113,6 +113,18 @@ To delete all the components installed by the agents, run the following command,
 ## Useful commands
 
 ### Azure CLI
+
+#### list cloud
+
+```
+az cloud list --output table
+```
+
+#### change cloud
+
+```
+az cloud set -n AzureCloud
+```
 
 #### list subs
 ```
