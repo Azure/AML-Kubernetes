@@ -284,3 +284,7 @@
 2020-06-03 08:32:03.097 - INFO - 14468 - azureml.train.automl._azureautomlclient._create_parent_run_for_remote:483 - Parent Run ID: AutoML_7163a89d-309c-44e5-8d48-4cb92fdf9bfa
 2020-06-03 08:32:03.098 - INFO - 14468 - azureml.train.automl._azureautomlclient._fit_remote_core:396 - Snapshot_id: 
 2020-06-03 08:32:03.099 - INFO - 14468 - azureml.train.automl._azureautomlclient._fit_remote_core:405 - Starting a snapshot run (snapshotId : )
+2020-08-04 11:18:57.213 - INFO - 26388 - azureml.train.automl.automlconfig._automl_static_submit:136 - Submitting remote or ADB run.
+2020-08-04 11:18:58.219 - WARNING - 26388 - azureml.automl.core.automl_base_settings.__init__:345 - Using different time series parameters in AutoML configs for forecasting tasks will be deprecated, please use ForecastingParameters class instead.
+2020-08-04 11:18:59.231 - WARNING - 26388 - azureml.automl.core.forecasting_parameters._print_deprecated_message:503 - Forecasting parameter max_horizon will be deprecated in the future, please use forecast_horizon instead.
+2020-08-06 17:59:09.167 - INFO - 11356 - azureml.train.automl.automlconfig._start_execution:290 - Submitting remote or ADB run.
