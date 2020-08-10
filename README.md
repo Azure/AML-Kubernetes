@@ -20,7 +20,7 @@ To use CMAKS compute in private preview, you need follow these steps:
 **Note**: The compute name in Python SDK and CLI may be changed during preview.
 
 ## FAQ 
-### Q1. Recommend cluster resource 
+### Q1. Recommend AKS cluster resource 
 We recommend you use a at least 3 nodes cluster, each node having at least 2C 4G. And if you want to running GPU jobs, you need some GPU nodes.
 ### Q2. AML add-on version upgrade
 We will install the latest AML add-on services automatically when you first attach AKS cluster to AML workspace. You can check add-on components version using ```helm list``` and update according to [Manage AML Add-on](https://github.com/Azure/CMK8s-Samples/blob/master/docs/5.%20Manage%20AML%20add-on.markdown).
