@@ -1,0 +1,102 @@
+2020-08-04 11:35:25.348 - INFO - 19936 - azureml.train.automl.run._log_activity:55 - ActivityStarted: GetOutput
+2020-08-04 11:35:25.431 - INFO - 19936 - azureml.train.automl.run._log_activity:55 - ActivityStarted: GetChildren
+2020-08-04 11:35:33.086 - INFO - 19936 - azureml.train.automl.run._log_activity:78 - ActivityCompleted: Activity=GetChildren, HowEnded=Success, Duration=7654.49[ms]
+2020-08-04 11:35:33.088 - INFO - 19936 - azureml.train.automl.run._log_activity:55 - ActivityStarted: DownloadModel
+2020-08-04 11:35:41.899 - INFO - 19936 - azureml.automl.runtime.distributed.utilities.horovod_initialized:58 - Horovod not found in current environment. Distribution via Horovod will be disabled.
+2020-08-04 11:35:43.754 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Feature sweeping enabled: False
+2020-08-04 11:35:43.754 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Feature sweeping timeout: 86400
+2020-08-04 11:35:43.766 - INFO - 19936 - azureml.train.automl.run._log_activity:78 - ActivityCompleted: Activity=DownloadModel, HowEnded=Success, Duration=10677.91[ms]
+2020-08-04 11:35:43.766 - INFO - 19936 - azureml.train.automl.run._log_activity:78 - ActivityCompleted: Activity=GetOutput, HowEnded=Success, Duration=18417.39[ms]
+2020-08-04 11:38:28.142 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Starting to apply transforms. Total ram: 8507498496 bytes
+2020-08-04 11:38:28.142 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Transform memory estimate: 0 bytes, Current available memory: 1090719744 bytes
+2020-08-04 11:38:28.143 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Imputer: Applying transform.
+2020-08-04 11:38:28.198 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Imputer: Finished applying transform. Shape (57096, 1)
+2020-08-04 11:38:28.198 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Transform memory estimate: 0 bytes, Current available memory: 1085227008 bytes
+2020-08-04 11:38:28.198 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Imputer: Applying transform.
+2020-08-04 11:38:28.201 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Imputer: Finished applying transform. Shape (57096, 1)
+2020-08-04 11:38:28.201 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Transform memory estimate: 0 bytes, Current available memory: 1085227008 bytes
+2020-08-04 11:38:28.201 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Imputer: Applying transform.
+2020-08-04 11:38:28.203 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Imputer: Finished applying transform. Shape (57096, 1)
+2020-08-04 11:38:28.204 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Transform memory estimate: 0 bytes, Current available memory: 1085227008 bytes
+2020-08-04 11:38:28.204 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Imputer: Applying transform.
+2020-08-04 11:38:28.206 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Imputer: Finished applying transform. Shape (57096, 1)
+2020-08-04 11:38:28.206 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Transform memory estimate: 0 bytes, Current available memory: 1085227008 bytes
+2020-08-04 11:38:28.206 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Imputer: Applying transform.
+2020-08-04 11:38:28.209 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Imputer: Finished applying transform. Shape (57096, 1)
+2020-08-04 11:38:28.210 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Transform memory estimate: 0 bytes, Current available memory: 1085227008 bytes
+2020-08-04 11:38:28.210 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Imputer: Applying transform.
+2020-08-04 11:38:28.212 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Imputer: Finished applying transform. Shape (57096, 1)
+2020-08-04 11:38:28.212 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Transform memory estimate: 0 bytes, Current available memory: 1086742528 bytes
+2020-08-04 11:38:28.213 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Imputer: Applying transform.
+2020-08-04 11:38:28.215 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Imputer: Finished applying transform. Shape (57096, 1)
+2020-08-04 11:38:28.215 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Transform memory estimate: 0 bytes, Current available memory: 1086742528 bytes
+2020-08-04 11:38:28.215 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Imputer: Applying transform.
+2020-08-04 11:38:28.218 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Imputer: Finished applying transform. Shape (57096, 1)
+2020-08-04 11:38:28.219 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Transform memory estimate: 0 bytes, Current available memory: 1086742528 bytes
+2020-08-04 11:38:28.219 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Imputer: Applying transform.
+2020-08-04 11:38:28.221 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Imputer: Finished applying transform. Shape (57096, 1)
+2020-08-04 11:38:28.222 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Transform memory estimate: 0 bytes, Current available memory: 1086742528 bytes
+2020-08-04 11:38:28.222 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Imputer: Applying transform.
+2020-08-04 11:38:28.224 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Imputer: Finished applying transform. Shape (57096, 1)
+2020-08-04 11:38:28.225 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Transform memory estimate: 0 bytes, Current available memory: 1086742528 bytes
+2020-08-04 11:38:28.225 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Imputer: Applying transform.
+2020-08-04 11:38:28.227 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Imputer: Finished applying transform. Shape (57096, 1)
+2020-08-04 11:38:28.227 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Transform memory estimate: 0 bytes, Current available memory: 1086742528 bytes
+2020-08-04 11:38:28.228 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Imputer: Applying transform.
+2020-08-04 11:38:28.230 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Imputer: Finished applying transform. Shape (57096, 1)
+2020-08-04 11:38:28.230 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Transform memory estimate: 0 bytes, Current available memory: 1086742528 bytes
+2020-08-04 11:38:28.230 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Imputer: Applying transform.
+2020-08-04 11:38:28.233 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Imputer: Finished applying transform. Shape (57096, 1)
+2020-08-04 11:38:28.233 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Transform memory estimate: 0 bytes, Current available memory: 1086742528 bytes
+2020-08-04 11:38:28.233 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Imputer: Applying transform.
+2020-08-04 11:38:28.236 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Imputer: Finished applying transform. Shape (57096, 1)
+2020-08-04 11:38:28.236 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Transform memory estimate: 0 bytes, Current available memory: 1086742528 bytes
+2020-08-04 11:38:28.236 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Imputer: Applying transform.
+2020-08-04 11:38:28.238 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Imputer: Finished applying transform. Shape (57096, 1)
+2020-08-04 11:38:28.239 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Transform memory estimate: 0 bytes, Current available memory: 1086742528 bytes
+2020-08-04 11:38:28.239 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Imputer: Applying transform.
+2020-08-04 11:38:28.242 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Imputer: Finished applying transform. Shape (57096, 1)
+2020-08-04 11:38:28.242 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Transform memory estimate: 0 bytes, Current available memory: 1086742528 bytes
+2020-08-04 11:38:28.242 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Imputer: Applying transform.
+2020-08-04 11:38:28.244 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Imputer: Finished applying transform. Shape (57096, 1)
+2020-08-04 11:38:28.245 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Transform memory estimate: 0 bytes, Current available memory: 1086742528 bytes
+2020-08-04 11:38:28.245 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Imputer: Applying transform.
+2020-08-04 11:38:28.247 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Imputer: Finished applying transform. Shape (57096, 1)
+2020-08-04 11:38:28.247 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Transform memory estimate: 0 bytes, Current available memory: 1086742528 bytes
+2020-08-04 11:38:28.247 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Imputer: Applying transform.
+2020-08-04 11:38:28.250 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Imputer: Finished applying transform. Shape (57096, 1)
+2020-08-04 11:38:28.250 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Transform memory estimate: 0 bytes, Current available memory: 1086742528 bytes
+2020-08-04 11:38:28.250 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Imputer: Applying transform.
+2020-08-04 11:38:28.253 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Imputer: Finished applying transform. Shape (57096, 1)
+2020-08-04 11:38:28.253 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Transform memory estimate: 0 bytes, Current available memory: 1086742528 bytes
+2020-08-04 11:38:28.254 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Imputer: Applying transform.
+2020-08-04 11:38:28.256 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Imputer: Finished applying transform. Shape (57096, 1)
+2020-08-04 11:38:28.257 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Transform memory estimate: 0 bytes, Current available memory: 1086742528 bytes
+2020-08-04 11:38:28.257 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Imputer: Applying transform.
+2020-08-04 11:38:28.260 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Imputer: Finished applying transform. Shape (57096, 1)
+2020-08-04 11:38:28.260 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Transform memory estimate: 0 bytes, Current available memory: 1086742528 bytes
+2020-08-04 11:38:28.260 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Imputer: Applying transform.
+2020-08-04 11:38:28.262 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Imputer: Finished applying transform. Shape (57096, 1)
+2020-08-04 11:38:28.263 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Transform memory estimate: 0 bytes, Current available memory: 1086742528 bytes
+2020-08-04 11:38:28.263 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Imputer: Applying transform.
+2020-08-04 11:38:28.265 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Imputer: Finished applying transform. Shape (57096, 1)
+2020-08-04 11:38:28.265 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Transform memory estimate: 0 bytes, Current available memory: 1086742528 bytes
+2020-08-04 11:38:28.265 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Imputer: Applying transform.
+2020-08-04 11:38:28.269 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Imputer: Finished applying transform. Shape (57096, 1)
+2020-08-04 11:38:28.269 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Transform memory estimate: 0 bytes, Current available memory: 1086742528 bytes
+2020-08-04 11:38:28.269 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Imputer: Applying transform.
+2020-08-04 11:38:28.272 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Imputer: Finished applying transform. Shape (57096, 1)
+2020-08-04 11:38:28.272 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Transform memory estimate: 0 bytes, Current available memory: 1086742528 bytes
+2020-08-04 11:38:28.272 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Imputer: Applying transform.
+2020-08-04 11:38:28.275 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Imputer: Finished applying transform. Shape (57096, 1)
+2020-08-04 11:38:28.275 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Transform memory estimate: 0 bytes, Current available memory: 1086742528 bytes
+2020-08-04 11:38:28.275 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Imputer: Applying transform.
+2020-08-04 11:38:28.278 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Imputer: Finished applying transform. Shape (57096, 1)
+2020-08-04 11:38:28.278 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Transform memory estimate: 0 bytes, Current available memory: 1086742528 bytes
+2020-08-04 11:38:28.278 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Imputer: Applying transform.
+2020-08-04 11:38:28.281 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Imputer: Finished applying transform. Shape (57096, 1)
+2020-08-04 11:38:28.281 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Transform memory estimate: 0 bytes, Current available memory: 1086742528 bytes
+2020-08-04 11:38:28.281 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Imputer: Applying transform.
+2020-08-04 11:38:28.284 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Imputer: Finished applying transform. Shape (57096, 1)
+2020-08-04 11:38:28.284 - INFO - 19936 - azureml.automl.runtime.featurization.data_transformer._logger_wrapper:81 - Finished applying transforms
+2020-08-04 11:38:28.284 - INFO - 19936 - azureml.automl.runtime.shared.memory_utilities._is_low_memory:205 - Total ram: 8507498496 bytes, Current Available memory: 1086742528 bytes. Low memory threshold: 0.5
