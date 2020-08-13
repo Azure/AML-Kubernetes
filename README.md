@@ -29,6 +29,11 @@ The node count in the number of worker, for distribute training job, such as ps-
 ### Q4. What Azure storage do AML K8s support?
 AML K8s compute only suport Azure blob container, if your data is in other Azure storage, please move it to Azure blob first. We will support other Azure storage in following iteration.
 
+## Known issues
+### Kubeflow conflict
+We use kubeflow to handle the ML workload in AMLK8s compute, if you have already install kubeflow in your cluster, the add-on install will failed. In the future version, we will compatible will existing kubeflow in your cluster.
+### Node count
+The distribute training will need parameter server or launcher, which also occupy one node. So the actual node occupation will equals the run node count plus one. We will place the parameter pod and launcher on the same node with the worker 0 node.
 
 # Contributing
 
