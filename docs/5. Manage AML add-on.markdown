@@ -51,10 +51,10 @@ cd installer
 4. To update or install components in your cluster.
 	- Change the content in installer/install-job-chart/values.yaml, replace sub, resource etc with actual values.
 	- Run the following command, replace the ```\{agent-installer-image}``` with the installer's latest image.
-    ```bash install.sh ${agent-installer-image}```
+    ```bash install.sh ${agent-installer-image} azureml```
 
 
-installer image: the install image, the newest image is: `mcr.microsoft.com/azureml/cmk8s/agent-setup:amlop-07-21`
+installer image: the install image, the newest image is: `mcr.microsoft.com/azureml/cmk8s/agent-setup:default-queue-0806-new`
 
 compute target resource id: the resource id of this compute in Azure. It is structure is: `AML workspace resource id`/computes/`compute name`, due to in this time the compute target is not created yet, you need align to use the same compute target name in  [attach CMAKS compute](https://github.com/Azure/CMK8s-Samples/blob/master/docs/2.%20Attach%20CMAKS%20compute.markdown)
 
