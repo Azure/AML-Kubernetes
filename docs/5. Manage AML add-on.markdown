@@ -50,7 +50,7 @@ cd installer
 ```
 4. To update or install components in your cluster.
 	- Change the content in installer/install-job-chart/values.yaml, replace sub, resource etc with actual values.
-	- Run the following command, replace the ```\{agent-installer-image}``` with the installer's latest image.
+	- Run the following command, replace the ```${agent-installer-image}``` with the installer's latest image.
     ```bash install.sh ${agent-installer-image} azureml```
 
 
