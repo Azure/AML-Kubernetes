@@ -11,23 +11,22 @@ The detail components of AML add-on：
 
 |  Name   | Description  |Namespace  |Version  |Creator  |
 |  ----   | -----------  | --------- | ------  | ------  |
-|AML-Operator 	|Used to handle AzureMLJobs, creating related resources and submit to kubernetes	|azureml	|V0.1	|AML K8s|
-|REST-API 	|Used to handle requests from AML, directly talk to Kubernetes	|azureml	|V0.1	|AML K8s|
-|Job-exporter	|Collect job level metrics	|azureml	|V0.1	|AML K8s|
-|Compute-exporter	|Collector compute level metrics	|azureml	|V0.1|	AML K8s|
-|metrics-reporter 	|Upload metrics to Application Insights	|azureml	|V0.1|	AML K8s|
-|kubernetes-volume-drivers	|blobfuse FlexVolume driver for Kubernetes	|default	|sha256:d550ef47c21	|Azure|
-|tf-operator	|Used to run and manage distributed tensorflow jobs.|	Kubeflow	|v1.0	|Kubeflow|
-|pytorch-operator	|Used to run and manage distributed pytorch jobs.|	Kubeflow	|v1.0	|Kubeflow|
-|mpi-operator	|Used to run and manage distributed mpi jobs.|	mpi-operator	|v1alpha2	|Kubeflow|
-|Volcano	|Used to enable gang-scheduling.	|volcano-system	|v0.3|	Volcano|
-|Prometheus-op	|Create and maintain prometheus instance	|default	|v0.38.1	|CoreOs|
-|k8s-device-plugin	|Expose GPU resource in nodes	|gpu-resources	|v1.0.0-beta	|Nvidia|
-|Ingress-gateway	|load balancer	|Istio-system	|v1.6.2	|Istio| 
-|Gateway|	Used to handle requests from AML, directly talk to kubernetes	|azureml	|v1.6.2	|Istio| 
-|Virtual Service	|Traffic route	|azureml	|v1.6.2	|Istio|
-|RequestAuthentication	|JWT validation	|azureml	|v1.6.2	|Istio|
-|AuthorizationPolicy	|for validation of additional claim	|azureml	|v1.6.2	|Istio|
+|AML-Addon-Gateway		|Receive requests from ES, Https support, JWT verification, NSG				|azureml	|V0.1		|AML K8s|
+|AML-REST-Server 		|Used to handle requests from AML. Also generate AuzreMLJob and submit to kubernetes	|azureml	|V0.1		|AML K8s|
+|AML-Operator 			|Used to handle AzureMLJobs, creating related resources and submit to kubernetes	|azureml	|V0.1		|AML K8s|
+|Job-exporter			|Collect job level metrics								|azureml	|V0.1		|AML K8s|
+|Compute-exporter		|Collect compute level metrics								|azureml	|V0.1		|AML K8s|
+|metrics-reporter 		|Upload metrics to Application Insights(May change to runhistory when ready)		|azureml	|V0.1		|AML K8s|
+|Azureml-setup container	|Container in job pods to setup AML job run environment					|azureml	|V0.1		|AML K8s|
+|Sidecar container		|Container in job pods to upload job logs/metrics to Run History			|azureml	|V0.1		|AML K8s|
+|tf-operator			|Used to run and manage distributed tensorflow jobs					|Kubeflow	|v1.0		|Kubeflow|
+|pytorch-operator		|Used to run and manage distributed pytorch jobs					|Kubeflow	|v1.0		|Kubeflow|
+|mpi-operator			|Used to run and manage distributed mpi jobs						|mpi-operator	|v1alpha2	|Kubeflow|
+|Volcano-scheduler		|Used to enable gang-scheduling								|volcano-system	|v0.3		|Volcano|
+|Prometheus-op			|Create and maintain prometheus instance						|default	|v0.38.1	|CoreOs|
+|k8s-device-plugin		|Expose GPU resource in nodes								|gpu-resources	|v1.0.0-beta	|Nvidia|
+|kubernetes-volume-drivers	|blobfuse FlexVolume driver for Kubernetes						|default	|sha256:d550ef47c21	|Azure| 
+|fuse-device-plugin		|Support fuse inside container (use dataset/datastore as mount in container)		|default	|		|--
 
 By default, the AML add-on will automatically install when you attach one AKS cluster first time. In the private preview, we only support upgrade / uninstall manually. 
 
