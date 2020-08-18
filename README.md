@@ -28,6 +28,8 @@ We will install the latest AML add-on services automatically when you first atta
 The node count in the number of worker, for distribute training job, such as ps-worker or MPI/horovod they may need extra launcher node or ps node, they may also ocuppy one node. We will optimise this in following version.
 ### Q4. What Azure storage do AML K8s support?
 AML K8s compute only suport Azure blob container, if your data is in other Azure storage, please move it to Azure blob first. We will support other Azure storage in following iteration.
+### Q5. What type of jobs do AML K8s support?
+Please refer to the list in [Azure Machine Learning](https://github.com/Azure/AML-Kubernetes/blob/master/docs/6.%20Azure%20Machine%20Learning.md)
 
 ## Known issues
 ### Kubeflow conflict
