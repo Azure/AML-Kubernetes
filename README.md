@@ -29,7 +29,7 @@ The node count in the number of worker, for distribute training job, such as ps-
 ### Q4. What Azure storage do AML K8s support?
 AML K8s compute only suport Azure blob container, if your data is in other Azure storage, please move it to Azure blob first. We will support other Azure storage in following iteration.
 ### Q5. What type of jobs do AML K8s support?
-Please refer to the list in [Azure Machine Learning](https://github.com/Azure/AML-Kubernetes/blob/master/docs/6.%20Azure%20Machine%20Learning.md)
+AML K8s compute haven't support all AML jobs by now. For more details, please refer to the list in [Azure Machine Learning](https://github.com/Azure/AML-Kubernetes/blob/master/docs/6.%20Azure%20Machine%20Learning.md).
 
 ## Known issues
 ### Kubeflow conflict
