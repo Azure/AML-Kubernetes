@@ -24,7 +24,7 @@ The detail components of AML add-on：
 |mpi-operator			|Used to run and manage distributed mpi jobs						|mpi-operator	|v1alpha2	|Kubeflow|
 |Volcano-scheduler		|Used to enable gang-scheduling								|volcano-system	|v0.3		|Volcano|
 |Prometheus-op			|Create and maintain prometheus instance						|azureml	|v0.38.1	|CoreOs|
-|k8s-device-plugin		|Expose GPU resource in nodes								|gpu-resources	|v1.0.0-beta	|Nvidia|
+|k8s-device-plugin		|Expose GPU resource in nodes								|gpu-resources	|v0.6.0		|Nvidia|
 |kubernetes-volume-drivers	|blobfuse FlexVolume driver for Kubernetes						|default	|sha256:d550ef47c21	|Azure| 
 |fuse-device-plugin		|Support fuse inside container (use dataset/datastore as mount in container)		|default	|		|--
 
