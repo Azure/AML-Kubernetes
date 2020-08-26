@@ -288,3 +288,5 @@
 2020-08-04 11:18:58.219 - WARNING - 26388 - azureml.automl.core.automl_base_settings.__init__:345 - Using different time series parameters in AutoML configs for forecasting tasks will be deprecated, please use ForecastingParameters class instead.
 2020-08-04 11:18:59.231 - WARNING - 26388 - azureml.automl.core.forecasting_parameters._print_deprecated_message:503 - Forecasting parameter max_horizon will be deprecated in the future, please use forecast_horizon instead.
 2020-08-06 17:59:09.167 - INFO - 11356 - azureml.train.automl.automlconfig._start_execution:290 - Submitting remote or ADB run.
+2020-08-26 16:34:52.211 - INFO - 20804 - azureml.train.automl.automlconfig._start_execution:260 - Submitting remote or ADB run.
+2020-08-26 16:35:40.690 - INFO - 20804 - azureml.train.automl.automlconfig._start_execution:260 - Submitting remote or ADB run.

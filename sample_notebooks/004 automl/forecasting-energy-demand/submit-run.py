@@ -43,9 +43,9 @@ output['Location'] = ws.location
 output['Run History Name'] = experiment_name
 
 # Choose a name for your cluster.
-amlcompute_cluster_name = "cmaks0518"
+compute_cluster_name = "cmaks0518"
 
-compute_target = ComputeTarget(workspace=ws, name=amlcompute_cluster_name)
+compute_target = ComputeTarget(workspace=ws, name=compute_cluster_name)
 print('Found existing cluster, use it.')
 
 target_column_name = 'demand'
