@@ -30,6 +30,8 @@ The node count in the number of worker, for distribute training job, such as ps-
 AML K8s compute only suport Azure blob container, if your data is in other Azure storage, please move it to Azure blob first. We will support other Azure storage in following iteration.
 ### Q5. What type of jobs do AML K8s support?
 AML K8s compute doesn't support all AML jobs by now. For more details, please refer to the list in [Using CMAKS Compute in AML Notebooks](https://github.com/Azure/AML-Kubernetes/blob/master/docs/6.%20Using%20CMAKS%20Compute%20in%20AML%20Notebooks.md).
+### Q6. How to use AML K8s compute in China Region?
+Firstly, make sure you have switched the active cloud to AzureChinaCloud with [az cloud set](https://docs.microsoft.com/en-us/cli/azure/manage-clouds-azure-cli?view=azure-cli-latest) command. Then you can go to the [portal](https://studio.ml.azure.cn/) to attach and use AML K8s compute.
 
 ## Known issues
 ### Kubeflow conflict
