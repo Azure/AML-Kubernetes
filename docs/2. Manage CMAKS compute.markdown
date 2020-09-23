@@ -1,7 +1,6 @@
 ## Attach CMAKS compute using SDK
 To attach CMAKS compute you need install private branch SDK
 ### Install private branch SDK
-
 ```
 pip install --disable-pip-version-check --extra-index-url https://azuremlsdktestpypi.azureedge.net/CmAks-Compute-Test/D58E86006C65 azureml-pipeline-steps azureml-contrib-pipeline-steps azureml-contrib-k8s --upgrade
 ```
@@ -17,12 +16,12 @@ attach_config = CmAksCompute.attach_configuration(cluster_name =<cluster_name>
 
 cmaks_target = CmAksCompute.attach(ws, <compute name>, attach_config)
 ```
+### Detach CMAKS compute via SDK
+```
+compute_name.detach()
+```
 
 ## Attach compute from UI
-
-### Enable the flight
-
-This function is under preview , so you need add `flight=cmAksAttachedCompute` to the URL to enable it mannually.
 
 1. Goto AML studio portal, compute > Attached compute, click "+New" button, and select "Kubernetes service"
 
@@ -42,6 +41,10 @@ This function is under preview , so you need add `flight=cmAksAttachedCompute` t
 
 
 After attach a CMAKS compute you can [Submit AML training jobs to CMAKS compute](https://github.com/Azure/CMK8s-Samples/blob/master/docs/3.%20Submit%20AML%20training%20jobs%20to%20CMASK%20compute.markdown)
+
+### Detach compute from UI
+Go to compute list and then Compute Details, click on Detach and confirm.
+![detach](/pics/2.8detach.png)
 
 ## Attach/Detach compute from CLI
 ### Install azure-cli-extension private branch
