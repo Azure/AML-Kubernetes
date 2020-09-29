@@ -39,7 +39,7 @@ We use kubeflow to handle the ML workload in AMLK8s compute, if you have already
 ### Node count
 The distribute training will need parameter server or launcher, which also occupy one node. So the actual node occupation will equals the run node count plus one. We will place the parameter pod and launcher on the same node with the worker 0 node.
 ### Length of Experiment Name
-The length of expoeriment name need to less than 15 character now. Otherwise the run will can be scheduled.
+The length of expoeriment name need to less than 15 character now. Otherwise the run will can not be scheduled.
 ### Permission
 To attach an AKS cluster, you must be subscription owner or have permission to access AKS cluster resources under the subscription. Otherwise, the cluster list on "attach new compute" page will be blank.
 
