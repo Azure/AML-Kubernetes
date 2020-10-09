@@ -51,7 +51,7 @@ Go to compute list and then Compute Details, click on Detach and confirm.
 - Firstly, use  ```az extension remove -n azure-cli-ml ``` command to remove the previous extension. 
 - Secondly, use the following command to install extension
 ```
-az extension add --source https://azuremlsdktestpypi.blob.core.windows.net/wheels/AzureML-ITP-CLI/22717092/azure_cli_ml_private_preview-0.1.0.22717092-py3-none-any.whl --pip-extra-index-urls https://azuremlsdktestpypi.azureedge.net/AzureML-ITP-CLI/22717092 --yes --debug
+az extension add --source https://azuremlsdktestpypi.blob.core.windows.net/wheels/AzureML-ITP-CLI/22919484/azure_cli_ml_private_preview-0.1.0.22919484-py3-none-any.whl --pip-extra-index-urls https://azuremlsdktestpypi.azureedge.net/AzureML-ITP-CLI/22919484 --yes --debug
 ```
 
 ### Attach CMAKS compute via CLI
