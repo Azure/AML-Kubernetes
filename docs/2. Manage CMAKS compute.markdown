@@ -9,16 +9,17 @@ pip install --disable-pip-version-check --extra-index-url https://azuremlsdktest
 ```python
 from azureml.contrib.core.compute.cmakscompute import CmAksCompute
 from azureml.core import Workspace
+from azureml.core.compute import ComputeTarget
 attach_config = CmAksCompute.attach_configuration(cluster_name =<cluster_name>
                                                     , resource_group =<resource group>
                                                     , node_pool=<node pool>
                                                  )
 
-cmaks_target = CmAksCompute.attach(ws, <compute name>, attach_config)
+cmaks_target = ComputeTarget.attach(ws, <compute name>, attach_config)
 ```
 ### Detach CMAKS compute via SDK
 ```
-compute_name.detach()
+cmaks_target.detach()
 ```
 
 ## Attach compute from UI
