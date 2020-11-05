@@ -1,8 +1,13 @@
 # AMLK8s Samples
 This repository is intended to serve as an information hub for customers and partners who are interested in AMLK8s (Custmer managed Kubernetes cluster). Use this repository for onboarding and testing instructions as well as an avenue to provide feedback, issues, enhancement requests and stay up to date as the preview progresses.
 
-## Disclaimer - The lifecycle management(health, kubernetes version upgrades, security updates to nodes, scaling, etc.) of the AKS or Arc Kubernetes cluster is the responsibility of the customer.
+## Disclaimer 
+#### The lifecycle management(health, kubernetes version upgrades, security updates to nodes, scaling, etc.) of the AKS or Arc Kubernetes cluster is the responsibility of the customer.
 For AKS, read what is managed and what is shared responsibility [here](https://docs.microsoft.com/en-us/azure/aks/support-policies)
+
+#### All preview features are available on a self-service, opt-in basis and are subject to breaking design and API changes. Previews are provided "as is" and "as available," and they're excluded from the service-level agreements and limited warranty. As such, these features aren't meant for production use.
+
+
 
 #### AMLK8s supports targeting ML training on both  [Azure Kubernetes Service (AKS)](https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough) clusters or any cluster that is registered in Azure using Arc(https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/overview). 
 
@@ -14,7 +19,7 @@ AMLK8s project enables customer to use their exisiting AKS clusters or Azure Arc
 
 ## Getting Started
 
-To use CMAKS compute in private preview, you need follow these steps:
+To use AMLK8s compute in private preview, follow these steps:
 
 1. Create/provision a Kubernetes cluster to attach to an AML workspace
     * [Create AKS cluster](https://github.com/Azure/CMK8s-Sample/blob/master/docs/1.%20Provision%20a%20GPU%20enabled%20AKS%20cluster.md)
