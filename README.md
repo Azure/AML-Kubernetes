@@ -1,21 +1,24 @@
 # AMLK8s Samples
 This repository is intended to serve as an information hub for customers and partners who are interested in AMLK8s (Custmer managed Kubernetes cluster). Use this repository for onboarding and testing instructions as well as an avenue to provide feedback, issues, enhancement requests and stay up to date as the preview progresses.
 
-#### AMLK8s refers either to an Azure Kubernetes Service (AKS) cluster or any cluster that is registered in Azure using Arc. Currently, only AKS is supported.
+## Disclaimer - The lifecycle management(health, kubernetes version upgrades, security updates to nodes, scaling, etc.) of the AKS or Arc Kubernetes cluster is the responsibility of the customer.
+
+#### AMLK8s supports targeting ML training on both  [Azure Kubernetes Service (AKS)](https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough clusters or any cluster that is registered in Azure using Arc(https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/overview. 
+
+
 
 ## Overview
-AMLK8s project enables customer to use their exsiting AKS cluster as compute target for AML training workload (will also support Arc k8s clusters in the near future). Data scientists will have same experience as other compute targets, they can submit different types of training jobs to AMLK8s compute target. AMLK8s Will first support SDK and CLI, and restapi will be supported later.
+AMLK8s project enables customer to use their exisiting AKS clusters or Azure Arc for Kubernetes clusters as compute target for AML training workload . Data scientists will have same experience as other compute targets. They can submit different types of training jobs to AMLK8s compute target. AMLK8s Will first support SDK and portal, and restapi/CLI will be supported later.
 
 
 ## Getting Started
 
 To use CMAKS compute in private preview, you need follow these steps:
 
-1. [Provision a GPU enabled AKS cluster](https://github.com/Azure/CMK8s-Sample/blob/master/docs/1.%20Provision%20a%20GPU%20enabled%20AKS%20cluster.md)
-2. [Manage CMAKS compute](https://github.com/Azure/AML-Kubernetes/blob/master/docs/2.%20Manage%20CMAKS%20compute.markdown)
-3. [Submit AML training jobs to CMAKS compute](https://github.com/Azure/CMK8s-Samples/blob/master/docs/3.%20Submit%20AML%20training%20jobs%20to%20CMASK%20compute.markdown)
-4. [View metrics in Compute level and runs level](https://github.com/Azure/CMK8s-Samples/blob/master/docs/4.%20View%20metrics%20in%20Compute%20level%20and%20runs%20level.markdown)
-5. [Manage AML Add-on](https://github.com/Azure/CMK8s-Samples/blob/master/docs/5.%20Manage%20AML%20add-on.markdown)
+1. [Create/provision a Kubernetes cluster](https://github.com/Azure/CMK8s-Sample/blob/master/docs/1.%20Provision%20a%20GPU%20enabled%20AKS%20cluster.md)
+1. [Attaching Kubernetes cluster to AML workspace](https://github.com/Azure/AML-Kubernetes/blob/master/docs/2.%20Manage%20CMAKS%20compute.markdown)
+1. [Submit AML training jobs to AMLK8s compute](https://github.com/Azure/CMK8s-Samples/blob/master/docs/3.%20Submit%20AML%20training%20jobs%20to%20CMASK%20compute.markdown)
+1. [Manage AML Add-on](https://github.com/Azure/CMK8s-Samples/blob/master/docs/5.%20Manage%20AML%20add-on.markdown)
 1. [Limitations and Known Issues](/docs/limitations-and-knownIssues.md)
 
 **Note**: The compute name in Python SDK and CLI may be changed during preview.
