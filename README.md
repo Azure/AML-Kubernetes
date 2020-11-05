@@ -16,7 +16,7 @@ To use CMAKS compute in private preview, you need follow these steps:
 3. [Submit AML training jobs to CMAKS compute](https://github.com/Azure/CMK8s-Samples/blob/master/docs/3.%20Submit%20AML%20training%20jobs%20to%20CMASK%20compute.markdown)
 4. [View metrics in Compute level and runs level](https://github.com/Azure/CMK8s-Samples/blob/master/docs/4.%20View%20metrics%20in%20Compute%20level%20and%20runs%20level.markdown)
 5. [Manage AML Add-on](https://github.com/Azure/CMK8s-Samples/blob/master/docs/5.%20Manage%20AML%20add-on.markdown)
-1. [Limitations and Known Issues](../docs/limitations-and-knownIssues.md)
+1. [Limitations and Known Issues](/docs/limitations-and-knownIssues.md)
 
 **Note**: The compute name in Python SDK and CLI may be changed during preview.
 
