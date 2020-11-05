@@ -3,7 +3,7 @@ This repository is intended to serve as an information hub for customers and par
 
 ## Disclaimer - The lifecycle management(health, kubernetes version upgrades, security updates to nodes, scaling, etc.) of the AKS or Arc Kubernetes cluster is the responsibility of the customer.
 
-#### AMLK8s supports targeting ML training on both  [Azure Kubernetes Service (AKS)](https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough clusters or any cluster that is registered in Azure using Arc(https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/overview. 
+#### AMLK8s supports targeting ML training on both  [Azure Kubernetes Service (AKS)](https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough) clusters or any cluster that is registered in Azure using Arc(https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/overview). 
 
 
 
@@ -29,17 +29,17 @@ To use CMAKS compute in private preview, you need follow these steps:
 **Note**: The compute name in Python SDK and CLI may be changed during preview.
 
 ## FAQ 
-### Q1. Recommend AKS cluster resource 
+#### Recommend AKS cluster resource 
 We recommend you use a at least 3 nodes cluster, each node having at least 2C 4G. And if you want to running GPU jobs, you need some GPU nodes.
-### Q2. AML add-on version upgrade
+#### AML add-on version upgrade
 We will install the latest AML add-on services automatically when you first attach AKS cluster to AML workspace. You can check add-on components version using ```helm list``` and update according to [Manage AML Add-on](https://github.com/Azure/CMK8s-Samples/blob/master/docs/5.%20Manage%20AML%20add-on.markdown).
-### Q3. Why the nodes run ocupied in a run is more than node count in run list?
+#### Why the nodes run ocupied in a run is more than node count in run list?
 The node count in the number of worker, for distribute training job, such as ps-worker or MPI/horovod they may need extra launcher node or ps node, they may also ocuppy one node. We will optimise this in following version.
-### Q4. What Azure storage do AMLK8s support?
+#### What Azure storage does AMLK8s support?
 AML K8s compute only suport Azure blob container, if your data is in other Azure storage, please move it to Azure blob first. We will support other Azure storage in following iteration.
-### Q5. What type of jobs do AMLK8s support?
+#### What type of jobs deso AMLK8s support?
 AML K8s compute doesn't support all AML jobs by now. For more details, please refer to the list in [Using CMAKS Compute in AML Notebooks](https://github.com/Azure/AML-Kubernetes/blob/master/docs/6.%20Using%20CMAKS%20Compute%20in%20AML%20Notebooks.md).
-### Q6. How to use AMLK8s compute in China Region?
+#### How do I use AMLK8s compute in China Region?
 Firstly, make sure you have switched the active cloud to AzureChinaCloud with [az cloud set](https://docs.microsoft.com/en-us/cli/azure/manage-clouds-azure-cli?view=azure-cli-latest) command. Then you can use the SDK and CLI sample in this repo.
 
 
