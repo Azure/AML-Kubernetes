@@ -16,6 +16,7 @@ To use CMAKS compute in private preview, you need follow these steps:
 3. [Submit AML training jobs to CMAKS compute](https://github.com/Azure/CMK8s-Samples/blob/master/docs/3.%20Submit%20AML%20training%20jobs%20to%20CMASK%20compute.markdown)
 4. [View metrics in Compute level and runs level](https://github.com/Azure/CMK8s-Samples/blob/master/docs/4.%20View%20metrics%20in%20Compute%20level%20and%20runs%20level.markdown)
 5. [Manage AML Add-on](https://github.com/Azure/CMK8s-Samples/blob/master/docs/5.%20Manage%20AML%20add-on.markdown)
+1. [Limitations and Known Issues](../docs/limitations-and-knownIssues.md)
 
 **Note**: The compute name in Python SDK and CLI may be changed during preview.
 
@@ -33,15 +34,6 @@ AML K8s compute doesn't support all AML jobs by now. For more details, please re
 ### Q6. How to use AMLK8s compute in China Region?
 Firstly, make sure you have switched the active cloud to AzureChinaCloud with [az cloud set](https://docs.microsoft.com/en-us/cli/azure/manage-clouds-azure-cli?view=azure-cli-latest) command. Then you can use the SDK and CLI sample in this repo.
 
-## Known issues
-### Kubeflow conflict
-We use kubeflow to handle the ML workload in AMLK8s compute, if you have already install kubeflow in your cluster, the add-on install will failed. In the future version, we will compatible will existing kubeflow in your cluster.
-### Node count
-The distribute training will need parameter server or launcher, which also occupy one node. So the actual node occupation will equals the run node count plus one. We will place the parameter pod and launcher on the same node with the worker 0 node.
-### Length of Experiment Name
-The length of expoeriment name need to less than 15 character now. Otherwise the run will can not be scheduled.
-### Permission
-To attach an AKS cluster, you must be subscription owner or have permission to access AKS cluster resources under the subscription. Otherwise, the cluster list on "attach new compute" page will be blank.
 
 # Contributing
 
