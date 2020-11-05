@@ -9,7 +9,7 @@ For AKS, read what is managed and what is shared responsibility [here](https://d
 
 
 
-#### AMLK8s supports targeting ML training on both  [Azure Kubernetes Service (AKS)](https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough) clusters or any cluster that is registered in Azure using Arc(https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/overview). 
+#### AMLK8s supports targeting ML training on both  [Azure Kubernetes Service (AKS)](https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough) clusters or any cluster that is registered in Azure using [Arc](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/overview). 
 
 
 
