@@ -15,8 +15,13 @@ AMLK8s project enables customer to use their exisiting AKS clusters or Azure Arc
 
 To use CMAKS compute in private preview, you need follow these steps:
 
-1. [Create/provision a Kubernetes cluster](https://github.com/Azure/CMK8s-Sample/blob/master/docs/1.%20Provision%20a%20GPU%20enabled%20AKS%20cluster.md)
-1. [Attaching Kubernetes cluster to AML workspace](https://github.com/Azure/AML-Kubernetes/blob/master/docs/2.%20Manage%20CMAKS%20compute.markdown)
+1. Create/provision a Kubernetes cluster to attach to an AML workspace
+    * [Create AKS cluster](https://github.com/Azure/CMK8s-Sample/blob/master/docs/1.%20Provision%20a%20GPU%20enabled%20AKS%20cluster.md)
+    * [Use Azure Arc for Kubernetes to bring Kubernetes clusters to Azure]()
+    
+1. Attaching Kubernetes cluster to AML workspace
+    * [AKS](https://github.com/Azure/AML-Kubernetes/blob/master/docs/2.%20Manage%20CMAKS%20compute.markdown)
+    * [Azure Arc for Kubernetes]()
 1. [Submit AML training jobs to AMLK8s compute](https://github.com/Azure/CMK8s-Samples/blob/master/docs/3.%20Submit%20AML%20training%20jobs%20to%20CMASK%20compute.markdown)
 1. [Manage AML Add-on](https://github.com/Azure/CMK8s-Samples/blob/master/docs/5.%20Manage%20AML%20add-on.markdown)
 1. [Limitations and Known Issues](/docs/limitations-and-knownIssues.md)
