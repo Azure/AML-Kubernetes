@@ -3,7 +3,7 @@ To enable AMLK8S, you will need to first provision an AKS (CPU/GPU) cluster, you
 
 **The AML service requires the AKS cluster to have unrestricted inbound and outbound access. We need inbound access to reviece the requests from AML core servies, and we will create a pubilc ip for our rest server which NSG only allow traffic with AML service tag. We also need the outbound access to report the metrics and artifacts to AML core service.**
 
-## GPU VM size's in Azure
+### GPU VM size's in Azure
 In Azure the VM size begining with "N" indicate this VM is a GPU SKU, and you can find detail GPU VM size at: https://docs.microsoft.com/en-us/azure/virtual-machines/sizes-gpu
 
 #### Currently, AKS supports the NC and ND series of GPU's. You can view the list of supported GPU's when you create an AKS cluster in the portal and view all SKU's supported when you select 'Change Size' in the Node Size picker.
