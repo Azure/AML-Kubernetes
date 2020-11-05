@@ -1,7 +1,11 @@
 ## Create/provision AKS cluster
 To enable AMLK8S, you will need to first provision an AKS (CPU/GPU) cluster, your can create a AKS via [Azure CLI](https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough), [Azure PowerShell](https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough-powershell), [Azure Portal](https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough-portal), and [using ARM template](https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough-rm-template). You can refer [AKS documents](https://docs.microsoft.com/en-us/azure/aks/) to get more detail informantions.
 
-**The AML service requires the AKS cluster to have unrestricted inbound and outbound access. We need inbound access to reviece the requests from AML core servies, and we will create a pubilc ip for our rest server which NSG only allow traffic with AML service tag. We also need the outbound access to report the metrics and artifacts to AML core service.**
+### Limitations
+
+1. _The AML service requires the AKS cluster to have unrestricted inbound and outbound access. We need inbound access to reviece the requests from AML core servies, and we will create a pubilc ip for our rest server which NSG only allow traffic with AML service tag. We also need the outbound access to report the metrics and artifacts to AML core service_
+1. _Private AKS clusters are NOT supported_
+1. _AKS clusters with Authorized IP ranges are NOT supported_
 
 ### GPU VM size's in Azure
 In Azure the VM size begining with "N" indicate this VM is a GPU SKU, and you can find detail GPU VM size at: https://docs.microsoft.com/en-us/azure/virtual-machines/sizes-gpu
