@@ -3,7 +3,7 @@ To enable AMLK8S, you will need to first provision an AKS (CPU/GPU) cluster, you
 1. [Azure CLI](https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough)
 2. [Azure PowerShell](https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough-powershell)
 3. [Azure Portal](https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough-portal)
-4. [using ARM template](https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough-rm-template). 
+4. [Using ARM template](https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough-rm-template) 
 
 You can refer [AKS documents](https://docs.microsoft.com/en-us/azure/aks/) to get more detailed informantions.
 
