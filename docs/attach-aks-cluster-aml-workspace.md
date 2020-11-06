@@ -1,3 +1,37 @@
+
+## Attach kubernetes compute from UI
+
+1. Goto AML studio [portal](https://ml.azure.com), Compute > Attached compute, click "+New" button, and select "Kubernetes service (Preview)"
+
+![addKubernetesCompute](/media/addKubernetesCompute.png)
+
+2. Enter a compute name and check 'Azure Kubernetes service' radio button. In the dropdown below, you should see all your AKS clusters in that subscription
+
+![listAKS](/media/listAKS.png)
+
+3. Select an AKS cluster
+
+![selectAksCluster](/media/2.3akscluster.png)
+
+4. (Optional) Attach a profile config file
+A profile config is a YAML file that defines a namespace and/or node selctors to which the data scientist is set up to deploy training jobs
+If you skip this section, all jobs/pods will be deployed to the default namespace
+Profile config schema is captured [here](/profile-config/profile-schema-v1.0.yaml)
+Profile config sample can be found [here](/profile-config/profile-v1.0-sample-1)
+It is expected that the IT operator sets up the kubernetes namespaces/node selectors, otherwise the jobs/pods will be deployed in the default namespace
+
+![profileConfig]()
+
+
+After attach a CMAKS compute you can [Submit AML training jobs to CMAKS compute](https://github.com/Azure/CMK8s-Samples/blob/master/docs/3.%20Submit%20AML%20training%20jobs%20to%20CMASK%20compute.markdown)
+
+### Detach compute from UI
+Go to compute list and then Compute Details, click on Detach and confirm.
+![detach](/media)
+
+
+# Pending edit
+
 ## Attach CMAKS compute using SDK
 To attach CMAKS compute you need install private branch SDK
 ### Install private branch SDK
@@ -22,31 +56,9 @@ cmaks_target = ComputeTarget.attach(ws, <compute name>, attach_config)
 cmaks_target.detach()
 ```
 
-## Attach compute from UI
-
-1. Goto AML studio portal, compute > Attached compute, click "+New" button, and select "Kubernetes service"
-
-![addcompute](/pics/2.1addcompute.png)
-
-2. Select Kubernetes service from the list.
-
-![cmask](/pics/2.2cmaks.png)
-
-3. Input compute name and select AKS cluster in the top-right pop-up.
-
-![akscluster](/pics/2.3akscluster.png)
-
-4. Select the node pool used to attatched with AML compute target. In CMAKS, one CMAKS compute target should belongs to one AKS node pool, which means nodes have the same VM size. 
-
-![aksnodepool](/pics/2.4aksnodepool.png)
 
 
-After attach a CMAKS compute you can [Submit AML training jobs to CMAKS compute](https://github.com/Azure/CMK8s-Samples/blob/master/docs/3.%20Submit%20AML%20training%20jobs%20to%20CMASK%20compute.markdown)
-
-### Detach compute from UI
-Go to compute list and then Compute Details, click on Detach and confirm.
-![detach](/pics/2.8detach.png)
-
+<!--
 ## Attach/Detach compute from CLI
 ### Install azure-cli-extension private branch
 - Firstly, use  ```az extension remove -n azure-cli-ml ``` command to remove the previous extension. 
@@ -65,3 +77,4 @@ az ml computetarget attach akscompute --compute-target-name mycmaks --aks-cluste
 ```
 az ml computetarget detach akscompute --name mycmaks --workspace-name myworkspace --resource-group myresourcegroup --subscription-id mysubscriptionid -v
 ```
+-->
