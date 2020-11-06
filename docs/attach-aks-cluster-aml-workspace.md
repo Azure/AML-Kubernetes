@@ -5,15 +5,12 @@
 
 ![addKubernetesCompute](/docs/media/addKubernetesCompute.png)
 
-2. Enter a compute name and check 'Azure Kubernetes service' radio button. In the dropdown below, you should see all your AKS clusters in that subscription
+1. Enter a compute name and check 'Azure Kubernetes service' radio button. In the dropdown below, you should see all your AKS clusters in that subscription. Select the cluster you want to attach to this AML workspace
 
 ![listAKS](/docs/media/listAKS.png)
 
-3. Select an AKS cluster
 
-![selectAksCluster](/docs/media/akscluster.png)
-
-4. (Optional) Browse & upload a profile config file
+1. (Optional) Browse & upload a profile config file
    * A profile config is a YAML file that defines a namespace and/or node selctors to which the data scientist is set up to deploy training jobs
    * If you skip this section, all jobs/pods will be deployed to the default namespace
    * Profile config schema is captured [here](/doc/profile-config/profile-schema-v1.0.yaml)
@@ -22,12 +19,12 @@
 
 ![profileConfig](/docs/media/profileConfig.png)
 
-5. Click 'Attach' button. You will see the 'provisioning state' as 'Creating'. If it succeeds, you will see a 'Succeeded' state or else 'Failed' state. The attach process takes about ~5 mins
+1. Click 'Attach' button. You will see the 'provisioning state' as 'Creating'. If it succeeds, you will see a 'Succeeded' state or else 'Failed' state. The attach process takes about ~5 mins
 ![attach](/docs/media/attach.png)
 
 
 ### Detach compute from UI
-Go to compute list and then Compute Details, click on Detach and confirm.
+1. Go to compute list and then Compute Details, click on Detach and confirm.
 ![detach](/docs/media/detach.png)
 
 
