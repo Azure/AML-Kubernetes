@@ -24,7 +24,7 @@ To use AMLK8s compute in private preview, follow these steps:
 #### IT Operator steps to set up Kubernetes cluster 
 1. Create/provision a Kubernetes cluster to attach to an AML workspace
     * [Create AKS cluster](/docs/create-provision-AKS-cluster.md)
-    * [Use Azure Arc for Kubernetes to bring Kubernetes clusters to Azure]()
+    * [Connect Azure Arc Kubernetes cluster](/docs/enable-arc-kubernetes-cluster.md)
     
 1. Attaching Kubernetes cluster to AML workspace
     * [AKS](/docs/attach-aks-cluster-aml-workspace.md)
