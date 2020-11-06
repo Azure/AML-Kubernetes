@@ -8,10 +8,10 @@ For AKS, read what is managed and what is shared responsibility [here](https://d
 #### All preview features are available on a self-service, opt-in basis and are subject to breaking design and API changes. Previews are provided "as is" and "as available," and they're excluded from the service-level agreements and limited warranty. As such, these features aren't meant for production use.
 
 
-
 #### AMLK8s supports targeting ML training on both  [Azure Kubernetes Service (AKS)](https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough) clusters or any cluster that is registered in Azure using [Arc](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/overview). 
 
 
+**Note**: The compute name in Python SDK and CLI may be changed during preview.
 
 ## Overview
 AMLK8s project enables customer to use their exisiting AKS clusters or Azure Arc for Kubernetes clusters as compute target for AML training workload . Data scientists will have same experience as other compute targets. They can submit different types of training jobs to AMLK8s compute target. AMLK8s Will first support SDK and portal, and restapi/CLI will be supported later.
@@ -21,18 +21,22 @@ AMLK8s project enables customer to use their exisiting AKS clusters or Azure Arc
 
 To use AMLK8s compute in private preview, follow these steps:
 
+#### IT Operator steps to set up Kubernetes cluster 
 1. Create/provision a Kubernetes cluster to attach to an AML workspace
-    * [Create AKS cluster](https://github.com/Azure/CMK8s-Sample/blob/master/docs/1.%20Provision%20a%20GPU%20enabled%20AKS%20cluster.md)
+    * [Create AKS cluster](/docs/create-provision-AKS-cluster.md)
     * [Use Azure Arc for Kubernetes to bring Kubernetes clusters to Azure]()
     
 1. Attaching Kubernetes cluster to AML workspace
-    * [AKS](https://github.com/Azure/AML-Kubernetes/blob/master/docs/2.%20Manage%20CMAKS%20compute.markdown)
-    * [Azure Arc for Kubernetes]()
-1. [Submit AML training jobs to AMLK8s compute](https://github.com/Azure/CMK8s-Samples/blob/master/docs/3.%20Submit%20AML%20training%20jobs%20to%20CMASK%20compute.markdown)
-1. [Manage AML Add-on](https://github.com/Azure/CMK8s-Samples/blob/master/docs/5.%20Manage%20AML%20add-on.markdown)
+    * [AKS](/docs/attach-aks-cluster-aml-workspace.md)
+    * [Azure Arc for Kubernetes](/docs/attach-arc-cluster-aml-workspace.md)
+    
+1. [Manually install AMLK8S operator on kubernetes (AKS or ARC) clusters](/docs/manual-installation-amlk8s-operator.md)
+
+#### Data Scientist steps to submit trainig jobs
+1. [Submit AML training jobs to AMLK8s compute](/docs/submit-training-jobs.md)
+
 1. [Limitations and Known Issues](/docs/limitations-and-knownIssues.md)
 
-**Note**: The compute name in Python SDK and CLI may be changed during preview.
 
 ## FAQ 
 #### Recommend AKS cluster resource 
