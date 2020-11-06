@@ -35,7 +35,8 @@ To use AMLK8s compute in private preview, follow these steps:
 #### Data Scientist steps to submit trainig jobs
 1. [Submit AML training jobs to AMLK8s compute](/docs/submit-training-jobs.md)
 
-1. [Limitations and Known Issues](/docs/limitations-and-knownIssues.md)
+
+[Limitations and Known Issues](/docs/limitations-and-knownIssues.md)
 
 
 ## FAQ 
