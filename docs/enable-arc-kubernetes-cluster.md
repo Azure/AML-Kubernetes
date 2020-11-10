@@ -13,6 +13,8 @@ There are 2 steps in the repo above
 
 #### GKE specifics 
 1. Select Ubuntu OS image during cluster create
+1. A minimum of 3 nodes is required; need enough resources for arc agent and amlk8s agent installation 
+1. DO NOT select smaller VM's than 'medium' size 
 
 GKE console -> +Create Cluster -> Node Pools -> Default-pool -> Nodes
 ![GKEClusterCreate](/docs/media/gkecreate.png)
