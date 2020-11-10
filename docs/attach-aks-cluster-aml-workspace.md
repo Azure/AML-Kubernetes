@@ -28,8 +28,6 @@
 ![detach](/docs/media/detach.png)
 
 
-# Pending edit
-
 ## Attach AKS compute using SDK
 To attach AKS cluster you need install private branch SDK
 
