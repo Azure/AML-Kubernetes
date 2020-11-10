@@ -30,25 +30,38 @@
 
 # Pending edit
 
-## Attach CMAKS compute using SDK
-To attach CMAKS compute you need install private branch SDK
+## Attach AKS compute using SDK
+To attach AKS cluster you need install private branch SDK
+
 ### Install private branch SDK
 ```
-pip install --disable-pip-version-check --extra-index-url https://azuremlsdktestpypi.azureedge.net/CmAks-Compute-Test/D58E86006C65 azureml-pipeline-steps azureml-contrib-pipeline-steps azureml-contrib-k8s --upgrade
+pip install --disable-pip-version-check --extra-index-url https://azuremlsdktestpypi.azureedge.net/azureml-contrib-k8s-preview/D58E86006C65 azureml-contrib-k8s
 ```
-### Attach CMAKS compute via SDK
 
+### Attach AKS cluster compute via SDK
 ```python
 from azureml.contrib.core.compute.cmakscompute import CmAksCompute
-from azureml.core import Workspace
-from azureml.core.compute import ComputeTarget
-attach_config = CmAksCompute.attach_configuration(cluster_name =<cluster_name>
-                                                    , resource_group =<resource group>
-                                                    , node_pool=<node pool>
-                                                 )
 
-cmaks_target = ComputeTarget.attach(ws, <compute name>, attach_config)
+k8s_config = {
+    "namespace": "testnamespace",
+    "nodeSelector": {
+        "sku": "P100",
+        "env": "prod"
+    }
+}
+
+attach_config = CmAksCompute.attach_configuration(
+    #cluster_name="andress-cmaks-test-001",
+    #resource_group="andress-eastus",
+    resource_id="/subscriptions/5f08d643-1910-4a38-a7c7-84a39d4f42e0/resourceGroups/andress-eastus" \
+      + "/providers/Microsoft.ContainerService/managedClusters/andress-cmaks-test-001",
+    aml_k8s_config=k8s_config
+)
+
+cmaks_target = CmAksCompute.attach(ws, "andress-cmaks", attach_config)
+cmaks_target.wait_for_completion(show_output=True)
 ```
+
 ### Detach CMAKS compute via SDK
 ```
 cmaks_target.detach()
