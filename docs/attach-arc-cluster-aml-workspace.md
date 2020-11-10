@@ -8,8 +8,10 @@ Once the installation is complete, you need to SSH into each node in your cluste
 
 [Utility tool to ssh into kubernetes nodes](https://github.com/kvaps/kubectl-node-shell)
 
-`sudo ln -s /etc/kubernetes/volumeplugins/azure~blobfuse /home/kubernetes/flexvolume/` 
+```bash
+sudo ln -s /etc/kubernetes/volumeplugins/azure~blobfuse /home/kubernetes/flexvolume/
 
-`sudo apt-get update; sudo apt-get install –y jq` 
+sudo apt-get update; sudo apt-get install –y jq
 
-`wget https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-prod.deb; sudo dpkg -i packages-microsoft-prod.deb; sudo apt-get update; sudo apt-get install blobfuse` 
+wget https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-prod.deb; sudo dpkg -i packages-microsoft-prod.deb; sudo apt-get update; sudo apt-get install blobfuse
+``` 
