@@ -36,6 +36,17 @@ To attach AKS cluster you need install private branch SDK
 pip install --disable-pip-version-check --extra-index-url https://azuremlsdktestpypi.azureedge.net/azureml-contrib-k8s-preview/D58E86006C65 azureml-contrib-k8s
 ```
 
+### Set up WS configuration
+```
+from azureml.core.workspace import Workspace
+
+ws = Workspace.from_config()
+print('Workspace name: ' + ws.name, 
+      'Azure region: ' + ws.location, 
+      'Subscription id: ' + ws.subscription_id, 
+      'Resource group: ' + ws.resource_group, sep='\n')
+```      
+
 ### Attach AKS cluster compute via SDK
 ```python
 from azureml.contrib.core.compute.cmakscompute import CmAksCompute
