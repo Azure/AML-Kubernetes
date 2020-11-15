@@ -33,7 +33,7 @@ To use AMLK8s compute in private preview, follow these steps:
 1. [Manually install AMLK8S operator on kubernetes (AKS or ARC) clusters](/docs/manual-installation-amlk8s-operator.md)
 
 #### Data Scientist steps to submit trainig jobs
-1. [Submit AML training jobs to AMLK8s compute](/docs/submit-training-jobs.md)
+1. [Submit AML training jobs to AMLK8s compute](/docs/sample-notebooks/001-Tensorflow)
 
 
 [Limitations and Known Issues](/docs/limitations-and-knownIssues.md)
