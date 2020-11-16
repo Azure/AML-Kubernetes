@@ -16,7 +16,7 @@ For AKS, read what is managed and what is shared responsibility [here](https://d
 ## Overview
 AMLK8s project enables customer to use their exisiting AKS clusters or Azure Arc for Kubernetes clusters as compute target for AML training workload . Data scientists will have same experience as other compute targets. They can submit different types of training jobs to AMLK8s compute target. AMLK8s Will first support SDK and portal, and restapi/CLI will be supported later.
 
-### Regional availability -> Only EastUS and West Europe 
+### Regional availability -> Only EastUS2EUAP, EastUS and West Europe 
 
 ## Getting Started
 
