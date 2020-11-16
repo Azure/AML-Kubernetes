@@ -37,7 +37,7 @@ To use AMLK8s compute in private preview, follow these steps:
 Submit AML training jobs to AMLK8s compute
 1. [TensorFlow training](/docs/sample-notebooks/001-Tensorflow)
 1. [Scikit image classification](/docs/sample-notebooks/002-SciKitLearn)
-1. [Distributed TensorFlow with parameter server](/docs/sample-notebooks/003-Distributed TensorFlow with parameter server)
+1. [Distributed TensorFlow with parameter server](/docs/sample-notebooks/003-Distributed%20TensorFlow%20with%20parameter%20server)
 
 
 [Limitations and Known Issues](/docs/limitations-and-knownIssues.md)
