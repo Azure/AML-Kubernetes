@@ -5,9 +5,9 @@
 1. Install required Helm charts from a public repo
 ```cli
 export SET HELM_EXPERIMENTAL_OCI=1
-helm chart remove vineetgamlarc.azurecr.io/azure-ml-k8s/install-job:1.0.0
-helm chart pull vineetgamlarc.azurecr.io/azure-ml-k8s/install-job:1.0.0
-helm chart export vineetgamlarc.azurecr.io/azure-ml-k8s/install-job:1.0.0 --destination ./install
+helm chart remove amlk8s.azurecr.io/public/azureml/amlk8s/helmchart/eastus/preview/amlk8s-extension:1.0.0
+helm chart pull amlk8s.azurecr.io/public/azureml/amlk8s/helmchart/eastus/preview/amlk8s-extension:1.0.0
+helm chart export amlk8s.azurecr.io/public/azureml/amlk8s/helmchart/eastus/preview/amlk8s-extension:1.0.0 --destination ./install
 cd install
 ```
 
