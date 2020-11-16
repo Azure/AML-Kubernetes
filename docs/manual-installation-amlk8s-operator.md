@@ -57,5 +57,5 @@ rest-server-647bf78bcf-7tx8w               1/1     Running     0          33s
 
 7. Uninstall installed amlk8s agent
 ```
-helm uninstall aml-compute -n azureml
+helm uninstall azureml-connector -n azureml
 ```
