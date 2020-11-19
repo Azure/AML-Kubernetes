@@ -14,7 +14,7 @@
    * A profile config is a YAML file that defines a namespace and/or node selctors to which the data scientist is set up to deploy training jobs
    * If you skip this section, all jobs/pods will be deployed to the default namespace
    * Profile config schema is captured [here](/docs/profile-config/profile-schema-v1.0.yaml)
-   * Profile config sample can be found [here](/docs/profile-config/profile-v1.0-sample-1)
+   * Profile config sample can be found [here](/docs/profile-config/profile-v1.0-sample-1.yaml)
    * It is expected that the IT operator sets up the kubernetes namespaces/node selectors, otherwise the jobs/pods will be deployed in the default namespace
 
 ![profileConfig](/docs/media/profileConfig.png)
