@@ -31,7 +31,7 @@ To use AMLK8s compute in private preview, follow these steps:
     * [AKS](/docs/attach-aks-cluster-aml-workspace.md)
     * [Azure Arc for Kubernetes](/docs/attach-arc-cluster-aml-workspace.md)
     
-1. [Manually install AMLK8S operator on kubernetes (AKS or ARC) clusters](/docs/manual-installation-amlk8s-operator.md)
+1. [Manually install AMLK8S operator on ARC kubernetes clusters](/docs/manual-installation-amlk8s-operator.md). Not needed on AKS - currently installed automatically during attach step.
 
 #### Data Scientist steps to submit trainig jobs
 Submit AML training jobs to AMLK8s compute
@@ -44,7 +44,7 @@ Submit AML training jobs to AMLK8s compute
 
 
 ## FAQ 
-#### Recommend AKS cluster resource 
+#### Recommended AKS cluster resources
 We recommend you use a at least 3 nodes cluster, each node having at least 2C 4G. And if you want to running GPU jobs, you need some GPU nodes.
 #### AML add-on version upgrade
 We will install the latest AML add-on services automatically when you first attach AKS cluster to AML workspace. You can check add-on components version using ```helm list``` and update according to [Manage AML Add-on](https://github.com/Azure/CMK8s-Samples/blob/master/docs/5.%20Manage%20AML%20add-on.markdown).
