@@ -22,6 +22,11 @@ AMLK8s project enables customer to use their exisiting AKS clusters or Azure Arc
 
 To use AMLK8s compute in private preview, follow these steps:
 
+#### Install the private SDK bits
+```
+pip install --disable-pip-version-check --extra-index-url https://azuremlsdktestpypi.azureedge.net/azureml-contrib-k8s-preview/D58E86006C65 azureml-contrib-k8s
+```
+
 #### IT Operator steps to set up Kubernetes cluster 
 1. Create/provision a Kubernetes cluster to attach to an AML workspace
     * [Create AKS cluster](/docs/create-provision-AKS-cluster.md)
