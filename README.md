@@ -18,6 +18,8 @@ AMLK8s project enables customer to use their exisiting AKS clusters or Azure Arc
 
 ### Regional availability -> Only EastUS2EUAP, EastUS and West Europe 
 
+### Kubernetes version support is in accordance with what AKS supports. See [here](https://docs.microsoft.com/en-us/azure/aks/supported-kubernetes-versions) for details
+
 ## Getting Started
 
 To use AMLK8s compute in private preview, follow these steps:
