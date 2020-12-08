@@ -49,6 +49,7 @@ Submit AML training jobs to AMLK8s compute
 
 [Limitations and Known Issues](/docs/limitations-and-knownIssues.md)
 
+[Troubleshooting](/docs/troubleshooting.md)
 
 ## FAQ 
 #### Recommended AKS cluster resources
