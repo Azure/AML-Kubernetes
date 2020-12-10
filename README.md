@@ -24,6 +24,11 @@ AMLK8s project enables customer to use their exisiting AKS clusters or Azure Arc
 
 To use AMLK8s compute in private preview, follow these steps:
 
+#### Install the Azure Machine Learning Python SDK
+```
+pip install --upgrade azureml-sdk
+```
+
 #### Install the private SDK bits
 ```
 pip install --disable-pip-version-check --extra-index-url https://azuremlsdktestpypi.azureedge.net/azureml-contrib-k8s-preview/D58E86006C65 azureml-contrib-k8s
