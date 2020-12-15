@@ -84,3 +84,42 @@ Please make sure your cluster also allows access to DNS endpoints [mentioned her
 Now we are ready to connect our Kubernetes cluster to Azure via Azure Arc. Connect the cluster by running the commands [explained here](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/connect-cluster#connect-a-cluster) in master node’s terminal. Please [verify your Arc connected cluster](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/connect-cluster#connect-a-cluster) before moving to the next step.
 
 ## Attach Azure Arc’s Kubernetes cluster as Azure Machine Learning compute target (Private Preview)
+
+If you do not already have an Azure Machine learning workspace in your desired Azure resource group, please [create your Machine learning workspace](https://docs.microsoft.com/en-us/azure/machine-learning/concept-workspace#-create-a-workspace). You can then attach Azure Arc’s Kubernetes cluster to your workspace through either Azure Machine Learning’s Python SDK or Studio. We will go over the Python SDK method here since that it is recommended approach as of now:
+
+### Python SDK (Recommended):
+
+1. Install private preview branch of AzureML SDK by running following command (private preview):
+
+    ```pip install --disable-pip-version-check --extra-index-url https://azuremlsdktestpypi.azureedge.net/azureml-contrib-k8s-preview/D58E86006C65 azureml-contrib-k8s```
+
+2. Make sure your Azure Machine Learning workspace is defined/loaded in your python environment. If not, you can load your workspace using Workspace class:
+    
+    ```python 
+    from azureml.core import Workspace 
+    
+    ws = Workspace.from_config(path = "<PATH TO CONFIG FILE>")
+    ws.get_details()
+    ```
+    ‘from_config’ method reads JSON configuration file that tells SDK how to communicate with your Azure Machine Learning workspace. If needed, create a workspace JSON configuration file before running the snippet above.
+
+3. Attach/Register Azure Arc’s Kubernetes cluster as Azure Machine Learning compute target by running the following python code snippet:
+    
+    ```python 
+    from azureml.contrib.core.compute.arckubernetescompute import ArcKubernetesCompute
+   
+    attach_config = ArcKubernetesCompute.attach_configuration(
+    cluster_name="<arc-cluster-name>",
+    resource_group="<resource-group>",
+    resource_id="<arc-cluster-resource-id>")
+    
+    arcK_target = ArcKubernetesCompute.attach(ws, "arcK-ash", attach_config)
+    arcK_target.wait_for_completion(show_output= True)
+    ```
+
+4. If the attachment is successful, “SucceededProvisioning operation finished, operation "Succeeded"” message will be printed as a result. This means that we have successfully attached the Arc Cluster as a compute target named “arcK-ash” in your Azure Machine Learning workspace. 
+
+
+## Next Steps
+
+Learn how to [run Azure Machine Learning training workloads utilizing Azure Stack Hub’s Kubernetes cluster and storage (Private Preview)](Train-AzureArc.md)
