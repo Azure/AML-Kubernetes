@@ -85,7 +85,7 @@ We can now start configuring our storage account to work with Azure Machine Lear
 
 Now we will connect Azure Stack Hub’s storage account to Azure Machine Learning:
 
-1. Go to your Azure Machine Learning workspace studio and select **Datastore > New datastore**
+1. Go to your Azure Machine Learning workspace studio and select **Datastore > New datastore**:
 
     <p align="center">
       <img src="imgs/datastore.png" />
@@ -99,3 +99,15 @@ Now we will connect Azure Stack Hub’s storage account to Azure Machine Learnin
     </p>
 
 Congratulations! you successfully have setup our Azure Stack Hub’s storage blob container as a datastore in Azure Machine Learning. The datastore can be used in conjunction with our Arc Cluster (from Azure Stack Hub) to train machine learning workloads.
+
+## Run your first Azure Machine Learning training job on Azure Stack Hub using AzureML Python SDK (example notebooks)
+
+In this section we will go over couple of image classifications training using various libraries on MNIST and CIFAR10 dataset stored on your Azure Stack Hub’s Blob container as a datastore. 
+
+Check the following video that goes through a simple training examples using scikit-learn library on MNIST dataset:
+
+<p align="center" https://msit.microsoftstream.com/video/51f7a3ff-0400-b9eb-2703-f1eb38bc6232">
+      <img src="imgs/vid-img.png" />
+ </p>
+
+
