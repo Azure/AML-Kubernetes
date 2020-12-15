@@ -106,8 +106,6 @@ In this section we will go over couple of image classifications training using v
 
 Check the following video that goes through a simple training examples using scikit-learn library on MNIST dataset:
 
-![drawing](imgs/vid-img.png){ width=50% }
-
-[![video](imgs/vid-img.png){ width=50% }](https://msit.microsoftstream.com/video/51f7a3ff-0400-b9eb-2703-f1eb38bc6232)
+<a href="https://msit.microsoftstream.com/video/51f7a3ff-0400-b9eb-2703-f1eb38bc6232"><img src="imgs/vid-img.png" alt="Video Tutorial" style="width:42px;height:42px;"></a>
 
 
