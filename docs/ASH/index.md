@@ -10,7 +10,11 @@ You can use the following documents to get started with setting up your training
 1. [Deploy Azure Stack Hub’s Kubernetes Cluster as a Compute Cluster in Azure Machine Learning through Azure Arc (Private Preview)](AML-ARC-Compute.md)
 2. [Run Azure Machine Learning training workloads utilizing Azure Stack Hub’s Kubernetes cluster and Blob storage (Private Preview)](Train-AzureArc.md)
 
+### InnerEye SDK
+
 ## Sample Notebooks
 
 After following the documents above, you can go through the sample notebooks below to get a better understanding of how the process works and the possibilities it can unlock:
 
+* [Distributed PyTorch Training with DistributedDataParallel](notebooks/distributed-pytorch-cifar10)
+* [Distributed Tensorflow 2 with MultiWorkerMirroredStrategy](notebooks/distributed-tf2-cifar10)
