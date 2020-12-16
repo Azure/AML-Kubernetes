@@ -14,7 +14,7 @@ You can use the following documents to get started with setting up your training
 
 If you are interested in running training using the InnerEye SDK on Azure Stack Hub, please use the following document to make some small modifications in the InnerEye SDK so that it can work with this private preview (after following [document 1 above](AML-ARC-Compute.md)):
 
-* [Run InnerEye Deep Learning training workloads utilizing Azure Stack Hub’s Kubernetes cluster as Azure Machine Learning Compute Cluster (Private Preview)][innereye-AzureArc.md]
+* [Run InnerEye Deep Learning training workloads utilizing Azure Stack Hub’s Kubernetes cluster as Azure Machine Learning Compute Cluster (Private Preview)](innereye-AzureArc.md)
 
 ## Sample Notebooks
 
