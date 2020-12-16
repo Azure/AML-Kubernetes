@@ -41,7 +41,13 @@ installed on the device that you will be using to communicate with Azure Machine
     arcK_target = ArcKubernetesCompute.attach(ws, "arcK-ash", attach_config)
     arcK_target.wait_for_completion(show_output= True)
     ```
-
+    <p align="center">
+      <img src="imgs/Inner-workspace.png" />
+    </p>
 5.	Edit variable **‘estimator’** (In the same function as above) by replacing **‘compute_target’** definition from ‘azure_config.cluster’ to ‘arcK_target’ which we defined in step 4. 
+
+    <p align="center">
+      <img src="imgs/Inner-compute.png" />
+    </p>
 
 6.	Save all your changes. You are now able to use the InnerEye Deep Learning SDK training capabilities by following their instructions, as is, on their repository. The small changes we made will allow the compute component of your training to be sent to the Arc connected Azure Stack Hub’s Cluster.
