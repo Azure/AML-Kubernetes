@@ -7,7 +7,7 @@ This repository is intended to serve as an information hub for Azure Stack custo
 
 You can use the following documents to get started with setting up your training workloads on ASH:
 
-1. [Deploy Azure Stack Hub’s Kubernetes Cluster as a Compute Cluster in Azure Machine Learning through Azure Arc (Private Preview)](AML-ARC Compute.md)
+1. [Deploy Azure Stack Hub’s Kubernetes Cluster as a Compute Cluster in Azure Machine Learning through Azure Arc (Private Preview)](AML-ARC-Compute.md)
 2. [Run Azure Machine Learning training workloads utilizing Azure Stack Hub’s Kubernetes cluster and Blob storage (Private Preview)](Train-AzureArc.md)
 
 ## Sample Notebooks
