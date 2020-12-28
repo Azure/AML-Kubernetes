@@ -130,6 +130,12 @@ def main():
             validation_data=test_ds,
             validation_steps=args.batches_per_epoch)
 
+        save_to_outputs(model)
+
+def save_to_outputs(model):
+    model_name, model_version = "outputs", "001"
+    model_path = os.path.join(model_name, model_version)
+    tf.saved_model.save(model, model_path)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
