@@ -5,20 +5,37 @@ The machine learning model used is in tensorflow saved model format. It is saved
 
 ## Prerequisites
 
-*   Make sure you have access to a kubernetes cluster with KFserving installed. Please refer 
-    [KFserving installation guide](KFServing-setup.md) for details.
+*   Make sure you have access to a kubernetes cluster with KFserving installed. 
     
-*   A tensorflow saved model is stored in Azure Storage Blob. The blob is granted to a service principal with 
-    "Storage Blob Data Owner" role. 
+    Please refer [KFserving installation guide](KFServing-setup.md) for details of installing KFServing.
+    
+*   A tensorflow saved model is stored as Azure Storage Blobs.
 
-
-
+    One can perform a distributed training using Azure Machine Service and register the trained model with the AML 
+    workspace as documented [here](notebooks/distributed-tf2-cifar10/distributed-tf2-cifar10.ipynb);
+    The registered model can then be downloaded/uploaded to azure storage blobs as shown in this 
+    [notebook](notebooks/AML-model-download-upload.ipynb).
+    
+    For KFServing to securely download the blobs to the kubernetes cluster, they are granted to a service principal with 
+    "Storage Blob Data Owner" role. For how to create a service principal in azure active directory, please refer to 
+    [here](https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal). For 
+    azure storage access with role assignment, please refer to this [document](https://docs.microsoft.com/en-us/azure/storage/common/storage-auth-aad-rbac-portal)
+    
 
 ## Deploy KFserving InferenceService
 
-*  Create a Kubernetes Secret (use kubectl apply -f ):
+*  Create a kubernetes secret (use kubectl apply -f ):
 
-The data in Secret is encoded in base64. 
+   The data in Secret is encoded in base64. Here is a simple way to encode a plain string in base64 in Linux:
+
+<pre> $ echo -n "mystring" | base64 </pre>
+
+   please make sure the "-n" option is used. To decode:
+
+<pre> $ echo -n "base64-string" | base64 -d </pre>
+
+
+   The manifesto for the secret is:
 
 <pre>
 apiVersion: v1
@@ -34,7 +51,7 @@ data:
 </pre>
 
 
-*  Create a Kubernetes Service Account with Secret created above (use kubectl apply -f ):
+*  Create a kubernetes service account with Secret created above (use kubectl apply -f ):
 
 <pre>
 apiVersion: v1
@@ -49,7 +66,6 @@ secrets:
 *  Create KFServing InferenceService (use kubectl apply -f ):
 
     Note the ServiceAccount created above is referenced under "predictor"
-   
 
 <pre>
 apiVersion: "serving.kubeflow.org/v1alpha2"
@@ -64,10 +80,14 @@ spec:
       serviceAccountName: azuresa
 </pre>
 
+Check if the inferenceService is ready or not by running:
+
+<pre>kubectl get inferenceService -n default </pre>
+
 ##  Get xip.io url for Testing:
 
 If you configured DNS with xip.io as mentioned in [KFserving installation guide](KFServing-setup.md), you can get the
-xip.io url and use a web test tool like Insomnia or postman to test your service.
+xip.io url and use a web test tool like Insomnia or Postman to test your service.
 
 *  Get host url:
 

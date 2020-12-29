@@ -1,6 +1,6 @@
 # Stand Alone KFServing Setup On Kubernetes Clusters
 
-In this article, you will set up stand alone KFServing on a kubernetes clusters. KFserving depends on a few
+In this article, you will set up stand alone KFServing on a kubernetes cluster. KFserving depends on a few
 components. You will install:
 
 *	Istio for service management
@@ -10,12 +10,12 @@ components. You will install:
 
 ## Prerequisites
 
-*   Make sure you have access to a kubernetes cluster with version kubernetes 1.5.x
-*   Termial access to the kubernetes master node
+*   Make sure you have access to a kubernetes cluster with version 1.5.x
+*   Terminal access to the kubernetes master node
 
 ## Install Istio
 
-### istio 1.6.1 supports kubernetes 1.5.
+### Istio 1.6.1 supports kubernetes 1.5.
 
 *  download the package:
 
