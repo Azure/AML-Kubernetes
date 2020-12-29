@@ -105,3 +105,7 @@ components. You will install:
      ```kubectl get issuer -n kfserving-system```
 
     ```kubectl get po -n kfserving-system```
+
+##  Install Demo (optional)
+
+    
