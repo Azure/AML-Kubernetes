@@ -20,14 +20,14 @@ components. You will install:
 *  download the package:
 
 
-    ```$ cd ~```
+    ```cd ~```
 
-    ```$ curl -L https://istio.io/downloadIstio | ISTIO_VERSION=1.6.1 sh -```
+    ```curl -L https://istio.io/downloadIstio | ISTIO_VERSION=1.6.1 sh -```
 
 
 *  Check istio-1.6.1 is downloaded:
 
-    ```$ ls```
+    ```ls```
 
     ```istio-1.6.1``` 
 
@@ -51,64 +51,57 @@ components. You will install:
 
     ```kubectl get all -n istio-system```
 
-    More details is at https://istio.io/latest/docs/setup/getting-started/
+    More details is at [here](https://istio.io/latest/docs/setup/getting-started/)
 
 ## Install Knative
 
+### Knative v0.14 supports kubernetes 1.15
+
+*  Install Custom Resource Definitions:
+   
+    ```kubectl apply --filename https://github.com/knative/serving/releases/download/v0.14.0/serving-crds.yaml```
+
+*  Install Core Resources:
+
+    ```kubectl apply --filename https://github.com/knative/serving/releases/download/v0.14.0/serving-core.yaml ```
+
+*  Create Namespace "knative-serving"
+   
+    ```kubectl create namespace knative-serving```
+   
+*  Install Knative Istio controller:
+
+    ```kubectl apply --filename https://github.com/knative/net-istio/releases/download/v0.14.0/release.yaml```
+
+*  Configure DNS:
+   
+   Details of configuring DNS are covered [here](https://knative.dev/v0.18-docs/install/any-kubernetes-cluster/). For
+   testing purpose, We create a simple Kubernetes Job called “default domain” that will configure Knative Serving 
+   to use xip.io as the default DNS suffix
+   
+ ```kubectl apply --filename "Yaml\serving-default-domain-knative-1-4-0.yaml" ```
+   
+*  View pods created:
+
+    ```kubectl get pods --namespace knative-serving```
 
 
+## Install Cert Manager
 
-https://knative.dev/v0.18-docs/install/any-kubernetes-cluster/
-https://github.com/kubeflow/kfserving/blob/master/docs/DEVELOPER_GUIDE.md#install-knative-on-a-kubernetes-cluster
+*  Cert Manager v0.14.0 supports kubernetes 1.15
 
+    ```kubectl apply --filename https://github.com/knative/serving/releases/download/v0.14.0/serving-default-domain.yaml```
 
-Installing Knative (v0.14 support kubernetes 1.15)
+## Install KFserving
 
-$ kubectl apply --filename https://github.com/knative/serving/releases/download/v0.14.0/serving-crds.yaml
+   Details of installation guide for stand alone KFserving can be found [here](https://github.com/kubeflow/kfserving#standalone-kfserving-installation)
 
-kubectl apply --filename https://github.com/knative/serving/releases/download/v0.14.0/serving-core.yaml
+*  Install Kubernetes Resources: 
 
+    ```kubectl apply -f "Yaml\kfserving_v1_4_1.yaml" --validate=false```
 
-#Install the Knative Istio controller
- kubectl create namespace knative-serving
-kubectl apply --filename https://github.com/knative/net-istio/releases/download/v0.14.0/release.yaml
+*   View the Resources:
 
-#Configure DNS (using xip.io) (Error, failed) 
-kubectl apply --filename https://github.com/knative/serving/releases/download/v0.14.0/serving-default-domain.yaml
+     ```kubectl get issuer -n kfserving-system```
 
-fixes: https://github.com/knative/serving/issues/7487
-
-kubectl apply --filename "C:\Users\v-songshanli\PycharmProjects\kubeflow\play\serving-default-domain-knative-1-4-0.yaml"
-
-kubectl delete job/default-domain  -n knative-serving
-
-kubectl get pods --namespace knative-serving
-
-
-#install cert-manager
-https://cert-manager.io/docs/installation/kubernetes/
-
-# Kubernetes <1.16
-$ kubectl apply --validate=false -f https://github.com/jetstack/cert-manager/releases/download/v1.1.0/cert-manager-legacy.yaml
-
-
-#install KFserving
-
-https://www.kubeflow.org/docs/components/serving/kfserving/
-https://github.com/kubeflow/kfserving#standalone-kfserving-installation
-
-kubectl apply -f https://github.com/kubeflow/kfserving/tree/master/install/v0.4.1/kfserving.yaml --validate=false
-
-###note the above yaml file have issues. fixed at:
-kubectl apply -f C:\Users\v-songshanli\PycharmProjects\kubeflow\play\kfserving_v1_4_1.yaml --validate=false
-
-kubectl get issuer -n kfserving-system
-
-kubectl get po -n kfserving-system
-
-#Create KFServing test inference service
-
- kubectl create namespace kfserving-test
- kubectl apply -f C:\Users\v-songshanli\PycharmProjects\kubeflow\play\kfserving_sample.yaml -n kfserving-test
-
-    
+    ```kubectl get po -n kfserving-system```
