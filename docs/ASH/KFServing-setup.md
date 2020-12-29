@@ -1,4 +1,4 @@
-# Stand Alone TFServing Setup On Kubernetes Clusters
+# Stand Alone KFServing Setup On Kubernetes Clusters
 
 In this article, you will set up stand alone KFServing on a kubernetes clusters. KFserving depends on a few
 components. You will install:

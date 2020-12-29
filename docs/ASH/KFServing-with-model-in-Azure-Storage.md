@@ -1,4 +1,4 @@
-# TFServing with Azure Storage Blob
+# KFServing with Azure Storage Blob
 
 In this article, you will create a KFServing InferenceService resource on a kubernetes cluster with KFserving installed. 
 The machine learning model used is in tensorflow saved model format. It is saved as Azure Storage blob. 
@@ -6,7 +6,7 @@ The machine learning model used is in tensorflow saved model format. It is saved
 ## Prerequisites
 
 *   Make sure you have access to a kubernetes cluster with KFserving installed. Please refer 
-    [TFserving installation guide](TFServing-setup.md) for details.
+    [KFserving installation guide](KFServing-setup.md) for details.
     
 *   A tensorflow saved model is stored in Azure Storage Blob. The blob is granted to a service principal with 
     "Storage Blob Data Owner" role. 
@@ -66,7 +66,7 @@ spec:
 
 ##  Get xip.io url for Testing:
 
-If you configured DNS with xip.io as mentioned in [TFserving installation guide](TFServing-setup.md), you can get the
+If you configured DNS with xip.io as mentioned in [KFserving installation guide](KFServing-setup.md), you can get the
 xip.io url and use a web test tool like Insomnia or postman to test your service.
 
 *  Get host url:
