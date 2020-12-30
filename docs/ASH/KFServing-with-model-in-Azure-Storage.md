@@ -12,7 +12,7 @@ The machine learning model used is in tensorflow saved model format. It is saved
 *   A machine learn model is stored as Azure Storage Blobs.
 
     For this guide, a tensorflow saved model used because tensorflow predictor is used in inferenceService definition.
-    Please see <a name="storageUri">storageUri format</a> for details about how to organize the blob structure.
+    Please see <a href="#storageUri">storageUri format</a> for details about how to organize the blob structure.
 
     One can perform a distributed training using Azure Machine Service and register the trained model with the AML 
     workspace as documented [here](notebooks/distributed-tf2-cifar10/distributed-tf2-cifar10.ipynb);
@@ -86,6 +86,8 @@ spec:
 </pre>
 
 <a name="storageUri"></a>
+## StorageUri format
+
 Please pay special attention to storageUri here. Internally, this inferenceService uses Tensorflow Serving which requires
 a version folder to holder the model files. Specifically for this particular storageUri, "cifar10model" is the container name, 
 "slcifar10" is a "folder" blob, under slcifar10 is version folder such as "001". The saved_model.pb is immediately under 001. 
