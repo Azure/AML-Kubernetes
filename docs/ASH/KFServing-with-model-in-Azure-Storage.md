@@ -9,14 +9,17 @@ The machine learning model used is in tensorflow saved model format. It is saved
     
     Please refer [KFserving installation guide](KFServing-setup.md) for details of installing KFServing.
     
-*   A tensorflow saved model is stored as Azure Storage Blobs.
+*   A machine learn model is stored as Azure Storage Blobs.
+
+    For this guide, a tensorflow saved model used because tensorflow predictor is used in inferenceService definition.
+    Please see <a name="storageUri">storageUri format</a> for details about how to organize the blob structure.
 
     One can perform a distributed training using Azure Machine Service and register the trained model with the AML 
     workspace as documented [here](notebooks/distributed-tf2-cifar10/distributed-tf2-cifar10.ipynb);
     The registered model can then be downloaded/uploaded to azure storage blobs as shown in this 
     [notebook](notebooks/AML-model-download-upload.ipynb).
     
-    For KFServing to securely download the blobs to the kubernetes cluster, they are granted to a service principal with 
+    For KFServing to securely download the blobs to the kubernetes cluster, the blobs are granted to a service principal with 
     "Storage Blob Data Owner" role. For how to create a service principal in azure active directory, please refer to 
     [here](https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal). For 
     azure storage access with role assignment, please refer to this [document](https://docs.microsoft.com/en-us/azure/storage/common/storage-auth-aad-rbac-portal)
@@ -24,7 +27,7 @@ The machine learning model used is in tensorflow saved model format. It is saved
 
 ## Deploy KFserving InferenceService
 
-*  Create a kubernetes secret (use kubectl apply -f ):
+*  Create a kubernetes secret for client credentials(use kubectl apply -f ):
 
    The data in Secret is encoded in base64. Here is a simple way to encode a plain string in base64 in Linux:
 
@@ -53,6 +56,8 @@ data:
 
 *  Create a kubernetes service account with Secret created above (use kubectl apply -f ):
 
+    InferenceService created below will use this service account to retrieve client credentials.
+
 <pre>
 apiVersion: v1
 kind: ServiceAccount
@@ -79,6 +84,12 @@ spec:
         storageUri: "https://backupsli.blob.core.windows.net/cifar10model/slcifar10"
       serviceAccountName: azuresa
 </pre>
+
+<a name="storageUri"></a>
+Please pay special attention to storageUri here. Internally, this inferenceService uses Tensorflow Serving which requires
+a version folder to holder the model files. Specifically for this particular storageUri, "cifar10model" is the container name, 
+"slcifar10" is a "folder" blob, under slcifar10 is version folder such as "001". The saved_model.pb is immediately under 001. 
+the variable folder is immediately under 001. Finally, the data and index files are immediately under variable folder.
 
 Check if the inferenceService is ready or not by running:
 
