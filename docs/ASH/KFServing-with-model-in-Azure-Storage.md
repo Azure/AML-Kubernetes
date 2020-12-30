@@ -86,12 +86,13 @@ spec:
 </pre>
 
 <a name="storageUri"></a>
-## StorageUri format
+### Note on StorageUri format
 
 Please pay special attention to storageUri here. Internally, this inferenceService uses Tensorflow Serving which requires
-a version folder to holder the model files. Specifically for this particular storageUri, "cifar10model" is the container name, 
-"slcifar10" is a "folder" blob, under slcifar10 is version folder such as "001". The saved_model.pb is immediately under 001. 
-the variable folder is immediately under 001. Finally, the data and index files are immediately under variable folder.
+a version folder as parent folder of the model files. Specifically for this particular storageUri, "cifar10model" is the 
+container name, "slcifar10" is a "folder" blob, under slcifar10 is version folder such as "001". The saved_model.pb is 
+immediately under 001. the variable folder is immediately under 001. Finally, the data and index files are immediately 
+under variable folder. You can read more about tensorflow saved model [here](https://www.tensorflow.org/guide/saved_model)
 
 Check if the inferenceService is ready or not by running:
 
@@ -113,7 +114,7 @@ cifar10-predictor-default   http://cifar10-predictor-default.default.38.102.181.
 As displayed, host url is http://cifar10-predictor-default.default.38.102.181.86.xip.io
 *  The whole url:
 
-    The whole url is composed as host_url + "/v1/models/<inferenceService-name>:predict"
+    The whole url is composed as host_url + /v1/models/"<inferenceService-name>":predict
     For this particular example, it is:
 
     http://cifar10-predictor-default.default.38.102.181.86.xip.io/v1/models/cifar10:predict
