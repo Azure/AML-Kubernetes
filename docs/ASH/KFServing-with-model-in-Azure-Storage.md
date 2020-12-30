@@ -93,6 +93,7 @@ a version folder as parent folder of the model files. Specifically for this part
 container name, "slcifar10" is a "folder" blob, under slcifar10 is version folder such as "001". The saved_model.pb is 
 immediately under 001. the variable folder is immediately under 001. Finally, the data and index files are immediately 
 under variable folder. You can read more about tensorflow saved model [here](https://www.tensorflow.org/guide/saved_model)
+and [tensorflow serving](https://www.tensorflow.org/tfx/tutorials/serving/rest_simple)
 
 Check if the inferenceService is ready or not by running:
 
