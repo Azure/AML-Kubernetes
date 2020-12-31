@@ -47,10 +47,10 @@ metadata:
   name: azcreds
 type: Opaque
 data:
-  AZ_CLIENT_ID: "base64 encoded"
-  AZ_CLIENT_SECRET: "base64 encoded"
-  AZ_SUBSCRIPTION_ID: "base64 encoded"
-  AZ_TENANT_ID: "base64 encoded"
+  AZ_CLIENT_ID: "ZDQ5NzAyNTUtNDc3YS00ZDczLWE3YWQtNzNhOTNmMzBiZDUx"
+  AZ_CLIENT_SECRET: "ckZ+Y3VScmEwfnhjTHZhSC04NDVMaS1FQzhhOFYzfmtHWg=="
+  AZ_SUBSCRIPTION_ID: "NmI3MzZkYTYtMzI0Ni00NGRkLWEwYjgtYjVlOTU0ODQ2MzNk"
+  AZ_TENANT_ID: "NzJmOTg4YmYtODZmMS00MWFmLTkxYWItMmQ3Y2QwMTFkYjQ3"
 </pre>
 
 
@@ -81,7 +81,7 @@ spec:
   default:
     predictor:
       tensorflow:
-        storageUri: "https://backupsli.blob.core.windows.net/cifar10model/slcifar10"
+        storageUri: "https://backupsli.blob.core.windows.net/tfmodel/cifar10model"
       serviceAccountName: azuresa
 </pre>
 
@@ -89,10 +89,12 @@ spec:
 ### Note on StorageUri format
 
 Please pay special attention to storageUri here. Internally, this inferenceService uses Tensorflow Serving which requires
-a version folder as parent folder of the model files. Specifically for this particular storageUri, "cifar10model" is the 
-container name, "slcifar10" is a "folder" blob, under slcifar10 is version folder such as "001". The saved_model.pb is 
+a version folder as parent folder of the model files. Specifically for this particular storageUri, "tfmodel" is the 
+container name, "cifar10model" is a "folder" blob, under cifar10model is version folder such as "001". The saved_model.pb is 
 immediately under 001. the variable folder is immediately under 001. Finally, the data and index files are immediately 
-under variable folder. You can read more about tensorflow saved model [here](https://www.tensorflow.org/guide/saved_model)
+under variable folder. Please see [this screen captures](video/kfserving_tf_blob_structure.mp4) for an example.
+
+You can read more about tensorflow saved model [here](https://www.tensorflow.org/guide/saved_model)
 and [tensorflow serving](https://www.tensorflow.org/tfx/tutorials/serving/rest_simple).
 
 Check if the inferenceService is ready or not by running:
@@ -120,9 +122,27 @@ As displayed, host url is http://cifar10-predictor-default.default.38.102.181.86
 
     http://cifar10-predictor-default.default.38.102.181.86.xip.io/v1/models/cifar10:predict
 
-*  Test data:
+*  Test the inference service:
+   
     The predictor used here is tensorflow serving. Here is the 
    [instruction](https://www.tensorflow.org/tfx/tutorials/serving/rest_simple) about how to generate test input. 
    
-    An example of Cifar10 is given at [cifar10_test_input](test-data/cifar10_test_input.json)
+    An example of Cifar10 is given at [cifar10_test_input](test-data/cifar10_test_input.json). You can test the service
+    using web testing tools such as Postman or Insomnia, or you can use the following python code:
+
+<pre>
+import requests
+
+def post_kfservice(predit_uri, input_path):
+    with open(input_path, "r") as ftp:
+        test_input = ftp.read()
+    resp = requests.post(predit_uri, test_input, headers={'Content-Type': 'application/json'})
+    print(f"{resp.text}")
+    return resp.text
+
+if __name__ == "__main__":
+    predit_uri = "http://cifar10-predictor-default.default.38.102.181.86.xip.io/v1/models/cifar10:predict"
+    input_path = "test-data/cifar10_test_input.json"
+    post_kfservice(predit_uri, input_path)
+</pre>
    
