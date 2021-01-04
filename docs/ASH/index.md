@@ -16,6 +16,18 @@ If you are interested in running training using the InnerEye SDK on Azure Stack 
 
 * [Run InnerEye Deep Learning training workloads utilizing Azure Stack Hub’s Kubernetes cluster as Azure Machine Learning Compute Cluster (Private Preview)](innereye-AzureArc.md)
 
+## Serving with Stand alone KFServing
+
+After trained and register your model in azure machine learning workspace, you can download then upload model files to azure blobs as in 
+this notebook:
+
+1. [AML model download and upload to Azure Blobs](notebooks/AML-model-download-upload.ipynb)
+
+Then following these guides to deploy inference service with KFServing:
+
+* [Stand alone KFServing setup](KFServing-setup.md)
+* [KFServing with model in Azure Storage blobs](KFServing-with-model-in-Azure-Storage.md)
+
 ## Sample Notebooks
 
 After following the documents above, you can go through the sample notebooks below to get a better understanding of how the process works and the possibilities it can unlock:
