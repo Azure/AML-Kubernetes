@@ -126,6 +126,6 @@ Learn how to [Run Azure Machine Learning training workloads utilizing Azure Stac
 
 
 
-#### InnerEye SDK
+### InnerEye SDK
 
 Learn how to [Run InnerEye Deep Learning training workloads utilizing Azure Stack Hub’s Kubernetes cluster as Azure Machine Learning Compute Cluster (Private Preview)](innereye-AzureArc.md)
