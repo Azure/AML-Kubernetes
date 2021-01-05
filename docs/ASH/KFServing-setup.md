@@ -106,6 +106,8 @@ components. You will install:
 
     ```kubectl get po -n kfserving-system```
 
-##  Install Demo (optional)
+## Next Steps
+
+Learn how to [inference using KFServing with model in Azure Storage Blobs](KFServing-with-model-in-Azure-Storage.md)
 
     
