@@ -53,7 +53,7 @@ Before we start the process of connecting our newly created Kubernetes cluster t
 
     ```az extension remove --name connectedk8s```
 
-*	Install the preview version of k8s-extension CLI extension (check all of them [here](https://github.com/Azure/azure-arc-kubernetes-preview/tree/master/extensions)) provided in this repository by running the following command (make sure your present working directory is root of the repository):
+*	Install the preview version of k8s-extension CLI extension (check all of them [here](https://github.com/Azure/azure-arc-kubernetes-preview/tree/master/extensions)) provided in [this repository](https://github.com/Azure/azure-arc-kubernetes-preview) by running the following command (make sure your present working directory is root of the repository):
 
     ```az extension add --source ./extensions/k8s_extension-0.1.0-py2.py3-none-any.whl –yes```
 
