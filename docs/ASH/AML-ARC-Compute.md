@@ -45,19 +45,19 @@ Before we start the process of connecting our newly created Kubernetes cluster t
 *	Get the public IP address of one of your master nodes (VM) using the Azure Stack Hub portal.
 *	From a machine with access to your Azure Stack Hub instance, connect via SSH into the new master node using a client such as Command Prompt or PuTTY.
 *	Install (or update) Azure CLI on your cluster’s master node by following the information found here. If Azure CLI is already installed on the node, please check the CLI version by running ‘az -v’ on node’s terminal. Installing the provided preview version of Kubernetes Extension requires Azure CLI version of 2.12.0 or greater. 
-*	Install the preview version of k8s-extensions CLI extension provided in this repository by running the following command (make sure your present working directory is root of the repository):
+*	Install the most recent preview version of k8s-extensions CLI extension (check all of them [here](https://github.com/Azure/azure-arc-kubernetes-preview/tree/master/extensions)) provided in [this repository](https://github.com/Azure/azure-arc-kubernetes-preview) by running the following command (make sure your present working directory is root of the repository):
 
-    ```az extension add --source ./extensions/connectedk8s-0.3.2-py2.py3-none-any.whl –yes```
+    ```az extension add --source ./extensions/connectedk8s-0.3.5-py2.py3-none-any.whl –yes```
     
-    Note: Check If you already have a connectedk8s CLI extension with version older than 0.3.1 installed by running ‘az -v’ on node’s terminal. If there is a connectedk8s CLI extension installed, please remove it by running the following command:
+    **Note:** Check If you already have a connectedk8s CLI extension with version older than 0.3.5 installed by running ‘az -v’ on node’s terminal. If there is a connectedk8s CLI extension installed, please remove it by running the following command:
 
     ```az extension remove --name connectedk8s```
 
-*	Install the preview version of k8s-extension CLI extension provided in this repository by running the following command (make sure your present working directory is root of the repository):
+*	Install the preview version of k8s-extension CLI extension (check all of them [here](https://github.com/Azure/azure-arc-kubernetes-preview/tree/master/extensions)) provided in this repository by running the following command (make sure your present working directory is root of the repository):
 
     ```az extension add --source ./extensions/k8s_extension-0.1.0-py2.py3-none-any.whl –yes```
 
-    Note: Check If you already have a k8s-extension CLI extension with version older than 0.3.1 installed by running ‘az -v’ on node’s terminal. If there is a connectedk8s CLI extension installed, please remove it by running the following command:
+    **Note:** Check If you already have a k8s-extension CLI extension with version older than 0.1.0 installed by running ‘az -v’ on node’s terminal. If there is a connectedk8s CLI extension installed, please remove it by running the following command:
 
     ```az extension remove --name k8s-extension```
 
