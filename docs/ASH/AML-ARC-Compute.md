@@ -48,9 +48,9 @@ Before we start the process of connecting our newly created Kubernetes cluster t
 
 ## Attach Azure Arc’s Kubernetes cluster as Azure Machine Learning compute target (Private Preview)
 
-If you do not already have an Azure Machine learning workspace in your desired Azure resource group, please [create your Machine learning workspace](https://docs.microsoft.com/en-us/azure/machine-learning/concept-workspace#-create-a-workspace). You can then attach Azure Arc’s Kubernetes cluster to your workspace through either Azure Machine Learning’s Python SDK or Studio. We will go over the Python SDK method here since that it is recommended approach as of now:
+If you do not already have an Azure Machine learning workspace in your desired Azure resource group, please [create your Machine learning workspace](https://docs.microsoft.com/en-us/azure/machine-learning/concept-workspace#-create-a-workspace). You can then attach Azure Arc’s Kubernetes cluster to your workspace through Azure Machine Learning’s Python SDK:
 
-### Python SDK (Recommended):
+### Python SDK:
 
 1. Install private preview branch of AzureML SDK by running following command (private preview):
 
