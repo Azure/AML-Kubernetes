@@ -44,7 +44,7 @@ Before we start the process of connecting our newly created Kubernetes cluster t
 
 *	Get the public IP address of one of your master nodes (VM) using the Azure Stack Hub portal.
 *	From a machine with access to your Azure Stack Hub instance, connect via SSH into the new master node using a client such as Command Prompt or PuTTY.
-*   Follow the instructions given in [this repository](https://github.com/Azure/azure-arc-kubernetes-preview/blob/master/docs/k8s-extensions.md) to install preview Kubernetes extensions and connect cluster to ARC.
+*   Follow the instructions given in [this repository](https://github.com/Azure/azure-arc-kubernetes-preview/blob/master/docs/k8s-extensions.md) to install preview Kubernetes extensions and connect your cluster to Azure ARC.
 
 ## Attach Azure Arc’s Kubernetes cluster as Azure Machine Learning compute target (Private Preview)
 
