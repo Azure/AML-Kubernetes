@@ -64,7 +64,7 @@ If you do not already have an Azure Machine learning workspace in your desired A
     ws = Workspace.from_config(path = "<PATH TO CONFIG FILE>")
     ws.get_details()
     ```
-    ‘from_config’ method reads JSON configuration file that tells SDK how to communicate with your Azure Machine Learning workspace. If needed, create a workspace JSON configuration file before running the snippet above.
+    ‘from_config’ method reads JSON configuration file that tells SDK how to communicate with your Azure Machine Learning workspace. If needed, [create a workspace JSON configuration file](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-configure-environment#workspace) before running the snippet above.
 
 3. Attach/Register Azure Arc’s Kubernetes cluster as Azure Machine Learning compute target by running the following python code snippet:
     
