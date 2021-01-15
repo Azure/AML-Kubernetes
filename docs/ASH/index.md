@@ -32,3 +32,4 @@ After following the documents above, you can go through the sample notebooks bel
 
 * [Distributed PyTorch Training with DistributedDataParallel](notebooks/distributed-pytorch-cifar10)
 * [Distributed Tensorflow 2 with MultiWorkerMirroredStrategy](notebooks/distributed-tf2-cifar10)
+* [AML Pipelines with NYC-TAXI-DATA](notebooks/pipeline)
