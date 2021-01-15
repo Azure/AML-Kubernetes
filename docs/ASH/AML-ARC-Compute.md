@@ -85,4 +85,4 @@ If you do not already have an Azure Machine learning workspace in your desired A
 
 ## Next Steps
 
-Learn how to [Run Azure Machine Learning training workloads utilizing Azure Stack Hub’s Kubernetes cluster and storage (Private Preview)](Train-AzureArc.md)
+Learn how to [Setup Azure Stack Hub's Blob Storage as a Datastore on Azure Machine Learning Workspace and Run a Training Workload (Private Preview)](Train-AzureArc.md)
