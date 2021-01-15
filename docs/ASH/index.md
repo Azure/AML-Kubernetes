@@ -10,6 +10,15 @@ You can use the following documents to get started with setting up your training
 1. [Deploy Azure Stack Hub’s Kubernetes Cluster as a Compute Cluster in Azure Machine Learning through Azure Arc (Private Preview)](AML-ARC-Compute.md)
 2. [Setup Azure Stack Hub's Blob Storage as a Datastore on Azure Machine Learning Workspace and Run a Training Workload (Private Preview)](Train-AzureArc.md)
 
+## Inference with Stand Alone KFServing
+
+After trained and registered your model in azure machine learning workspace, you can download then upload model files to azure blobs as in 
+this notebook [AML model download and upload to Azure Blobs](notebooks/AML-model-download-upload.ipynb)
+
+Then following these documents to deploy an inference service with KFServing:
+
+1. [Stand alone KFServing setup](KFServing-setup.md)
+2. [KFServing with model in Azure Storage blobs](KFServing-with-model-in-Azure-Storage.md)
 
 ## Sample Notebooks
 
@@ -17,3 +26,4 @@ After following the documents above, you can go through the sample notebooks bel
 
 * [Distributed PyTorch Training with DistributedDataParallel](notebooks/distributed-pytorch-cifar10)
 * [Distributed Tensorflow 2 with MultiWorkerMirroredStrategy](notebooks/distributed-tf2-cifar10)
+* [AML Pipelines with NYC-TAXI-DATA](notebooks/pipeline)
