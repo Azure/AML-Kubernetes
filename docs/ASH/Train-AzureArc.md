@@ -1,4 +1,4 @@
-# Run Azure Machine Learning training workloads utilizing Azure Stack Hub’s Kubernetes cluster and Blob storage (Private Preview)
+# Setup Azure Stack Hub's Blob Storage as a Datastore on Azure Machine Learning Workspace and Run a Training Workload (Private Preview)
 
 In this article, you:
 *	Create storage account on Azure Stack Hub
