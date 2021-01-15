@@ -44,50 +44,13 @@ Before we start the process of connecting our newly created Kubernetes cluster t
 
 *	Get the public IP address of one of your master nodes (VM) using the Azure Stack Hub portal.
 *	From a machine with access to your Azure Stack Hub instance, connect via SSH into the new master node using a client such as Command Prompt or PuTTY.
-*	Install (or update) Azure CLI on your cluster’s master node by following the information found here. If Azure CLI is already installed on the node, please check the CLI version by running ‘az -v’ on node’s terminal. Installing the provided preview version of Kubernetes Extension requires Azure CLI version of 2.12.0 or greater. 
-*	Install the most recent preview version of k8s-extensions CLI extension (check all of them [here](https://github.com/Azure/azure-arc-kubernetes-preview/tree/master/extensions)) provided in [this repository](https://github.com/Azure/azure-arc-kubernetes-preview) by running the following command (make sure your present working directory is root of the repository):
-
-    ```az extension add --source ./extensions/connectedk8s-0.3.5-py2.py3-none-any.whl –yes```
-    
-    **Note:** Check If you already have a connectedk8s CLI extension with version older than 0.3.5 installed by running ‘az -v’ on node’s terminal. If there is a connectedk8s CLI extension installed, please remove it by running the following command:
-
-    ```az extension remove --name connectedk8s```
-
-*	Install the preview version of k8s-extension CLI extension (check all of them [here](https://github.com/Azure/azure-arc-kubernetes-preview/tree/master/extensions)) provided in [this repository](https://github.com/Azure/azure-arc-kubernetes-preview) by running the following command (make sure your present working directory is root of the repository):
-
-    ```az extension add --source ./extensions/k8s_extension-0.1.0-py2.py3-none-any.whl –yes```
-
-    **Note:** Check If you already have a k8s-extension CLI extension with version older than 0.1.0 installed by running ‘az -v’ on node’s terminal. If there is a connectedk8s CLI extension installed, please remove it by running the following command:
-
-    ```az extension remove --name k8s-extension```
-
-*	Register Microsoft.KubernetesConfiguration Resource Provider in your subscription by running the following command:
-
-    ```az provider register --namespace Microsoft.KubernetesConfiguration```
-
-*	Register extensions feature flag by running the following command: 
-
-    ```az feature register --namespace Microsoft.KubernetesConfiguration --name extensions```
-
-    Within a few minutes, the feature will be automatically approved.
-
-*	Stay connected to master nodes VM and complete below networking requirements through Azure Stack Hub portal.
-
-Azure Arc agents require a few networking protocols/ports/outbound URLs to function. Please make sure the master node in your deployed Kubernetes cluster allows outbound TCP network traffic on ports 443 and 9418. You can easily allow such traffic by going to Networking section of your master node’s VM overview page in Azure Stack Hub portal:
-
-<p align="center">
-  <img src="imgs/network.png" />
-</p>
-
-Please make sure your cluster also allows access to DNS endpoints [mentioned here](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/connect-cluster#network-requirements). 
-
-Now we are ready to connect our Kubernetes cluster to Azure via Azure Arc. Connect the cluster by running the commands [explained here](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/connect-cluster#connect-a-cluster) in master node’s terminal. Please [verify your Arc connected cluster](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/connect-cluster#connect-a-cluster) before moving to the next step.
+*   Follow the instructions given in [this repository](https://github.com/Azure/azure-arc-kubernetes-preview/blob/master/docs/k8s-extensions.md) to install preview Kubernetes extensions and connect your cluster to Azure ARC.
 
 ## Attach Azure Arc’s Kubernetes cluster as Azure Machine Learning compute target (Private Preview)
 
-If you do not already have an Azure Machine learning workspace in your desired Azure resource group, please [create your Machine learning workspace](https://docs.microsoft.com/en-us/azure/machine-learning/concept-workspace#-create-a-workspace). You can then attach Azure Arc’s Kubernetes cluster to your workspace through either Azure Machine Learning’s Python SDK or Studio. We will go over the Python SDK method here since that it is recommended approach as of now:
+If you do not already have an Azure Machine learning workspace in your desired Azure resource group, please [create your Machine learning workspace](https://docs.microsoft.com/en-us/azure/machine-learning/concept-workspace#-create-a-workspace). You can then attach Azure Arc’s Kubernetes cluster to your workspace through Azure Machine Learning’s Python SDK:
 
-### Python SDK (Recommended):
+### Python SDK:
 
 1. Install private preview branch of AzureML SDK by running following command (private preview):
 
@@ -101,7 +64,7 @@ If you do not already have an Azure Machine learning workspace in your desired A
     ws = Workspace.from_config(path = "<PATH TO CONFIG FILE>")
     ws.get_details()
     ```
-    ‘from_config’ method reads JSON configuration file that tells SDK how to communicate with your Azure Machine Learning workspace. If needed, create a workspace JSON configuration file before running the snippet above.
+    ‘from_config’ method reads JSON configuration file that tells SDK how to communicate with your Azure Machine Learning workspace. If needed, [create a workspace JSON configuration file](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-configure-environment#workspace) before running the snippet above.
 
 3. Attach/Register Azure Arc’s Kubernetes cluster as Azure Machine Learning compute target by running the following python code snippet:
     
@@ -122,10 +85,4 @@ If you do not already have an Azure Machine learning workspace in your desired A
 
 ## Next Steps
 
-Learn how to [Run Azure Machine Learning training workloads utilizing Azure Stack Hub’s Kubernetes cluster and storage (Private Preview)](Train-AzureArc.md)
-
-
-
-### InnerEye SDK
-
-Learn how to [Run InnerEye Deep Learning training workloads utilizing Azure Stack Hub’s Kubernetes cluster as Azure Machine Learning Compute Cluster (Private Preview)](innereye-AzureArc.md)
+Learn how to [Setup Azure Stack Hub's Blob Storage as a Datastore on Azure Machine Learning Workspace and Run a Training Workload (Private Preview)](Train-AzureArc.md)
