@@ -1,5 +1,5 @@
 {
-    "subscription_id": "6b736da6-3246-44dd-a0b8-b5e95484633d",
-    "resource_group": "sl-ash2",
-    "workspace_name": "sl-ash2-mal"
+    "subscription_id": "<subscription_id>",
+    "resource_group": "<resource_group>",
+    "workspace_name": "<workspace_name>"
 }

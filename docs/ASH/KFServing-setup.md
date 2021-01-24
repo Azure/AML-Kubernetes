@@ -90,7 +90,7 @@ components. You will install:
 
 *  Cert Manager v0.14.0 supports kubernetes 1.15
 
-    ```kubectl apply --filename https://github.com/knative/serving/releases/download/v0.14.0/serving-default-domain.yaml```
+    ```kubectl apply --validate=false -f https://github.com/jetstack/cert-manager/releases/download/v1.1.0/cert-manager-legacy.yaml```
 
 ## Install KFserving
 
