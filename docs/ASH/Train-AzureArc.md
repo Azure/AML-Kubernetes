@@ -111,3 +111,7 @@ Check [the following video](https://msit.microsoftstream.com/video/51f7a3ff-0400
 
 <a href="https://msit.microsoftstream.com/video/51f7a3ff-0400-b9eb-2703-f1eb38bc6232" target="_blank"><p align="center"><img src="imgs/vid-img.png" alt="Video Tutorial" class="center" width="700"></p></a>
 
+## Next Steps:
+
+Check out our [Sample Notebooks](index.md#sample-notebooks) to get a better understanding of how the process works and the possibilities it can unlock
+
