@@ -42,8 +42,8 @@ Please note that the Kubernetes Azure Stack Marketplace item to deploy clusters 
 
 We start the process of connecting our newly created Kubernetes cluster to Azure by installing the most recent Arc enabled Kubernetes CLI extensions (private preview). Follow the instructions below to install the required extensions and connect your newly created cluster to Azure az an Azure Arc Cluster:
 
-*	Make sure the system that you are using to install CLI extensions has access to your cluster, cluster-admin role and, Azure. For more information read [Before you Begin](https://docs.microsoft.com/en-in/azure/azure-arc/kubernetes/connect-cluster#before-you-begin). 
-*   Follow the instructions given in the Pre-requisites section of [this repository](https://github.com/Azure/azure-arc-kubernetes-preview/blob/master/docs/k8s-extensions.md#pre-requisites) to install preview Kubernetes extensions and connect your cluster to Azure ARC.
+*	Make sure the system that you are using to install CLI extensions has access to your cluster, cluster-admin role and, Azure. For more information please read [Before you Begin](https://docs.microsoft.com/en-in/azure/azure-arc/kubernetes/connect-cluster#before-you-begin). 
+*   Follow the instructions given in the Pre-requisites section of [this repository](https://github.com/Azure/azure-arc-kubernetes-preview/blob/master/docs/k8s-extensions.md#pre-requisites) to install preview extensions and connect your cluster to Azure via Azure ARC.
 
 ## Attach Azure Arc’s Kubernetes cluster as Azure Machine Learning compute target (Private Preview)
 
