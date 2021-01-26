@@ -38,20 +38,20 @@ Please note that the Kubernetes Azure Stack Marketplace item to deploy clusters 
 
 **IMPORTANT: For either approach (Marketplace and AKS engine) make sure to create a [supported version of Kubernetes](https://docs.microsoft.com/en-us/azure/aks/supported-kubernetes-versions#kubernetes-version-support-policy) before continuing forward.**
 
-## Connect Azure Stack Hub’s Kubernetes cluster to Azure via Azure ARC (Private Preview)
+## Connect Azure Stack Hub’s Kubernetes cluster to Azure via Azure ARC
 
 We start the process of connecting our newly created Kubernetes cluster to Azure by installing the most recent Arc enabled Kubernetes CLI extensions (private preview). Follow the instructions below to install the required extensions and connect your newly created cluster to Azure az an Azure Arc Cluster:
 
 *	Make sure the system that you are using to install CLI extensions has access to your cluster, cluster-admin role and, Azure. For more information please read [Before you Begin](https://docs.microsoft.com/en-in/azure/azure-arc/kubernetes/connect-cluster#before-you-begin). 
 *   Follow the instructions given in the Pre-requisites section of [this repository](https://github.com/Azure/azure-arc-kubernetes-preview/blob/master/docs/k8s-extensions.md#pre-requisites) to install preview extensions and connect your cluster to Azure via Azure ARC.
 
-## Attach Azure Arc’s Kubernetes cluster as Azure Machine Learning compute target (Private Preview)
+## Attach Azure Arc’s Kubernetes cluster as Azure Machine Learning compute target
 
 If you do not already have an Azure Machine learning workspace in your desired Azure resource group, please [create your Machine learning workspace](https://docs.microsoft.com/en-us/azure/machine-learning/concept-workspace#-create-a-workspace). You can then attach Azure Arc’s Kubernetes cluster to your workspace through Azure Machine Learning’s Python SDK:
 
 ### Python SDK:
 
-1. Install private preview branch of AzureML SDK by running following command (private preview):
+1. Install private preview branch of AzureML SDK by running following command:
 
     ```pip install --disable-pip-version-check --extra-index-url https://azuremlsdktestpypi.azureedge.net/azureml-contrib-k8s-preview/D58E86006C65 azureml-contrib-k8s```
 
@@ -84,4 +84,4 @@ If you do not already have an Azure Machine learning workspace in your desired A
 
 ## Next Steps
 
-Learn how to [Setup Azure Stack Hub's Blob Storage as a Datastore on Azure Machine Learning Workspace and Run a Training Workload (Private Preview)](Train-AzureArc.md).
+Learn how to [Setup Azure Stack Hub's Blob Storage as a Datastore on Azure Machine Learning Workspace and Run a Training Workload](Train-AzureArc.md).
