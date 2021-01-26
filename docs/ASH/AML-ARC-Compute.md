@@ -1,12 +1,12 @@
-# Deploy Azure Stack Hub’s Kubernetes Cluster as a Compute Cluster in Azure Machine Learning through Azure Arc (Private Preview)
+# Deploy Azure Stack Hub’s Kubernetes Cluster as a Compute Cluster in Azure Machine Learning through Azure Arc
 
 In this article, you:
 
 *	Deploy a Kubernetes cluster on Azure Stack Hub
-*	Install a preview version of provided Kubernetes Extension (private preview)
+*	Install a preview version of provided Kubernetes Extension
 *	Connect Azure Stack Hub’s Kubernetes cluster to Azure via Azure ARC
 *	Create an Azure Machine Learning workspace on Azure (if not already deployed)
-*	Attach Azure Arc’s Kubernetes cluster as Azure Machine Learning compute target (private preview)
+*	Attach Azure Arc’s Kubernetes cluster as Azure Machine Learning compute target
 
 ## Prerequisites
 
