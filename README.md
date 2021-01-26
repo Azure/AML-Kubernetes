@@ -49,7 +49,7 @@ Please follow the [instructions for registering resource providers](https://docs
     * [AKS](/docs/attach-aks-cluster-aml-workspace.md)
     * [Azure Arc for Kubernetes](/docs/attach-arc-cluster-aml-workspace.md)
     
-1. [Manually install AMLK8S operator on ARC kubernetes clusters](/docs/manual-installation-amlk8s-operator.md). Not needed on AKS - currently installed automatically during attach step.
+<!-- 1. [Manually install AMLK8S operator on ARC kubernetes clusters](/docs/manual-installation-amlk8s-operator.md). Not needed on AKS - currently installed automatically during attach step. -->
 
 #### Data Scientist steps to submit trainig jobs
 Submit AML training jobs to AMLK8s compute
