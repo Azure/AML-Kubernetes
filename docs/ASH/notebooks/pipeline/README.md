@@ -6,7 +6,7 @@ Arc compute as well.
 
 ## Notebooks
 
-* [AML Pipelines with NYC-TAXI-DATA](pipeline/nyc-taxi-data-regression-model-building.ipynb)
+* [AML Pipelines with NYC-TAXI-DATA](nyc-taxi-data-regression-model-building.ipynb)
 
 
 
