@@ -11,12 +11,13 @@ In this article, you:
 ## Prerequisites
 
 Make sure you have access to Azure and your Azure Stack Hub is ready for use.
-To deploy a Kubernetes cluster from the Azure Stack Hub marketplace:
+
+For supported Kubernetes clusters on Azure Stack, please use the AKS engine. Please make sure you meet [Azure Stack Hub’s AKS engine requirements](https://docs.microsoft.com/en-us/azure-stack/user/azure-stack-kubernetes-aks-engine-set-up?view=azs-2008#prerequisites-for-the-aks-engine). 
+
+To deploy a Kubernetes cluster from the Azure Stack Hub marketplace (This should only be used as a proof of concept. For supported Kubernetes clusters on Azure Stack please use the [AKS engine](https://docs.microsoft.com/en-us/azure-stack/user/azure-stack-kubernetes-aks-engine-set-up?view=azs-2008#prerequisites-for-the-aks-engine)):
 
 *	If you are planning on deploying Kubernetes using Azure Active Directory (Azure AD) please make sure the following [Prerequisites](https://docs.microsoft.com/en-us/azure-stack/user/azure-stack-solution-template-kubernetes-azuread?view=azs-2008#prerequisites) are met.
 *	If you are planning on deploying Kubernetes using Active Directory Federated Services please make sure the following [Prerequisites](https://docs.microsoft.com/en-us/azure-stack/user/azure-stack-solution-template-kubernetes-adfs?view=azs-2008#prerequisites) are met.
-
-Only use the Kubernetes Azure Stack Marketplace item to deploy clusters as a proof-of-concept. For supported Kubernetes clusters on Azure Stack, use the AKS engine. Please make sure you meet [Azure Stack Hub’s AKS engine requirements](https://docs.microsoft.com/en-us/azure-stack/user/azure-stack-kubernetes-aks-engine-set-up?view=azs-2008#prerequisites-for-the-aks-engine). 
 
 To connect Azure Stack Hub’s Kubernetes cluster to Azure via Azure ARC please make sure the following [Prerequisites](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/connect-cluster#before-you-begin) are met. Please skip the last requirement (Arc enabled Kubernetes CLI extensions) as you will be installing a private preview of the extension later in this document.
 
