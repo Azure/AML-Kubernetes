@@ -24,17 +24,16 @@ To create an Azure Machine Learning workspace on Azure please make sure the foll
 
 ## Deploy a Kubernetes cluster on Azure Stack Hub
 
-First things first, we need to deploy a Kubernetes cluster on Azure Stack Hub. You can either use Azure Active Directory (Azure AD) (recommended) or Active Directory Federated Services for deployment of a Kubernetes cluster using Azure Stack Marketplace:
+First things first, we need to deploy a Kubernetes cluster on Azure Stack Hub. For supported Kubernetes clusters on Azure Stack, please use the AKS engine. Follow the following link to setup your Kubernetes cluster on Azure Stack using the AKS engine:
 
-*	Using Azure Active Directory (Azure AD): Please follow the [instructions here](https://docs.microsoft.com/en-us/azure-stack/user/azure-stack-solution-template-kubernetes-azuread?view=azs-2008#create-a-service-principal)
-*	Active Directory Federated Services: Please follow the [instructions here](https://docs.microsoft.com/en-us/azure-stack/user/azure-stack-solution-template-kubernetes-adfs?view=azs-2008#create-a-service-principal)
+[What is the AKS engine on Azure Stack Hub?](https://docs.microsoft.com/en-us/azure-stack/user/azure-stack-kubernetes-aks-engine-overview?view=azs-2008)
 
-If you do not have Kubernetes Cluster in your marketplace, please talk to your Azure Stack Hub administrator. 
+For proof-of-concept deployment you can use Kubernetes Cluster in your Azure Stack Hub Marketplace. You can either use Azure Active Directory (Azure AD) or Active Directory Federated Services for deployment of a Kubernetes cluster using Azure Stack Marketplace:
 
-Please note that the Kubernetes Azure Stack Marketplace item to deploy clusters should be used as a proof-of-concept. For supported Kubernetes clusters on Azure Stack, use the AKS engine. Follow the following two links to setup your Kubernetes cluster on Azure Stack using the AKS engine:
+*	Using Azure Active Directory (Azure AD): Please follow the [instructions here](https://docs.microsoft.com/en-us/azure-stack/user/azure-stack-solution-template-kubernetes-azuread?view=azs-2008)
+*	Active Directory Federated Services: Please follow the [instructions here](https://docs.microsoft.com/en-us/azure-stack/user/azure-stack-solution-template-kubernetes-adfs?view=azs-2008)
 
-1.	[Install the AKS engine on Linux in Azure Stack Hub](https://docs.microsoft.com/en-us/azure-stack/user/azure-stack-kubernetes-aks-engine-deploy-linux?view=azs-2008)
-2.	[Deploy a Kubernetes cluster with the AKS engine on Azure Stack Hub](https://docs.microsoft.com/en-us/azure-stack/user/azure-stack-kubernetes-aks-engine-deploy-cluster?view=azs-2008)
+If you do not have Kubernetes Cluster in your marketplace, please talk to your Azure Stack Hub administrator. **Please Note:** As mentioned before only use the Kubernetes Azure Stack Marketplace item to deploy clusters as a proof-of-concept. For supported Kubernetes clusters on Azure Stack, use [the AKS engine.](https://docs.microsoft.com/en-us/azure-stack/user/azure-stack-kubernetes-aks-engine-overview?view=azs-2008).
 
 **IMPORTANT: For either approach (Marketplace and AKS engine) make sure to create a [supported version of Kubernetes](https://docs.microsoft.com/en-us/azure/aks/supported-kubernetes-versions#kubernetes-version-support-policy) before continuing forward.**
 
