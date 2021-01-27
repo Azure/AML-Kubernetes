@@ -12,7 +12,7 @@ In this article, you:
 
 Make sure you have access to Azure and your Azure Stack Hub is ready for use.
 
-For supported Kubernetes clusters on Azure Stack, please use the AKS engine. Please make sure you meet [Azure Stack Hub’s AKS engine requirements](https://docs.microsoft.com/en-us/azure-stack/user/azure-stack-kubernetes-aks-engine-set-up?view=azs-2008#prerequisites-for-the-aks-engine). 
+You should use the AKS engine for supported Kubernetes clusters on Azure Stack. Please make sure you meet [Azure Stack Hub’s AKS engine requirements](https://docs.microsoft.com/en-us/azure-stack/user/azure-stack-kubernetes-aks-engine-set-up?view=azs-2008#prerequisites-for-the-aks-engine). 
 
 To deploy a Kubernetes cluster from the Azure Stack Hub marketplace (This should only be used as a proof of concept. For supported Kubernetes clusters on Azure Stack please use the [AKS engine](https://docs.microsoft.com/en-us/azure-stack/user/azure-stack-kubernetes-aks-engine-set-up?view=azs-2008#prerequisites-for-the-aks-engine)):
 
