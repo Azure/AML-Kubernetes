@@ -10,52 +10,28 @@ components. You will install:
 
 ## Prerequisites
 
-*   Make sure you have access to a kubernetes cluster with version 1.5.x
+*   Make sure you have access to a kubernetes cluster with version 1.5.0 or above
 *   Terminal access to the kubernetes master node
 
-## Install Istio
+## Install [Istio](https://istio.io/latest/docs/)
 
-### Istio 1.6.1 supports kubernetes 1.5.
+Before you can install Istio, you need a cluster running a compatible version of Kubernetes. For Istio and Kubernetes version compatibility, 
+please see [Support status of Istio releases](https://istio.io/latest/about/supported-releases/#support-status-of-istio-releases)
 
-*  download the package:
-
-
-    ```cd ~```
-
-    ```curl -L https://istio.io/downloadIstio | ISTIO_VERSION=1.6.1 sh -```
+Then you can following the [Istio installation guide](https://istio.io/latest/docs/setup/getting-started/)
 
 
-*  Check istio-1.6.1 is downloaded:
+## Install [Knative](https://knative.dev/docs/)
 
-    ```ls```
+NOTE: In the following Knative intallation guide, please skip installation of Istio if you have already installed Istio as described above.
 
-    ```istio-1.6.1``` 
+For Kubenetes 1.16.x, please see [Knative 0.17 installation guide](https://github.com/knative/docs/blob/release-0.17/docs/install/any-kubernetes-cluster.md)
 
-*  Update PATH:
-   
-    ```export PATH="$PATH:/home/azureuser/istio-1.6.1/bin"```
-   
-*  Run a Pre-check:
-   
-    ```istioctl x precheck```
+For Kubenetes 1.15.x, please see [Knative 0.14 installation guide](https://github.com/knative/docs/blob/release-0.14/docs/install/any-kubernetes-cluster.md)
 
-*  Install:
-   
-    ```istioctl install --set profile=demo -y```
+For Kubenetes 1.17 and above, please see [Knative installation guid](https://knative.dev/v0.18-docs/install/any-kubernetes-cluster/)
 
-*  Verify:
-
-    ```istioctl verify-install```
-
-*  View deployed kubernetes resources:
-
-    ```kubectl get all -n istio-system```
-
-    More details is at [here](https://istio.io/latest/docs/setup/getting-started/)
-
-## Install Knative
-
-### Knative v0.14 supports kubernetes 1.15
+### Here we take install Knative v0.4 (for kubernetes 1.15) as an example:
 
 *  Install Custom Resource Definitions:
    
@@ -85,19 +61,21 @@ components. You will install:
 
     ```kubectl get pods --namespace knative-serving```
 
+## Install [Cert-Manager](https://cert-manager.io/docs/)
 
-## Install Cert Manager
+Install cert-manager, please see [installation guide](https://cert-manager.io/docs/installation/kubernetes/)
 
-*  Cert Manager v0.14.0 supports kubernetes 1.15
+## Install [KFserving](https://www.kubeflow.org/docs/components/serving/kfserving/)
 
-    ```kubectl apply --validate=false -f https://github.com/jetstack/cert-manager/releases/download/v1.1.0/cert-manager-legacy.yaml```
-
-## Install KFserving
-
-   Details of installation guide for stand alone KFserving can be found [here](https://github.com/kubeflow/kfserving#standalone-kfserving-installation)
 
 *  Install Kubernetes Resources: 
 
+   For your convenience, we have included the yaml file.
+
+    For Kubernetes 16.0 or above:
+   ```kubectl apply -f "Yaml\kfserving_v1_4_1.yaml" ```
+   
+    For Kubernetes 1.15
     ```kubectl apply -f "Yaml\kfserving_v1_4_1.yaml" --validate=false```
 
 *   View the Resources:
@@ -105,6 +83,8 @@ components. You will install:
      ```kubectl get issuer -n kfserving-system```
 
     ```kubectl get po -n kfserving-system```
+
+More details can be found [here](https://github.com/kubeflow/kfserving#standalone-kfserving-installation)
 
 ## Next Steps
 
