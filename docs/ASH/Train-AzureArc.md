@@ -1,4 +1,4 @@
-# Setup Azure Stack Hub's Blob Storage as a Datastore on Azure Machine Learning Workspace and Run a Training Workload (Private Preview)
+# Setup Azure Stack Hub's Blob Storage as a Datastore on Azure Machine Learning Workspace and Run a Training Workload
 
 In this article, you:
 *	Create storage account on Azure Stack Hub
@@ -16,7 +16,7 @@ Make sure you have access to Azure and your Azure Stack Hub is ready for use. In
 1. Deployed a Kubernetes cluster in you Azure Stack Hub
 2. Connected the Kubernetes cluster to Azure via Azure ARC
 
-If you have not completed any of the two above, please do so using [instructions given here](AML-ARC Compute.md). Furthermore, please verify that you have already created an Azure Machine learning workspace. If not, please [create your Machine learning workspace](https://docs.microsoft.com/en-us/azure/machine-learning/concept-workspace#-create-a-workspace). It is also strongly recommended to learn more about the innerworkings and concepts in Azure Machine Learning before continuing with the rest of this article (optional). Lastly, make sure both Python and AzureML Python SDK are installed on the device that you will be using to communicate with Azure Machine Learning. 
+If you have not completed any of the two above, please do so using [instructions given here](AML-ARC-Compute.md). Furthermore, please verify that you have already created an Azure Machine learning workspace. If not, please [create your Machine learning workspace](https://docs.microsoft.com/en-us/azure/machine-learning/concept-workspace#-create-a-workspace). It is also strongly recommended to learn more about the innerworkings and concepts in Azure Machine Learning before continuing with the rest of this article (optional). Lastly, make sure both Python and AzureML Python SDK are installed on the device that you will be using to communicate with Azure Machine Learning. 
 
 
 ## Create and Configure Azure Stack Hub’s Storage Account
@@ -100,7 +100,7 @@ Now we will connect Azure Stack Hub’s storage account to Azure Machine Learnin
 
 Congratulations! you successfully have setup our Azure Stack Hub’s storage blob container as a datastore in Azure Machine Learning. The datastore can be used in conjunction with our Arc Cluster (from Azure Stack Hub) to train machine learning workloads.
 
-**IMPORTANT: Only FileDataset is currently supported for training purposes. Please use mounting to access your files during training since downloading is not yet supported. For more information on ways you can access your Azure Machine Learning Datasets please review [FileDataset class](https://docs.microsoft.com/en-us/python/api/azureml-core/azureml.data.filedataset?view=azure-ml-py).**
+**IMPORTANT: Only FileDataset is currently supported for training purposes. Please use mounting to access your files during training since downloading is not yet stable. For more information on ways you can access your Azure Machine Learning Datasets please review [FileDataset class](https://docs.microsoft.com/en-us/python/api/azureml-core/azureml.data.filedataset?view=azure-ml-py).**
 
 ## Run your first Azure Machine Learning training job on Azure Stack Hub using AzureML Python SDK (example notebooks)
 
@@ -110,4 +110,8 @@ Check [the following video](https://msit.microsoftstream.com/video/51f7a3ff-0400
 
 
 <a href="https://msit.microsoftstream.com/video/51f7a3ff-0400-b9eb-2703-f1eb38bc6232" target="_blank"><p align="center"><img src="imgs/vid-img.png" alt="Video Tutorial" class="center" width="700"></p></a>
+
+## Next Steps:
+
+Check out our [Sample Notebooks](index.md#sample-notebooks) to get a better understanding of how the process works and the possibilities it can unlock.
 
