@@ -125,7 +125,6 @@ def main():
             epochs=args.epochs,
             steps_per_epoch=args.batches_per_epoch,
             verbose=2,
-            #callbacks=[RunLogCallback(run)] if worker_index == 0 else [],
             callbacks=[RunLogCallback(run)],
             validation_data=test_ds,
             validation_steps=args.batches_per_epoch)
@@ -136,6 +135,7 @@ def save_to_outputs(model):
     model_name, model_version = "outputs", "001"
     model_path = os.path.join(model_name, model_version)
     tf.saved_model.save(model, model_path)
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
