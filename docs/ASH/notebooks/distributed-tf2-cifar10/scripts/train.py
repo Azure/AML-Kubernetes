@@ -98,26 +98,28 @@ class RunLogCallback(Callback):
         self.run.log('batch_log end', batch)
 
 def main():
+
     strategy = tf.distribute.MultiWorkerMirroredStrategy(
         communication_options=tf.distribute.experimental.CommunicationOptions(
             implementation=tf.distribute.experimental.CollectiveCommunication.AUTO))
+
+    logical_devices = tf.config.list_logical_devices('GPU')
+    has_gpu = False
+    if len(logical_devices) > 0:
+        has_gpu = True
+
+    print("has_gpu", has_gpu)
 
     with strategy.scope():
         train_ds, test_ds = ds_utils.load_dataset(args.dataset_path, args.global_batch_size, num_workers, worker_index)
         run = Run.get_context()
 
-
-        # with tf.device('/gpu:0'):
-        #     model = create_model()
-
-        #with tf.device('/cpu:0'):
-        model = create_model()
-
-        '''
-        if worker_index == 0:
-            tf.keras.utils.plot_model(model, 'model.png', show_dtype=True, show_shapes=True, dpi=300)
-            run.log_image('model', 'model.png')
-        '''
+        if not has_gpu:
+            with tf.device('/cpu:0'):
+                model = create_model()
+        else:
+            with tf.device('/gpu:0'):
+                model = create_model()
 
         print("calling model.fit ()")
         model.fit(
@@ -129,12 +131,38 @@ def main():
             validation_data=test_ds,
             validation_steps=args.batches_per_epoch)
 
-        save_to_outputs(model)
+        task_type, task_id = (strategy.cluster_resolver.task_type,
+                              strategy.cluster_resolver.task_id)
 
-def save_to_outputs(model):
-    model_name, model_version = "outputs", "001"
-    model_path = os.path.join(model_name, model_version)
+        print("task_type, task_id", task_type, task_id)
+
+        save_to_outputs(model, task_type, task_id)
+
+
+def save_to_outputs(model, task_type, task_id):
+
+    model_folder = "001"
+    if not _is_chief(task_type, task_id):
+        model_folder = str(task_type)+str(task_id)
+
+    model_path = os.path.join("outputs", model_folder)
     tf.saved_model.save(model, model_path)
+
+def _is_chief(task_type, task_id):
+    # Note: there are two possible `TF_CONFIG` configuration.
+    #   1) In addition to `worker` tasks, a `chief` task type is use;
+    #      in this case, this function should be modified to
+    #      `return task_type == 'chief'`.
+    #   2) Only `worker` task type is used; in this case, worker 0 is
+    #      regarded as the chief. The implementation demonstrated here
+    #      is for this case.
+    # For the purpose of this colab section, we also add `task_type is None`
+    # case because it is effectively run with only single worker.
+    return (task_type == 'worker' and task_id == 0) or task_type is None
+
+
+
+
 
 
 if __name__ == '__main__':
