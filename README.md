@@ -55,6 +55,7 @@ Please follow the [instructions for registering resource providers](https://docs
 Submit AML training jobs to AMLK8s compute
 1. [TensorFlow training](/docs/sample-notebooks/001-Tensorflow)
 1. [Scikit image classification](/docs/sample-notebooks/002-SciKitLearn)
+1. [Wind Turbine renewable energy](/docs/sample-notebooks/004-Wind%20Turbine%20Demo)
 1. [Distributed TensorFlow with parameter server](/docs/sample-notebooks/003-Distributed%20TensorFlow%20with%20parameter%20server)
 
 
