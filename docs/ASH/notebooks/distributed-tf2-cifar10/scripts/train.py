@@ -114,13 +114,7 @@ def main():
         train_ds, test_ds = ds_utils.load_dataset(args.dataset_path, args.global_batch_size, num_workers, worker_index)
         run = Run.get_context()
 
-        if not has_gpu:
-            with tf.device('/cpu:0'):
-                model = create_model()
-        else:
-            with tf.device('/gpu:0'):
-                model = create_model()
-
+        model = create_model()
         print("calling model.fit ()")
         model.fit(
             train_ds,

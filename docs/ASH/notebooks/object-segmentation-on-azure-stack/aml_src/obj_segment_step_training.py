@@ -162,8 +162,8 @@ def main():
     filename = os.path.join('outputs', 'obj_segmentation.pkl')
     torch.save(model, filename)
 
-    filename = os.path.join('outputs', 'model.pt')
-    torch.save(model.state_dict(), filename)
+    # filename = os.path.join('outputs', 'model.pt')
+    # torch.save(model.state_dict(), filename)
 
 
 
