@@ -15,7 +15,7 @@ def load_dataset(path, global_batch_size, num_workers, worker_index):
     train_data = []
     test_data = []
 
-    with tarfile.open(os.path.join(path, 'cifar-10', 'cifar-10-python.tar.gz'), mode='r:gz') as tar:
+    with tarfile.open(os.path.join(path, 'cifar-10-python.tar.gz'), mode='r:gz') as tar:
         for i in range(1, 6):
             buf = tar.extractfile(f'cifar-10-batches-py/data_batch_{i}').read()
             train_data.append(_process_batch(buf))

@@ -1,6 +1,7 @@
 .vscode/settings.json
 .ipynb_checkpoints/
 PennFudanPed
+cifar10-data
 .idea/
 data
 __pycache__

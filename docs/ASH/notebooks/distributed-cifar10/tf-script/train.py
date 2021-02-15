@@ -101,7 +101,7 @@ def main():
 
     strategy = tf.distribute.MultiWorkerMirroredStrategy(
         communication_options=tf.distribute.experimental.CommunicationOptions(
-            implementation=tf.distribute.experimental.CollectiveCommunication.AUTO))
+            implementation=tf.distribute.experimental.CollectiveCommunication.RING))
 
     logical_devices = tf.config.list_logical_devices('GPU')
     has_gpu = False
@@ -174,6 +174,8 @@ if __name__ == '__main__':
         tf_config = json.loads(os.environ['TF_CONFIG'])
         num_workers = len(tf_config['cluster']['worker'])
         worker_index = tf_config['task']['index']
+
+        os.environ['CUDA_VISIBLE_DEVICES'] = "0"
     except KeyError:
         num_workers = 1
         worker_index = 0

@@ -66,7 +66,7 @@ class CIFAR10_DS(data.Dataset):
         self.targets = []
 
         # now load the picked numpy arrays
-        with tarfile.open(os.path.join(self.data_path, 'cifar-10', 'cifar-10-python.tar.gz'), mode='r:gz') as tar:
+        with tarfile.open(os.path.join(self.data_path, 'cifar-10-python.tar.gz'), mode='r:gz') as tar:
             for file_name in file_list:
                 buf = tar.extractfile(f'cifar-10-batches-py/{file_name}')
                 entry = pickle.load(buf, encoding='latin1')
@@ -231,6 +231,8 @@ parser.add_argument('--data-folder', type=str, dest='data_folder', help='data fo
 parser.add_argument('--epochs', type=int, default=1)
 
 args = parser.parse_args()
+
+print("data fold", args.data_folder)
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 best_acc = 0  # best test accuracy
