@@ -2,23 +2,17 @@
 
 This repository is intended to serve as an information hub for Azure Stack customers and partners who are interested in AML training using ARC Connected Kubernetes cluster and Azure Stack Hub Blob Storage. Use this repository for onboarding and testing instructions as well as an avenue to provide feedback, issues, enhancement requests and stay up to date as the private preview progresses.
 
+## Disclaimer
+
+All features are available on a self-service, opt-in basis and are subject to breaking design and API changes. Previews are provided "as is" and "as available," and they're excluded from the service-level agreements and limited warranty. As such, these features aren't meant for production use.
 
 ## Training on Azure Stack Hub
 
 You can use the following documents to get started with setting up your training workloads on ASH:
 
-1. [Deploy Azure Stack Hub’s Kubernetes Cluster as a Compute Cluster in Azure Machine Learning through Azure Arc (Private Preview)](AML-ARC-Compute.md)
-2. [Setup Azure Stack Hub's Blob Storage as a Datastore on Azure Machine Learning Workspace and Run a Training Workload (Private Preview)](Train-AzureArc.md)
+1. [Deploy Azure Stack Hub’s Kubernetes Cluster as a Compute Cluster in Azure Machine Learning through Azure Arc](AML-ARC-Compute.md)
+2. [Setup Azure Stack Hub's Blob Storage as a Datastore on Azure Machine Learning Workspace and Run a Training Workload](Train-AzureArc.md)
 
-## Inference with Stand Alone KFServing
-
-After trained and registered your model in azure machine learning workspace, you can download then upload model files to azure blobs as in 
-this notebook [AML model download and upload to Azure Blobs](notebooks/AML-model-download-upload.ipynb)
-
-Then following these documents to deploy an inference service with KFServing:
-
-1. [Stand alone KFServing setup](KFServing-setup.md)
-2. [KFServing with model in Azure Storage blobs](KFServing-with-model-in-Azure-Storage.md)
 
 ## Sample Notebooks
 
