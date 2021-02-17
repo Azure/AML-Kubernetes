@@ -14,7 +14,7 @@ You can use the following documents to get started with setting up your training
 2. [Setup Azure Stack Hub's Blob Storage as a Datastore on Azure Machine Learning Workspace and Run a Training Workload](Train-AzureArc.md)
 
 
-## [Sample Notebooks](notebooks)
+## Sample Notebooks
 
 After following the documents above, you can go through the sample notebooks linked below to get a better understanding of how the process works and the possibilities it can unlock:
 
