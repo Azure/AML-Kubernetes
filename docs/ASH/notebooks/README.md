@@ -5,7 +5,7 @@ These samples demonstrate how to perform various AML operations using Kubernetes
    
 ## Notebooks
 
-* [MNIST Classification with ASH Storage and Cluster](mnist/MNIST Training with ASH Cluster and Storage.ipynb)
+* [MNIST Classification with ASH Storage and Cluster](mnist/MNIST_Training_with_ASH_Cluster_and_Storage.ipynb)
 
   This notebook serves as "hello world" of using Azure Stack Hub (ASH) Storage accounts and ASH clusters for training with 
   Azure Machine Learning workspaces. Estimated run time for the notebook is 20 minutes.
