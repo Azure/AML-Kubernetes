@@ -16,8 +16,6 @@ You can use the following documents to get started with setting up your training
 
 ## Sample Notebooks
 
-After following the documents above, you can go through the sample notebooks below to get a better understanding of how the process works and the possibilities it can unlock:
+After following the documents above, you can go through the sample notebooks linked below to get a better understanding of how the process works and the possibilities it can unlock:
 
-* [Distributed PyTorch Training with DistributedDataParallel](notebooks/distributed-cifar10/distributed-pytorch-cifar10.ipynb)
-* [Distributed Tensorflow 2 with MultiWorkerMirroredStrategy](notebooks/distributed-cifar10/distributed-tf2-cifar10.ipynb)
-* [AML Pipelines with NYC-TAXI-DATA](notebooks/pipeline)
+[Sample Notebooks](notebooks)
