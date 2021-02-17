@@ -15,6 +15,12 @@ These samples demonstrate how to perform various AML operations using Kubernetes
 * [Distributed Tensorflow 2 with MultiWorkerMirroredStrategy](distributed-cifar10/distributed-tf2-cifar10.ipynb)
   
   Image classification with tensorflow, Estimated run time for the notebook is 30 minutes with one epoch.
+  
+* [Object Segmentation with Transfer Learning](object-segmentation-on-azure-stack/object_segmentation-ash.ipynb)
+  
+  Image object segmentation using pre-trained Mask R-CNN model with pytorch. AML pipeline steps are used. Trained with
+  ASH clusters and storage account. Estimated run time for the notebook is 45 minutes with one epoch.
+  
 * [AML Pipelines with NYC-TAXI-DATA](pipeline/nyc-taxi-data-regression-model-building.ipynb)
 * [Model Download and Upload](AML-model-download-upload.ipynb)
 
