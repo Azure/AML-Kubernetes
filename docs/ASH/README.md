@@ -14,9 +14,9 @@ You can use the following documents to get started with setting up your training
 2. [Setup Azure Stack Hub's Blob Storage as a Datastore on Azure Machine Learning Workspace and Run a Training Workload](Train-AzureArc.md)
 
 
-## Sample Notebooks
+## [Sample Notebooks](notebooks)
 
-After following the documents above, you can go through the sample notebooks below to get a better understanding of how the process works and the possibilities it can unlock:
+After following the documents above, you can go through the sample notebooks linked below to get a better understanding of how the process works and the possibilities it can unlock:
 
 * [MNIST Classification with ASH Storage and Cluster](mnist/MNIST_Training_with_ASH_Cluster_and_Storage.ipynb)
 
@@ -36,5 +36,3 @@ After following the documents above, you can go through the sample notebooks bel
   
 * [AML Pipelines with NYC-TAXI-DATA](pipeline/nyc-taxi-data-regression-model-building.ipynb)
 * [Model Download and Upload](AML-model-download-upload.ipynb)
-
-Note: above estimated run time assuming vm size comparable to Standard_DS3_v2
