@@ -38,3 +38,5 @@ After following the documents above, you can go through the sample notebooks lin
 * [AML Pipelines with NYC-TAXI-DATA](notebooks/pipeline/nyc-taxi-data-regression-model-building.ipynb) (Structured Text Data Prediction)
 
 * [Model Download and Upload](notebooks/AML-model-download-upload.ipynb)
+
+Note: above estimated run time assuming vm size comparable to Standard_DS3_v2
