@@ -18,21 +18,21 @@ You can use the following documents to get started with setting up your training
 
 After following the documents above, you can go through the sample notebooks linked below to get a better understanding of how the process works and the possibilities it can unlock:
 
-* [MNIST Classification with ASH Storage and Cluster](notebooks/mnist/MNIST_Training_with_ASH_Cluster_and_Storage.ipynb)
+* [MNIST Classification with ASH Storage and Cluster](notebooks/mnist/MNIST_Training_with_ASH_Cluster_and_Storage.ipynb) (Image Classification)
 
   This notebook serves as "hello world" of using Azure Stack Hub (ASH) Storage accounts and ASH clusters for training with 
   Azure Machine Learning workspaces. Estimated run time for the notebook is 20 minutes.
-* [Distributed PyTorch Training with DistributedDataParallel](notebooks/distributed-cifar10/distributed-pytorch-cifar10.ipynb)
+* [Distributed PyTorch Training with DistributedDataParallel](notebooks/distributed-cifar10/distributed-pytorch-cifar10.ipynb) (Image Classification)
   
   Image classification with pytorch. Estimated run time for the notebook is 30 minutes with one epoch.
-* [Distributed Tensorflow 2 with MultiWorkerMirroredStrategy](notebooks/distributed-cifar10/distributed-tf2-cifar10.ipynb)
+* [Distributed Tensorflow 2 with MultiWorkerMirroredStrategy](notebooks/distributed-cifar10/distributed-tf2-cifar10.ipynb) (Image Classification)
   
   Image classification with tensorflow, Estimated run time for the notebook is 30 minutes with one epoch.
   
-* [Object Segmentation with Transfer Learning](notebooks/object-segmentation-on-azure-stack/object_segmentation-ash.ipynb)
+* [Object Segmentation with Transfer Learning](notebooks/object-segmentation-on-azure-stack/object_segmentation-ash.ipynb) (Object Segmentation)
   
   Image object segmentation using pre-trained Mask R-CNN model with pytorch. AML pipeline steps are used. Trained with
   ASH clusters and storage account. Estimated run time for the notebook is 45 minutes with one epoch.
   
-* [AML Pipelines with NYC-TAXI-DATA](notebooks/pipeline/nyc-taxi-data-regression-model-building.ipynb)
+* [AML Pipelines with NYC-TAXI-DATA](notebooks/pipeline/nyc-taxi-data-regression-model-building.ipynb) (Structured Text Data Prediction)
 * [Model Download and Upload](notebooks/AML-model-download-upload.ipynb)
