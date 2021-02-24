@@ -1,3 +1,5 @@
+# DO NOT USE THIS TO INSTALL THE AML AGENT
+
 1. Install [Helm](https://helm.sh/docs/intro/install/) on your local machine
 1. Connect to your Kubernetes cluster 
 
