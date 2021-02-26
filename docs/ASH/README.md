@@ -23,7 +23,7 @@ After following the documents above, you can go through the sample notebooks lin
   This notebook serves as "hello world" of using Azure Stack Hub (ASH) Storage accounts and ASH clusters for training with 
   Azure Machine Learning workspaces. Estimated run time for the notebook is 20 minutes.
   
-* [Distributed PyTorch Training with DistributedDataParallel](notebooks/distributed-cifar10/distributed-pytorch-cifar10.ipynb) (Image Classification, Aprox. 30 Minutes/Epoch)
+* [Distributed Image Classification with PyTorch](notebooks/distributed-cifar10/distributed-pytorch-cifar10.ipynb) (Image Classification, Aprox. 30 Minutes/Epoch)
   
   Image classification with PyTorch. The estimated run time for the notebook is 30 minutes for one epoch of training.
   
