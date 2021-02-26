@@ -5,5 +5,5 @@ Tensorflow. To run the notebook yourself make sure to clone this repository.
 
 ## Notebooks
 
-* [Distributed PyTorch Training with DistributedDataParallel](distributed-pytorch-cifar10.ipynb)
-* [Distributed Tensorflow 2 with MultiWorkerMirroredStrategy](distributed-tf2-cifar10.ipynb)
+* [Distributed Image Classification with PyTorch](distributed-pytorch-cifar10.ipynb)
+* [Distributed Image Classification with Tensorflow](distributed-tf2-cifar10.ipynb)
