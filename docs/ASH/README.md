@@ -27,7 +27,7 @@ After following the documents above, you can go through the sample notebooks lin
   
   Image classification with PyTorch. The estimated run time for the notebook is 30 minutes for one epoch of training.
   
-* [Distributed Tensorflow 2 with MultiWorkerMirroredStrategy](notebooks/distributed-cifar10/distributed-tf2-cifar10.ipynb) (Image Classification, Aprox. 30 Minutes/Epoch)
+* [Distributed Image Classification with Tensorflow](notebooks/distributed-cifar10/distributed-tf2-cifar10.ipynb) (Image Classification, Aprox. 30 Minutes/Epoch)
   
   Image classification with TensorFlow, Estimated run time for the notebook is 30 minutes for one epoch of training.
   
