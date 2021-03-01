@@ -4,7 +4,7 @@ After following the documents above, you can go through the sample notebooks lin
 
 ## Notebooks
 
-* [MNIST Classification with Scikit-learn](mnist/MNIST_Training_with_ASH_Cluster_and_Storage.ipynb) (Image Classification, Aprox. 20 Minutes)
+* [Image Classification Using Scikit-learn](mnist/MNIST_Training_with_ASH_Cluster_and_Storage.ipynb) (Image Classification, Aprox. 20 Minutes)
 
   This notebook serves as "hello world" of using Azure Stack Hub (ASH) Storage accounts and ASH clusters for training with 
   Azure Machine Learning workspaces. Estimated run time for the notebook is 20 minutes.
