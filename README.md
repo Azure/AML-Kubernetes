@@ -46,8 +46,8 @@ Please follow the [instructions for registering resource providers](https://docs
     * [Connect Azure Arc Kubernetes cluster](/docs/enable-arc-kubernetes-cluster.md)
 
 2. Attaching Kubernetes cluster to AML workspace
-    * [Using AML Studio](/doc/attach-kubernetes-portal.md)
-    * [Using Python SDK](/doc/attach-kubernetes-sdk.md)
+    * [Using AML Studio](/docs/attach-kubernetes-portal.md)
+    * [Using Python SDK](/docs/attach-kubernetes-sdk.md)
 
 <!-- 1. [Manually install AMLK8S operator on ARC kubernetes clusters](/docs/manual-installation-amlk8s-operator.md). Not needed on AKS - currently installed automatically during attach step. -->
 
