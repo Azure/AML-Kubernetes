@@ -1,21 +1,18 @@
 import argparse
 from sklearn.linear_model import LinearRegression
 import os
-from azureml.core import Run
+import pandas as pd
 
 import joblib
 
 def train():
-    run = Run.get_context()
 
-    # To learn more about how to access dataset in your script, please
-    # see https://docs.microsoft.com/en-us/azure/machine-learning/how-to-train-with-datasets.
-    train_set_data = run.input_datasets["output_split_train"]
-    test_set_data = run.input_datasets["output_split_test"]
-    train_set = train_set_data.to_pandas_dataframe()
-    test_set = test_set_data.to_pandas_dataframe()
+    train_set = pd.read_csv(args.train_data_path + "/processed.csv")
+    test_set = pd.read_csv(args.test_data_path + "/processed.csv")
 
-    #train_set = pd.read_parquet(train_data_path)
+    selected_columns = ['pickup_weekday', 'pickup_hour', 'distance', 'passengers', 'vendor', 'cost']
+    train_set = train_set[selected_columns]
+    test_set = test_set[selected_columns]
 
     train_features = train_set.drop("cost", axis=1)
     train_labels = train_set["cost"].copy()
@@ -26,12 +23,16 @@ def train():
 
     joblib.dump(lr, filename)
 
-    #test_set = pd.read_parquet(test_data_path)
-
     test_features = test_set.drop("cost", axis=1)[:3]
     test_labels = test_set["cost"].copy()
     preds = lr.predict(test_features)
 
     print("preds", preds)
+
+
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser("split")
+    parser.add_argument("--train_data_path", type=str, help="train data path")
+    parser.add_argument("--test_data_path", type=str, help="test data path")
+    args = parser.parse_args()
     train()

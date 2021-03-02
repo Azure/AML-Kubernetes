@@ -1,17 +1,12 @@
 import argparse
 import os
-from azureml.core import Run
+import pandas as pd
 
 print("Transforms the renamed taxi data to the required format")
 
-run = Run.get_context()
-
-# To learn more about how to access dataset in your script, please
-# see https://docs.microsoft.com/en-us/azure/machine-learning/how-to-train-with-datasets.
-normalized_data = run.input_datasets['normalized_data']
-normalized_df = normalized_data.to_pandas_dataframe()
 
 parser = argparse.ArgumentParser("transform")
+parser.add_argument('--data-path', type=str, help='input data path')
 parser.add_argument("--output_transform", type=str, help="transformed taxi data")
 
 args = parser.parse_args()
@@ -29,6 +24,7 @@ print("Argument 2(output final transformed taxi data): %s" % args.output_transfo
 # use the drop_columns() function to delete the original fields as the newly generated features are preferred.
 # Rename the rest of the fields to use meaningful descriptions.
 
+normalized_df = pd.read_csv(args.data_path + "/processed.csv")
 normalized_df = normalized_df.astype({"pickup_date": 'datetime64[ns]', "dropoff_date": 'datetime64[ns]',
                                       "pickup_time": 'datetime64[us]', "dropoff_time": 'datetime64[us]',
                                       "distance": 'float64', "cost": 'float64'})
@@ -70,5 +66,5 @@ final_df.reset_index(inplace=True, drop=True)
 if not (args.output_transform is None):
     os.makedirs(args.output_transform, exist_ok=True)
     print("%s created" % args.output_transform)
-    path = args.output_transform + "/processed.parquet"
-    write_df = final_df.to_parquet(path)
+    path = args.output_transform + "/processed.csv"
+    write_df = final_df.to_csv(path)
