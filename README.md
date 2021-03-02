@@ -3,14 +3,14 @@ This repository is intended to serve as an information hub for customers and par
 
 ### Azure Stack Hub instructions and sample notebooks can be [found here](docs/ASH/index.md).
 
-## Disclaimer 
+## Disclaimer
 #### The lifecycle management(health, kubernetes version upgrades, security updates to nodes, scaling, etc.) of the AKS or Arc Kubernetes cluster is the responsibility of the customer.
 For AKS, read what is managed and what is shared responsibility [here](https://docs.microsoft.com/en-us/azure/aks/support-policies)
 
 #### All preview features are available on a self-service, opt-in basis and are subject to breaking design and API changes. Previews are provided "as is" and "as available," and they're excluded from the service-level agreements and limited warranty. As such, these features aren't meant for production use.
 
 
-#### AMLK8s supports targeting ML training on both  [Azure Kubernetes Service (AKS)](https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough) clusters or any cluster that is registered in Azure using [Arc](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/overview). 
+#### AMLK8s supports targeting ML training on both  [Azure Kubernetes Service (AKS)](https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough) clusters or any cluster that is registered in Azure using [Arc](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/overview).
 
 
 **Note**: The compute name in Python SDK and CLI may be changed during preview.
@@ -18,7 +18,7 @@ For AKS, read what is managed and what is shared responsibility [here](https://d
 ## Overview
 AMLK8s project enables customer to use their exisiting AKS clusters or Azure Arc for Kubernetes clusters as compute target for AML training workload . Data scientists will have same experience as other compute targets. They can submit different types of training jobs to AMLK8s compute target. AMLK8s Will first support SDK and portal, and restapi/CLI will be supported later.
 
-### Regional availability -> Only EastUS2EUAP, EastUS and West Europe 
+### Regional availability -> Only EastUS2EUAP, EastUS and West Europe
 
 ### Kubernetes version support is in accordance with what AKS supports. See [here](https://docs.microsoft.com/en-us/azure/aks/supported-kubernetes-versions) for details
 
@@ -40,15 +40,15 @@ pip install --disable-pip-version-check --extra-index-url https://azuremlsdktest
 
 Please follow the [instructions for registering resource providers](https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/resource-providers-and-types#register-resource-provider) and enable `Microsoft.Relay`.
 
-#### IT Operator steps to set up Kubernetes cluster 
+#### IT Operator steps to set up Kubernetes cluster
 1. Create/provision a Kubernetes cluster to attach to an AML workspace
     * [Create AKS cluster](/docs/create-provision-AKS-cluster.md)
     * [Connect Azure Arc Kubernetes cluster](/docs/enable-arc-kubernetes-cluster.md)
-    
-1. Attaching Kubernetes cluster to AML workspace
-    * [AKS](/docs/attach-aks-cluster-aml-workspace.md)
-    * [Azure Arc for Kubernetes](/docs/attach-arc-cluster-aml-workspace.md)
-    
+
+2. Attaching Kubernetes cluster to AML workspace
+    * [Using AML Studio](/doc/attach-kubernetes-portal.md)
+    * [Using Python SDK](/doc/attach-kubernetes-sdk.md)
+
 <!-- 1. [Manually install AMLK8S operator on ARC kubernetes clusters](/docs/manual-installation-amlk8s-operator.md). Not needed on AKS - currently installed automatically during attach step. -->
 
 #### Data Scientist steps to submit trainig jobs
@@ -63,7 +63,7 @@ Submit AML training jobs to AMLK8s compute
 
 [Troubleshooting](/docs/troubleshooting.md)
 
-## FAQ 
+## FAQ
 #### Recommended AKS cluster resources
 We recommend you use a at least 3 nodes cluster, each node having at least 2C 4G. And if you want to running GPU jobs, you need some GPU nodes.
 #### AML add-on version upgrade
@@ -92,4 +92,4 @@ This project has adopted the [Microsoft Open Source Code of Conduct](https://ope
 For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
 contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
 
-![Impressions](https://PixelServer20190423114238.azurewebsites.net/api/impressions/CMK8s-Samples/README.png) 
+![Impressions](https://PixelServer20190423114238.azurewebsites.net/api/impressions/CMK8s-Samples/README.png)
