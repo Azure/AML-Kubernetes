@@ -1,7 +1,7 @@
 # AMLK8s Samples
 This repository is intended to serve as an information hub for customers and partners who are interested in AMLK8s (Custmer managed Kubernetes cluster). Use this repository for onboarding and testing instructions as well as an avenue to provide feedback, issues, enhancement requests and stay up to date as the preview progresses.
 
-### Azure Stack Hub instructions and sample notebooks can be [found here](docs/ASH/index.md).
+
 
 ## Disclaimer
 #### The lifecycle management(health, kubernetes version upgrades, security updates to nodes, scaling, etc.) of the AKS or Arc Kubernetes cluster is the responsibility of the customer.
@@ -12,6 +12,8 @@ For AKS, read what is managed and what is shared responsibility [here](https://d
 
 #### AMLK8s supports targeting ML training on both  [Azure Kubernetes Service (AKS)](https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough) clusters or any cluster that is registered in Azure using [Arc](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/overview).
 
+#### Breaking change 03/03
+The AKS compute and Arc kubernetes compute have been rolled into one compute type - 'Kubernetes compute'. For SDK changes, navigate to the IT operator setup section 2 below. Portal changes are coming in a week.
 
 **Note**: The compute name in Python SDK and CLI may be changed during preview.
 
@@ -45,9 +47,11 @@ Please follow the [instructions for registering resource providers](https://docs
     * [Create AKS cluster](/docs/create-provision-AKS-cluster.md)
     * [Connect Azure Arc Kubernetes cluster](/docs/enable-arc-kubernetes-cluster.md)
 
-2. Attaching Kubernetes cluster to AML workspace
+1. Attaching Kubernetes cluster to AML workspace
     * [Using AML Studio](/docs/attach-kubernetes-portal.md)
     * [Using Python SDK](/docs/attach-kubernetes-sdk.md)
+
+1. ### Azure Stack Hub instructions and sample notebooks can be [found here](docs/ASH/index.md).
 
 <!-- 1. [Manually install AMLK8S operator on ARC kubernetes clusters](/docs/manual-installation-amlk8s-operator.md). Not needed on AKS - currently installed automatically during attach step. -->
 
