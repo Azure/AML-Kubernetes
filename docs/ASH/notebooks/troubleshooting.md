@@ -1,4 +1,4 @@
-# Trouble Shooting for Training Using AzureML with Azure Stack Hub Kubernetes Cluster and Storage
+# Troubleshooting for Training Using AzureML with Azure Stack Hub Kubernetes Cluster and Storage
 
 ## Issues Related to Dataset and Datastore
 
