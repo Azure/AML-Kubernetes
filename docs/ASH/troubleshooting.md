@@ -5,15 +5,13 @@
 1. Known limitation:
    Tabular datasets are not supported by datastore in AzureML workspace connected to ASH storage
    
-2. If data cannot be uploaded to datastore, check if access token for ASH storage container is valid or not by following 
-   [this document](https://github.com/Azure/AML-Kubernetes/blob/master/docs/ASH/Train-AzureArc.md).
+2. If data cannot be uploaded to datastore, check if access the SAS token for ASH storage container hasn't expired. You can try to repeat the instruction from step 3 of [this document](Train-AzureArc.md#create-and-configure-azure-stack-hubs-storage-account).
 
 ## Issues Related to ASH Kubernetes Clusters
 
 1. Attach ASH Kubernetes clusters to AzureML workspace failed
    
-   First make sure latest arc extensions are installed and arc connections are created as described in this 
-   [here](https://github.com/Azure/AML-Kubernetes/blob/master/docs/ASH/AML-ARC-Compute.md)
+   First make sure latest arc extensions are installed and arc connections are created as described [here](AML-ARC-Compute.md#connect-azure-stack-hubs-kubernetes-cluster-to-azure-via-azure-arc)
    
    You may also run kubectl commands against one of the master nodes of the cluster.
 <pre> kubectl get ns </pre>
