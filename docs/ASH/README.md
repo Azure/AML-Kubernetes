@@ -13,7 +13,6 @@ You can use the following documents to get started with setting up your training
 1. [Deploy Azure Stack Hub’s Kubernetes Cluster as a Compute Cluster in Azure Machine Learning through Azure Arc](AML-ARC-Compute.md)
 2. [Setup Azure Stack Hub's Blob Storage as a Datastore on Azure Machine Learning Workspace and Run a Training Workload](Train-AzureArc.md)
 
-
 ## Sample Notebooks
 
 After following the documents above, you can go through the sample notebooks linked below to get a better understanding of how the process works and the possibilities it can unlock:
@@ -40,3 +39,7 @@ After following the documents above, you can go through the sample notebooks lin
 * [Model Download and Upload](notebooks/AML-model-download-upload.ipynb)
 
 Note: Above run time estimated assume a vm size comparable to [Standard_DS3_v2](https://docs.microsoft.com/en-us/azure/virtual-machines/sizes-general)
+
+## Troubleshooting
+
+If you face issues during Setup or Training, please check our [troubleshooting guide](troubleshooting.md).
