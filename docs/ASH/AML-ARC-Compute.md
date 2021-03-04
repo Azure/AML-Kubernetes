@@ -82,7 +82,7 @@ If you do not already have an Azure Machine learning workspace in your desired A
     compute_target.wait_for_completion(show_output=True)
     ```
 
-4. If the attachment is successful, “SucceededProvisioning operation finished, operation "Succeeded"” message will be printed as a result. This means that we have successfully attached the Arc Cluster as a compute target named “arcK-ash” in your Azure Machine Learning workspace. 
+4. If the attachment is successful, “SucceededProvisioning operation finished, operation "Succeeded"” message will be printed as a result. This means that we have successfully attached the Arc Cluster as a compute target named “arccompute” in your Azure Machine Learning workspace. 
 
 
 ## Next Steps
