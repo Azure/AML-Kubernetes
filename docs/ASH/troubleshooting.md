@@ -5,7 +5,7 @@
 1. Known limitation:
    Tabular datasets are not supported by datastore in AzureML workspace connected to ASH storage
    
-2. If data cannot be uploaded to datastore, check if access the SAS token for ASH storage container hasn't expired. You can try to repeat the instruction from step 3 of [this document](Train-AzureArc.md#create-and-configure-azure-stack-hubs-storage-account).
+2. If data cannot be uploaded to datastore, check if access the SAS token for ASH storage container hasn't expired. You can try to repeat the instruction from step 5 of [this document](Train-AzureArc.md#create-and-configure-azure-stack-hubs-storage-account).
 
 ## Issues Related to ASH Kubernetes Clusters
 
