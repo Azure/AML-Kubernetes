@@ -13,9 +13,9 @@
       are [supported](https://docs.microsoft.com/en-us/azure/aks/supported-kubernetes-versions#kubernetes-version-support-policy).
 Also version of Arc agent are supported should be >= 1.0.0. Please refer the following snapshot on Azure to find them:
       
-<p align="center">
-      <img src="imgs/kubernetes_arc.png" />
-</p>
+      <p align="center">
+            <img src="imgs/kubernetes_arc.png" />
+      </p>
 
    * Make sure latest arc extensions are installed and arc connections are created as described [here](AML-ARC-Compute.md#connect-azure-stack-hubs-kubernetes-cluster-to-azure-via-azure-arc)
    
