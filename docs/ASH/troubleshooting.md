@@ -42,8 +42,8 @@ Also version of Arc agent are supported should be >= 1.0.0. Please refer the fol
   * Out of memory issue
 
 
-   If training job failed without obvious reasons, it may be because memories run out. Also, if training is successful 
-  for one epoch but not for multiple epochs, try to increase memory.
+      If training job failed without obvious reasons, it may be because memories run out. Also, if training is successful 
+      for one epoch but not for multiple epochs, try to increase memory.
 
 * Bugs in your scripts
   
