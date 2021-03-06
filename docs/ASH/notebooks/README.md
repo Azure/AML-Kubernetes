@@ -1,6 +1,6 @@
 # Sample Notebooks
 
-After following the documents above, you can go through the sample notebooks linked below to get a better understanding of how the process works and the possibilities it can unlock:
+After following the setup documents, you can go through the sample notebooks linked below to get a better understanding of how the process works and the possibilities it can unlock:
 
 ## Notebooks
 
