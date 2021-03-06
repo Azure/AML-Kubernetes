@@ -51,7 +51,7 @@ Please follow the [instructions for registering resource providers](https://docs
     * [Using AML Studio](/docs/attach-kubernetes-portal.md)
     * [Using Python SDK](/docs/attach-kubernetes-sdk.md)
 
-1. ### Azure Stack Hub instructions and sample notebooks can be [found here](docs/ASH/index.md).
+1. ### Azure Stack Hub instructions and sample notebooks can be [found here](docs/ASH).
 
 <!-- 1. [Manually install AMLK8S operator on ARC kubernetes clusters](/docs/manual-installation-amlk8s-operator.md). Not needed on AKS - currently installed automatically during attach step. -->
 
