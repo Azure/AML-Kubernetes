@@ -7,7 +7,7 @@
    * AML Tabular Datasets are not currenly supported on ASH blob storage
    * AML Dataset downloading is not yet stable. PLease use mounting to access your files during training
    
-* If you can't access your datastore (mounting or uploading): Please check if your generated SAS token for the ASH storage container is still valid and not expired. If unsure you can try to repeat the instruction from step 5 of [this document](Train-AzureArc.md#create-and-configure-azure-stack-hubs-storage-account).
+* If you can't access your datastore (mounting or uploading): Please check if your generated SAS token for your ASH storage container is still valid and not expired. If unsure you can try to repeat the instruction from step 5 of [this document](Train-AzureArc.md#create-and-configure-azure-stack-hubs-storage-account).
 
 ## ASH Kubernetes Cluster Related Issues
 
@@ -54,4 +54,4 @@
 
 ## Other Known Limitations
 
-
+Please check out our other [known limitations](../limitations-and-knownIssues.md) and [troubleshooting](../troubleshooting.md) docs.
