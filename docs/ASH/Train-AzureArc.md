@@ -111,5 +111,5 @@ Check [the following video](https://msit.microsoftstream.com/video/51f7a3ff-0400
 
 ## Next Steps:
 
-Check out our [Sample Notebooks](index.md#sample-notebooks) to get a better understanding of how the process works and the possibilities it can unlock.
+Check out our [Sample Notebooks](README.md#sample-notebooks) to get a better understanding of how the process works and the possibilities it can unlock.
 
