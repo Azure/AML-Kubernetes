@@ -1,7 +1,6 @@
 # Distributed Training using Azure Stack Hub Kubernetes Clusters and Storage Account
 
-These sample notebooks guide you through distributed trainings of ML models on [CIFAR10](https://www.cs.toronto.edu/~kriz/cifar.html) dataset hosted on ASH Storage account using PyTorch and 
-Tensorflow. To run the notebook yourself make sure to clone this repository. 
+These sample notebooks guide you through a distributed training workload that trains an ML model on [CIFAR10](https://www.cs.toronto.edu/~kriz/cifar.html) dataset hosted on ASH Storage. We offer two notebooks taking advantage of the most popular deep learning frameworks PyTorch and Tensorflow.
 
 ## Notebooks
 
