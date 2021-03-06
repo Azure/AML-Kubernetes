@@ -4,7 +4,7 @@ Using Object Segmentation as an example, this sample notebook demonstrates how t
 
 ## Notebooks
 
-* [Object Segmentation with ASH Cluster and Storage](object_segmentation-ash.ipynb)
+* [Object Segmentation with Transfer Learning](object_segmentation-ash.ipynb)
 
 
  
