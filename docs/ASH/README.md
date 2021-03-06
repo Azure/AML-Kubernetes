@@ -1,4 +1,4 @@
-# ARC AMLK8s Azure Stack Hub Samples
+# Run AzureML Training Workloads on ASH
 
 This repository is intended to serve as an information hub for Azure Stack customers and partners who are interested in AML training using ARC Connected Kubernetes cluster and Azure Stack Hub Blob Storage. Use this repository for onboarding and testing instructions as well as an avenue to provide feedback, issues, enhancement requests and stay up to date as the private preview progresses.
 
