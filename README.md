@@ -42,6 +42,17 @@ pip install --disable-pip-version-check --extra-index-url https://azuremlsdktest
 
 Please follow the [instructions for registering resource providers](https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/resource-providers-and-types#register-resource-provider) and enable `Microsoft.Relay`.
 
+```
+az provider register --namespace Microsoft.Relay
+```
+
+Check regiustration status
+```
+az provider show --namespace Microsoft.Relay -o table
+```
+
+
+
 #### IT Operator steps to set up Kubernetes cluster
 1. Create/provision a Kubernetes cluster to attach to an AML workspace
     * [Create AKS cluster](/docs/create-provision-AKS-cluster.md)
