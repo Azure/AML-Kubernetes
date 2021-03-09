@@ -29,7 +29,7 @@ GKE console -> +Create Cluster -> Node Pools -> Default-pool -> Nodes
   ```bash
   sudo ln -s /etc/kubernetes/volumeplugins/azure~blobfuse /home/kubernetes/flexvolume/
 
-  sudo apt-get update; sudo apt-get install –y jq
+  sudo apt-get update; sudo apt-get install jq
 
   wget https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-prod.deb; sudo dpkg -i packages-microsoft-prod.deb; sudo apt-get update; sudo apt-get install blobfuse
   ```
