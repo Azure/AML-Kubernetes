@@ -104,14 +104,12 @@ Congratulations! you successfully have setup our Azure Stack Hub’s storage blo
 
 ## Run your first Azure Machine Learning training job on Azure Stack Hub using AzureML Python SDK (example notebooks)
 
-In this section we will go over couple of image classifications training using various libraries on MNIST and CIFAR10 dataset stored on your Azure Stack Hub’s Blob container as a datastore. 
-
-Check [the following video](https://msit.microsoftstream.com/video/51f7a3ff-0400-b9eb-2703-f1eb38bc6232) that goes through a simple training examples using scikit-learn library on MNIST dataset:
+Check [the following video](https://msit.microsoftstream.com/video/51f7a3ff-0400-b9eb-2703-f1eb38bc6232) that goes through a simple training example using scikit-learn library on MNIST dataset:
 
 
 <a href="https://msit.microsoftstream.com/video/51f7a3ff-0400-b9eb-2703-f1eb38bc6232" target="_blank"><p align="center"><img src="imgs/vid-img.png" alt="Video Tutorial" class="center" width="700"></p></a>
 
 ## Next Steps:
 
-Check out our [Sample Notebooks](index.md#sample-notebooks) to get a better understanding of how the process works and the possibilities it can unlock.
+Check out our [Sample Notebooks](README.md#sample-notebooks) to get a better understanding of how the process works and the possibilities it can unlock.
 

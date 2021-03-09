@@ -1,6 +1,9 @@
 # Pipeline Run with  Azure Stack Hub Kubernetes Clusters
 
-This sample demonstrates how to run [Azure Machine Learning Pipelines](https://aka.ms/aml-pipelines) with Arc compute. Data is stored in AML datastore backed by Azure Blob Storage, but are processed by Arc Compute. The training step is done by Arc Compute as well.
+These samples demonstrate how to run [Azure Machine Learning Pipelines](https://aka.ms/aml-pipelines) with Arc compute. 
+Data are stored in AML datastore backed by azure storage blobs. Azure Stack Hub storage account is not used because 
+it doesn't support tabular datasets. However, data are processed by Arc computes. Training step is done by
+Arc compute as well.
 
 ## Notebooks
 

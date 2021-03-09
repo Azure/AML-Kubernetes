@@ -67,19 +67,22 @@ If you do not already have an Azure Machine learning workspace in your desired A
 
 3. Attach/Register Azure Arc’s Kubernetes cluster as Azure Machine Learning compute target by running the following python code snippet:
     
-    ```python 
-    from azureml.contrib.core.compute.arckubernetescompute import ArcKubernetesCompute
-   
-    attach_config = ArcKubernetesCompute.attach_configuration(
-    cluster_name="<arc-cluster-name>",
-    resource_group="<resource-group>",
-    resource_id="<arc-cluster-resource-id>")
+    ```python
+    from azureml.contrib.core.compute.kubernetescompute import KubernetesCompute
+
+    k8s_config = {
+    }
+
+    attach_config = KubernetesCompute.attach_configuration(
+    resource_id="<Arc_Cluster_ResourceID>",
+    aml_k8s_config=k8s_config
+    )
     
-    arcK_target = ArcKubernetesCompute.attach(ws, "arcK-ash", attach_config)
-    arcK_target.wait_for_completion(show_output= True)
+    compute_target = KubernetesCompute.attach(ws, "arccompute", attach_config)
+    compute_target.wait_for_completion(show_output=True)
     ```
 
-4. If the attachment is successful, “SucceededProvisioning operation finished, operation "Succeeded"” message will be printed as a result. This means that we have successfully attached the Arc Cluster as a compute target named “arcK-ash” in your Azure Machine Learning workspace. 
+4. If the attachment is successful, “SucceededProvisioning operation finished, operation "Succeeded"” message will be printed as a result. This means that we have successfully attached the Arc Cluster as a compute target named “arccompute” in your Azure Machine Learning workspace. 
 
 
 ## Next Steps

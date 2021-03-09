@@ -3,10 +3,8 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 import torch.nn.functional as F
-import torch.backends.cudnn as cudnn
 import torch.distributed as dist
 
-import torchvision
 import torchvision.transforms as transforms
 
 import os
@@ -68,7 +66,7 @@ class CIFAR10_DS(data.Dataset):
         self.targets = []
 
         # now load the picked numpy arrays
-        with tarfile.open(os.path.join(self.data_path, 'cifar-10', 'cifar-10-python.tar.gz'), mode='r:gz') as tar:
+        with tarfile.open(os.path.join(self.data_path, 'cifar-10-python.tar.gz'), mode='r:gz') as tar:
             for file_name in file_list:
                 buf = tar.extractfile(f'cifar-10-batches-py/{file_name}')
                 entry = pickle.load(buf, encoding='latin1')
@@ -217,8 +215,6 @@ class SimpleDLA(nn.Module):
 
 parser = argparse.ArgumentParser(description='PyTorch CIFAR10 Training')
 parser.add_argument('--lr', default=0.1, type=float, help='learning rate')
-parser.add_argument('--resume', '-r', action='store_true',
-                    help='resume from checkpoint')
 
 parser.add_argument('-j', '--workers', default=4, type=int, metavar='N',
                     help='number of data loading workers (default: 4)')
@@ -230,12 +226,13 @@ parser.add_argument('--dist-backend', default='nccl', type=str,
                     help='distributed backend')
 parser.add_argument('--cluster-type', default='cpu', type=str,
                     help='nodes are cpu or gpu')
-parser.add_argument('--rank', default=0, type=int,
-                    help='rank of the worker')
 
 parser.add_argument('--data-folder', type=str, dest='data_folder', help='data folder mounting point')
+parser.add_argument('--epochs', type=int, default=1)
 
 args = parser.parse_args()
+
+print("data fold", args.data_folder)
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 best_acc = 0  # best test accuracy
@@ -244,11 +241,6 @@ start_epoch = 0  # start from epoch 0 or last checkpoint epoch
 args.distributed = args.world_size >= 2
 
 if args.distributed:
-    # print("rank= ", args.rank)
-    # print("dist_url=", args.dist_url)
-    # dist.init_process_group(backend=args.dist_backend, init_method=args.dist_url,
-    #                         world_size=args.world_size, rank=args.rank)
-
     dist.init_process_group(backend=args.dist_backend)
     print("rank= ", torch.distributed.get_rank())
     print("world_size= ", torch.distributed.get_world_size())
@@ -295,21 +287,6 @@ classes = ('plane', 'car', 'bird', 'cat', 'deer',
 
 # Model
 print('==> Building model..')
-# net = VGG('VGG19')
-# net = ResNet18()
-# net = PreActResNet18()
-# net = GoogLeNet()
-# net = DenseNet121()
-# net = ResNeXt29_2x64d()
-# net = MobileNet()
-# net = MobileNetV2()
-# net = DPN92()
-# net = ShuffleNetG2()
-# net = SENet18()
-# net = ShuffleNetV2(1)
-# net = EfficientNetB0()
-# net = RegNetX_200MF()
-
 
 net = SimpleDLA()
 net = net.to(device)
@@ -328,14 +305,6 @@ optimizer = optim.SGD(net.parameters(), lr=args.lr,
                       momentum=0.9, weight_decay=5e-4)
 scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=200)
 
-if args.resume:
-    # Load checkpoint.
-    print('==> Resuming from checkpoint..')
-    assert os.path.isdir('checkpoint'), 'Error: no checkpoint directory found!'
-    checkpoint = torch.load('./checkpoint/ckpt.pth')
-    net.load_state_dict(checkpoint['net'])
-    best_acc = checkpoint['acc']
-    start_epoch = checkpoint['epoch']
 
 # Training
 def train(epoch):
@@ -359,9 +328,6 @@ def train(epoch):
         print(batch_idx, len(trainloader), 'Loss: %.3f | Acc: %.3f%% (%d/%d)'
                      % (train_loss/(batch_idx+1), 100.*correct/total, correct, total))
 
-        # progress_bar(batch_idx, len(trainloader), 'Loss: %.3f | Acc: %.3f%% (%d/%d)'
-        #              % (train_loss/(batch_idx+1), 100.*correct/total, correct, total))
-
 
 def test(epoch):
     global best_acc
@@ -382,25 +348,15 @@ def test(epoch):
 
             print(batch_idx, len(testloader), 'Loss: %.3f | Acc: %.3f%% (%d/%d)'
                          % (test_loss / (batch_idx + 1), 100. * correct / total, correct, total))
-            # progress_bar(batch_idx, len(testloader), 'Loss: %.3f | Acc: %.3f%% (%d/%d)'
-            #              % (test_loss/(batch_idx+1), 100.*correct/total, correct, total))
 
-    # Save checkpoint.
-    acc = 100.*correct/total
-    if acc > best_acc:
-        print('Saving..')
-        state = {
-            'net': net.state_dict(),
-            'acc': acc,
-            'epoch': epoch,
-        }
-        if not os.path.isdir('checkpoint'):
-            os.mkdir('checkpoint')
-        torch.save(state, './checkpoint/ckpt.pth')
-        best_acc = acc
 
-for epoch in range(start_epoch, start_epoch+1):
-    print(epoch, start_epoch, start_epoch+10)
+for epoch in range(args.epochs):
+    print("epoch", epoch)
     train(epoch)
     test(epoch)
     scheduler.step()
+
+if not args.distributed or torch.distributed.get_rank() == 0:
+    torch.save(net.state_dict(), "outputs/cifar10torch.pt")
+
+

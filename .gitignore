@@ -1,3 +1,8 @@
 .vscode/settings.json
 .ipynb_checkpoints/
+PennFudanPed
+mnist_data
+cifar10-data
 .idea/
+data
+__pycache__
