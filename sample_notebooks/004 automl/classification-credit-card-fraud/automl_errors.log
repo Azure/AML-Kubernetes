@@ -1,2 +1,0 @@
-2020-08-04 11:12:13.386 - INFO - 19936 - azureml.train.automl.automlconfig._automl_static_submit:136 - Submitting remote or ADB run.
-2020-08-26 16:29:30.370 - INFO - 10248 - azureml.train.automl.automlconfig._start_execution:260 - Submitting remote or ADB run.
