@@ -17,7 +17,7 @@ The AKS compute and Arc kubernetes compute have been rolled into one compute typ
 
 #### Breaking change coming 04/30
 1. A new version of the aml agent with additional capabilities (inferencing) will be rolled out
-2. The new installtion will require the removal of the existing installation and installtion of the new aml agent
+2. The new installtion will require the removal of the existing aml agent and re-installtion of the new version of the aml agent
 3. There will be no upgrade path available
 
 **Note**: The compute name in Python SDK and CLI may be changed during preview.
