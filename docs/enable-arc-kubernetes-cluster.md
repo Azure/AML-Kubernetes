@@ -1,19 +1,22 @@
-### Supported Distributions (Cloud Native Computing Foundation (CNCF) certified Kubernetes clusters)
+## Supported Distributions (Cloud Native Computing Foundation (CNCF) certified Kubernetes clusters)
 1. [AKS - Engine](https://github.com/Azure/aks-engine/blob/master/docs/tutorials/quickstart.md)
 2. [GKE](https://console.cloud.google.com/kubernetes)
 3. Azure Stack Hub - TBD
 
 **DO NOT USE Azure Arc public docs to connect to a kubernetes cluster (as it does not include Arc extensions functionality)**
 
-### Install AmlK8s operator using Arc extensions
+## Install AmlK8s extension using Arc
 
-**Note: To install the AmlK8s operator through Arc extensions you must connect your Kubernetes cluster to Azure using Arc first.  Detailed instructions can be found in this [guide](https://github.com/Azure/AML-Kubernetes/blob/master/docs/enable-arc-kubernetes-cluster.md).**
+**Note: You need to connect your Kubernetes cluster to Arc before installing the AmlK8s extension.  Please follow the guide
+[here](https://github.com/Azure/azure-arc-kubernetes-preview/blob/master/docs/k8s-extensions.md#prerequisites)
+to install the correct `connectedk8s` CLI version (step 6).  Then, connect your cluster by following step 2 in 
+[this section](https://github.com/Azure/azure-arc-kubernetes-preview/blob/master/docs/k8s-extensions.md#connecting-your-kubernetes-cluster-to-azure-arc).**
 
 Next, install the preview version of the Arc extensions CLI as follows:
 
 1. Install the preview version of k8s-extensions CLI extension.  You can find the Python wheel file under `files` from the root of this repository:
 ```bash
-az extension add --source ./k8s_extension-0.1PP.15-py2.py3-none-any.whl
+az extension add --source ./k8s_extension-0.1PP.15-py3-none-any.whl
 ```
 
 2. Install `Microsoft.AzureML.Kubernetes` extension on your Arc cluster:
@@ -38,7 +41,7 @@ az k8s-extension show --sub <sub_id> -g <rg_name> -c <arc_cluster_name> --cluste
 az k8s-extension delete --sub <sub_id> -g <rg_name> -c <arc_cluster_name> --cluster-type connectedclusters -n azureml-kubernetes-connector
 ```
 
-#### GKE specifics
+## GKE specifics
 1. Select Ubuntu OS image during cluster create
 2. A minimum of 3 nodes is required; need enough resources for arc agent and amlk8s agent installation
 3. DO NOT select smaller VM's than 'medium' size
