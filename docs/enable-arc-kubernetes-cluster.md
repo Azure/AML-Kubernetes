@@ -3,13 +3,40 @@
 2. [GKE](https://console.cloud.google.com/kubernetes)
 3. Azure Stack Hub - TBD
 
-## DO NOT USE Azure Arc public docs to connect to a kubernetes cluster (as it does not include Arc extensions functionality)
+**DO NOT USE Azure Arc public docs to connect to a kubernetes cluster (as it does not include Arc extensions functionality)**
 
-Instead follow [repo](https://github.com/Azure/azure-arc-kubernetes-preview/blob/master/docs/k8s-extensions.md)  here to Connect to a cluster
+### Install AmlK8s operator using Arc extensions
 
-There are 2 steps in the repo above
-1. Install the Arc agent on the cluster aka 'connectedk8s'(in public preview)
-2. Enable the Arc extensions frameowrk aka 'k8s-extension' (in private preview)
+**Note: To install the AmlK8s operator through Arc extensions you must connect your Kubernetes cluster to Azure using Arc first.  Detailed instructions can be found in this [guide](https://github.com/Azure/AML-Kubernetes/blob/master/docs/enable-arc-kubernetes-cluster.md).**
+
+Next, install the preview version of the Arc extensions CLI as follows:
+
+1. Install the preview version of k8s-extensions CLI extension.  You can find the Python wheel file under `files` from the root of this repository:
+```bash
+az extension add --source ./k8s_extension-0.1PP.15-py2.py3-none-any.whl
+```
+
+2. Install `Microsoft.AzureML.Kubernetes` extension on your Arc cluster:
+
+```bash
+az k8s-extension create --sub <sub_id> -g <rg_name> -c <arc_cluster_name> --cluster-type connectedClusters  --extension-type Microsoft.AzureML.Kubernetes -n azureml-kubernetes-connector --release-train preview --config enableTraining=True
+```
+
+Running this command will create a Service Bus and Relay resource under the same resource group as the Arc cluster.  These resources are used to communicate with the cluster and modifying them will break attached compute targets.
+
+Once the extension is ready, you can inspect it using `helm list -n azureml` or `kubectl get pods -n azureml`.
+
+3. You can use the following command to show the properties of the extension including installation state:
+
+```bash
+az k8s-extension show --sub <sub_id> -g <rg_name> -c <arc_cluster_name> --cluster-type connectedclusters -n azureml-kubernetes-connector
+```
+
+4. To delete the extension in the cluster, use the following command:
+
+```bash
+az k8s-extension delete --sub <sub_id> -g <rg_name> -c <arc_cluster_name> --cluster-type connectedclusters -n azureml-kubernetes-connector
+```
 
 #### GKE specifics
 1. Select Ubuntu OS image during cluster create
