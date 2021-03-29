@@ -13,7 +13,7 @@ Next, install the preview version of the Arc extensions CLI as follows:
 
 1. Install the preview version of k8s-extensions CLI extension.  You can find the Python wheel file under `files` from the root of this repository:
 ```bash
-az extension add --source ./k8s_extension-0.1PP.15-py2.py3-none-any.whl
+az extension add --source ./k8s_extension-0.1PP.15-py3-none-any.whl
 ```
 
 2. Install `Microsoft.AzureML.Kubernetes` extension on your Arc cluster:
