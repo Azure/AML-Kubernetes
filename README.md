@@ -20,7 +20,15 @@ The AKS compute and Arc kubernetes compute have been rolled into one compute typ
 ## Overview
 AMLK8s project enables customer to use their exisiting AKS clusters or Azure Arc for Kubernetes clusters as compute target for AML training workload . Data scientists will have same experience as other compute targets. They can submit different types of training jobs to AMLK8s compute target. AMLK8s Will first support SDK and portal, and restapi/CLI will be supported later.
 
-### Regional availability -> Only EastUS2EUAP, EastUS and West Europe
+### Regional availability
+1. EastUS2EUAP (Canary region, not visible to customers)
+2. EastUS  
+3. West Europe
+
+### Kubernetes version support
+1.18.x or less
+
+Known [issue](https://github.com/Azure/AML-Kubernetes/issues/40) with 1.19.x we are working on a fix
 
 ### Kubernetes version support is in accordance with what AKS supports. See [here](https://docs.microsoft.com/en-us/azure/aks/supported-kubernetes-versions) for details
 
@@ -50,7 +58,6 @@ Check regiustration status
 ```
 az provider show --namespace Microsoft.Relay -o table
 ```
-
 
 
 #### IT Operator steps to set up Kubernetes cluster
