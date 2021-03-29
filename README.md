@@ -15,6 +15,11 @@ For AKS, read what is managed and what is shared responsibility [here](https://d
 #### Breaking change 03/03
 The AKS compute and Arc kubernetes compute have been rolled into one compute type - 'Kubernetes compute'. For SDK changes, navigate to the IT operator setup section 2 below. Portal changes are coming in a week.
 
+#### Breaking change coming 04/30
+1. A new version of the aml agent with additional capabilities (inferencing) will be rolled out
+2. The new installation will require the removal of the existing aml agent and a re-installation of the new version of the aml agent
+3. There will be no upgrade path available
+
 **Note**: The compute name in Python SDK and CLI may be changed during preview.
 
 ## Overview
@@ -26,7 +31,7 @@ AMLK8s project enables customer to use their exisiting AKS clusters or Azure Arc
 3. West Europe
 
 ### Kubernetes version support
-1.18.x or less
+1.18.x or below
 
 Known [issue](https://github.com/Azure/AML-Kubernetes/issues/40) with 1.19.x we are working on a fix
 
