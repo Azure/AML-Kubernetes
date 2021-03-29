@@ -1,5 +1,5 @@
-
 ## Attach Kubernetes Compute from UI
+**Please note:  Your Arc cluster must have the AmlK8s extension installed before it can be attached to Azure Machine Learning!**
 
 1. Goto AML studio [portal](https://ml.azure.com), Compute > Attached compute, click "+New" button, and select "Kubernetes service (Preview)"
 
