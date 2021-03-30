@@ -16,7 +16,7 @@ For AKS, read what is managed and what is shared responsibility [here](https://d
 The AKS compute and Arc kubernetes compute have been rolled into one compute type - 'Kubernetes compute'. For SDK changes, navigate to the IT operator setup section 2 below. Portal changes are coming in a week.
 
 #### Breaking change coming 04/30
-1. A new version of the aml agent with additional capabilities (inferencing) will be rolled out
+1. A new version of the aml agent with additional capabilities will be rolled out
 2. The new installation will require the removal of the existing aml agent and a re-installation of the new version of the aml agent
 3. There will be no upgrade path available
 
