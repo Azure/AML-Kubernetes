@@ -59,11 +59,15 @@ Please follow the [instructions for registering resource providers](https://docs
 az provider register --namespace Microsoft.Relay
 ```
 
-Check regiustration status
+Check registration status
 ```
 az provider show --namespace Microsoft.Relay -o table
 ```
+### Concepts 
 
+1. [How does this work?](/docs/how-does-this-work.md)
+
+### Tutorials
 
 #### IT Operator steps to set up Kubernetes cluster
 1. Create/provision a Kubernetes cluster to attach to an AML workspace
