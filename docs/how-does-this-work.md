@@ -1,9 +1,9 @@
-## How does AML work with Azure Kubernetes Service(AKS) and Azure Arc for Kubernetes?
+## How does AML work with Azure Kubernetes Service (AKS) and Azure Arc for Kubernetes?
 
 ### What is the AML agent ?
    
    The Azure ML agent is a set of Kubernetes pods consisting of Kubernetes Operators, CRD's, pods, init jobs etc that can be deployed on an OSS Kubernetes cluster. Attaching 
-   a Kubernetes cluster(with the AML agent) to an [Azure ML workspace](https://docs.microsoft.com/azure/machine-learning/concept-workspace) allows the AML control plane to be able to talk to this Kubernetes cluster and deploy Azure ML workloads on this cluster.
+   a Kubernetes cluster (with the AML agent) to an [Azure ML workspace](https://docs.microsoft.com/azure/machine-learning/concept-workspace) allows the AML control plane to talk to this Kubernetes cluster and deploy Azure ML workloads on this cluster.
 
 ### How does the integration with Azure Kubernetes Service work?
 
@@ -31,12 +31,12 @@
     rest-server-6b76db489c-2jngc                     1/1     Running     0          84d
    ```
    
-  ##### NOTE: This behavior is going to change when AKS enables [Cluster extensions](https://docs.microsoft.com/azure/azure-arc/kubernetes/conceptual-extensions). At that time, we will require the use of the k8s extensions API/clients to install the AML agent before attaching an AKS cluster to an Azure ML workspace
+  ##### NOTE: This behavior is going to change when AKS enables [Cluster extensions](https://docs.microsoft.com/azure/azure-arc/kubernetes/conceptual-extensions). At that time, we will require the use of the k8s extensions API/clients to install the AML agent before attaching an AKS cluster to an Azure ML workspace. This will require you to detach and re-attach your clusters for the new setup.
 
 
 ### How does the integration with Azure Arc enabled Kubernetes work?
     
-  - Learn about Azure Arc Enabled Kubernetes [here](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/overview); once a kubernetes cluster is registered in Azure (given an ARM id), one can view those clusters in the AKS portal
+  - Learn about Azure Arc Enabled Kubernetes [here](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/overview); once a Kubernetes cluster is registered in Azure (assigned an ARM id to track it as a resource in Azure), one can view those clusters in the AKS portal
   - Azure Arc enabled Kubernetes has a [cluster extensions](https://docs.microsoft.com/azure/azure-arc/kubernetes/extensions) functionality that enables the ability to install various agents including Azure policy, monitoring, ML, etc.
   - Azure ML requires the use of the cluster extension to deploy the Azure ML agent on the Arc Kubernetes cluster
   - Once the above step is complete, one can attach the Kubernetes cluster to the Azure ML workspace
