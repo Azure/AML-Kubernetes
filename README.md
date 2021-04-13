@@ -73,7 +73,7 @@ az provider show --namespace Microsoft.Relay -o table
 1. Create/provision a Kubernetes cluster to attach to an AML workspace
     * [Create AKS cluster](/docs/create-provision-AKS-cluster.md)
     * [Connect Azure Arc Kubernetes cluster](/docs/enable-arc-kubernetes-cluster.md)
-      * [GKE setup](/docs/GKE-setup.md) 
+      * [GKE setup](/docs/gke-setup.md) 
       * [Bare metal setup](/docs/onprem-baremetal-blobfuse-setup.md)
 
 1. Attaching Kubernetes cluster to AML workspace
