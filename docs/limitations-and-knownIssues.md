@@ -13,4 +13,4 @@ To attach an AKS cluster, you must be subscription owner or have permission to a
 
 #### AKS spot node pools
 Cannot use spot node pools as the spot pool nodes are tainted by default with _kubernetes.azure.com/scalesetpriority=spot:NoSchedule_
-Tolerations in profile config is not supported yet that will aloow you to target jobs/pods to the spot node pool
+Tolerations in profile config is not supported yet that will allow you to target jobs/pods to the spot node pool
