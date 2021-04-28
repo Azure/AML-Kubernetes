@@ -1,5 +1,5 @@
-# AMLK8s Samples
-This repository is intended to serve as an information hub for customers and partners who are interested in AMLK8s (Custmer managed Kubernetes cluster). Use this repository for onboarding and testing instructions as well as an avenue to provide feedback, issues, enhancement requests and stay up to date as the preview progresses.
+# AMLK8s Public Preview
+This repository is intended to serve as an information hub for customers and partners who are interested in the public preview AMLK8s (Custmer managed Kubernetes cluster). Use this repository for onboarding and testing instructions as well as an avenue to provide feedback, issues, enhancement requests and stay up to date as the preview progresses.
 
 ### Azure Stack Hub instructions and sample notebooks can be [found here](docs/ASH).
 
