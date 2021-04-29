@@ -46,9 +46,9 @@ To use AMLK8s compute in private preview, follow these steps:
 pip install --upgrade azureml-sdk
 ```
 
-#### Install the private SDK bits
+#### Install the latest Azure ML Python SDK
 ```
-pip install --disable-pip-version-check --extra-index-url https://azuremlsdktestpypi.azureedge.net/azureml-contrib-k8s-preview/D58E86006C65 azureml-contrib-k8s
+pip install --upgrade azureml-sdk
 ```
 
 #### Register Microsoft.Relay resource provider
@@ -86,7 +86,6 @@ az provider show --namespace Microsoft.Relay -o table
 Submit AML training jobs to AMLK8s compute
 1. [TensorFlow training](/docs/sample-notebooks/001-Tensorflow)
 1. [Scikit image classification](/docs/sample-notebooks/002-SciKitLearn)
-1. [Wind Turbine renewable energy](/docs/sample-notebooks/004-Wind%20Turbine%20Demo)
 1. [Distributed TensorFlow with parameter server](/docs/sample-notebooks/003-Distributed%20TensorFlow%20with%20parameter%20server)
 
 
@@ -103,8 +102,6 @@ We will install the latest AML add-on services automatically when you first atta
 The node count in the number of worker, for distribute training job, such as ps-worker or MPI/horovod they may need extra launcher node or ps node, they may also ocuppy one node. We will optimise this in following version.
 #### What Azure storage does AMLK8s support?
 AML K8s compute only suport Azure blob container, if your data is in other Azure storage, please move it to Azure blob first. We will support other Azure storage in following iteration.
-#### What type of jobs does AMLK8s support?
-AML K8s compute doesn't support all AML jobs by now. For more details, please refer to the list in [Using CMAKS Compute in AML Notebooks](https://github.com/Azure/AML-Kubernetes/blob/master/docs/6.%20Using%20CMAKS%20Compute%20in%20AML%20Notebooks.md).
 #### How do I use AMLK8s compute in China Region?
 Firstly, make sure you have switched the active cloud to AzureChinaCloud with [az cloud set](https://docs.microsoft.com/en-us/cli/azure/manage-clouds-azure-cli?view=azure-cli-latest) command. Then you can use the SDK and CLI sample in this repo.
 
