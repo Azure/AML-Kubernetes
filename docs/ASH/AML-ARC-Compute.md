@@ -51,9 +51,9 @@ If you do not already have an Azure Machine learning workspace in your desired A
 
 ### Python SDK:
 
-1. Install private preview branch of AzureML SDK by running following command:
+1. Install the latest version of the AzureML SDK by running following command:
 
-    ```pip install --disable-pip-version-check --extra-index-url https://azuremlsdktestpypi.azureedge.net/azureml-contrib-k8s-preview/D58E86006C65 azureml-contrib-k8s```
+    ```pip install --upgrade azureml-sdk```
 
 2. Make sure your Azure Machine Learning workspace is defined/loaded in your python environment. If not, you can load your workspace using Workspace class:
     
@@ -68,14 +68,14 @@ If you do not already have an Azure Machine learning workspace in your desired A
 3. Attach/Register Azure Arc’s Kubernetes cluster as Azure Machine Learning compute target by running the following python code snippet:
     
     ```python
-    from azureml.contrib.core.compute.kubernetescompute import KubernetesCompute
+    from azureml.core.compute import KubernetesCompute
 
     k8s_config = {
     }
 
     attach_config = KubernetesCompute.attach_configuration(
-    resource_id="<Arc_Cluster_ResourceID>",
-    aml_k8s_config=k8s_config
+      resource_id="<Arc_Cluster_ResourceID>",
+      aml_k8s_config=k8s_config
     )
     
     compute_target = KubernetesCompute.attach(ws, "arccompute", attach_config)

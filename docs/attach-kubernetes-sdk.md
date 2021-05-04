@@ -1,11 +1,11 @@
 ## Attach Kubernetes cluster using SDK
 **Please note:  Your Arc cluster must have the AmlK8s extension installed before it can be attached to Azure Machine Learning!**
 
-To attach Kubernetes compute you need install private branch SDK.
+To attach Kubernetes compute you need install the latest version of the Azure ML SDK.
 
 ### Install private branch SDK
 ```
-pip install --disable-pip-version-check --extra-index-url https://azuremlsdktestpypi.azureedge.net/azureml-contrib-k8s-preview/D58E86006C65 azureml-contrib-k8s
+pip install --upgrade azureml-sdk
 ```
 
 ### Set up WS configuration
@@ -21,7 +21,7 @@ print('Workspace name: ' + ws.name,
 
 ### Attach Kubernetes compute compute via SDK
 ```python
-from azureml.contrib.core.compute.kubernetescompute import KubernetesCompute
+from azureml.core.compute import KubernetesCompute
 
 k8s_config = {
 }

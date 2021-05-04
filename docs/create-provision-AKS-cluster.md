@@ -17,7 +17,3 @@ You can refer [AKS documents](https://docs.microsoft.com/en-us/azure/aks/) to ge
 In Azure the VM size begining with "N" indicate this VM is a GPU SKU, and you can find detail GPU VM size at: https://docs.microsoft.com/en-us/azure/virtual-machines/sizes-gpu
 
 #### Currently, AKS supports the NC and ND series of GPU's. You can view the list of supported GPU's when you create an AKS cluster in the portal and view all SKU's supported when you select 'Change Size' in the Node Size picker.
-
-After you create an AKS cluter, for the next step you can go to [attach Kubernetes cluster to an AML workspace](https://github.com/Azure/CMK8s-Samples/blob/master/docs/2.%20Attach%20CMAKS%20compute.markdown).
-
-We use AML add-on to bring your AKS cluster to AML workspace, if you want to know more detail about AML add-on, please goto [managed AML add-on](https://github.com/Azure/CMK8s-Samples/blob/master/docs/5.%20Manage%20AML%20add-on.markdown)
