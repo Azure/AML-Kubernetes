@@ -21,12 +21,10 @@ Getting started with Training Public Preview is easy with following steps:
 * [Train an image classification model](./docs/simple-train.md)
 
 
-
-
-
-
 ## Disclaimer
+
 #### The lifecycle management (health, kubernetes version upgrades, security updates to nodes, scaling, etc.) of the AKS or Arc Kubernetes cluster is the responsibility of the customer.
+
 For AKS, read what is managed and what is shared responsibility [here](https://docs.microsoft.com/en-us/azure/aks/support-policies)
 
 #### All preview features are available on a self-service, opt-in basis and are subject to breaking design and API changes. Previews are provided "as is" and "as available," and they're excluded from the service-level agreements and limited warranty. As such, these features aren't meant for production use.
@@ -42,61 +40,7 @@ Known [issue](https://github.com/Azure/AML-Kubernetes/issues/40) with 1.19.x we 
 
 ### Kubernetes version support is in accordance with what AKS supports. See [here](https://docs.microsoft.com/en-us/azure/aks/supported-kubernetes-versions) for details
 
-## Getting Started
 
-To use AMLK8s compute in private preview, follow these steps:
-
-#### Install the Azure Machine Learning Python SDK
-```
-pip install --upgrade azureml-sdk
-```
-
-#### Install the latest Azure ML Python SDK
-```
-pip install --upgrade azureml-sdk
-```
-
-#### Register Microsoft.Relay resource provider
-
-Please follow the [instructions for registering resource providers](https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/resource-providers-and-types#register-resource-provider) and enable `Microsoft.Relay`.
-
-```
-az provider register --namespace Microsoft.Relay
-```
-
-Check registration status
-```
-az provider show --namespace Microsoft.Relay -o table
-```
-### Concepts 
-
-1. [How does this work?](/docs/how-does-this-work.md)
-
-### Tutorials
-
-#### IT Operator steps to set up Kubernetes cluster
-1. Create/provision a Kubernetes cluster to attach to an AML workspace
-    * [Create AKS cluster](/docs/create-provision-AKS-cluster.md)
-    * [Connect Azure Arc Kubernetes cluster](/docs/enable-arc-kubernetes-cluster.md)
-      * [GKE setup](/docs/gke-setup.md) 
-      * [Bare metal setup](/docs/onprem-baremetal-blobfuse-setup.md)
-
-1. Attaching Kubernetes cluster to AML workspace
-    * [Using AML Studio](/docs/attach-kubernetes-portal.md)
-    * [Using Python SDK](/docs/attach-kubernetes-sdk.md)
-
-<!-- 1. [Manually install AMLK8S operator on ARC kubernetes clusters](/docs/manual-installation-amlk8s-operator.md). Not needed on AKS - currently installed automatically during attach step. -->
-
-#### Data Scientist steps to submit trainig jobs
-Submit AML training jobs to AMLK8s compute
-1. [TensorFlow training](/docs/sample-notebooks/001-Tensorflow)
-1. [Scikit image classification](/docs/sample-notebooks/002-SciKitLearn)
-1. [Distributed TensorFlow with parameter server](/docs/sample-notebooks/003-Distributed%20TensorFlow%20with%20parameter%20server)
-
-
-[Limitations and Known Issues](/docs/limitations-and-knownIssues.md)
-
-[Troubleshooting](/docs/troubleshooting.md)
 
 ## FAQ
 #### Recommended AKS cluster resources
