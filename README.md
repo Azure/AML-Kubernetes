@@ -1,7 +1,29 @@
-# AMLK8s Public Preview
-This repository is intended to serve as an information hub for customers and partners who are interested in the public preview AMLK8s (Custmer managed Kubernetes cluster). Use this repository for onboarding and testing instructions as well as an avenue to provide feedback, issues, enhancement requests and stay up to date as the preview progresses.
+# Azure Arc-enabled Machine Learning - Training Public Preview
 
-### Azure Stack Hub instructions and sample notebooks can be [found here](docs/ASH).
+As part of Azure Machine Learning (AML) service capabilities, Azure Arc-enabled Machine Learning enables customer to run Machine Learning workload on Kubernetes anywhere, in cloud or on-premises, with seamless AML experience. Training public preview feature enables data scientist to train models on customer-managed Kubernetes anywhere with seamless [AML model training experience on Azure compute cluster](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-set-up-training-targets). To deploy a trained model using Azure Arc-enabled Machine Learning, please sign up [Inference Private Preview](https://github.com/Azure/amlarc-preview).
+
+This repository is intended to serve as an information hub for customers and partners who are interested in Azure Arc-enabled AML training public preview. Use this repository for onboarding and testing instructions as well as an avenue to provide feedback, issues, enhancement requests and stay up to date as the preview progresses. Please note that preview release is subject to the [Supplemental Terms of Use for Microsoft Azure Previews](https://azure.microsoft.com/en-us/support/legal/preview-supplemental-terms/)
+
+## Prerequisites
+
+1. An Azure subscription. If you don't have an Azure subscription, [create a free account](https://aka.ms/AMLFree) before you begin.
+1. You have a Kubernetes cluster up and running, and learn about [Azure Arc enabled Kubernetes](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/overview) and [cluster extension](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/conceptual-extensions)
+1. Your Kubernetes cluster is [connected to Azure Arc](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/quickstart-connect-cluster). Please note down the region to be used in step 5.
+1. You've met the pre-requisites listed under the [generic cluster extensions documentation](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/extensions#prerequisites).
+1. [Create an AML workspace](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-manage-workspace?tabs=python) in **the same region** as where your Kubernetes cluster is connected to Azure Arc.
+
+## Getting started
+
+Getting started with Training Public Preview is easy with following steps:
+
+* [Deploy AzureML extension to your Azure Arc enabled Kubernetes cluster](./docs/deploy-extension.md)
+* [Attach your Azure Arc enabled Kubernetes cluster to AML Workspace](./docs/attach-compute.md)
+* [Train an image classification model](./docs/simple-train.md)
+
+
+
+
+
 
 ## Disclaimer
 #### The lifecycle management (health, kubernetes version upgrades, security updates to nodes, scaling, etc.) of the AKS or Arc Kubernetes cluster is the responsibility of the customer.
@@ -12,23 +34,6 @@ For AKS, read what is managed and what is shared responsibility [here](https://d
 
 #### AMLK8s supports targeting ML training on both [Azure Kubernetes Service (AKS)](https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough) clusters or any cluster that is registered in Azure using [Arc](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/overview).
 
-#### Breaking change 03/03
-The AKS compute and Arc kubernetes compute have been rolled into one compute type - 'Kubernetes compute'. For SDK changes, navigate to the IT operator setup section 2 below. Portal changes are coming in a week.
-
-#### Breaking change coming 04/30
-1. A new version of the aml agent with additional capabilities will be rolled out
-2. The new installation will require the removal of the existing aml agent and a re-installation of the new version of the aml agent
-3. There will be no upgrade path available
-
-**Note**: The compute name in Python SDK and CLI may be changed during preview.
-
-## Overview
-AMLK8s project enables customer to use their exisiting AKS clusters or Azure Arc for Kubernetes clusters as compute target for AML training workload . Data scientists will have same experience as other compute targets. They can submit different types of training jobs to AMLK8s compute target. AMLK8s Will first support SDK and portal, and restapi/CLI will be supported later.
-
-### Regional availability
-1. EastUS2EUAP (Canary region, not visible to customers)
-2. EastUS  
-3. West Europe
 
 ### Kubernetes version support
 1.18.x or below
