@@ -17,9 +17,27 @@ This repository is intended to serve as an information hub for customers and par
 Getting started with Training Public Preview is easy with following steps:
 
 * [Deploy AzureML extension to your Azure Arc enabled Kubernetes cluster](./docs/deploy-extension.md)
-* [Attach your Azure Arc enabled Kubernetes cluster to AML Workspace](./docs/attach-compute.md)
-* [Train an image classification model](./docs/simple-train.md)
+* [Create a compute target - Attach your Azure Arc enabled Kubernetes cluster to AML Workspace](./docs/attach-compute.md)
+* [Train image classification model with AML CLI 2.0](./docs/simple-cli-train.md)
+* [Train image classification model with Python SDK](./docs/simple-sdk-train.md)
 
+## Training Public Preview supported features
+
+Azure Arc-enabled ML just adds another compute target capability to Azure Machine Learning, and all existing AML examples and notebooks will work out-of-box with a single change of compute target name only. Public preview supports following existing AML training features seamlessly:
+
+* [Train models with AML 2.0 CLI](https://docs.microsoft.com/azure/machine-learning/how-to-train-cli?view=azure-devops)
+  * [Basic Python training job](https://docs.microsoft.com/azure/machine-learning/how-to-train-cli?view=azure-devops#basic-python-training-job)
+  * [Distributed training - PyTorch](https://docs.microsoft.com/azure/machine-learning/how-to-train-cli?view=azure-devops#pytorch)
+  * [Distributed training - TensorFlow](https://docs.microsoft.com/azure/machine-learning/how-to-train-cli?view=azure-devops#tensorflow)
+  * [Distributed training - MPI](https://docs.microsoft.com/azure/machine-learning/how-to-train-cli?view=azure-devops#mpi)
+  * [Sweep hyperparameters](https://docs.microsoft.com/azure/machine-learning/how-to-train-cli?view=azure-devops#sweep-hyperparameters)
+* Train models with AML Python SDK
+  * [Configure and submit training run](https://docs.microsoft.com/azure/machine-learning/how-to-set-up-training-targets?view=azure-devops)
+  * [Tune hyperparameters](https://docs.microsoft.com/azure/machine-learning/how-to-tune-hyperparameters?view=azure-devops)
+  * [Scikit-learn](https://docs.microsoft.com/azure/machine-learning/how-to-train-scikit-learn?view=azure-devops)
+  * [TensorFlow](https://docs.microsoft.com/azure/machine-learning/how-to-train-tensorflow?view=azure-devops)
+  * [PyTorch](https://docs.microsoft.com/azure/machine-learning/how-to-train-pytorch?view=azure-devops)
+* [Build and use ML pipelines including designer pipeline support](https://docs.microsoft.com/azure/machine-learning/how-to-create-machine-learning-pipelines?view=azure-devops)
 
 ## Disclaimer
 
