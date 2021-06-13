@@ -4,13 +4,13 @@ You will use Azure Arc k8s-extension CLI to deploy the extension on top of your 
 
 ## Review AzureML extension deployment configuration settings
 
-Following is the list of available configuration settings to be specified when you deploy AzureML extension. Configuration settings can be specified by appending key/value pairs to ```--configuration-settings``` parameter in "az k8s-extension create" CLI command.
+Following is the list of available configuration settings to be specified when you deploy AzureML extension for model training. Configuration settings can be specified by appending key/value pairs to ```--configuration-settings``` parameter in "az k8s-extension create" CLI command.
 
    |Configuration Setting Key Name  |Description  |
    |--|--|
    | ```enableTraining``` |```True``` or ```False```, default ```False```. **Must** be set to ```True``` for AzureML extension deployment with Machine Learning model training support.  |
    |```relayConnectionString```  |Connection string for Azure Relay resource. Azure Relay resource is required for Kubernetes communication with AML services in cloud. By default, AzureML extension will create Azure Relay resource under the same resource group as Azure Arc connected cluster, and user does not need to set this configuration setting. AzureML extension will use the provided Azure Relay resource if this configuration setting is set. |
-   |```serviceBusConnectionString```  |Connection string for Azure Service Bus resource. Azure Service Bus resource is required for Kubernetes communication with AML services in cloud. By default, AzureML extension will create Azure Service Bus resource under the same resource group as Azure Arc connected cluster, and user does not need to set this configuration setting. AzureML extension will use the provided Azure Service Bus resource if this configuration setting is set. |
+   |```serviceBusConnectionString```  |Connection string for Azure Service Bus resource. Azure Service Bus resource is required for Kubernetes communication with AML services in cloud. By default, AzureML extension will create Azure Service Bus resource under the same resource group as Azure Arc connected cluster, and user does not need to set this configuration setting. AzureML extension will use the provided Azure Service Bus resource if this configuration setting is set. If this configuration setting is set, user must also create 2 topics and 2 subscriptions respectively: 1) topic name ```computestate-updatedby-computeprovider``` and subscription name ```compute-scheduler-computestate```. 1) topic name ```jobstate-updatedby-computeprovider``` and subscription name ```compute-scheduler-jobstate```|
    |```logAnalyticsWS```  |```True``` or ```False```, default ```False```. AzureML extension integrates with Azure LogAnalytics Workspace to provide log viewing and analysis capability through LogAalytics Workspace. This setting must be explicitly set to ```True``` if customer wants to leverage this capability. LogAnalytics Workspace cost may apply.  |
    |```installNvidiaDevicePlugin```  | ```True``` or ```False```, default ```True```. Nvidia Device Plugin is required for ML inference on Nvidia GPU hardware. By default, AzureML extension deployment will install Nvidia Device Plugin regardless Kubernete cluster has GPU hardware or not. User can specify this configuration setting to False if Nvidia Device Plugin installation is not required (either it is installed already or there is no plan to use GPU for inference).```  |
    |```installBlobfuseSysctl```  |```True``` or ```False```, default ```True``` if ```enableTraining=True```. Blobfuse 1.3.7 is required for ML training, and by default AzureML will install Blobfuse when extension extension instance is created. User can set this configuration setting to ```False``` if Blobfuse 1.3.7 is already installed on Kubernetes cluster.   |
@@ -29,8 +29,8 @@ Following is the list of available configuration settings to be specified when y
    ```azurecli
    az k8s-extension create --name amlarc-compute --extension-type Microsoft.AzureML.Kubernetes --configuration-settings enableTraining=True  --cluster-type connectedClusters --cluster-name <your-connected-cluster-name> --resource-group <resource-group> --scope cluster
    ```
-   **Note**: to enabled Azure Arc-enabled cluster for ML training, configuration setting ```enableTraining``` must be set to ```True```
-   
+
+   **Note**: to enabled Azure Arc-enabled cluster for ML training, configuration setting ```enableTraining``` must be set to ```True```. Running this command will create an Azure Service Bus and Azure Relay resource under the same resource group as the Arc cluster. These resources are used to communicate with the cluster and modifying them will break attached compute targets.
 
 ## Verify your AzureML extension deployment
 

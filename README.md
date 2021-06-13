@@ -7,17 +7,19 @@ This repository is intended to serve as an information hub for customers and par
 ## Prerequisites
 
 1. An Azure subscription. If you don't have an Azure subscription, [create a free account](https://aka.ms/AMLFree) before you begin.
-1. You have a Kubernetes cluster up and running, and learn about [Azure Arc enabled Kubernetes](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/overview) and [cluster extension](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/conceptual-extensions)
-1. Your Kubernetes cluster is [connected to Azure Arc](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/quickstart-connect-cluster). Please note down the region to be used in step 5.
-1. You've met the pre-requisites listed under the [generic cluster extensions documentation](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/extensions#prerequisites).
-1. [Create an AML workspace](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-manage-workspace?tabs=python) in **the same region** as where your Kubernetes cluster is connected to Azure Arc.
+1. You have a Kubernetes cluster up and running, and learn about [Azure Arc enabled Kubernetes](https://docs.microsoft.com/azure/azure-arc/kubernetes/overview) and [cluster extension](https://docs.microsoft.com/azure/azure-arc/kubernetes/conceptual-extensions)
+1. Your Kubernetes cluster is [connected to Azure Arc](https://docs.microsoft.com/azure/azure-arc/kubernetes/quickstart-connect-cluster).
+1. You've met the pre-requisites listed under the [generic cluster extensions documentation](https://docs.microsoft.com/azure/azure-arc/kubernetes/extensions#prerequisites).
+   * Azure CLI extension k8s-extension version must be >=0.4.3.
+1. [Create an AML workspace](https://docs.microsoft.com/azure/machine-learning/how-to-manage-workspace?tabs=python) if you don't have one already.
+   * AML Python SDK version must be >= 1.30.
 
 ## Getting started
 
 Getting started with Training Public Preview is easy with following steps:
 
 * [Deploy AzureML extension to your Azure Arc enabled Kubernetes cluster](./docs/deploy-extension.md)
-* [Create a compute target - Attach your Azure Arc enabled Kubernetes cluster to AML Workspace](./docs/attach-compute.md)
+* [Create a compute target - Attach Azure Arc enabled Kubernetes cluster to AML Workspace](./docs/attach-compute.md)
 * [Train image classification model with AML 2.0 CLI](./docs/simple-train-cli.md)
 * [Train image classification model with Python SDK](./examples/simple-train-sdk/img-classification-training.ipynb)
 
@@ -63,7 +65,7 @@ Azure Arc-enabled Machine Learning is currently supported in these regions where
 * OpenShift Kubernetes Distribution
 * Kubernetes 1.18.x and 1.19.x
 
-## Known issues and limitations
+## [Limitations and known issues](./docs/limitations-and-known-issues.md)
 
 ## FAQ
 
