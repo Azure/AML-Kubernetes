@@ -18,8 +18,8 @@ Getting started with Training Public Preview is easy with following steps:
 
 * [Deploy AzureML extension to your Azure Arc enabled Kubernetes cluster](./docs/deploy-extension.md)
 * [Create a compute target - Attach your Azure Arc enabled Kubernetes cluster to AML Workspace](./docs/attach-compute.md)
-* [Train image classification model with AML 2.0 CLI](./docs/simple-cli-train.md)
-* [Train image classification model with Python SDK](./examples/simple-sdk/img-classification-training.ipynb)
+* [Train image classification model with AML 2.0 CLI](./docs/simple-train-cli.md)
+* [Train image classification model with Python SDK](./examples/simple-train-sdk/img-classification-training.ipynb)
 
 ## Training Public Preview supported features
 
