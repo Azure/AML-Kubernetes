@@ -39,6 +39,54 @@ Azure Arc-enabled ML just adds another compute target capability to Azure Machin
   * [PyTorch](https://docs.microsoft.com/azure/machine-learning/how-to-train-pytorch?view=azure-devops)
 * [Build and use ML pipelines including designer pipeline support](https://docs.microsoft.com/azure/machine-learning/how-to-create-machine-learning-pipelines?view=azure-devops)
 
+## Region availability
+
+Azure Arc-enabled Machine Learning is currently supported in these regions where Azure Arc is available:
+
+* East US
+* West Europe
+* West Central US
+* South Central US
+* Southeast Asia
+* UK South
+* West US 2
+* Australia East
+* East US 2
+* North Europe
+
+## Supported Kubernetes distributions and versions
+
+* Azure Kubernetes Services
+* AKS Engine
+* AKS on Azure Stack HCI
+* Canonical Kubernetes Distribution
+* OpenShift Kubernetes Distribution
+* Kubernetes 1.18.x and 1.19.x
+
+## Known issues and limitations
+
+## FAQ
+
+#### Recommended AKS cluster resources
+
+We recommend you use a at least 3 nodes cluster, each node having at least 2C 4G. And if you want to running GPU jobs, you need some GPU nodes.
+
+#### AML add-on version upgrade
+
+We will install the latest AML add-on services automatically when you first attach AKS cluster to AML workspace. You can check add-on components version using ```helm list``` and update according to [Manage AML Add-on](https://github.com/Azure/CMK8s-Samples/blob/master/docs/5.%20Manage%20AML%20add-on.markdown).
+
+#### Why the nodes run ocupied in a run is more than node count in run list?
+
+The node count in the number of worker, for distribute training job, such as ps-worker or MPI/horovod they may need extra launcher node or ps node, they may also ocuppy one node. We will optimise this in following version.
+
+#### What Azure storage does AMLK8s support?
+
+AML K8s compute only suport Azure blob container, if your data is in other Azure storage, please move it to Azure blob first. We will support other Azure storage in following iteration.
+
+#### How do I use AMLK8s compute in China Region?
+
+Firstly, make sure you have switched the active cloud to AzureChinaCloud with [az cloud set](https://docs.microsoft.com/en-us/cli/azure/manage-clouds-azure-cli?view=azure-cli-latest) command. Then you can use the SDK and CLI sample in this repo.
+
 ## Activities
 
 * [Check for known issues](https://github.com/Azure/amlk8s-preview/labels/known-issue)
@@ -46,41 +94,7 @@ Azure Arc-enabled ML just adds another compute target capability to Azure Machin
 * [Browse roadmap items](https://github.com/Azure/amlk8s-preview/labels/roadmap)
 * [Open a bug, provide feedback, or suggest an improvement](https://github.com/Azure/amlk8s-preview/issues/new/choose)
 
-## Disclaimer
-
-#### The lifecycle management (health, kubernetes version upgrades, security updates to nodes, scaling, etc.) of the AKS or Arc Kubernetes cluster is the responsibility of the customer.
-
-For AKS, read what is managed and what is shared responsibility [here](https://docs.microsoft.com/en-us/azure/aks/support-policies)
-
-#### All preview features are available on a self-service, opt-in basis and are subject to breaking design and API changes. Previews are provided "as is" and "as available," and they're excluded from the service-level agreements and limited warranty. As such, these features aren't meant for production use.
-
-
-#### AMLK8s supports targeting ML training on both [Azure Kubernetes Service (AKS)](https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough) clusters or any cluster that is registered in Azure using [Arc](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/overview).
-
-
-### Kubernetes version support
-1.18.x or below
-
-Known [issue](https://github.com/Azure/AML-Kubernetes/issues/40) with 1.19.x we are working on a fix
-
-### Kubernetes version support is in accordance with what AKS supports. See [here](https://docs.microsoft.com/en-us/azure/aks/supported-kubernetes-versions) for details
-
-
-
-## FAQ
-#### Recommended AKS cluster resources
-We recommend you use a at least 3 nodes cluster, each node having at least 2C 4G. And if you want to running GPU jobs, you need some GPU nodes.
-#### AML add-on version upgrade
-We will install the latest AML add-on services automatically when you first attach AKS cluster to AML workspace. You can check add-on components version using ```helm list``` and update according to [Manage AML Add-on](https://github.com/Azure/CMK8s-Samples/blob/master/docs/5.%20Manage%20AML%20add-on.markdown).
-#### Why the nodes run ocupied in a run is more than node count in run list?
-The node count in the number of worker, for distribute training job, such as ps-worker or MPI/horovod they may need extra launcher node or ps node, they may also ocuppy one node. We will optimise this in following version.
-#### What Azure storage does AMLK8s support?
-AML K8s compute only suport Azure blob container, if your data is in other Azure storage, please move it to Azure blob first. We will support other Azure storage in following iteration.
-#### How do I use AMLK8s compute in China Region?
-Firstly, make sure you have switched the active cloud to AzureChinaCloud with [az cloud set](https://docs.microsoft.com/en-us/cli/azure/manage-clouds-azure-cli?view=azure-cli-latest) command. Then you can use the SDK and CLI sample in this repo.
-
-
-# Contributing
+## Contributing
 
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a
 Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
@@ -95,3 +109,15 @@ For more information see the [Code of Conduct FAQ](https://opensource.microsoft.
 contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
 
 ![Impressions](https://PixelServer20190423114238.azurewebsites.net/api/impressions/CMK8s-Samples/README.png)
+
+## Disclaimer
+
+#### The lifecycle management (health, kubernetes version upgrades, security updates to nodes, scaling, etc.) of the AKS or Arc Kubernetes cluster is the responsibility of the customer.
+
+For AKS, read what is managed and what is shared responsibility [here](https://docs.microsoft.com/en-us/azure/aks/support-policies)
+
+#### All preview features are available on a self-service, opt-in basis and are subject to breaking design and API changes. Previews are provided "as is" and "as available," and they're excluded from the service-level agreements and limited warranty. As such, these features aren't meant for production use.
+
+#### AMLK8s supports targeting ML training on both [Azure Kubernetes Service (AKS)](https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough) clusters or any cluster that is registered in Azure using [Arc](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/overview).
+
+### Kubernetes version support is in accordance with what AKS supports. See [here](https://docs.microsoft.com/en-us/azure/aks/supported-kubernetes-versions) for details
