@@ -1,6 +1,6 @@
 # Deploy AzureML extension to your Kubernetes cluster
 
-You will use Azure CLI to deploy the extension on top of your Azure Arc-enabled Kubernetes cluster. 
+You will use Azure Arc k8s-extension CLI to deploy the extension on top of your Azure Arc-enabled Kubernetes cluster. 
 
 ## Review AzureML extension deployment configuration settings
 
@@ -27,18 +27,20 @@ Following is the list of available configuration settings to be specified when y
 ## Deploy AzureML extension for model training
 
    ```azurecli
-   az k8s-extension create --cluster-type connectedClusters --cluster-name <your-connected-cluster-name> --resource-group <resource-group> --name microsoft.azureml.kubernetes --extension-type Microsoft.AzureML.Kubernetes --scope cluster --configuration-settings enableTraining=True 
+   az k8s-extension create --name amlarc-compute --extension-type Microsoft.AzureML.Kubernetes --configuration-settings enableTraining=True  --cluster-type connectedClusters --cluster-name <your-connected-cluster-name> --resource-group <resource-group> --scope cluster
    ```
+   **Note**: to enabled Azure Arc-enabled cluster for ML training, configuration setting ```enableTraining``` must be set to ```True```
+   
 
 ## Verify your AzureML extension deployment
 
 1. Run the following command on Azure CLI:
 
    ```azurecli
-   az k8s-extension show --cluster-type connectedClusters --cluster-name <your-connected-cluster-name> --resource-group <resource-group> --name microsoft.azureml.kubernetes
+   az k8s-extension show --name amlarc-compute --cluster-type connectedClusters --cluster-name <your-connected-cluster-name> --resource-group <resource-group>
    ```
 
-1. In the response, look for "extensionType": "microsoft.azureml.kubernetes" and "installState": "Installed". Note it might show "installState": "Pending" for the first few minutes.
+1. In the response, look for "extensionType": "amlarc-compute" and "installState": "Installed". Note it might show "installState": "Pending" for the first few minutes.
 
 1. If the state shows Installed, run the following command on your machine with the kubeconfig file pointed to your cluster to check that all pods under "azureml" namespace are in 'Running' state:
 

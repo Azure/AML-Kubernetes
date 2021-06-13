@@ -18,8 +18,8 @@ Getting started with Training Public Preview is easy with following steps:
 
 * [Deploy AzureML extension to your Azure Arc enabled Kubernetes cluster](./docs/deploy-extension.md)
 * [Create a compute target - Attach your Azure Arc enabled Kubernetes cluster to AML Workspace](./docs/attach-compute.md)
-* [Train image classification model with AML CLI 2.0](./docs/simple-cli-train.md)
-* [Train image classification model with Python SDK](./docs/simple-sdk-train.md)
+* [Train image classification model with AML 2.0 CLI](./docs/simple-cli-train.md)
+* [Train image classification model with Python SDK](./examples/simple-sdk/img-classification-training.ipynb)
 
 ## Training Public Preview supported features
 
@@ -38,6 +38,13 @@ Azure Arc-enabled ML just adds another compute target capability to Azure Machin
   * [TensorFlow](https://docs.microsoft.com/azure/machine-learning/how-to-train-tensorflow?view=azure-devops)
   * [PyTorch](https://docs.microsoft.com/azure/machine-learning/how-to-train-pytorch?view=azure-devops)
 * [Build and use ML pipelines including designer pipeline support](https://docs.microsoft.com/azure/machine-learning/how-to-create-machine-learning-pipelines?view=azure-devops)
+
+## Activities
+
+* [Check for known issues](https://github.com/Azure/amlk8s-preview/labels/known-issue)
+* [View general feedback](https://github.com/Azure/amlk8s-preview/labels/feedback)
+* [Browse roadmap items](https://github.com/Azure/amlk8s-preview/labels/roadmap)
+* [Open a bug, provide feedback, or suggest an improvement](https://github.com/Azure/amlk8s-preview/issues/new/choose)
 
 ## Disclaimer
 

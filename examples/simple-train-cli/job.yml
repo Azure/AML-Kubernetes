@@ -1,0 +1,12 @@
+experiment_name: Tutorial-sklearn-mnist
+code:
+  local_path: ./training-script
+command: python train.py --data-folder {inputs.mnist} --regularization 0.5
+environment: azureml:tutorial-env:1
+compute:
+  target: azureml:amlarc-compute
+inputs:
+  mnist:
+    data: azureml:mnist_opendataset:1
+    mode: mount
+    
