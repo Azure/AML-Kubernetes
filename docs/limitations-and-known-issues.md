@@ -2,7 +2,7 @@
 
 ## Create a compute target via compute attach
 
-For initial public preview release, you can create compute target via Studio UI or Python SDK. We are working hard to support compute attach via AML 2.0 CLI, please stay tuned for an update soon.
+For initial public preview release, you can create compute target via [AML Studio UI](compute-attach.md#create-a-compute-target-via-aml-stuido-ui) or [AML Python SDK](compute-attach.md#create-a-compute-target-via-aml-python-sdk). We are working hard to support compute attach via AML 2.0 CLI, please stay tuned for an update soon.
 
 ## Multiple AML workspaces share the same Arc cluster
 

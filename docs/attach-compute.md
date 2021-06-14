@@ -1,8 +1,10 @@
-# Attach Azure Arc-enabled Kubernetes cluster to AML workspace
+# Create a compute target - attach Arc cluster to AML workspace
 
-It is easy to attach Azure Arc enabled Kuberenetes cluster to AML workspace, you can do so from AML Studio UI portal. In most cases, you can use simple attach scenario for endpoint creation and model deployment.
+## Create a compute target via AML Studio UI
 
-## Simple compute attach scenario
+It is easy to attach Azure Arc-enabled Kubernetes cluster to AML workspace, you can do so from AML Studio UI portal. 
+
+### Simple compute attach scenario
 
 1. Go to AML studio portal, Compute > Attached compute, click "+New" button, and select "Kubernetes (Preview)"
 
@@ -20,7 +22,7 @@ It is easy to attach Azure Arc enabled Kuberenetes cluster to AML workspace, you
 
    ![Create a generic compute target](./media/attach-4.png)
 
-## Advanced compute attach scenarios
+### Advanced compute attach scenarios
 
 AzureML Kubernetes compute target allows user to specify an attach configuration file for some advanced compute target capabilities. Following is a full example of attach configuration JSON file:
 
@@ -107,11 +109,11 @@ The attach configuration JSON file allows user to specify 3 kind of custom prope
 }
 ```
 
-## Attach compute and create compute target via AML Python SDK (version >=1.30)
+## Create compute target via AML Python SDK
 
 You can also attach Arc cluster and create KubernetesCompute target easily via AML Python SDK 1.30 or above.
 
-### Simple compute attach scenario with default compute resources requests/limits
+### Simple compute attach scenario with default resources requests/limits
 
 Following Python code snippets shows how you can easily attach an Arc cluster and create a compute target to be used for training job.
 
