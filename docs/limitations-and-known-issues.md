@@ -1,5 +1,9 @@
 # Limitations and known issues
 
+## Create a compute target via compute attach
+
+For initial public preview release, you can create compute target via Studio UI or Python SDK. We are working hard to support compute attach via AML 2.0 CLI, please stay tuned for an update soon.
+
 ## Multiple AML workspaces share the same Arc cluster
 
 Azure Arc-enabled Machine Learning now supports multiple AML workspaces share the same Azure Acr-enabled Kubernetes cluster. However these multiple workspaces must be in the same region as the first attached AML workspace region.
