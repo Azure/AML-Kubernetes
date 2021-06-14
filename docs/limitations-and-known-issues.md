@@ -1,12 +1,12 @@
 # Limitations and known issues
 
-## Multiple AML workspaces share the same Azure Arc-enabled cluster
+## Multiple AML workspaces share the same Arc cluster
 
-Azure Arc-enabled Machine Learning now supports multiple AML workspaces share the same Azure Acr-enabled cluster. However these multiple workspaces must be in the same region as the first attached AML workspace region.
+Azure Arc-enabled Machine Learning now supports multiple AML workspaces share the same Azure Acr-enabled Kubernetes cluster. However these multiple workspaces must be in the same region as the first attached AML workspace region.
 
 ## Failed to find any PEM data in certificate for gateway and cluster-status-reporter
 
-If you see this error during AzureML extension deployment, it means the cluster lacks ```--cluster-signing-cert-file``` and ```--cluster-signing-key-file``` parameters in its controller manager setting. You can set ```enable_https``` to false and it will use http for in-cluster components communication
+If you see this error during AzureML extension deployment, it means the cluster lacks ```--cluster-signing-cert-file``` and ```--cluster-signing-key-file``` parameters in its controller manager setting. You can set ```enable_https``` to false and it will use http for in-cluster components communication. For morning please refer to [Kubernetes documentation](https://kubernetes.io/docs/tasks/tls/managing-tls-in-a-cluster/#a-note-to-cluster-administrators).
 
 ## Custom IP interface for MPI job
 

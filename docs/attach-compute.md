@@ -4,21 +4,21 @@ It is easy to attach Azure Arc enabled Kuberenetes cluster to AML workspace, you
 
 ## Simple compute attach scenario
 
-1. Go to AML studio portal, Compute > Attached compute, click "+New" button, and select "Kubernetes service (Preview)"
+1. Go to AML studio portal, Compute > Attached compute, click "+New" button, and select "Kubernetes (Preview)"
 
-   ![Create a generic compute target](./media/attach1.png)
+   ![Create a generic compute target](./media/attach-1.png)
 
-1. Enter a compute name, and select your Azure Arc enabled Kubernetes cluster from Azure Arc Kubernetes dropdown list.
+1. Enter a compute name, and select your Azure Arc-enabled Kubernetes cluster from Azure Arc-enabled Kubernetes cluster dropdown list.
 
-   ![Create a generic compute target](./media/attach2.png)
+   ![Create a generic compute target](./media/attach-2.png)
 
-1. (Optional) Browse and upload an attach config file. You can skip this step.
+1. (Optional) Browse and upload an attach config file. The step is optional and the simple attach scenario will skip this.
 
-   ![Create a generic compute target](./media/attach3.png)
+   ![Create a generic compute target](./media/attach-3.png)
 
 1. Click 'Attach' button. You will see the 'provisioning state' as 'Creating'. If it succeeds, you will see a 'Succeeded' state or else 'Failed' state.
 
-   ![Create a generic compute target](./media/attach4.png)
+   ![Create a generic compute target](./media/attach-4.png)
 
 ## Advanced compute attach scenarios
 
@@ -26,7 +26,7 @@ AzureML Kubernetes compute target allows user to specify an attach configuration
 
 ```json
 {
-   "namespace": "shippingDepartment",
+   "namespace": "amlarc-testing",
    "defaultInstanceType": "gpu_instance",
    "instanceTypes": {
       "gpu_instance": {
@@ -41,7 +41,7 @@ AzureML Kubernetes compute target allows user to specify an attach configuration
             },
             "limits": {
                "cpu": "2",
-               "memory": "16Gb",
+               "memory": "16Gi",
                "nvidia.com/gpu": "1"
             }
          }
@@ -54,12 +54,12 @@ AzureML Kubernetes compute target allows user to specify an attach configuration
             "requests": {
                "cpu": "4",
                "memory": "16Gi",
-               "nvidia.com/gpu": "null"
+               "nvidia.com/gpu": "0"
             },
             "limits": {
                "cpu": "4",
                "memory": "16Gi",
-               "nvidia.com/gpu": "null"
+               "nvidia.com/gpu": "0"
             }
          }
       }
@@ -75,7 +75,7 @@ The attach configuration JSON file allows user to specify 3 kind of custom prope
 
 * ```instanceTypes``` - This is the list of instance_types to be used for running training job. Each instance_type is defined by ```nodeSelector``` and ```resources requests/limits``` properties:
 
-  * ```nodeSelector``` - one or more node labels. Cluster Admin privilege is needed to create labels for cluster nodes. If this is specified, training job will be scheduled to run on nodes with the specified node labels. You can use ```nodeSelector``` to target a subset of nodes for training workload placement. This can be very handy if a cluster has different SKUs, or different type of nodes such as CPU or GPU nodes, and you want to target certain nodes for training workload.
+  * ```nodeSelector``` - one or more node labels. Cluster Admin privilege is needed to create labels for cluster nodes. If this is specified, training job will be scheduled to run on nodes with the specified node labels. You can use ```nodeSelector``` to target a subset of nodes for training workload placement. This can be very handy if a cluster has different SKUs, or different type of nodes such as CPU or GPU nodes, and you want to target certain node pool for training workload. For examples, you could create node labels for all GPU nodes and define an instanceType for GPU node pool, in this way you will be able to submit training job to that GPU node pool.
 
   * ```Resources requests/limits``` - ```Resources requests/limits``` specifies resources requests and limits a training job pod to run.
 

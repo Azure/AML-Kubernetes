@@ -10,9 +10,9 @@ This repository is intended to serve as an information hub for customers and par
 1. You have a Kubernetes cluster up and running, and learn about [Azure Arc enabled Kubernetes](https://docs.microsoft.com/azure/azure-arc/kubernetes/overview) and [cluster extension](https://docs.microsoft.com/azure/azure-arc/kubernetes/conceptual-extensions)
 1. Your Kubernetes cluster is [connected to Azure Arc](https://docs.microsoft.com/azure/azure-arc/kubernetes/quickstart-connect-cluster).
 1. You've met the pre-requisites listed under the [generic cluster extensions documentation](https://docs.microsoft.com/azure/azure-arc/kubernetes/extensions#prerequisites).
-   * Azure CLI extension k8s-extension version must be >=0.4.3.
+   * Azure CLI extension k8s-extension version must be >=**0.4.3**.
 1. [Create an AML workspace](https://docs.microsoft.com/azure/machine-learning/how-to-manage-workspace?tabs=python) if you don't have one already.
-   * AML Python SDK version must be >= 1.30.
+   * AML Python SDK version must be >= **1.30**.
 
 ## Getting started
 
