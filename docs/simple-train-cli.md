@@ -39,16 +39,22 @@
    code:
      local_path: ./src
    command: python train.py --data-folder {inputs.mnist} --regularization 0.5
-   environment: azureml:tutorial-env:1
+   environment:
+     name: tutorial-env
+     version: 1
+     path: .
+     conda_file: file:./environment.yml
+     docker:
+       image: mcr.microsoft.com/azureml/intelmpi2018.3-ubuntu16.04:20210301.v1
    compute:
-     target: azureml:amlarc-compute
+     target: azureml:amlarc-ml
    inputs:
      mnist:
        data: azureml:mnist_opendataset:1
        mode: mount
    ```
    
-   **Note**: for this example to run, you would have created following assets in AML Workspace: compute target named **amlarc-compute**, environment named **tutorial-env**, and dataset named **mnist_opendataset**.
+   **Note**: for this example to run, you would have created following assets in AML Workspace: compute target named **amlarc-ml** and file dataset named **mnist_opendataset**.
 
 1. Git clone preview Github repo and switch to simple-train-cli directory
 
@@ -57,7 +63,7 @@
    cd AML-Kubernetes/examples/simple-train-cli
    ```
 
-1. Modify job YAML file to replace **amlarc-compute** with your own compute target name, and create environment and dataset assets in AML Workspace.
+1. Modify job YAML file to replace **amlarc-ml** with your own compute target name, and register open dataset MNIST as file dataset and named **mnist_opendataset** in AML Workspace.
 
 1. Run the image classification training job
 
@@ -79,4 +85,3 @@ That is it! You have successfully trained an image classification model and down
 
 * [Train models (create jobs) with the 2.0 CLI (preview)](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-train-cli)
 * [Additional examples](https://github.com/Azure/azureml-examples/tree/main/cli/jobs/train)
-

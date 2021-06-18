@@ -125,14 +125,14 @@ import os
 ws = Workspace.from_config()
 
 # choose a name for your Azure Arc-enabled Kubernetes compute
-amlarc_compute_name = os.environ.get("AML_COMPUTE_CLUSTER_NAME", "amlarc-compute")
+amlarc_compute_name = os.environ.get("AML_COMPUTE_CLUSTER_NAME", "amlarc-ml")
 
 # resource ID for your Azure Arc-enabled Kubernetes cluster
 resource_id = "/subscriptions/123/resourceGroups/rg/providers/Microsoft.Kubernetes/connectedClusters/amlarc-cluster"
 
 if amlarc_compute_name in ws.compute_targets:
-    compute_target = ws.compute_targets[amlarc_compute_name]
-    if compute_target and type(compute_target) is KubernetesCompute:
+    amlarc_compute = ws.compute_targets[amlarc_compute_name]
+    if amlarc_compute and type(amlarc_compute) is KubernetesCompute:
         print("found compute target: " + amlarc_compute_name)
 else:
     print("creating new compute target...")
@@ -159,14 +159,14 @@ import os
 ws = Workspace.from_config()
 
 # choose a name for your Azure Arc-enabled Kubernetes compute
-amlarc_compute_name = os.environ.get("AML_COMPUTE_CLUSTER_NAME", "amlarc-compute")
+amlarc_compute_name = os.environ.get("AML_COMPUTE_CLUSTER_NAME", "amlarc-ml")
 
 # resource ID for your Azure Arc-enabled Kubernetes cluster
 resource_id = "/subscriptions/123/resourceGroups/rg/providers/Microsoft.Kubernetes/connectedClusters/amlarc-cluster"
 
 if amlarc_compute_name in ws.compute_targets:
-   compute_target = ws.compute_targets[amlarc_compute_name]
-   if compute_target and type(compute_target) is KubernetesCompute:
+   amlarc_compute = ws.compute_targets[amlarc_compute_name]
+   if amlarc_compute and type(amlarc_compute) is KubernetesCompute:
       print("found compute target: " + amlarc_compute_name)
 else:
    print("creating new compute target...")
