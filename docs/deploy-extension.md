@@ -2,10 +2,6 @@
 
 You will use Azure Arc k8s-extension CLI to deploy the extension on top of your Azure Arc-enabled Kubernetes cluster. 
 
-## Review AzureML extension deployment configuration settings
-
-|
-
 ## Login to Azure
 
    ```azurecli
@@ -19,7 +15,7 @@ You will use Azure Arc k8s-extension CLI to deploy the extension on top of your 
    az k8s-extension create --name amlarc-compute --extension-type Microsoft.AzureML.Kubernetes --configuration-settings enableTraining=True  --cluster-type connectedClusters --cluster-name <your-connected-cluster-name> --resource-group <resource-group> --scope cluster
    ```
 
-   > [!Important] 
+   > [**Important**] 
    > To enabled Azure Arc-enabled cluster for ML training, configuration setting ```enableTraining``` must be set to ```True```. Running this command will create an Azure Service Bus and Azure Relay resource under the same resource group as the Arc cluster. These resources are used to communicate with the cluster and modifying them will break attached compute targets.
 
    Following is the list of available configuration settings to be specified when you deploy AzureML extension for model training. Configuration settings can be specified by appending key/value pairs to ```--configuration-settings``` parameter in "az k8s-extension create" CLI command.
