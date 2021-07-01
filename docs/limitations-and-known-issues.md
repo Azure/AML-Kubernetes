@@ -22,4 +22,4 @@ Azure Arc-enabled ML job scheduler does not work with upstream cluster autoscale
 
 ## AML Dataset support
 
-Azure Arc-enabled Machine Learning job supports mounting/downloading an AML Dataset to a local path specified by the field "PathOnCompute". But this path can be neither under the root folder(/) or a privilege folder(e.g. /data/), nor an existing folder. 
+Azure Arc-enabled Machine Learning job supports mounting/downloading an AML Dataset to a local path specified by the field "PathOnCompute". But this path can not be any of following: under root folder (/<myfolder>), priviledge folder (e.g. /data/<myfolder>), and an existing folder. 
