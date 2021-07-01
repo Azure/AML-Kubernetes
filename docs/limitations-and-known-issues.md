@@ -19,3 +19,7 @@ For MPI job on Azure Arc-enabled on-premise Kubernetes cluster, AzureML provides
 ## Cluster autoscaling and job scheduler support
 
 Azure Arc-enabled ML job scheduler does not work with upstream cluster autoscaler yet, manual cluster scaling is required if there are not enough resources in cluster.
+
+## AML Dataset support
+
+Azure Arc-enabled Machine Learning job supports mounting/downloading an AML Dataset to a local path specified by the field "PathOnCompute". But this path can be neither under the root folder(/) or a privilege folder(e.g. /data/), nor an existing folder. 
