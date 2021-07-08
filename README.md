@@ -7,7 +7,7 @@ This repository is intended to serve as an information hub for customers and par
 ## Prerequisites
 
 1. An Azure subscription. If you don't have an Azure subscription, [create a free account](https://aka.ms/AMLFree) before you begin.
-1. You have a Kubernetes cluster up and running - **the cluster must have minimum of 4 vCPU cores and 16GB memory**.
+1. You have a Kubernetes cluster up and running - **the cluster must have minimum of 4 vCPU cores and 16GB memory, around 3 vCPU cores and 6GB memory would be used by system**.
 1. Your Kubernetes cluster is [connected to Azure Arc](https://docs.microsoft.com/azure/azure-arc/kubernetes/quickstart-connect-cluster).
 1. You've met the pre-requisites listed under the [generic cluster extensions documentation](https://docs.microsoft.com/azure/azure-arc/kubernetes/extensions#prerequisites).
    * Azure CLI version >=**2.24.0**
