@@ -47,6 +47,14 @@ In addition to above built-in AML training features, public preview also support
 * [Train model on-premises with outbound proxy server](https://docs.microsoft.com/azure/azure-arc/kubernetes/quickstart-connect-cluster#5-connect-using-an-outbound-proxy-server)
 * [Train model on-premises with NFS datastore](./docs/setup-ephemeral-nfs-volume.md)
 
+<!-- ### Release notes 
+
+New features release is in bi-weekly cadance. 
+
+**July 2, 2021 Release** -->
+
+* Automated machine learning (AutoML) 
+
 ## Region availability
 
 Azure Arc-enabled Machine Learning is currently supported in these regions where Azure Arc is available:
@@ -75,6 +83,11 @@ Azure Arc-enabled Machine Learning is currently supported in these regions where
 ## [Limitations and known issues](./docs/limitations-and-known-issues.md)
 
 ## [FAQ](./docs/faq.md)
+
+## Support
+
+We are always looking for feedback on our current experiences and what we should work on next. If there is anything you would like us to prioritize, please feel free to suggest so via our [GitHub Issue Tracker](https://github.com/Azure/AML-Kubernetes/issues). You can submit a bug report, a feature suggestion or participate in discussions.
+
 
 ## Activities
 
