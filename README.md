@@ -53,7 +53,7 @@ New features release is in bi-weekly cadance.
 
 **July 2, 2021 Release** -->
 
-* Automated machine learning (AutoML) 
+<!-- * Automated machine learning (AutoML)  -->
 
 ## Region availability
 
