@@ -47,13 +47,17 @@ In addition to above built-in AML training features, public preview also support
 * [Train model on-premises with outbound proxy server](https://docs.microsoft.com/azure/azure-arc/kubernetes/quickstart-connect-cluster#5-connect-using-an-outbound-proxy-server)
 * [Train model on-premises with NFS datastore](./docs/setup-ephemeral-nfs-volume.md)
 
-<!-- ### Release notes 
+## Release notes 
 
-New features release is in bi-weekly cadance. 
+New features are released at a biweekly cadance. 
 
-**July 2, 2021 Release** -->
+**July 2, 2021 Release**
 
-* Automated machine learning (AutoML) 
+* New Kubernetes distribution and vendor support, OpenShift Kubernetes and GKE (Google Kubernetes Engine). 
+* Autoscale support. If the user-managed Kubernetes cluster enables the autoscale, the cluster will be automatically scaled out or scaled in according to the volume of active runs and deployments.  
+* Performance improvement on job laucher, which shortens the job scheduling time to a great deal.
+
+
 
 ## Region availability
 
@@ -75,9 +79,9 @@ Azure Arc-enabled Machine Learning is currently supported in these regions where
 * Azure Kubernetes Services
 * AKS Engine
 * AKS on Azure Stack HCI
-* GKE (Google Kubernetes Engine)
+* GKE (Google Kubernetes Engine)  (coming with July 2, 2021 release)
 * Canonical Kubernetes Distribution
-* OpenShift Kubernetes Distribution (coming soon)
+* OpenShift Kubernetes Distribution (coming with July 2, 2021 release)
 * Kubernetes 1.18.x and 1.19.x
 
 ## [Limitations and known issues](./docs/limitations-and-known-issues.md)
