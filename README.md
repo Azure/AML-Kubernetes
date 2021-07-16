@@ -80,7 +80,7 @@ New features are released at a biweekly cadance.
 
 * New Kubernetes distributions support, OpenShift Kubernetes and GKE (Google Kubernetes Engine). 
 * Autoscale support. If the user-managed Kubernetes cluster enables the autoscale, the cluster will be automatically scaled out or scaled in according to the volume of active runs and deployments.  
-* Performance improvement on job laucher, which shortens the job scheduling time to a great deal.
+* Performance improvement on job laucher, which shortens the job execution time to a great deal.
 
 ## [Limitations and known issues](./docs/limitations-and-known-issues.md)
 
