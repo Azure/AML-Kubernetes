@@ -57,8 +57,6 @@ New features are released at a biweekly cadance.
 * Autoscale support. If the user-managed Kubernetes cluster enables the autoscale, the cluster will be automatically scaled out or scaled in according to the volume of active runs and deployments.  
 * Performance improvement on job laucher, which shortens the job scheduling time to a great deal.
 
-
-
 ## Region availability
 
 Azure Arc-enabled Machine Learning is currently supported in these regions where Azure Arc is available:
