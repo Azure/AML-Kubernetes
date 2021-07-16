@@ -63,7 +63,7 @@
    cd AML-Kubernetes/examples/simple-train-cli
    ```
 
-1. Modify job YAML file to replace **amlarc-ml** with your own compute target name, and register open dataset MNIST as file dataset and named **mnist_opendataset** in AML Workspace.
+1. Modify job YAML file to replace **amlarc-ml** with your own compute target name, and register open dataset MNIST as file dataset and named **mnist_opendataset** in AML Workspace from public URL: https://azureopendatastorage.blob.core.windows.net/mnist/*.gz
 
 1. Run the image classification training job
 
