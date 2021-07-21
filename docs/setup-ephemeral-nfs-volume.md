@@ -1,6 +1,7 @@
 ### Set up NFS server
 
-Set up on Ubuntu [Link](https://help.ubuntu.com/community/SettingUpNFSHowTo)
+Set up on Ubuntu [Link](https://help.ubuntu.com/community/SettingUpNFSHowTo) and make sure to grant NFS Share Access to your Kubernetes cluster.
+
 
 ### Create a Configmap with nfs server properties
 
