@@ -69,7 +69,7 @@ Azure Arc-enabled Machine Learning is currently supported in these regions where
 * AKS on Azure Stack HCI
 * GKE (Google Kubernetes Engine)  
 * Canonical Kubernetes Distribution
-* OpenShift Kubernetes Distribution 
+* [Deploy AzureML extension on OpenShift Container Platform (OCP)](./docs/deploy-on-ocp.md) 
 * Kubernetes 1.18.x and 1.19.x
 
 ## Release notes 
