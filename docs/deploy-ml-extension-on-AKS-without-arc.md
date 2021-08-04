@@ -22,7 +22,7 @@ Refer to the guidance in [Deploy AzureML extension to your Kubernetes cluster](d
    ```
 ### Attach AKS to AzureML workspace as a compute target
 
-Refer to the guidance in [Create a compute target - Attach Azure Arc enabled Kubernetes cluster to AML Workspace](attach-compute.md##create-compute-target-via-aml-python-sdk). You can use **Python SDK** to attach your AKS cluster.
+Refer to the guidance in [Create a compute target - Attach Azure Arc enabled Kubernetes cluster to AML Workspace](attach-compute.md#create-compute-target-via-aml-python-sdk). You can use **Python SDK** to attach your AKS cluster.
 
 Note that when you do the attachment via Python SDK, the AKS cluster resource ID is needed. The resource ID is formatted as,
 ```
