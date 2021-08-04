@@ -7,8 +7,8 @@ This repository is intended to serve as an information hub for customers and par
 ## Prerequisites
 
 1. An Azure subscription. If you don't have an Azure subscription, [create a free account](https://aka.ms/AMLFree) before you begin.
-1. You have a Kubernetes cluster up and running - **the cluster must have minimum of 4 vCPU cores and 16GB memory, around 3 vCPU cores and 6GB memory would be used by system**.
-1. Your Kubernetes cluster is [connected to Azure Arc](https://docs.microsoft.com/azure/azure-arc/kubernetes/quickstart-connect-cluster).
+1. You have a Kubernetes cluster up and running - **the cluster must have minimum of 6 vCPU cores and 16GB memory, around 3 vCPU cores and 6GB memory would be used by system**.
+1. Your Kubernetes cluster is [connected to Azure Arc](https://docs.microsoft.com/azure/azure-arc/kubernetes/quickstart-connect-cluster). 
 1. You've met the pre-requisites listed under the [generic cluster extensions documentation](https://docs.microsoft.com/azure/azure-arc/kubernetes/extensions#prerequisites).
    * Azure CLI version >=**2.24.0**
    * Azure CLI extension k8s-extension version >=**0.4.3**.
@@ -46,6 +46,12 @@ In addition to above built-in AML training features, public preview also support
 
 * [Train model on-premises with outbound proxy server](https://docs.microsoft.com/azure/azure-arc/kubernetes/quickstart-connect-cluster#5-connect-using-an-outbound-proxy-server)
 * [Train model on-premises with NFS datastore](./docs/setup-ephemeral-nfs-volume.md)
+
+## Supported features in private preview
+
+* [Model deployment for real-time inference](https://github.com/Azure/amlarc-preview). Sign up [here](https://forms.office.com/r/X1HBQiBvP5) to get access to its Github repo.
+* [Interactive job](https://github.com/Azure/azureml-previews/tree/main/previews/interactive-job) to access your training compute using VS Code, Jupyter Notebook, Jupyter Lab, and summarize metrics with Tensorboard. Sign up [here](https://forms.office.com/pages/responsepage.aspx?id=v4j5cvGGr0GRqy180BHbR8PsZ1-HON9JqtABfkUgwtpUNUtMWTEyRklBQUk2RzZQTUZGTjBUQzJINy4u) to get access to its Github repo.
+* [Deploy AzureML extension to your AKS cluster without Arc connected](./docs/deploy-ml-extension-on-AKS-without-arc.md). Sign up [here](https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR82DXV1MLKFCgun1LAU3Tz1URjJUSjZZQ0IwTUlKNkVaSFM5OUJHRzgwSC4u) to allowlist your subscription.
 
 ## Region availability
 
