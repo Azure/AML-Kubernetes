@@ -129,7 +129,7 @@ az ml compute attach --resource-group
 
 * `--file`
 
-   Local path to the YAML file containing the compute specification. Ignoring this param will allow the default compute configuration for simple compute attach scenario, or specify a YAML file with customized compute defination for advanced attach scenario. 
+   Local path to the YAML file containing the compute specification. **Ignoring this param will allow the default compute configuration for simple compute attach scenario, or specify a YAML file with customized compute defination for advanced attach scenario**. 
 * `--no-wait`
 
    Do not wait for the long-running operation to finish.
