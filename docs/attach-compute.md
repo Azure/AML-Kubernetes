@@ -24,52 +24,38 @@ It is easy to attach Azure Arc-enabled Kubernetes cluster to AML workspace, you 
 
 ### Advanced compute attach scenarios
 
-AzureML Kubernetes compute target allows user to specify an attach configuration file for some advanced compute target capabilities. Following is a full example of attach configuration JSON file:
+AzureML Kubernetes compute target allows user to specify an attach configuration file for some advanced compute target capabilities. Following is a full example of attach configuration YAML file:
 
-```json
-{
-   "namespace": "amlarc-testing",
-   "defaultInstanceType": "gpu_instance",
-   "instanceTypes": {
-      "gpu_instance": {
-         "nodeSelector": {
-            "accelerator": "nvidia-tesla-k80"
-         },
-         "resources": {
-            "requests": {
-               "cpu": "2",
-               "memory": "16Gi",
-               "nvidia.com/gpu": "1"
-            },
-            "limits": {
-               "cpu": "2",
-               "memory": "16Gi",
-               "nvidia.com/gpu": "1"
-            }
-         }
-      },
-      "big_cpu_sku": {
-         "nodeSelector": {
-            "VMSizes": "VM-64vCPU-256GB"
-         },
-         "resources": {
-            "requests": {
-               "cpu": "4",
-               "memory": "16Gi",
-               "nvidia.com/gpu": "0"
-            },
-            "limits": {
-               "cpu": "4",
-               "memory": "16Gi",
-               "nvidia.com/gpu": "0"
-            }
-         }
-      }
-   }
-}
+```yaml
+default_instance_type: gpu_instance
+namespace: amlarc-testing     
+instance_types: 
+-   name: gpu_instance
+    node_selector: 
+        accelerator: nvidia-tesla-k80
+    resources: 
+        requests:
+          cpu: 1
+          memory: 4Gi
+          "nvidia.com/gpu": 1
+        limits:
+          cpu: 1
+          memory: 4Gi
+          "nvidia.com/gpu": 1
+-   name: big_cpu_sku
+    node_selector: null
+    resources: 
+        requests:
+          cpu: 4
+          memory: 16Gi
+          "nvidia.com/gpu": 0
+        limits:
+          cpu: 4
+          memory: 16Gi
+          "nvidia.com/gpu": 0
 ```
 
-The attach configuration JSON file allows user to specify 3 kind of custom properties for a compute target:
+The attach configuration YAML file allows user to specify 3 kind of custom properties for a compute target:
 
 * ```namespace``` - Default to ```default``` namespace if this is not specified. This is the namespace where all training job will use and pods will run under this namespace. Note the namespace specified in compute target must preexist and it is usually created with Cluster Admin privilege.
 
@@ -81,33 +67,72 @@ The attach configuration JSON file allows user to specify 3 kind of custom prope
 
   * ```Resources requests/limits``` - ```Resources requests/limits``` specifies resources requests and limits a training job pod to run.
 
-**Note**: Training public preview only supports job submission using compute target name only, thus it will always use ```defaultInstanceType``` to run training workload. Support for training job submission with compute target name and instance_type name will come after public preview release.
+>**Note**: Training public preview only supports job submission using compute target name only, thus it will always use ```defaultInstanceType``` to run training workload. Support for training job submission with compute target name and instance_type name will come after public preview release.
 
-**Note**: For simple compute attach without specifying resources requests/limits, AzureML will create below resources requests/limits for training job. To ensure successful job run completion, we recommend to always specify resources requests/limits according to training job needs.
+>**Note**: For simple compute attach without specifying resources requests/limits, AzureML will create below resources requests/limits for training job. To ensure successful job run completion, we recommend to always specify resources requests/limits according to training job needs.
 
-```json
-{
-   "namespace": "default",
-   "defaultInstanceType": "defaultInstanceType",
-   "instanceTypes": {
-      "defaultInstanceType": {
-         "nodeSelector": "null",
-         "resources": {
-            "requests": {
-               "cpu": "1",
-               "memory": "4Gi",
-               "nvidia.com/gpu": "0"
-            },
-            "limits": {
-               "cpu": "1",
-               "memory": "4Gi",
-               "nvidia.com/gpu": "0"
-            }
-         }
-      }
-   }
-}
+```yaml
+default_instance_type: defaultInstanceType
+namespace: default
+instance_types:
+-   name: defaultInstanceType
+    node_selector: null
+    resources: 
+        requests:
+          cpu: 1
+          memory: 4Gi
+          "nvidia.com/gpu": 0
+        limits:
+          cpu: 1
+          memory: 4Gi
+          "nvidia.com/gpu": 0		  
+
 ```
+## Create compute target via Azure ML 2.0 CLI
+
+You can also attach Arc cluster and create KubernetesCompute target easily via Azure ML 2.0 CLI.
+
+1. Refer to [Install, set up, and use the 2.0 CLI (preview)](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-configure-cli) to install ML 2.0 CLI. Compute attach support **requires ml extension >= 2.0.1a4**. 
+
+1. Attach the  Arc-enabled Kubernetes cluster,
+
+```azurecli
+az ml compute attach --resource-group
+                     --workspace-name
+                     --name
+                     --resource-id
+                     --type					 
+                     [--file]
+                     [--no-wait]
+
+```
+
+**Required Parameters**
+
+* `--resource-group -g` 
+
+   Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
+* `--workspace-name -w` 
+   
+   Name of the Azure ML workspace. You can configure the default group using `az configure --defaults workspace=<name>`.
+* `--name -n`
+
+   Name of the compute target.
+* `--resource-id`
+
+   The fully qualified ID of the resource, including the resource name and resource type.
+* `--type -t`
+
+   The type of compute target. Allowed values: kubernetes, AKS, virtualmachine. Specify `kubernetes` to attach arc-enabled kubernetes cluster.
+
+**Optional Parameters**
+
+* `--file`
+
+   Local path to the YAML file containing the compute specification. Ignoring this param will allow the default compute configuration for simple compute attach scenario, or specify a YAML file with customized compute defination for advanced attach scenario. 
+* `--no-wait`
+
+   Do not wait for the long-running operation to finish.
 
 ## Create compute target via AML Python SDK
 
