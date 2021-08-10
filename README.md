@@ -51,7 +51,7 @@ In addition to above built-in AML training features, public preview also support
 
 * [Model deployment for real-time inference](https://github.com/Azure/amlarc-preview). Sign up [here](https://forms.office.com/r/X1HBQiBvP5) to get access to its Github repo.
 * [Interactive job](https://github.com/Azure/azureml-previews/tree/main/previews/interactive-job) to access your training compute using VS Code, Jupyter Notebook, Jupyter Lab, and summarize metrics with Tensorboard. Sign up [here](https://forms.office.com/pages/responsepage.aspx?id=v4j5cvGGr0GRqy180BHbR8PsZ1-HON9JqtABfkUgwtpUNUtMWTEyRklBQUk2RzZQTUZGTjBUQzJINy4u) to get access to its Github repo.
-* [Deploy AzureML extension to your AKS cluster without Arc connected](./docs/deploy-ml-extension-on-AKS-without-arc.md). Sign up [here](https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR82DXV1MLKFCgun1LAU3Tz1URjJUSjZZQ0IwTUlKNkVaSFM5OUJHRzgwSC4u) to allowlist your subscription.
+* [Deploy AzureML extension to your AKS cluster without connecting via Azure Arc](./docs/deploy-ml-extension-on-AKS-without-arc.md). Sign up [here](https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR82DXV1MLKFCgun1LAU3Tz1URjJUSjZZQ0IwTUlKNkVaSFM5OUJHRzgwSC4u) to allowlist your subscription.
 
 ## Region availability
 

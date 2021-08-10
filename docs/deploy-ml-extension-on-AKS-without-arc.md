@@ -1,4 +1,4 @@
-## Deploy AzureML extension to AKS cluster without Arc connected (private preview)
+## Deploy AzureML extension to AKS cluster without connecting via Azure Arc (private preview)
 
 For Azure Kubernetes Service (AKS), now you can deploy AzureML extension to the cluster directly, and don't need to connect it to Azure Arc beforehand.
 
@@ -13,6 +13,11 @@ az extension remove --name k8s-extension
 
 az extension add --source <whl filepaht> --yes
 ```
+* Register this preview feature before you are able to deploy the extension to AKS
+```azurecli
+az feature register --namespace Microsoft.ContainerService -n AKS-ExtensionManager
+```
+
 ### Deploy AzureML extension to AKS
 
 Refer to the guidance in [Deploy AzureML extension to your Kubernetes cluster](deploy-extension.md#deploy-azureml-extension-for-model-training). Only need to change the  `cluster-type` from `connectedClusters` to `managedClusters`
@@ -22,9 +27,9 @@ Refer to the guidance in [Deploy AzureML extension to your Kubernetes cluster](d
    ```
 ### Attach AKS to AzureML workspace as a compute target
 
-Refer to the guidance in [Create a compute target - Attach Azure Arc enabled Kubernetes cluster to AML Workspace](attach-compute.md#create-compute-target-via-aml-python-sdk). You can use **Python SDK** to attach your AKS cluster.
+Refer to the guidance in [Create a compute target - Attach Azure Arc enabled Kubernetes cluster to AML Workspace](attach-compute.md). You can use **Python SDK or ML 2.0 CLI** to attach your AKS cluster.
 
-Note that when you do the attachment via Python SDK, the AKS cluster resource ID is needed. The resource ID is formatted as,
+Note that when you do the attachment via Python SDK or 2.0 CLI, the AKS cluster resource ID is needed. The resource ID is formatted as,
 ```
 resource_id = "/subscriptions/<sub ID>/resourceGroups/<resource group>/providers/Microsoft.ContainerService/managedclusters/<cluster name>"
 
