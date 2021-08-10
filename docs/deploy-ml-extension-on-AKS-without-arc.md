@@ -1,4 +1,4 @@
-## Deploy AzureML extension to AKS cluster without Arc connected (private preview)
+## Deploy AzureML extension to AKS cluster without connecting via Azure Arc (private preview)
 
 For Azure Kubernetes Service (AKS), now you can deploy AzureML extension to the cluster directly, and don't need to connect it to Azure Arc beforehand.
 
@@ -13,6 +13,11 @@ az extension remove --name k8s-extension
 
 az extension add --source <whl filepaht> --yes
 ```
+* Register this preview feature before you are able to deploy the extension to AKS
+```azurecli
+az feature register --namespace Microsoft.ContainerService -n AKS-ExtensionManager
+```
+
 ### Deploy AzureML extension to AKS
 
 Refer to the guidance in [Deploy AzureML extension to your Kubernetes cluster](deploy-extension.md#deploy-azureml-extension-for-model-training). Only need to change the  `cluster-type` from `connectedClusters` to `managedClusters`

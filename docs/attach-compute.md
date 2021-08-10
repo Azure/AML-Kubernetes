@@ -1,26 +1,50 @@
 # Create a compute target - attach Arc cluster to AML workspace
 
-## Create a compute target via AML Studio UI
+## Create compute target via Azure ML 2.0 CLI
 
-It is easy to attach Azure Arc-enabled Kubernetes cluster to AML workspace, you can do so from AML Studio UI portal. 
+You can also attach Arc cluster and create KubernetesCompute target easily via Azure ML 2.0 CLI.
 
-### Simple compute attach scenario
+1. Refer to [Install, set up, and use the 2.0 CLI (preview)](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-configure-cli) to install ML 2.0 CLI. Compute attach support **requires ml extension >= 2.0.1a4**. 
 
-1. Go to AML studio portal, Compute > Attached compute, click "+New" button, and select "Kubernetes (Preview)"
+1. Attach the  Arc-enabled Kubernetes cluster,
 
-   ![Create a generic compute target](./media/attach-1.png)
+```azurecli
+az ml compute attach --resource-group
+                     --workspace-name
+                     --name
+                     --resource-id
+                     --type					 
+                     [--file]
+                     [--no-wait]
 
-1. Enter a compute name, and select your Azure Arc-enabled Kubernetes cluster from Azure Arc-enabled Kubernetes cluster dropdown list.
+```
 
-   ![Create a generic compute target](./media/attach-2.png)
+**Required Parameters**
 
-1. (Optional) Browse and upload an attach config file. The step is optional and the simple attach scenario will skip this.
+* `--resource-group -g` 
 
-   ![Create a generic compute target](./media/attach-3.png)
+   Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
+* `--workspace-name -w` 
+   
+   Name of the Azure ML workspace. You can configure the default group using `az configure --defaults workspace=<name>`.
+* `--name -n`
 
-1. Click 'Attach' button. You will see the 'provisioning state' as 'Creating'. If it succeeds, you will see a 'Succeeded' state or else 'Failed' state.
+   Name of the compute target.
+* `--resource-id`
 
-   ![Create a generic compute target](./media/attach-4.png)
+   The fully qualified ID of the resource, including the resource name and resource type.
+* `--type -t`
+
+   The type of compute target. Allowed values: kubernetes, AKS, virtualmachine. Specify `kubernetes` to attach arc-enabled kubernetes cluster.
+
+**Optional Parameters**
+
+* `--file`
+
+   Local path to the YAML file containing the compute specification. **Ignoring this param will allow the default compute configuration for simple compute attach scenario, or specify a YAML file with customized compute defination for advanced attach scenario**. 
+* `--no-wait`
+
+   Do not wait for the long-running operation to finish.
 
 ### Advanced compute attach scenarios
 
@@ -69,7 +93,7 @@ The attach configuration YAML file allows user to specify 3 kind of custom prope
 
 >**Note**: Training public preview only supports job submission using compute target name only, thus it will always use ```defaultInstanceType``` to run training workload. Support for training job submission with compute target name and instance_type name will come after public preview release.
 
->**Note**: For simple compute attach without specifying resources requests/limits, AzureML will create below resources requests/limits for training job. To ensure successful job run completion, we recommend to always specify resources requests/limits according to training job needs.
+>**Note**: For simple compute attach without specifying compute configuration file, AzureML will use following configuration for training job. To ensure successful job run completion, we recommend to always specify resources requests/limits according to training job needs.
 
 ```yaml
 default_instance_type: defaultInstanceType
@@ -88,51 +112,29 @@ instance_types:
           "nvidia.com/gpu": 0		  
 
 ```
-## Create compute target via Azure ML 2.0 CLI
 
-You can also attach Arc cluster and create KubernetesCompute target easily via Azure ML 2.0 CLI.
+## Create a compute target via AML Studio UI
 
-1. Refer to [Install, set up, and use the 2.0 CLI (preview)](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-configure-cli) to install ML 2.0 CLI. Compute attach support **requires ml extension >= 2.0.1a4**. 
+It is easy to attach Azure Arc-enabled Kubernetes cluster to AML workspace, you can do so from AML Studio UI portal. 
 
-1. Attach the  Arc-enabled Kubernetes cluster,
 
-```azurecli
-az ml compute attach --resource-group
-                     --workspace-name
-                     --name
-                     --resource-id
-                     --type					 
-                     [--file]
-                     [--no-wait]
+1. Go to AML studio portal, Compute > Attached compute, click "+New" button, and select "Kubernetes (Preview)"
 
-```
+   ![Create a generic compute target](./media/attach-1.png)
 
-**Required Parameters**
+1. Enter a compute name, and select your Azure Arc-enabled Kubernetes cluster from Azure Arc-enabled Kubernetes cluster dropdown list.
 
-* `--resource-group -g` 
+   ![Create a generic compute target](./media/attach-2.png)
 
-   Name of resource group. You can configure the default group using `az configure --defaults group=<name>`.
-* `--workspace-name -w` 
-   
-   Name of the Azure ML workspace. You can configure the default group using `az configure --defaults workspace=<name>`.
-* `--name -n`
+1. (Optional) Browse and upload an attach config file. **Skip this step to use the default compute configuration for simple compute attach scenario, or specify a YAML file with customized compute defination for [advanced attach scenario](attach-compute.md#Advanced-compute-attach-scenarios)**
 
-   Name of the compute target.
-* `--resource-id`
+   ![Create a generic compute target](./media/attach-3.png)
 
-   The fully qualified ID of the resource, including the resource name and resource type.
-* `--type -t`
+1. Click 'Attach' button. You will see the 'provisioning state' as 'Creating'. If it succeeds, you will see a 'Succeeded' state or else 'Failed' state.
 
-   The type of compute target. Allowed values: kubernetes, AKS, virtualmachine. Specify `kubernetes` to attach arc-enabled kubernetes cluster.
+   ![Create a generic compute target](./media/attach-4.png)
 
-**Optional Parameters**
 
-* `--file`
-
-   Local path to the YAML file containing the compute specification. **Ignoring this param will allow the default compute configuration for simple compute attach scenario, or specify a YAML file with customized compute defination for advanced attach scenario**. 
-* `--no-wait`
-
-   Do not wait for the long-running operation to finish.
 
 ## Create compute target via AML Python SDK
 
