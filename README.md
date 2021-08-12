@@ -98,7 +98,7 @@ New features are released at a biweekly cadance.
 * [Deploy AzureML extension to your AKS cluster without connecting via Azure Arc](./docs/deploy-ml-extension-on-AKS-without-arc.md).
 * [Automated Machine Learning (AutoML) via Python SDK](https://docs.microsoft.com/en-us/azure/machine-learning/concept-automated-ml) 
 * [Use 2.0 CLI to attach the Kubernetes cluster to AML Workspace](./docs/attach-compute.md#Create-compute-target-via-Azure-ML-2.0-CLI)
-* ML extension components reduced the cost by half on CPU/memory resources. 
+* Optimize AzureML extension components CPU/memory resources utilization. 
 
 ## [Limitations and known issues](./docs/limitations-and-known-issues.md)
 
