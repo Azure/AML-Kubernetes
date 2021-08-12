@@ -7,7 +7,10 @@ This repository is intended to serve as an information hub for customers and par
 ## Prerequisites
 
 1. An Azure subscription. If you don't have an Azure subscription, [create a free account](https://aka.ms/AMLFree) before you begin.
-1. You have a Kubernetes cluster up and running - **the cluster must have minimum of 6 vCPU cores and 16GB memory, around 3 vCPU cores and 6GB memory would be used by system**.
+1. You have a Kubernetes cluster up and running - **the cluster must have minimum of 4 vCPU cores and 8GB memory, around 2 vCPU cores and 3GB memory would be used by Arc and ML extension components**.
+<!-- training extensions compomentes will use 0.09 vCPU core and 870 Mi memory(excluding daemon set), daemon set will use 0.03 vCPU core and 140 Mi memory per node. -->
+<!-- AMLArc components will use 0.39 vCPU core and 765 Mi memory. No daemon set.-->
+<!-- inferencing compoments will use 0.5 vCPU core and 528 Mi memory (excluding daemon set), and daemon set will use 0.5 vCPU core, and 500Mi memory per node. -->
 1. Your Kubernetes cluster is [connected to Azure Arc](https://docs.microsoft.com/azure/azure-arc/kubernetes/quickstart-connect-cluster). 
 1. You've met the pre-requisites listed under the [generic cluster extensions documentation](https://docs.microsoft.com/azure/azure-arc/kubernetes/extensions#prerequisites).
    * Azure CLI version >=**2.24.0**
@@ -76,7 +79,8 @@ Azure Arc-enabled Machine Learning is currently supported in these regions where
 * GKE (Google Kubernetes Engine)  
 * Canonical Kubernetes Distribution
 * [Deploy AzureML extension on OpenShift Container Platform (OCP)](./docs/deploy-on-ocp.md) 
-* Kubernetes 1.18.x and 1.19.x
+* K3S-Lightweight Kubernetes 
+* Kubernetes 1.18.x, 1.19.x and 1.20.x
 
 ## Release notes 
 
@@ -87,6 +91,14 @@ New features are released at a biweekly cadance.
 * New Kubernetes distributions support, OpenShift Kubernetes and GKE (Google Kubernetes Engine). 
 * Autoscale support. If the user-managed Kubernetes cluster enables the autoscale, the cluster will be automatically scaled out or scaled in according to the volume of active runs and deployments.  
 * Performance improvement on job laucher, which shortens the job execution time to a great deal.
+
+**August 10, 2021 Release**
+
+* New Kubernetes distribution support, K3S - Lightweight Kubernetes. 
+* [Deploy AzureML extension to your AKS cluster without connecting via Azure Arc](./docs/deploy-ml-extension-on-AKS-without-arc.md).
+* [Automated Machine Learning (AutoML) via Python SDK](https://docs.microsoft.com/en-us/azure/machine-learning/concept-automated-ml) 
+* [Use 2.0 CLI to attach the Kubernetes cluster to AML Workspace](./docs/attach-compute.md#Create-compute-target-via-Azure-ML-2.0-CLI)
+* Optimize AzureML extension components CPU/memory resources utilization. 
 
 ## [Limitations and known issues](./docs/limitations-and-known-issues.md)
 
