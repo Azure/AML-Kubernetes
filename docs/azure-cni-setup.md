@@ -14,7 +14,7 @@ https://docs.microsoft.com/en-us/azure/virtual-network/quick-create-portal.
 Setting up your AKS cluster with Azure CNI is documented here:
 https://docs.microsoft.com/en-us/azure/aks/configure-azure-cni
 
-As mentioned in the VNET setup section of this document the VNET being used can either be created independently or during setup of the AKS cluster through the portal. The portal has the added convenience of making sure your subnet is large enough for your cluster.
+When creating the cluster make sure to check the "Enable private cluster" checkbox under the Networking section in the Azure Portal. As mentioned in the VNET setup section of this document the VNET being used can either be created independently or during setup of the AKS cluster through the portal. The portal has the added convenience of making sure your subnet is large enough for your cluster.
 
 ### Installing AMLArc:
 
