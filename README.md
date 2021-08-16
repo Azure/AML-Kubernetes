@@ -61,15 +61,19 @@ In addition to above built-in AML training features, public preview also support
 Azure Arc-enabled Machine Learning is currently supported in these regions where Azure Arc is available:
 
 * East US
-* West Europe
-* West Central US
+* East US 2
 * South Central US
-* Southeast Asia
-* UK South
 * West US 2
 * Australia East
-* East US 2
+* Southeast Asia
 * North Europe
+* UK South
+* West Europe
+* West Central US
+* Central US
+* North Central US
+* West US
+* Korea Central 
 
 ## Supported Kubernetes distributions and versions
 
