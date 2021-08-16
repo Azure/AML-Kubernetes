@@ -74,6 +74,7 @@ Azure Arc-enabled Machine Learning is currently supported in these regions where
 * North Central US
 * West US
 * Korea Central 
+* France Central
 
 ## Supported Kubernetes distributions and versions
 
