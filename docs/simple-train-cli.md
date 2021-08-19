@@ -47,14 +47,15 @@
      docker:
        image: mcr.microsoft.com/azureml/intelmpi2018.3-ubuntu16.04:20210301.v1
    compute:
-     target: azureml:amlarc-ml
+     target: azureml:<your compute target name>
+     instance_type: <your instance type>
    inputs:
      mnist:
        data: azureml:mnist_opendataset:1
        mode: mount
    ```
    
-   **Note**: for this example to run, you would have created following assets in AML Workspace: compute target named **amlarc-ml** and file dataset named **mnist_opendataset**.
+   **Note**: for this example to run, you would have created following assets in AML Workspace: compute target named **\<your compute name>**, and file dataset named **mnist_opendataset**. Instance type is the optional field.
 
 1. Git clone preview Github repo and switch to simple-train-cli directory
 

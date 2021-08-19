@@ -10,7 +10,8 @@ environment:
   docker:
     image: mcr.microsoft.com/azureml/intelmpi2018.3-ubuntu16.04:20210301.v1
 compute:
-  target: azureml:amlarc-ml
+  target: azureml:<your compute target name>
+  instance_type: <your instance type>
 inputs:
   mnist:
     data: azureml:mnist_opendataset:1
