@@ -91,7 +91,7 @@ The attach configuration YAML file allows user to specify 3 kind of custom prope
 
   * ```Resources requests/limits``` - ```Resources requests/limits``` specifies resources requests and limits a training job pod to run.
 
->**Note**: Training public preview only supports job submission using compute target name only, thus it will always use ```defaultInstanceType``` to run training workload. Support for training job submission with compute target name and instance_type name will come after public preview release.
+>**Note**: User can specify compute target and instance type in job submision. If instance type is not specified, ```defaultInstanceType``` will be used. 
 
 >**Note**: For simple compute attach without specifying compute configuration file, AzureML will use following configuration for training job. To ensure successful job run completion, we recommend to always specify resources requests/limits according to training job needs.
 
