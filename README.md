@@ -15,6 +15,7 @@ This repository is intended to serve as an information hub for customers and par
 1. You've met the pre-requisites listed under the [generic cluster extensions documentation](https://docs.microsoft.com/azure/azure-arc/kubernetes/extensions#prerequisites).
    * Azure CLI version >=**2.24.0**
    * Azure CLI extension k8s-extension version >=**0.4.3**.
+1. Meet [network requirements](./docs/network-requirements.md) if your cluster has strict network isolation.
 1. [Create an AML workspace](https://docs.microsoft.com/azure/machine-learning/how-to-manage-workspace?tabs=python) if you don't have one already.
    * AML Python SDK version >= **1.30**.
 
@@ -104,6 +105,12 @@ New features are released at a biweekly cadance.
 * [Automated Machine Learning (AutoML) via Python SDK](https://docs.microsoft.com/en-us/azure/machine-learning/concept-automated-ml) 
 * [Use 2.0 CLI to attach the Kubernetes cluster to AML Workspace](./docs/attach-compute.md#Create-compute-target-via-Azure-ML-2.0-CLI)
 * Optimize AzureML extension components CPU/memory resources utilization. 
+
+**August 24, 2021 Release**
+
+* [Compute instance type is supported in job YAML](./docs/simple-train-cli.md).  
+* [Assign Managed Identity to AMLArc compute](./docs/managed-identity.md)
+
 
 ## [Limitations and known issues](./docs/limitations-and-known-issues.md)
 
