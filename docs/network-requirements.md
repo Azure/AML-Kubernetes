@@ -16,11 +16,11 @@ If the cluster is behind the outbound proxy or firewall with strict outbound net
 *.servicebus.windows.net
 *.table.core.windows.net
 *.vault.azure.net
-*.workspace.<region-code>.api.azureml.ms
+*.workspace.<region>.api.azureml.ms
 <region-code>.his.arc.azure.com
-<region-code>.api.azureml.ms
-<region-code>.dp.kubernetesconfiguration.azure.com
-<region-code>.experiments.azureml.net
+<region>.api.azureml.ms
+<region>.dp.kubernetesconfiguration.azure.com
+<region>.experiments.azureml.net
 acs-mirror.azureedge.net
 apt.dockerproject.org
 archive.ubuntu.com
@@ -66,4 +66,4 @@ storage.googleapis.com
 www.msftconnecttest.com
 ```
 
->Note: `<region-code>` mapping for Azure cloud regions: eus (East US), weu (West Europe), wcus (West Central US), scus (South Central US), sea (South East Asia), uks (UK South), wus2 (West US 2), ae (Australia East), eus2 (East US 2), ne (North Europe), fc (France Central).
+>Note: `<region-code>` mapping for Azure cloud regions: eus (East US), weu (West Europe), wcus (West Central US), scus (South Central US), sea (South East Asia), uks (UK South), wus2 (West US 2), ae (Australia East), eus2 (East US 2), ne (North Europe), fc (France Central). `<region>` is the lowcase full spelling, e.g., eastus, southeastasia.
