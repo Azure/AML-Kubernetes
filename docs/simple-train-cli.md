@@ -55,7 +55,7 @@
        mode: mount
    ```
    
-   **Note**: for this example to run, you would have created following assets in AML Workspace: compute target named **\<your compute name>**, and file dataset named **mnist_opendataset**. Instance type is the optional field.
+   **Note**: **Instance type** is optional parameter. If it's not given, the compute default instance type will be used. For this example to run, you would have created following assets in AML Workspace: compute target named **\<your compute name>**, and file dataset named **mnist_opendataset**. 
 
 1. Git clone preview Github repo and switch to simple-train-cli directory
 
