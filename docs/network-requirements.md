@@ -30,7 +30,8 @@ cloudflare.docker.com
 data.policy.core.windows.net
 dc.services.visualstudio.com
 gbl.his.arc.azure.com
-gcr.io,storage.googleapis.com
+gcr.io
+storage.googleapis.com
 go.microsoft.com
 guestnotificationservice.azure.com
 login.microsoftonline.com
@@ -66,4 +67,5 @@ storage.googleapis.com
 www.msftconnecttest.com
 ```
 
->Note: `<region-code>` mapping for Azure cloud regions: eus (East US), weu (West Europe), wcus (West Central US), scus (South Central US), sea (South East Asia), uks (UK South), wus2 (West US 2), ae (Australia East), eus2 (East US 2), ne (North Europe), fc (France Central). `<region>` is the lowcase full spelling, e.g., eastus, southeastasia.
+>Note: `<region-code>` mapping for Azure cloud regions: eus (East US)
+weu (West Europe), wcus (West Central US), scus (South Central US), sea (South East Asia), uks (UK South), wus2 (West US 2), ae (Australia East), eus2 (East US 2), ne (North Europe), fc (France Central). `<region>` is the lowcase full spelling, e.g., eastus, southeastasia.
