@@ -30,7 +30,7 @@ cloudflare.docker.com
 data.policy.core.windows.net
 dc.services.visualstudio.com
 gbl.his.arc.azure.com
-gcr.io,storage.googleapis.com
+gcr.io
 go.microsoft.com
 guestnotificationservice.azure.com
 login.microsoftonline.com
@@ -46,6 +46,7 @@ pypi.org
 quay.io
 registry-1.docker.io
 security.ubuntu.com
+storage.googleapis.com
 store.policy.core.windows.net
 sts.windows.net
 us.download.nvidia.com
