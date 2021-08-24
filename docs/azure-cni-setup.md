@@ -14,7 +14,7 @@ https://docs.microsoft.com/en-us/azure/virtual-network/quick-create-portal.
 Setting up your AKS cluster with Azure CNI is documented here:
 https://docs.microsoft.com/en-us/azure/aks/configure-azure-cni
 
-When creating the cluster make sure to check the "Enable private cluster" checkbox under the Networking section in the Azure Portal. As mentioned in the VNET setup section of this document the VNET being used can either be created independently or during setup of the AKS cluster through the portal. The portal has the added convenience of making sure your subnet is large enough for your cluster.
+As mentioned in the VNET setup section of this document the VNET being used can either be created independently or during setup of the AKS cluster through the portal. The portal has the added convenience of making sure your subnet is large enough for your cluster.
 
 ### Installing AMLArc:
 
@@ -25,8 +25,8 @@ Do take note however that all commands must be run from a VM within the VNET to 
 
 ### Setting up AzureML Workspace:
 
-Private link workspace which is required if using an AzureCNI cluster.
+Private link workspace are required if using an AzureCNI clustera and if the user wants to secure their connection to workspace.
 Documentation for a private link workspace is provided here:
 https://docs.microsoft.com/en-us/azure/machine-learning/how-to-configure-private-link?tabs=python
 
-Notably, if one wants to access the workspace on a browser one has to either enable public access to the cluster, or connect to the VNET with. How to enable public access is described in the document above. Notably if using the Python SDK the Workspace.update() command should be called from a VM or other machine in the VNET.
+Notably, if one wants to access the workspace studio one has to either enable public access to the cluster explained in document above, or follow this documentation: https://docs.microsoft.com/en-us/azure/machine-learning/how-to-enable-studio-virtual-network.
