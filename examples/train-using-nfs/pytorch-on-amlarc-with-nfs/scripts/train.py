@@ -123,10 +123,6 @@ def run(rank, size):
 
 
 if __name__ == "__main__":
-    env_vars = dict(os.environ)
-    for env_var in env_vars:
-        print(f'{env_var}: {env_vars[env_var]}')
-
     run_object = Run.get_context()
     dist.init_process_group(args.backend)
     run(dist.get_rank(), dist.get_world_size())
