@@ -42,6 +42,7 @@ As another compute target in AML, Azure Arc-enabled ML preview supports the foll
   * [TensorFlow](https://docs.microsoft.com/azure/machine-learning/how-to-train-tensorflow?view=azure-devops)
   * [PyTorch](https://docs.microsoft.com/azure/machine-learning/how-to-train-pytorch?view=azure-devops)
 * [Build and use ML pipelines including designer pipeline support](https://docs.microsoft.com/azure/machine-learning/how-to-create-machine-learning-pipelines?view=azure-devops)
+* [Batch Inference](https://docs.microsoft.com/azure/machine-learning/tutorial-pipeline-batch-scoring-classification?view=azure-devops)
 
 In addition to above built-in AML training features, public preview also supports following on-premises training scenarios
 
