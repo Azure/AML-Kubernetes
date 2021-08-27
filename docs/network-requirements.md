@@ -1,6 +1,6 @@
 ## Meet network requirements
 
-If the cluster is behind the outbound proxy or firewall with strict outbound network, make sure following protocols/ports/outbound URLs to function.
+If your cluster has Internect access, it's all done. Otherwise, If the cluster is behind the outbound proxy or firewall with strict outbound network, make sure following protocols/ports/outbound URLs to function.
 
 - HTTPs on port 443: https://:443
     - Container registries to host Arc or ML related docker images
@@ -70,7 +70,6 @@ If the cluster is behind the outbound proxy or firewall with strict outbound net
     azure.archive.ubuntu.com
     changelogs.ubuntu.com
     ctldl.windowsupdate.com
-    production.cloudflare.docker.com
     security.ubuntu.com
     www.msftconnecttest.com
     ```
