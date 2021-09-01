@@ -13,7 +13,7 @@ Azure Arc enabled ML supports both Azure RedHat OpenShift Service (ARO) and Open
 1. Grant privileged access to AzureML service accounts, run $oc edit scc privileged, add following service accounts under users:
 
    * ```system:serviceaccount:azure-arc:azure-arc-kube-aad-proxy-sa```
-   * ```system:serviceaccount:azureml:{EXTENSION NAME}-kube-state-metrics``` **(Note: ```{EXTENSION NAME}``` here must be replace with the extension name used in ```az k8s-extension create --name```)**
+   * ```system:serviceaccount:azureml:{EXTENSION NAME}-kube-state-metrics``` **(Note:** ```{EXTENSION NAME}``` **here must be replace with the extension name used in** ```az k8s-extension create --name```**)**
    * ```system:serviceaccount:azureml:cluster-status-reporter```
    * ```system:serviceaccount:azureml:prom-admission```
    * ```system:serviceaccount:azureml:default```
