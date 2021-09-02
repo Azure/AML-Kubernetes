@@ -37,9 +37,6 @@ else:
    ns = "default" 
    instance_types = {
       "gpu_instance": {
-         "nodeSelector": {
-            "accelerator": ""
-         },
          "resources": {
             "requests": {
                "cpu": "1",
@@ -56,13 +53,13 @@ else:
       "big_cpu_sku": {
          "resources": {
             "requests": {
-               "cpu": "1",
-               "memory": "4Gi",
+               "cpu": "0.5",
+               "memory": "1Gi",
                "nvidia.com/gpu": "0"
             },
             "limits": {
-               "cpu": "1",
-               "memory": "4Gi",
+               "cpu": "0.5",
+               "memory": "1Gi",
                "nvidia.com/gpu": "0"
             }         
          }
