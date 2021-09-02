@@ -13,7 +13,7 @@ Azure Arc enabled ML supports both Azure RedHat OpenShift Service (ARO) and Open
 1. Grant privileged access to AzureML service accounts, run $oc edit scc privileged, add following service accounts under users:
 
    * ```system:serviceaccount:azure-arc:azure-arc-kube-aad-proxy-sa```
-   * ```system:serviceaccount:azureml:{EXTENSION NAME}-kube-state-metrics```
+   * ```system:serviceaccount:azureml:{EXTENSION NAME}-kube-state-metrics``` **(Note:** ```{EXTENSION NAME}``` **here must match with the extension name used in** ```az k8s-extension create --name``` **step)**
    * ```system:serviceaccount:azureml:cluster-status-reporter```
    * ```system:serviceaccount:azureml:prom-admission```
    * ```system:serviceaccount:azureml:default```
@@ -26,8 +26,8 @@ Azure Arc enabled ML supports both Azure RedHat OpenShift Service (ARO) and Open
 
 ## Deploy AzureML extension
 
-To Deploy AzureML extension on ARO or OCP, you would need to specify one additional config setting ```OpenShift=True``` in addition to regular configuration settings for normal AzureML extension deployment. Following command will deploy AzureML extension to ARO or OCP and enable Kubernetes cluster for training workload.
+To Deploy AzureML extension on ARO or OCP, you would need to specify one additional config setting ```openshift=True``` in addition to regular configuration settings for normal AzureML extension deployment. Following command will deploy AzureML extension to ARO or OCP and enable Kubernetes cluster for training workload.
 
    ```azurecli
-   az k8s-extension create --name amlarc-compute --extension-type Microsoft.AzureML.Kubernetes --configuration-settings enableTraining=True OpenShift=True  --cluster-type connectedClusters --cluster-name <your-connected-cluster-name> --resource-group <resource-group> --scope cluster
+   az k8s-extension create --name amlarc-compute --extension-type Microsoft.AzureML.Kubernetes --configuration-settings enableTraining=True openshift=True  --cluster-type connectedClusters --cluster-name <your-connected-cluster-name> --resource-group <resource-group> --scope cluster
    ```
