@@ -28,15 +28,17 @@ amlarc_compute_name = "<COMPUTE_CLUSTER_NAME>"
 resource_id = "/subscriptions/<sub ID>/resourceGroups/<RG>/providers/Microsoft.Kubernetes/connectedClusters/<cluster name>"
 user_assigned_identity_resouce_id = ['subscriptions/<sub ID>/resourceGroups/<RG>/providers/Microsoft.ManagedIdentity/userAssignedIdentities/<identity name>']
     
+if amlarc_compute_name in ws.compute_targets:
+    amlarc_compute = ws.compute_targets[amlarc_compute_name]
     if amlarc_compute and type(amlarc_compute) is KubernetesCompute:
         print("found compute target: " + amlarc_compute_name)
 else:
    print("creating new compute target...")
-   ns = "amlarc-testing" 
+   ns = "default" 
    instance_types = {
       "gpu_instance": {
          "nodeSelector": {
-            "accelerator": "nvidia-tesla-k80"
+            "accelerator": ""
          },
          "resources": {
             "requests": {
@@ -52,9 +54,6 @@ else:
         }
       },
       "big_cpu_sku": {
-         "nodeSelector": {
-            "VMSizes": "VM-64vCPU-256GB"
-         },
          "resources": {
             "requests": {
                "cpu": "1",
@@ -70,17 +69,17 @@ else:
       }
    }
 
-    # assign user-assigned managed identity
-    amlarc_attach_configuration = KubernetesCompute.attach_configuration(resource_id = resource_id, namespace = ns, default_instance_type="gpu_instance", instance_types = instance_types, identity_type ='UserAssigned',identity_ids = user_assigned_identity_resouce_id) 
-   
-   # assign system-assigned managed identity
-   # amlarc_attach_configuration = KubernetesCompute.attach_configuration(resource_id = resource_id, namespace = ns, default_instance_type="gpu_instance", instance_types = instance_types, identity_type ='SystemAssigned') 
+# assign user-assigned managed identity
+amlarc_attach_configuration = KubernetesCompute.attach_configuration(resource_id = resource_id, namespace = ns, default_instance_type="big_cpu_sku", instance_types = instance_types, identity_type ='UserAssigned',identity_ids = user_assigned_identity_resouce_id) 
 
-    amlarc_compute = ComputeTarget.attach(ws, amlarc_compute_name, amlarc_attach_configuration)
-    amlarc_compute.wait_for_completion(show_output=True)
-     
-     # get detailed compute description containing managed identity principle ID, used for permission access. 
-    print(amlarc_compute.get_status().serialize())
+# assign system-assigned managed identity
+# amlarc_attach_configuration = KubernetesCompute.attach_configuration(resource_id = resource_id, namespace = ns, default_instance_type="gpu_instance", instance_types = instance_types, identity_type ='SystemAssigned') 
+
+amlarc_compute = ComputeTarget.attach(ws, amlarc_compute_name, amlarc_attach_configuration)
+amlarc_compute.wait_for_completion(show_output=True)
+
+# get detailed compute description containing managed identity principle ID, used for permission access. 
+print(amlarc_compute.get_status().serialize())
 ```
 
 **Parameters**
