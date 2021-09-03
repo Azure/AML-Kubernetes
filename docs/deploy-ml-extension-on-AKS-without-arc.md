@@ -5,7 +5,7 @@ For Azure Kubernetes Service (AKS), now you can deploy AzureML extension to the 
 ### Prerequisites
 
 *  Sign up [here](https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR82DXV1MLKFCgun1LAU3Tz1URjJUSjZZQ0IwTUlKNkVaSFM5OUJHRzgwSC4u), and receive email reply to get confirmation that your subscription is added to the allowlist.
-* Provision an AKS cluster - **the cluster must have minimum of 6 vCPU cores and 16GB memory, around 3 vCPU cores and 6GB memory would be used by system**.
+* Provision an AKS cluster in **eastus**- **the cluster must have minimum of 6 vCPU cores and 16GB memory, around 3 vCPU cores and 6GB memory would be used by system**.
 * A ```kubeconfig``` file and context pointing to your AKS cluster.
 * Install the [latest release of Helm 3](https://helm.sh/docs/intro/install/)
 * Install or upgrade Azure CLI to version >= **2.24.0**.
