@@ -13,7 +13,7 @@ For Azure Kubernetes Service (AKS), now you can deploy AzureML extension to the 
 ```
 az extension remove --name k8s-extension
 
-az extension add --source <whl filepaht> --yes
+az extension add --source <whl filepath> --yes
 ```
 * Register this preview feature before you are able to deploy the extension to AKS
 ```azurecli
