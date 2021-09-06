@@ -18,6 +18,7 @@ az extension add --source <whl filepaht> --yes
 * Register this preview feature before you are able to deploy the extension to AKS
 ```azurecli
 az feature register --namespace Microsoft.ContainerService -n AKS-ExtensionManager
+az provider register – namespace Microsoft.ContainerService
 ```
 
 ### Deploy AzureML extension to AKS
