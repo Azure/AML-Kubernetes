@@ -8,9 +8,10 @@ To access Azure Container Registry (ACR) for Docker image, and Storage Account f
 
 You can assign Managed Identity duing compute attachment.
 
-1. pip install `azureml-core` from the [private wheel](../files/azureml_core-0.1.0.44687705-py3-none-any.whl). The private wheel will be published to stable SDK in early September.
+1. Install or upgrade AzureML Python SDK `azureml-core` to version >= **v1.34.0**, and very the SDK version.
 
-   ```pip install <private wheel>```
+   ```pip install --upgrade azureml-core```
+   ```pip show azureml-core```
 1. Attach the compute to AML workspace with Managed Identity enabled
 ```python
 
