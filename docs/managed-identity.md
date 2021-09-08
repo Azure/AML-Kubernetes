@@ -11,6 +11,7 @@ You can assign Managed Identity duing compute attachment.
 1. Install or upgrade AzureML Python SDK `azureml-core` to version >= **v1.34.0**, and very the SDK version.
 
    ```pip install --upgrade azureml-core```
+   
    ```pip show azureml-core```
 1. Attach the compute to AML workspace with Managed Identity enabled
 ```python
