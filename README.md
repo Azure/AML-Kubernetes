@@ -118,6 +118,7 @@ New features are released at a biweekly cadance.
 
 We are always looking for feedback on our current experiences and what we should work on next. If there is anything you would like us to prioritize, please feel free to suggest so via our [GitHub Issue Tracker](https://github.com/Azure/AML-Kubernetes/issues). You can submit a bug report, a feature suggestion or participate in discussions.
 
+Or reach out to us: amlarc-pm@microsoft.com if you have any questions or feedback.
 
 ## Activities
 
