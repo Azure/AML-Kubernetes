@@ -19,6 +19,7 @@ az extension add --source <whl filepath> --yes
 ```azurecli
 az feature register --namespace Microsoft.ContainerService -n AKS-ExtensionManager
 az provider register – namespace Microsoft.ContainerService
+az provider register – namespace Microsoft.KubernetesConfiguration
 ```
 
 ### Deploy AzureML extension to AKS
