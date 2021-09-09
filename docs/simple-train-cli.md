@@ -39,13 +39,7 @@
    code:
      local_path: ./src
    command: python train.py --data-folder {inputs.mnist} --regularization 0.5
-   environment:
-     name: tutorial-env
-     version: 1
-     path: .
-     conda_file: file:./environment.yml
-     docker:
-       image: mcr.microsoft.com/azureml/intelmpi2018.3-ubuntu16.04:20210301.v1
+   environment: azureml:AzureML-sklearn-0.24-ubuntu18.04-py37-cpu:7
    compute:
      target: azureml:<your compute target name>
      instance_type: <your instance type>
