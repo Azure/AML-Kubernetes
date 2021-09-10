@@ -24,15 +24,15 @@ If your cluster has Internect access, it's all done. Otherwise, If the cluster i
 | storage.googleapis.com | https:443 | Google cloud storage, gcr images are hosted on |
 | registry-1.docker.io, production.cloudflare.docker.com  | https:443 | Docker hub registry, required for installing aml extension components |
 | auth.docker.io| https:443 | Docker repository authentication, required for accessing docker hub registry |
+| *.kusto.windows.net, *.table.core.windows.net, *.queue.core.windows.net | https:443 | Kusto logs, required for collecting infra components logs |
 
-### Inference job
+### AML workload
 
 | Destination Endpoint| Port | Use |
 |--|--|--|
 | *.azurecr.io | https:443 | Azure container registry, required for deploying inference and training job|
 | *.blob.core.windows.net | https:443 | Azure blob storage, ACR images are hosted on. required pulling ACR images and downloading model from blob storage|
-| *.workspace.<region>.api.azureml.ms ,  <region>.experiments.azureml.net,  <region>.api.azureml.ms | https:443 | Azure mahince learning service api, required getting credentials of blob storage and ACR|
-| *.kusto.windows.net, *.table.core.windows.net, *.queue.core.windows.net | https:443 | Kusto logs, required for collecting infra components logs |
+| *.workspace.<region>.api.azureml.ms ,  <region>.experiments.azureml.net,  <region>.api.azureml.ms | https:443 | Azure mahince learning service api, required for getting credentials of blob storage and ACR |
 
 ### Training job
 
