@@ -19,11 +19,11 @@ If your cluster has Internect access, it's all done. Otherwise, If the cluster i
 
 | Destination Endpoint| Port | Use |
 |--|--|--|
-| quay.io, *.quay.io | https:443 | Quay.io registry |
-| gcr.io| https:443 | Google cloud repository |
+| quay.io, *.quay.io | https:443 | Quay.io registry, required for installing aml extension components |
+| gcr.io| https:443 | Google cloud repository, required for installing aml extension components |
 | storage.googleapis.com | https:443 | Google cloud storage, gcr images are hosted on |
-| registry-1.docker.io, production.cloudflare.docker.com  | https:443 | Docker hub registry |
-| auth.docker.io| https:443 | Docker repository authentication|
+| registry-1.docker.io, production.cloudflare.docker.com  | https:443 | Docker hub registry, required for installing aml extension components |
+| auth.docker.io| https:443 | Docker repository authentication, required for accessing docker hub registry |
 
 ### Inference job
 
