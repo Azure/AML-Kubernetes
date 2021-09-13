@@ -12,7 +12,6 @@ This repository is intended to serve as an information hub for customers and par
 1. You've met the pre-requisites listed under the [generic cluster extensions documentation](https://docs.microsoft.com/azure/azure-arc/kubernetes/extensions#prerequisites).
    * Azure CLI version >=**2.24.0**
    * Azure CLI extension k8s-extension version >=**0.4.3**.
-1. Meet [network requirements](./docs/network-requirements.md) if your cluster has strict network isolation.
 1. [Create an AML workspace](https://docs.microsoft.com/azure/machine-learning/how-to-manage-workspace?tabs=python) if you don't have one already.
    * AML Python SDK version >= **1.30**.
 

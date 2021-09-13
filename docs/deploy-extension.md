@@ -2,7 +2,11 @@
 
 You will use Azure Arc k8s-extension CLI to deploy the extension on top of your Azure Arc-enabled Kubernetes cluster. 
 
-## Login to Azure
+## Pre-requesites 
+
+- Meet [network requirements](network-requirements.md) in case your cluster has strict network outbound settings.
+
+-  Login to Azure
 
    ```azurecli
    az login
