@@ -2,20 +2,6 @@
 
 If your cluster has Internect access, it's all done. Otherwise, If the cluster is behind the outbound proxy or firewall with strict outbound network, make sure following protocols/ports/outbound URLs to function.
 
-### Azure arc
-Need outbound access to following URLs when connecting the cluster to Azure Arc.
-
-| Destination Endpoint| Port | Use |
-|--|--|--|
-| management.azure.com | https:443 | Required for the agent to connect to Azure and register the cluster. |
-| <region>.dp.kubernetesconfiguration.azure.com | https:443 | Data plane endpoint for the agent to push status and fetch configuration information. |
-| login.microsoftonline.com | https:443 | Required to fetch and update Azure Resource Manager tokens. |
-|  mcr.microsoft.com| https:443 | Required to pull container images for Azure Arc agents. |
-|  *.data.mcr.microsoft.com| https:443 | Required for MCR storage backed by the Azure content delivery network (CDN). |
-|  gbl.his.arc.azure.com| https:443 | Required to get the regional endpoint for pulling system-assigned Managed Service Identity (MSI) certificates. |
-|  <region-code>.his.arc.azure.com| https:443 | Required to pull system-assigned Managed Service Identity (MSI) certificates. |
-| guestnotificationservice.azure.com, sts.windows.net, *.servicebus.windows.net| https:443 | For Cluster Connect and for Custom Location based scenarios. |
-
 ### AML extension
  
 Need outbound access to following URLs when deploying ML extension to the cluster.
