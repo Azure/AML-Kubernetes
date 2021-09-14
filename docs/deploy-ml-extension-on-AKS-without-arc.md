@@ -15,20 +15,20 @@ az extension remove --name k8s-extension
 
 az extension add --source <whl filepath> --yes
 ```
-* Register this preview feature before you are able to deploy the extension to AKS
-```azurecli
-az feature register --namespace Microsoft.ContainerService -n AKS-ExtensionManager
-az provider register – namespace Microsoft.ContainerService
-az provider register – namespace Microsoft.KubernetesConfiguration
-```
-* - Meet [network requirements](network-requirements.md) in case your cluster is behind firewall or has strict network outbound settings.
-
 *  Login to Azure
 
    ```azurecli
    az login
    az account set --subscription <your-subscription-id>
    ```
+* Register this preview feature before you are able to deploy the extension to AKS
+```azurecli
+az feature register --namespace Microsoft.ContainerService -n AKS-ExtensionManager
+az provider register – namespace Microsoft.ContainerService
+az provider register – namespace Microsoft.KubernetesConfiguration
+```
+* Meet [network requirements](network-requirements.md) in case your cluster is behind firewall or has strict network outbound settings.
+
 ### Deploy AzureML extension to AKS
 
 Refer to the guidance in [Deploy AzureML extension to your Kubernetes cluster](deploy-extension.md#deploy-azureml-extension-for-model-training). Only need to change the  `cluster-type` from `connectedClusters` to `managedClusters`
