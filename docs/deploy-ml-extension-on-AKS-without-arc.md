@@ -26,7 +26,6 @@ az feature register --namespace Microsoft.ContainerService -n AKS-ExtensionManag
 az provider register – namespace Microsoft.ContainerService
 az provider register – namespace Microsoft.KubernetesConfiguration
 ```
-* Meet [network requirements](network-requirements.md) in case your cluster is behind firewall or has strict network outbound settings.
 
 ### Deploy AzureML extension to AKS
 
