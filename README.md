@@ -108,6 +108,12 @@ New features are released at a biweekly cadance.
 * [Compute instance type is supported in job YAML](./docs/simple-train-cli.md).  
 * [Assign Managed Identity to AMLArc compute](./docs/managed-identity.md)
 
+**Sept 16, 2021 Release**
+
+* New regions available, WestUS, CentralUS, NorthCentralUS, KoreaCentral.
+* Job queue explanability. See job queue details in AML Workspace Studio.
+* Auto-killing policy. Support `max_run_duration_seconds` in ``ScriptRunConfig``. The system will attempt to automatically cancel the run if it took longer than the setting value.
+* Performance improvement on cluster autoscale support.
 
 ## [Limitations and known issues](./docs/limitations-and-known-issues.md)
 
