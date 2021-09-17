@@ -10,14 +10,7 @@ Need outbound access to following URLs when deploying ML extension to the cluste
 
 | Destination Endpoint| Port | Use |
 |--|--|--|
-| management.azure.com | https:443 | Required for the agent to connect to Azure and register the cluster. |
-| <region>.dp.kubernetesconfiguration.azure.com | https:443 | Data plane endpoint for the agent to push status and fetch configuration information. |
-| login.microsoftonline.com | https:443 | Required to fetch and update Azure Resource Manager tokens. |
-|  mcr.microsoft.com| https:443 | Required to pull container images for Azure Arc agents. |
 |  *.data.mcr.microsoft.com| https:443 | Required for MCR storage backed by the Azure content delivery network (CDN). |
-|  gbl.his.arc.azure.com| https:443 | Required to get the regional endpoint for pulling system-assigned Managed Service Identity (MSI) certificates. |
-|  <region-code>.his.arc.azure.com| https:443 | Required to pull system-assigned Managed Service Identity (MSI) certificates. |
-| guestnotificationservice.azure.com, sts.windows.net, *.servicebus.windows.net| https:443 | For Cluster Connect and for Custom Location based scenarios. |
 | quay.io, *.quay.io | https:443 | Quay.io registry, required to pull container images for AML extension components |
 | gcr.io| https:443 | Google cloud repository, required to pull container images for AML extension components |
 | storage.googleapis.com | https:443 | Google cloud storage, gcr images are hosted on |
