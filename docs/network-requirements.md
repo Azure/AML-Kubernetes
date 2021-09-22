@@ -26,7 +26,7 @@ Need outbound access to following URLs when submitting any AML workload (trainin
 |--|--|--|
 | *.azurecr.io | https:443 | Azure container registry, required to pull container images to host training or inference jobs|
 | *.blob.core.windows.net | https:443 | Azure blob storage, required to fetch ML project scripts, container images and job logs/metrics|
-| *.workspace.<region>.api.azureml.ms ,  <region>.experiments.azureml.net,  <region>.api.azureml.ms | https:443 | Azure mahince learning service api, required to communucate with AML |
+| *.workspace.\<region\>.api.azureml.ms ,  \<region\>.experiments.azureml.net,  \<region\>.api.azureml.ms | https:443 | Azure mahince learning service api, required to communucate with AML |
 
 ### Training job
  
