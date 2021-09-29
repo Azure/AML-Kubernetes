@@ -54,6 +54,8 @@ In addition to above built-in AML training features, public preview also support
 * [Interactive job](https://github.com/Azure/azureml-previews/tree/main/previews/interactive-job) to access your training compute using VS Code, Jupyter Notebook, Jupyter Lab, and summarize metrics with Tensorboard. Sign up [here](https://forms.office.com/pages/responsepage.aspx?id=v4j5cvGGr0GRqy180BHbR8PsZ1-HON9JqtABfkUgwtpUNUtMWTEyRklBQUk2RzZQTUZGTjBUQzJINy4u) to get access to its Github repo.
 * [Deploy AzureML extension to your AKS cluster without connecting via Azure Arc](./docs/deploy-ml-extension-on-AKS-without-arc.md). Sign up [here](https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR82DXV1MLKFCgun1LAU3Tz1URjJUSjZZQ0IwTUlKNkVaSFM5OUJHRzgwSC4u) to allowlist your subscription.
 
+* * [Arc agent and ML extension deployment from on-prem container registry](https://github.com/Azure/azure-arc-kubernetes-preview/blob/master/docs/custom-registry/connect-cluster.md) 
+
 ## Region availability
 
 Azure Arc-enabled Machine Learning is currently supported in these regions where Azure Arc is available:
