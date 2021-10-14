@@ -116,6 +116,11 @@ New features are released at a biweekly cadance.
 * Job queue explanability. See job queue details in AML Workspace Studio.
 * Auto-killing policy. Support `max_run_duration_seconds` in ``ScriptRunConfig``. The system will attempt to automatically cancel the run if it took longer than the setting value.
 * Performance improvement on cluster autoscale support.
+* [Arc agent and ML extension deployment from on-prem container registry](https://github.com/Azure/azure-arc-kubernetes-preview/blob/master/docs/custom-registry/connect-cluster.md) 
+
+**Oct 14, 2021 Release**
+
+* [PV/PVC volume mount support in AMLArc training job](./docs/pvc.md).
 
 ## [Limitations and known issues](./docs/limitations-and-known-issues.md)
 
