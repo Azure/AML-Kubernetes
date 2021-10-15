@@ -7,9 +7,9 @@ We recommend you use a at least 3 nodes cluster, each node having at least 2C 4G
 
 The node count in the number of worker, for distribute training job, such as ps-worker or MPI/horovod they may need extra launcher node or ps node, they may also ocuppy one node. We will optimise this in following version.
 
-#### What Azure storage does Azure Arc-enabled ML support?
+#### What storage type does Azure Arc-enabled ML support?
 
-Azure Arc-enabled ML compute only support Azure blob container, if your data is in other Azure storage, please move it to Azure blob first. We will support other Azure storage in following iteration.
+Azure Arc-enabled ML compute supports Azure blob container via AML datastore/dataset, and support other storage types via Kubernetes native PV/PVC. Refer to the PV/PVC [guidance](./docs/pvc.md).
 
 #### How do I use AMLK8s compute in China Region?
 
