@@ -1,5 +1,5 @@
 # Azure Arc-enabled Machine Learning (ArcML)
-As part of Azure Machine Learning (AzureML) service capabilities, Azure Arc-enabled Machine Learning (ArcML) brings AzureML to any infrastructure across multi-cloud, on-premises, and the edge using Kubernetes on their hardware of choice. Enterprisse now can manage and provision AzureML extension on Kubernetes with 1-click deployment and instantly onboard data science professionals with preferred tools and languages without creating siloed development environments. Enterprise can also operationalize machine learning (ML) at scale and optimize model training or inference workload in multi-cloud, on-premises, or in a hybrid environment to suit your business requirements.
+As part of Azure Machine Learning (AzureML) service capabilities, Azure Arc-enabled Machine Learning (ArcML) brings AzureML to any infrastructure across multi-cloud, on-premises, and the edge using Kubernetes on your hardware of choice. Enterprisse now can manage and provision AzureML extension on Kubernetes with 1-click deployment and instantly onboard data science professionals with preferred tools and languages without creating siloed development environments. Enterprise can also operationalize machine learning (ML) at scale and optimize model training or inference workload in multi-cloud, on-premises, or in a hybrid environment to suit your business requirements.
 
 The design for ArcML helps IT operators leverage native Kubernetes concepts such as namespace, node selector, and resources requests/limits for ML compute utilization and optimization. By letting the IT operator manage ML compute setup, ArcML creates a seamless AzureML experience for data sciennce professionals who do not need to learn or use Kubernetes directly. 
 
@@ -12,19 +12,19 @@ This repository is intended to serve as an information hub for customers and par
 1. A ```kubeconfig``` file and context pointing to the Kubernetes cluster.
 1. Install the [latest release of Helm 3](https://helm.sh/docs/intro/install/).
 1. The Kubernetes cluster is [connected to Azure Arc](https://docs.microsoft.com/azure/azure-arc/kubernetes/quickstart-connect-cluster). For Azure Kubernetes Services (AKS) cluster, connection to Azure Arc is optional.
-1. (**Optional**) If the Kubernetes cluster is behind of [an outbound proxy server](https://docs.microsoft.com/azure/azure-arc/kubernetes/quickstart-connect-cluster?tabs=azure-cli#4a-connect-using-an-outbound-proxy-server) or [firewall](https://docs.microsoft.com/azure/firewall/protect-azure-kubernetes-service), please ensure to meet [network requirements](network-requirements.md). 
+1. (**Optional**) If the Kubernetes cluster is behind of [an outbound proxy server](https://docs.microsoft.com/azure/azure-arc/kubernetes/quickstart-connect-cluster?tabs=azure-cli#4a-connect-using-an-outbound-proxy-server) or [firewall](https://docs.microsoft.com/azure/firewall/protect-azure-kubernetes-service), please ensure to meet [network requirements](./docs/network-requirements.md). 
 1. Meet the pre-requisites listed under the [generic cluster extensions documentation](https://docs.microsoft.com/azure/azure-arc/kubernetes/extensions#prerequisites).
    * Azure CLI version >=**2.24.0**
    * Azure CLI extension k8s-extension version >=**1.0.0**.
 1. [Create an AzureML workspace](https://docs.microsoft.com/azure/machine-learning/how-to-manage-workspace?tabs=python) if you don't have one already.
-   * [Install and setup AzureML CLI v2](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-configure-cli).
+   * [Install and setup latest AzureML CLI v2](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-configure-cli).
 
 ## Getting started
 
 Getting started with ArcML is easy with following steps:
 
 * [Deploy AzureML extension Kubernetes cluster](./docs/deploy-extension.md)
-* [Attach Kubernetes cluster to AzureML wworkspace and create a compute target](./docs/attach-compute.md)
+* [Attach Kubernetes cluster to AzureML workspace and create a compute target](./docs/attach-compute.md)
 * [Train image classification model with AzureML CLI v2](./examples/training/simple-train-cli.md)
 * [Train image classification model with AzureML Python SDK 1.30 or above](./examples/training/simple-train-sdk/img-classification-training.ipynb)
 * [Deploy an image classification model - create an endpoint with blue/green deployment](./examples/inference/simple-flow.md)
@@ -53,6 +53,7 @@ ArcML enables Kubernetes to become just another compute target for AzureML, and 
    |[Deploy model with Designer UI](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-deploy-model-designer)|Coming soon|
    |[Train and deploy with AutoML (Python)](https://docs.microsoft.com/azure/machine-learning/how-to-configure-auto-train)|&check;|
    |[Train and deploy with AutoML (Studio UI)](https://docs.microsoft.com/azure/machine-learning/how-to-use-automated-ml-for-ml-models)|Coming soon|
+   |[Use managed identity to access Azure resources](./docs/managed-identity)|&check;|
 
 
 In addition to above built-in AzureML features, ArcML also supports following unique machine learning features:
@@ -60,6 +61,8 @@ In addition to above built-in AzureML features, ArcML also supports following un
 * [Target different nood pools for training or inference workload deployment](./docs/instance-type.md) 
 * [Train model with NFS](./docs/setup-ephemeral-nfs-volume.md)
 * [Train model with PV/PVC storage mount](./docs/pv.md)
+* [Use managed identity for your training job](./docs/managed-identity.md)
+* Use managed idenity for your endpoint
 * [Custom container registry support](https://github.com/Azure/azure-arc-kubernetes-preview/blob/master/docs/custom-registry/connect-cluster.md)
 * Multiple AzureML workspaces share the same Kubernetes cluster
 * [Interactive job](https://github.com/Azure/azureml-previews/tree/main/previews/interactive-job) to access your training compute using VS Code, Jupyter Notebook, Jupyter Lab, and summarize metrics with Tensorboard. Sign up [here](https://forms.office.com/pages/responsepage.aspx?id=v4j5cvGGr0GRqy180BHbR8PsZ1-HON9JqtABfkUgwtpUNUtMWTEyRklBQUk2RzZQTUZGTjBUQzJINy4u) to get access to its Github repo.
