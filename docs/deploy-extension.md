@@ -63,7 +63,7 @@ You will use ```k8s-extension create``` CLI command to deploy AzureML extension.
    * ```system:serviceaccount:azureml:load-amlarc-selinux-policy-sa```
    * ```system:serviceaccount:azureml:azureml-fe```
    * ```system:serviceaccount:azureml:prom-prometheus```
-   > **<span stype="color:yellow">Notes</span>
+   > **<span stype="color:yellow">Notes</span>**
       >* **{EXTENSION-NAME}:** is the extension name specified with ```az k8s-extension create --name``` CLI command. 
 
 -  Login to Azure

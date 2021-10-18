@@ -35,7 +35,6 @@ ArcML enables Kubernetes to become just another compute target for AzureML, and 
 |AzureML built-in features  |ArcML support  |
    |--|--|
    |[Train with the CLI (v2)](https://docs.microsoft.com/azure/machine-learning/how-to-train-cli?view=azure-devops) |&check;|
-   |[Train with the REST API](https://docs.microsoft.com/azure/machine-learning/how-to-train-with-rest) |Coming soon|
    |[Train with the job creation UI](https://docs.microsoft.com/azure/machine-learning/how-to-train-with-ui) |&check;|
    |[Train with the Python SDK](https://docs.microsoft.com/azure/machine-learning/how-to-set-up-training-targets) |&check;|
    |[Basic Python training job](https://docs.microsoft.com/azure/machine-learning/how-to-train-cli?view=azure-devops#basic-python-training-job) |&check;|
@@ -47,13 +46,14 @@ ArcML enables Kubernetes to become just another compute target for AzureML, and 
    |[Deploy model with Online Endpoint - safe production rollout with blue/green deployment](https://docs.microsoft.com/azure/machine-learning/how-to-deploy-managed-online-endpoints)|&check;|
    |[Deploy model with Online Endpoint - REST endpoint with public/private IP and full TLS encryption](https://docs.microsoft.com/azure/machine-learning/how-to-deploy-managed-online-endpoints)|&check;|
    |[Deploy model with isolated Azure Kubernetes Service - VNET and private link support](https://docs.microsoft.com/azure/machine-learning/how-to-deploy-managed-online-endpoints)|&check;|
-   |[Deploy model with Batch Endpoint](https://docs.microsoft.com/azure/machine-learning/how-to-deploy-managed-online-endpoints)|Coming soon|
    |[Build and use ML Pipeline (Python)](https://docs.microsoft.com/azure/machine-learning/how-to-create-machine-learning-pipelines)|&check;|
    |[Train with Designer pipeline](https://docs.microsoft.com/azure/machine-learning/how-to-track-designer-experiments)|&check;|
-   |[Deploy model with Designer UI](https://docs.microsoft.com/azure/machine-learning/how-to-deploy-model-designer)|Coming soon|
    |[Train and deploy with AutoML (Python)](https://docs.microsoft.com/azure/machine-learning/how-to-configure-auto-train)|&check;|
-   |[Train and deploy with AutoML (Studio UI)](https://docs.microsoft.com/azure/machine-learning/how-to-use-automated-ml-for-ml-models)|Coming soon|
    |[Use managed identity to access Azure resources](./docs/managed-identity)|&check;|
+   |[Deploy model with Designer UI](https://docs.microsoft.com/azure/machine-learning/how-to-deploy-model-designer)|Coming soon|
+   |[Train and deploy with AutoML (Studio UI)](https://docs.microsoft.com/azure/machine-learning/how-to-use-automated-ml-for-ml-models)|Coming soon|
+   |[Train with the REST API](https://docs.microsoft.com/azure/machine-learning/how-to-train-with-rest) |Coming soon|
+   |[Deploy model with Batch Endpoint](https://docs.microsoft.com/azure/machine-learning/how-to-deploy-managed-online-endpoints)|Coming soon|
 
 
 In addition to above built-in AzureML features, ArcML also supports following unique machine learning features:
