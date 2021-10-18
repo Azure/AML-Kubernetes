@@ -107,13 +107,13 @@ Depending your network setup, Kubernetes distribution variant, and where your Ku
       ```azurecli
       az k8s-extension create --name arcml-extension --extension-type Microsoft.AzureML.Kubernetes --cluster-type connectedClusters --cluster-name <your-connected-cluster-name> --config enableInference=True privateEndpointNodeport=True allowInsecureConnections=Ture --resource-group <resource-group> --scope cluster
       ```
-   * **Public HTTP endpoints support with public load balancer - totally insecure, NOT recommended**
+   * **Public HTTP endpoints support with public load balancer - the least secure way, NOT recommended**
       ```azurecli
       az k8s-extension create --name arcml-extension --extension-type Microsoft.AzureML.Kubernetes --cluster-type connectedClusters --cluster-name <your-connected-cluster-name>  --configuration-settings enableInference=True allowInsecureConnections=True --resource-group <resource-group> --scope cluster
       ```
 ## Deploy AzureML extension for training, batch inference, and real-time inference workload
 
-To enable Kubernetes cluster for all kinds of ML workload, choose one of above inference deployment options and append config settings for training and batch inference, following CLI command will enable cluster with real-time inference HTTPS endpoints support, training, and batch inference workload:
+To enable Kubernetes cluster for all kinds of ML workload, choose one of above inference deployment options and append config settings for training and batch inference. Following CLI command will enable cluster with real-time inference HTTPS endpoints support, training, and batch inference workload:
    ```azurecli
    az k8s-extension create --name arcml-extension --extension-type Microsoft.AzureML.Kubernetes --cluster-type connectedClusters --cluster-name <your-connected-cluster-name> --config enableTraining=True enableInference=True --config-protected sslCertPemFile=<path-to-the-SSL-cert-PEM-ile> sslKeyPemFile=<path-to-the-SSL-key-PEM-file>--resource-group <resource-group> --scope cluster
    ```
@@ -126,7 +126,7 @@ To enable Kubernetes cluster for all kinds of ML workload, choose one of above i
    az k8s-extension show --name arcml-extension --cluster-type connectedClusters --cluster-name <your-connected-cluster-name> --resource-group <resource-group>
    ```
 
-1. In the response, look for "extensionType": "amlarc-compute" and "installState": "Installed". Note it might show "installState": "Pending" for the first few minutes.
+1. In the response, look for "extensionType": "arcml-extension" and "installState": "Installed". Note it might show "installState": "Pending" for the first few minutes.
 
 1. If the state shows Installed, run the following command on your machine with the kubeconfig file pointed to your cluster to check that all pods under "azureml" namespace are in 'Running' state:
 

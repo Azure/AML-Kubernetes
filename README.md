@@ -17,7 +17,7 @@ This repository is intended to serve as an information hub for customers and par
    * Azure CLI version >=**2.24.0**
    * Azure CLI extension k8s-extension version >=**1.0.0**.
 1. [Create an AzureML workspace](https://docs.microsoft.com/azure/machine-learning/how-to-manage-workspace?tabs=python) if you don't have one already.
-   * [Install and setup latest AzureML CLI v2](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-configure-cli).
+   * [Install and setup the latest AzureML CLI v2](https://docs.microsoft.com/azure/machine-learning/how-to-configure-cli).
 
 ## Getting started
 
@@ -50,7 +50,7 @@ ArcML enables Kubernetes to become just another compute target for AzureML, and 
    |[Deploy model with Batch Endpoint](https://docs.microsoft.com/azure/machine-learning/how-to-deploy-managed-online-endpoints)|Coming soon|
    |[Build and use ML Pipeline (Python)](https://docs.microsoft.com/azure/machine-learning/how-to-create-machine-learning-pipelines)|&check;|
    |[Train with Designer pipeline](https://docs.microsoft.com/azure/machine-learning/how-to-track-designer-experiments)|&check;|
-   |[Deploy model with Designer UI](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-deploy-model-designer)|Coming soon|
+   |[Deploy model with Designer UI](https://docs.microsoft.com/azure/machine-learning/how-to-deploy-model-designer)|Coming soon|
    |[Train and deploy with AutoML (Python)](https://docs.microsoft.com/azure/machine-learning/how-to-configure-auto-train)|&check;|
    |[Train and deploy with AutoML (Studio UI)](https://docs.microsoft.com/azure/machine-learning/how-to-use-automated-ml-for-ml-models)|Coming soon|
    |[Use managed identity to access Azure resources](./docs/managed-identity)|&check;|
