@@ -29,7 +29,7 @@ Upon AzureML extension deployment completes, it will create following resources 
    > * Azure ServiceBus and Azure Relay resources  are under the same resource group as the Arc cluster resource. These resources are used to communicate with the Kubernetes cluster and modifying them will break attached compute targets.
 
 
-> **<span stype="color:yellow">Notes**:</span>
+> **<span stype="color:orane">Notes**:</span>
    > * **{EXTENSION-NAME}:** This is the extension name specified with ```az k8s-extension create --name``` CLI command. 
 
 ## Review AzureML deployment configuration settings
@@ -77,10 +77,15 @@ Following CLI command will deploy AzureML extension and enable Kubernetes cluste
    ```azurecli
    az k8s-extension create --name arcml-extension --extension-type Microsoft.AzureML.Kubernetes --config enableTraining=True  --cluster-type connectedClusters --cluster-name <your-connected-cluster-name> --resource-group <resource-group> --scope cluster
    ```
+> **<span stype="color:orane">Notes**:</span>
+   > * **If you deploy AzureML extension directly on AKS without Azure Arc connection, please change ```--cluster-type``` to ```managedClusters```**
 
 ## Deploy AzureML extension for real-time inference workload only
 
 Depending your network setup, Kubernetes distribution variant, and where your Kubernetes cluster is hosted (in cloud or on-premises), you can choose one of following options to deploy AzureML extension.
+
+> **<span stype="color:orane">Notes**:</span>
+   > * **If you deploy AzureML extension directly on AKS without Azure Arc connection, please change ```--cluster-type``` to ```managedClusters```**
 
    * **Public HTTPS endpoints support with public load balancer**
 
@@ -118,6 +123,9 @@ To enable Kubernetes cluster for all kinds of ML workload, choose one of above i
    az k8s-extension create --name arcml-extension --extension-type Microsoft.AzureML.Kubernetes --cluster-type connectedClusters --cluster-name <your-connected-cluster-name> --config enableTraining=True enableInference=True --config-protected sslCertPemFile=<path-to-the-SSL-cert-PEM-ile> sslKeyPemFile=<path-to-the-SSL-key-PEM-file>--resource-group <resource-group> --scope cluster
    ```
 
+> **<span stype="color:orane">Notes**:</span>
+   > * **If you deploy AzureML extension directly on AKS without Azure Arc connection, please change ```--cluster-type``` to ```managedClusters```**
+   
 ## Verify your AzureML extension deployment
 
 1. Run the following CLI command to check AzureML extension details:
