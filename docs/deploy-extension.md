@@ -21,6 +21,7 @@ Upon AzureML extension deployment completes, it will create following resources 
    |metrics-controller-manager|Kubernetes deployment|**&check;**|**&check;**|**&check;**|
    |relayserver|Kubernetes deployment|**&check;**|**&check;**|**&check;**|
    |cluster-status-reporter|Kubernetes deployment|**&check;**|**&check;**|**&check;**|
+   |prometheus|Kubernetes deployment|**&check;**|**&check;**|**&check;**|
    |nfd-master|Kubernetes deployment|**&check;**|N/A|**&check;**|
    |gateway|Kubernetes deployment|**&check;**|N/A|**&check;**|
    |csi-blob-controller|Kubernetes deployment|**&check;**|N/A|**&check;**|
@@ -39,7 +40,7 @@ You will use ```k8s-extension create``` CLI command to deploy AzureML extension.
    |--|--|--|--|--|
    |```enableTraining``` |```True``` or ```False```, default ```False```. **Must** be set to ```True``` for AzureML extension deployment with Machine Learning model training support.  |  **&check;**| N/A |  **&check;** |
    |```logAnalyticsWS```  |```True``` or ```False```, default ```False```. AzureML extension integrates with Azure LogAnalytics Workspace to provide log viewing and analysis capability through LogAalytics Workspace. This setting must be explicitly set to ```True``` if customer wants to leverage this capability. LogAnalytics Workspace cost may apply.  |Optional |Optional |Optional |
-   |```installNvidiaDevicePlugin```  | ```True``` or ```False```, default ```True```. Nvidia Device Plugin is required for ML inference on Nvidia GPU hardware. By default, AzureML extension deployment will install Nvidia Device Plugin regardless Kubernetes cluster has GPU hardware or not. User can specify this configuration setting to False if Nvidia Device Plugin installation is not required (either it is installed already or there is no plan to use GPU for workload).``` | Optional |Optional |Optional |
+   |```installNvidiaDevicePlugin```  | ```True``` or ```False```, default ```True```. Nvidia Device Plugin is required for ML workloads on Nvidia GPU hardware. By default, AzureML extension deployment will install Nvidia Device Plugin regardless Kubernetes cluster has GPU hardware or not. User can specify this configuration setting to False if Nvidia Device Plugin installation is not required (either it is installed already or there is no plan to use GPU for workload). | Optional |Optional |Optional |
    | ```enableInference``` |```True``` or ```False```, default ```False```.  **Must** be set to ```True``` for AzureML extension deployment with Machine Learning inference support. |N/A| **&check;** |  **&check;** |
    | ```allowInsecureConnections``` |```True``` or ```False```, default False. This **must** be set to ```True``` for AzureML extension deployment with HTTP endpoints support for inference, when ```sslCertPemFile``` and ```sslKeyPemFile``` are not provided. |N/A| Optional |  Optional |
    | ```sslCertPemFile```, ```ssKeyPMFile``` |Path to SSL certificate and key file (PEM-encoded), required for AzureML extension deployment with HTTPS endpoint support for inference. | N/A| Optional |  Optional |
@@ -73,7 +74,7 @@ You will use ```k8s-extension create``` CLI command to deploy AzureML extension.
    az account set --subscription <your-subscription-id>
    ```
 
-## Deploy AzureML extension for model both training and batch inference workload
+## Deploy AzureML extension for model training or batch inference workload
 
 Following CLI command will deploy AzureML extension and enable Kubernetes cluster for model training and batch inference workload:
    ```azurecli
@@ -98,19 +99,18 @@ Depending your network setup, Kubernetes distribution variant, and where your Ku
       ```azurecli
       az k8s-extension create --name amlarc-compute --extension-type Microsoft.AzureML.Kubernetes --cluster-type connectedClusters --cluster-name <your-connected-cluster-name> --config enableInference=True privateEndpointILB=True --config-protected sslCertPemFile=<path-to-the-SSL-cert-PEM-ile> sslKeyPemFile=<path-to-the-SSL-key-PEM-file> --resource-group <resource-group> --scope cluster
       ```
-   * **Private HTTP endpoints support with internal load balancer**   
-      ```azurecli
-      az k8s-extension create --name arcml-extension --extension-type Microsoft.AzureML.Kubernetes --cluster-type connectedClusters --cluster-name <your-connected-cluster-name> --config enableInference=True privateEndpointILB=True allowInsecureConnections=True --resource-group <resource-group> --scope cluster
-      ```
-   * **HTTPS endppoints support with NodePort**
+   * **Private HTTPS endppoints support with NodePort**
       ```azurecli
       az k8s-extension create --name arcml-extension --extension-type Microsoft.AzureML.Kubernetes --cluster-type connectedClusters --cluster-name <your-connected-cluster-name> --resource-group <resource-group> --scope cluster --config enableInference=True privateEndpointNodeport=True --config-protected sslCertPemFile=<path-to-the-SSL-cert-PEM-ile> sslKeyPemFile=<path-to-the-SSL-key-PEM-file>
       ```  
      > **Note:**
      * Using a NodePort gives you the freedom to set up your own load balancing solution, to configure environments that are not fully supported by Kubernetes, or even to expose one or more nodes' IPs directly.
      * When you deploy with NodePort service, the scoring url (or swagger url) will be responsed with one of Node IP (e.g. ```http://<NodeIP><NodePort>/<scoring_path>```) and remain unchanged even if the Node is unavailable. But you can replace it with any other Node IP.
-
-   * **HTTP endppoints support with NodePort**
+   * **Private HTTP endpoints support with internal load balancer**   
+      ```azurecli
+      az k8s-extension create --name arcml-extension --extension-type Microsoft.AzureML.Kubernetes --cluster-type connectedClusters --cluster-name <your-connected-cluster-name> --config enableInference=True privateEndpointILB=True allowInsecureConnections=True --resource-group <resource-group> --scope cluster
+      ```
+   * **Private HTTP endppoints support with NodePort**
       ```azurecli
       az k8s-extension create --name arcml-extension --extension-type Microsoft.AzureML.Kubernetes --cluster-type connectedClusters --cluster-name <your-connected-cluster-name> --config enableInference=True privateEndpointNodeport=True allowInsecureConnections=Ture --resource-group <resource-group> --scope cluster
       ```

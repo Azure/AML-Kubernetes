@@ -14,7 +14,7 @@ az ml compute attach --resource-group
                      --name
                      --resource-id
                      --type					 
-                     [--file]
+                     [--namespace]
                      [--no-wait]
 
 ```
@@ -33,15 +33,19 @@ az ml compute attach --resource-group
 * `--resource-id`
 
    The fully qualified ID of the resource, including the resource name and resource type.
+   
+   For Arc-enabld k8s cluster, it's like ` /subscriptions/<sub ID>/resourceGroups/<resource group>/providers/Microsoft.Kubernetes/connectedClusters/<cluster name>"`
+
+   For AKS cluster with ML extension deployed without Arc conntected, it's like ` "/subscriptions/<sub ID>/resourceGroups/<resource group>/providers/Microsoft.ContainerService/managedclusters/<cluster name>`
 * `--type -t`
 
    The type of compute target. Allowed values: kubernetes, AKS, virtualmachine. Specify `kubernetes` to attach arc-enabled kubernetes cluster.
 
 **Optional Parameters**
 
-* `--file`
+* `--namespace`
 
-   Local path to the YAML file containing the compute specification. **Ignoring this param will allow the default compute configuration for simple compute attach scenario, or specify a YAML file with customized compute defination for advanced attach scenario**. 
+   Kubernetes namespace to host the ML workloads at this compute, default to `default`.
 * `--no-wait`
 
    Do not wait for the long-running operation to finish.
@@ -51,17 +55,18 @@ az ml compute attach --resource-group
 It is easy to attach Azure Arc-enabled Kubernetes cluster to AML workspace, you can do so from AML Studio UI portal. 
 
 
-1. Go to AML studio portal, Compute > Attached compute, click "+New" button, and select "Kubernetes (Preview)"
+1. Go to AML studio portal > Compute > Attached compute, click "+New" button, and select "Kubernetes (Preview)"
 
    ![Create a generic compute target](./media/attach-1.png)
 
 1. Enter a compute name, and select your Azure Arc-enabled Kubernetes cluster from Azure Arc-enabled Kubernetes cluster dropdown list.
 
-   ![Create a generic compute target](./media/attach-2.png)
+   ![Create a generic compute target](./media/MI-create1.png)
 
-1. (Optional) Browse and upload an attach config file. **Skip this step to use the default compute configuration for simple compute attach scenario, or specify a YAML file with customized compute defination for [advanced attach scenario](attach-compute.md#Advanced-compute-attach-scenarios)**
+   * (Optional) Browse and upload an attach config file. **Skip this step, which would be deprecated soon.**
 
-   ![Create a generic compute target](./media/attach-3.png)
+   * (optional) Assign system-assigned or user-assigned [Managed Identity](https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/overview).
+
 
 1. Click 'Attach' button. You will see the 'provisioning state' as 'Creating'. If it succeeds, you will see a 'Succeeded' state or else 'Failed' state.
 
@@ -73,34 +78,71 @@ It is easy to attach Azure Arc-enabled Kubernetes cluster to AML workspace, you 
 
 You can also attach AKS or Arc cluster and create KubernetesCompute target easily via AML Python SDK 1.30 or above.
 
-Following Python code snippets shows how you can easily attach an Arc cluster and create a compute target to be used for training job.
+Following Python code snippets shows how you can easily attach an kubernetes cluster and create a compute target with Managed Identity enabled.
+
 
 ```python
+
 from azureml.core.compute import KubernetesCompute
 from azureml.core.compute import ComputeTarget
+from azureml.core.workspace import Workspace
 import os
 
 ws = Workspace.from_config()
 
-# choose a name for your Azure Arc-enabled Kubernetes compute
-amlarc_compute_name = os.environ.get("AML_COMPUTE_CLUSTER_NAME", "amlarc-ml")
+# Specify a name for your Kubernetes compute
+amlarc_compute_name = "<COMPUTE_CLUSTER_NAME>"
 
-# resource ID for your Azure Arc-enabled Kubernetes cluster
-resource_id = "/subscriptions/123/resourceGroups/rg/providers/Microsoft.Kubernetes/connectedClusters/amlarc-cluster"
+# resource ID for the Kubernetes cluster and user-managed identity
+resource_id = "/subscriptions/<sub ID>/resourceGroups/<RG>/providers/Microsoft.Kubernetes/connectedClusters/<cluster name>"
+
+user_assigned_identity_resouce_id = ['subscriptions/<sub ID>/resourceGroups/<RG>/providers/Microsoft.ManagedIdentity/userAssignedIdentities/<identity name>']
+
+ns = "default" 
 
 if amlarc_compute_name in ws.compute_targets:
     amlarc_compute = ws.compute_targets[amlarc_compute_name]
     if amlarc_compute and type(amlarc_compute) is KubernetesCompute:
         print("found compute target: " + amlarc_compute_name)
 else:
-    print("creating new compute target...")
+   print("creating new compute target...")
 
-    amlarc_attach_configuration = KubernetesCompute.attach_configuration(resource_id) 
-    amlarc_compute = ComputeTarget.attach(ws, amlarc_compute_name, amlarc_attach_configuration)
 
- 
-    amlarc_compute.wait_for_completion(show_output=True)
-    
-     # For a more detailed view of current KubernetesCompute status, use get_status()
-    print(amlarc_compute.get_status().serialize())
+# assign user-assigned managed identity
+amlarc_attach_configuration = KubernetesCompute.attach_configuration(resource_id = resource_id, namespace = ns,  identity_type ='UserAssigned',identity_ids = user_assigned_identity_resouce_id) 
+
+# assign system-assigned managed identity
+# amlarc_attach_configuration = KubernetesCompute.attach_configuration(resource_id = resource_id, namespace = ns,  identity_type ='SystemAssigned') 
+
+amlarc_compute = ComputeTarget.attach(ws, amlarc_compute_name, amlarc_attach_configuration)
+amlarc_compute.wait_for_completion(show_output=True)
+
+# get detailed compute description containing managed identity principle ID, used for permission access. 
+print(amlarc_compute.get_status().serialize())
 ```
+
+**Parameters of `KubernetesCompute.attach_configuration()`**
+
+`resource_id`, [string](https://docs.python.org/3/library/string.html#module-string), required
+
+  The fully qualified ID of the resource, including the resource name and resource type.
+
+`namespace`, [string](https://docs.python.org/3/library/string.html#module-string), optional
+
+Kubernetes namespace to host the ML workloads at this compute, default to `default`.
+
+`identity_type`, [string](https://docs.python.org/3/library/string.html#module-string), optional
+
+default value: None
+
+Possible values are:
+
+- SystemAssigned - System assigned identity
+
+- UserAssigned - User assigned identity. Requires identity_ids to be set.
+
+`identity_ids`, [list](https://docs.python.org/3/library/stdtypes.html#list)[[str](https://docs.python.org/3/library/string.html#module-string)], optional
+
+default value: None
+
+List of resource ids for the user assigned identity. e.g. ['subscriptions/\<sub ID>/resourceGroups/\<RG>/providers/Microsoft.ManagedIdentity/userAssignedIdentities/\<identity name>']
