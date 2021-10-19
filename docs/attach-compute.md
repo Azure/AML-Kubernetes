@@ -65,7 +65,7 @@ It is easy to attach Azure Arc-enabled Kubernetes cluster to AML workspace, you 
 
    * (Optional) Browse and upload an attach config file. **Skip this step, which would be deprecated soon.**
 
-   * (optional) Assign system-assigned or user-assigned [Managed Identity](https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/overview).
+   * (Optional) Assign system-assigned or user-assigned [Managed Identity](https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/overview).
 
 
 1. Click 'Attach' button. You will see the 'provisioning state' as 'Creating'. If it succeeds, you will see a 'Succeeded' state or else 'Failed' state.
