@@ -58,7 +58,7 @@ ArcML enables Kubernetes to become just another compute target for AzureML, and 
 
 In addition to above built-in AzureML features, ArcML also supports following unique machine learning features:
 
-* [Target different nood pools for training or inference workload deployment](./docs/instance-type.md) 
+* [Target different node types for training or inference workload deployment](./docs/instance-type.md) 
 * [Train model with NFS](./docs/setup-ephemeral-nfs-volume.md)
 * [Train model with PV/PVC storage mount](./docs/pvc.md)
 * Use managed idenity for your endpoint
