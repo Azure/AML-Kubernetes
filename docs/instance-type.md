@@ -44,8 +44,51 @@ This creates an instance type with the following behavior:
 - Pods will be assigned resource requests of `700m` CPU and `1500Mi` memory.
 - Pods will be assigned resource limits of `1` CPU, `2Gi` memory and `1` Nvidia GPU.
 
-Note that Nvidia GPU resources are only specified in the `limits` section.  For more information,
-please refer to the Kubernetes [documentation](https://kubernetes.io/docs/tasks/manage-gpus/scheduling-gpus/#using-device-plugins).
+Note:
+- Nvidia GPU resources are only specified in the `limits` section as integer values.  For more information,
+  please refer to the Kubernetes [documentation](https://kubernetes.io/docs/tasks/manage-gpus/scheduling-gpus/#using-device-plugins).
+- CPU and memory resources are string values.
+- CPU can be specified in millicores, for example `100m`, or in full numbers, for example `"1"` which
+  is equivalent to `1000m`.
+- Memory can be specified as a full number + suffix, for example `1024Mi` for 1024 MiB.
+
+It is also possible to create multiple instance types at once:
+```bash
+kubectl apply -f my_instance_type_list.yaml
+```
+
+With `my_instance_type_list.yaml`:
+```yaml
+apiVersion: amlarc.azureml.com/v1alpha1
+kind: InstanceTypeList
+items:
+  - metadata:
+      name: cpusmall
+    spec:
+      resources:
+        limits:
+          cpu: "100m"
+          nvidia.com/gpu: 0
+          memory: "10Mi"
+        requests:
+          cpu: "100m"
+          memory: "1Gi"
+
+  - metadata:
+      name: defaultinstancetype
+    spec:
+      resources:
+        limits:
+          cpu: "1"
+          nvidia.com/gpu: 0
+          memory: "1Gi"
+        requests:
+          cpu: "1"
+          memory: "1Gi" 
+```
+
+The above example creates two instance types: `cpusmall` and `defaultinstancetype`.  The latter
+is examplained in more detail in the following section.
 
 ## Default instance types
 If a training or inference workload is submitted without an instance type, it uses the default
@@ -66,6 +109,9 @@ resources:
 ```
 - This default instance type will not appear as an InstanceType custom resource in the cluster,
 but it will appear in all clients (UI, CLI, SDK).
+
+Note: The default instance type purposefully uses little resources.  To ensure all ML workloads
+run with appropriate resources, it is highly recommended to create custom instance types.
 
 ## Select instance type to submit training job
 To select an instance type for a training job using CLI (V2), specify its name as part of the
