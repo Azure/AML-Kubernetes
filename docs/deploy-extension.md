@@ -21,10 +21,15 @@ Upon AzureML extension deployment completes, it will create following resources 
    |metrics-controller-manager|Kubernetes deployment|**&check;**|**&check;**|**&check;**|
    |relayserver|Kubernetes deployment|**&check;**|**&check;**|**&check;**|
    |cluster-status-reporter|Kubernetes deployment|**&check;**|**&check;**|**&check;**|
-   |prometheus|Kubernetes deployment|**&check;**|**&check;**|**&check;**|
    |nfd-master|Kubernetes deployment|**&check;**|N/A|**&check;**|
-   |gateway|Kubernetes deployment|**&check;**|N/A|**&check;**|
+   |gateway|Kubernetes deployment|**&check;**|**&check;**|**&check;**|
    |csi-blob-controller|Kubernetes deployment|**&check;**|N/A|**&check;**|
+   |csi-blob-node|Kubernetes daemonset|**&check;**|N/A|**&check;**|
+   |fluent-bit|Kubernetes daemonset|**&check;**|**&check;**|**&check;**|
+   |k8s-host-device-plugin-daemonset|Kubernetes daemonset|**&check;**|**&check;**|**&check;**|
+   |nfd-worker|Kubernetes daemonset|**&check;**|N/A|**&check;**|
+   |prometheus-prom-prometheus|Kubernetes statefulset|**&check;**|**&check;**|**&check;**|
+   |frameworkcontroller|Kubernetes statefulset|**&check;**|N/A|**&check;**|
 
 > **<span style="color:orange">Important**:</span> 
    > * Azure ServiceBus and Azure Relay resources  are under the same resource group as the Arc cluster resource. These resources are used to communicate with the Kubernetes cluster and modifying them will break attached compute targets.
