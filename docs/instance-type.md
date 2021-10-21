@@ -66,12 +66,12 @@ items:
       name: cpusmall
     spec:
       resources:
-        limits:
-          cpu: "100m"
-          nvidia.com/gpu: 0
-          memory: "10Mi"
         requests:
           cpu: "100m"
+          memory: "100Mi"
+        limits:
+          cpu: "1"
+          nvidia.com/gpu: 0
           memory: "1Gi"
 
   - metadata:
