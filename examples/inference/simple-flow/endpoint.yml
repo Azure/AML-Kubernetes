@@ -1,6 +1,6 @@
 type: online
 auth_mode: key
-target: azureml:tailwind-k8s
+compute: azureml:tailwind-k8s
 traffic:
   blue: 100
 
