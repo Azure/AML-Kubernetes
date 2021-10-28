@@ -133,10 +133,11 @@ target and `<instance_type_name>` with the name of the instance type you wish to
 
 To select an instance type for a model deployment using CLI (V2), specify its name as part of the
 `deployments` section.  For example:
+
 ```yaml
 type: online
 auth_mode: key
-target: azureml:<your compute target name>
+compute: azureml:<your compute target name>
 traffic:
   blue: 100
 
@@ -159,4 +160,4 @@ deployments:
       conda_file: file:./model/conda.yml
       docker:
         image: mcr.microsoft.com/azureml/openmpi3.1.2-ubuntu18.04:20210727.v1
-```yaml
+```
