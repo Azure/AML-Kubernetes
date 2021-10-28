@@ -9,6 +9,11 @@ The Azure VNET can be created independently or during the creation of the AKS cl
 The VNET does need to have a sufficiently  large address space, The default address space of 10.0.0.0/16 has worked in our testing. The subnet also needs to be large enough to accommodate the AKS cluster, In general, you'll want 128 addresses per node in your cluster, if using default settings. More documentation on creating an Azure VNET can be found here:
 https://docs.microsoft.com/en-us/azure/virtual-network/quick-create-portal.
 
+Make sure your user account must have permissions to the following actions in Azure role-based access control (Azure RBAC):
+
+- "Microsoft.Network/virtualNetworks/join/action" on the virtual network resource.
+- "Microsoft.Network/virtualNetworks/subnet/join/action" on the subnet resource.
+
 ### Setting up AKS cluster:
 
 Setting up your AKS cluster with Azure CNI is documented here:
@@ -25,8 +30,28 @@ Do take note however that all commands must be run from a VM within the VNET to 
 
 ### Setting up AzureML Workspace:
 
-Private link workspace are required if using an AzureCNI clustera and if the user wants to secure their connection to workspace.
+Private link workspace are required if using an AzureCNI cluster and if the user wants to secure their connection to workspace.
 Documentation for a private link workspace is provided here:
 https://docs.microsoft.com/en-us/azure/machine-learning/how-to-configure-private-link?tabs=python
 
 Notably, if one wants to access the workspace studio one has to either enable public access to the cluster explained in document above, or follow this documentation: https://docs.microsoft.com/en-us/azure/machine-learning/how-to-enable-studio-virtual-network.
+
+### Setting up Azure Storage Account
+
+Azure Machine Learning supports storage accounts configured to use either a private endpoint or service endpoint. Documentation for a private link storage account is provided here: https://docs.microsoft.com/en-us/azure/machine-learning/how-to-secure-workspace-vnet?tabs=pe#secure-azure-storage-accounts
+
+### Setting up Azure Key Vault
+
+Azure Machine Learning uses an associated Key Vault instance to store the following credentials:
+
+- The associated storage account connection string
+- Passwords to Azure Container Repository instances
+- Connection strings to data stores
+
+Documentation for a private link key vault is provided here: https://docs.microsoft.com/en-us/azure/machine-learning/how-to-secure-workspace-vnet?tabs=pe#secure-azure-key-vault
+
+### Setting up Azure Container Registry
+
+Azure Machine Learning uses Azure Container Registry to store customers image. Documentation for a private link container registry is provided here: https://docs.microsoft.com/en-us/azure/container-registry/container-registry-private-link#set-up-private-endpoint---portal-recommended. 
+
+Configure compute cluster for building image in your vnet. https://docs.microsoft.com/en-us/azure/machine-learning/how-to-secure-workspace-vnet?tabs=pe#enable-azure-container-registry-acr
