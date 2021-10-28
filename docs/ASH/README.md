@@ -1,21 +1,17 @@
 # Setup and Run AzureML Training & Inferencing Workloads On Premises Using AKS on Azure Stack HCI Via Azure Arc 
 
-This repository is intended to serve as an information hub for AKS on Azure Stack HCI customers and partners who are interested in Arc AML training using ARC Connected Kubernetes cluster and NFS Server on Azure Stack HCI. Use this repository for onboarding and testing instructions as well as an avenue to provide feedback, issues, enhancement requests and stay up to date as the public preview progresses.
+This repository is intended to serve as an information hub for AKS on Azure Stack HCI customers and partners who are interested in Arc AML training using ARC Connected AKS cluster and NFS Server on Azure Stack HCI. Use this repository for onboarding and testing instructions as well as an avenue to provide feedback, issues, enhancement requests and stay up to date as the public preview progresses.
 
 <p align="center">
             <img src="imgs/structure.png" />
 </p>
 
-## Note
+## Setup Azure Arc-enabled Machine Learning on AKS on Azure Stack HCI
 
-All features are available on a self-service, opt-in basis and are subject to breaking design and API changes. Previews are provided "as is" and "as available," and they're excluded from the service-level agreements and limited warranty. As such, these features aren't meant for production use.
+You can use the following documents to get started with setting up your Azure Arc-enabled Machine Learning on AKS on Azure Stack HCI:
 
-## Training on Azure Stack Hub
-
-You can use the following documents to get started with setting up your training workloads on ASH:
-
-1. [Deploy Azure Stack Hub’s Kubernetes Cluster as a Compute Cluster in Azure Machine Learning through Azure Arc](AML-ARC-Compute.md)
-2. [Setup Azure Stack Hub's Blob Storage as a Datastore on Azure Machine Learning Workspace and Run a Training Workload](Train-AzureArc.md)
+1. [Setup Azure Arc-enabled Machine Learning Training and Inferencing on AKS on Azure Stack HCI](AML-ARC-Compute.md)
+2. [Setup NFS Server on Azure Stack HCI Run your First Managed Machine Learning Experiment On-Premises](Train-AzureArc.md)
 
 ## Sample Notebooks
 
@@ -45,4 +41,4 @@ Note: Above run time estimated assume a vm size comparable to [Standard_DS3_v2](
 
 ## Troubleshooting
 
-If you face issues during Setup or Training, please check our [troubleshooting guide](troubleshooting.md).
+If you face issues during setup or experimenting, please check out [Limitations and known issues](../limitations-and-known-issues.md) and [Support](../../README.md#support) pages.
