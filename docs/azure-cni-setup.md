@@ -21,6 +21,8 @@ https://docs.microsoft.com/en-us/azure/aks/configure-azure-cni
 
 As mentioned in the VNET setup section of this document the VNET being used can either be created independently or during setup of the AKS cluster through the portal. The portal has the added convenience of making sure your subnet is large enough for your cluster.
 
+A private aks cluster uses an internal IP address to ensure that network traffic between the API server and node pools remains on a private network only.You can enable private aks in portal or [az aks cli](https://docs.microsoft.com/en-us/azure/aks/private-clusters#create-a-private-aks-cluster)
+
 ### Installing AMLArc:
 
 All instructions for connecting to an AKS AzureCNI cluster are the same as a public AKS cluster:
