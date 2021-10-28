@@ -1,4 +1,4 @@
-# Deploy Azure Stack Hub’s Kubernetes Cluster as a Compute Cluster in Azure Machine Learning through Azure Arc
+# Setup Azure Arc-enabled Machine Learning Training and Inferencing on AKS on Azure Stack HCI
 
 In this article, you:
 
