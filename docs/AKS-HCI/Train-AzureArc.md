@@ -1,4 +1,4 @@
-# Setup Azure Stack Hub's Blob Storage as a Datastore on Azure Machine Learning Workspace and Run a Training Workload
+# Setup NFS Server on Azure Stack HCI Run your First Managed Machine Learning Experiment On-Premises
 
 In this article, you:
 *	Create storage account on Azure Stack Hub
