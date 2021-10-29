@@ -11,7 +11,7 @@ This repository is intended to serve as an information hub for AKS on Azure Stac
 You can use the following documents to get started with setting up your Azure Arc-enabled Machine Learning on AKS on Azure Stack HCI:
 
 1. [Setup Azure Arc-enabled Machine Learning Training and Inferencing on AKS on Azure Stack HCI](AML-ARC-Compute.md)
-2. [Setup NFS Server on Azure Stack HCI Run your First Managed Machine Learning Experiment On-Premises](Train-AzureArc.md)
+2. [Setup NFS Server on Azure Stack HCI and Use your Data and run managed Machine Learning Experiments On-Premises](Train-AzureArc.md)
 
 ## Sample Notebooks
 
