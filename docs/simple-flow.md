@@ -33,11 +33,12 @@
     |   |-- sklearn_mnist_model.pkl
     |-- script
     |   |-- score.py
+    |-- blue-deployment.yml
     |-- endpoint.yml
     |-- sample_request.json
     ```
 
-    As you can see from above, "model" directory contains model and Conda environment definition, "score.py" is under "script" directory. At top level directory, we have endpoint YAML definition and sample request JSON file. In general, this is very typical project setup for Azure Arc enabled ML model deployment.
+    As you can see from above, "model" directory contains model and Conda environment definition, "score.py" is under "script" directory. At top level directory, we have endpoint, blue deployment YAML definition and sample request JSON file. In general, this is very typical project setup for Azure Arc enabled ML model deployment.
 
 ## Simple deployment flow
 
@@ -54,26 +55,32 @@ Now let's see simple deployment flow in action!
 
 > Note that the resource requirements (CPU, memory, GPU) defined in the endpoint yaml should be no more than the resource limit of the specified instance type.
 
+
+1. Create endpoint
     ```azurecli
-    az ml endpoint create -n sklearn-mnist -f endpoint.yml
+    az ml online-endpoint create --name sklearn-mnist -f endpoint.yml
+    ```
+1. Check status of endpoint
+
+    ```azurecli
+    az ml online-endpoint show -n sklearn-mnist
     ```
 
-1. Check status of deployment
-
+1. Create blue deployment
     ```azurecli
-    az ml endpoint show -n sklearn-mnist
+    az ml online-deployment create --name blue --endpoint sklearn-mnist -f blue-deployment.yml --all-traffic
     ```
 
-1. Check if deployment was successful
+1. Check status of blue deployment
 
     ```azurecli
-    az ml endpoint get-logs -n sklearn-mnist --deployment blue
+    az ml online-deployment show --name blue --endpoint sklearn-mnist
     ```
 
 1. Test endpoint by scoring request
 
     ```azurecli
-    az ml endpoint invoke -n sklearn-mnist -r sample-request.json
+    az ml online-endpoint invoke -n sklearn-mnist -r sample-request.json
     ```
 
     You can also send a scoring request using cURL.
@@ -81,13 +88,13 @@ Now let's see simple deployment flow in action!
     * Obtain a token/keys for the scoring endpoint
 
     ```azurecli
-    az ml endpoint get-credentials --name <endpoint_name> --resource-group <resource_group_name> --workspace-name <workspace_name>
+    az ml online-endpoint get-credentials -n sklearn-mnist
     ```
 
     * Obtain the `scoring_uri` of the endpoint
   
     ```azurecli
-    az ml endpoint show --name <endpoint_name> --resource-group <resource_group_name> --workspace-name <workspace_name>
+    az ml online-endpoint show -n sklearn-mnist
     ```
   
     * Score using the token/key obtained above
@@ -96,7 +103,19 @@ Now let's see simple deployment flow in action!
     curl -v -i -X POST -H "Content-Type:application/json" -H "Authorization: Bearer <key_or_token>" -d '<sample_data>' <scoring_uri>
     ```
 
-That is it! You have successfully deployed an image classification model and scored the mode with a request.
+    That is it! You have successfully deployed an image classification model and scored the model with a request.
+
+1. Get logs
+
+    ```azurecli
+    az ml online-deployment get-logs --name blue --endpoint sklearn-mnist
+    ```
+
+1. Delete endpoint
+
+    ```azurecli
+    az ml online-endpoint delete -n sklearn-mnist
+    ```
 
 ## Additional resources
 
