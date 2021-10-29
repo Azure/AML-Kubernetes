@@ -103,7 +103,7 @@ Now let's see simple deployment flow in action!
     curl -v -i -X POST -H "Content-Type:application/json" -H "Authorization: Bearer <key_or_token>" -d '<sample_data>' <scoring_uri>
     ```
 
-    That is it! You have successfully deployed an image classification model and scored the mode with a request.
+    That is it! You have successfully deployed an image classification model and scored the model with a request.
 
 1. Get logs
 
