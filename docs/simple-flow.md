@@ -68,7 +68,7 @@ Now let's see simple deployment flow in action!
 
 1. Create blue deployment
     ```azurecli
-    az ml online-deployment create --name blue --endpoint sklearn-mnist -f  blue-deployment.yml --all-traffic
+    az ml online-deployment create --name blue --endpoint sklearn-mnist -f blue-deployment.yml --all-traffic
     ```
 
 1. Check status of blue deployment
