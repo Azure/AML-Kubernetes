@@ -1,0 +1,3 @@
+name: tf-mnist
+compute: azureml:<your GPU compute target name>
+auth_mode: key
