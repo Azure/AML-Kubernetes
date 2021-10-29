@@ -3,7 +3,7 @@
 In this article, you will:
 
 *	Connect your AKS on Azure Stack HCI Cluster to Azure Via Azure Arc
-*	Install AzureML training and inferencing extention on your AKS on Azure Stack HCI 
+*	Install AzureML training and inferencing extentions on your AKS on Azure Stack HCI 
 *	Attach your Azure Arc-enabled AKS on Azure Stack HCI's cluster to your Azure Machine Learning workspace as a compute target
 
 ## Prerequisites
@@ -12,8 +12,7 @@ Before you begin, please make sure that you have the following items available:
 
 * An Azure subscription. If you don't have an Azure subscription, [create a free account](https://azure.microsoft.com/en-us/free/) before you begin.
 * An AKS on Azure Stack HCI cluster with **at least one Linux worker node** that is up and running. **Your Linux nodes must have a minimum of 4 vCPU cores and 8GB memory, around 2 vCPU cores and 3GB memory would be used by Arc and AzureML extension components** that we will be installing as part of this tutorial. If you don't have an AKS on Azure Stack HCI cluster, you can follow [the official documentation here](https://docs.microsoft.com/en-us/azure-stack/aks-hci/kubernetes-walkthrough-powershell) to create one on your Azure Stack HCI hardware. Alternatively, you can follow [AKS on Azure Stack HCI Evaluation guide](https://github.com/Azure/aks-hci/tree/main/eval) to create a cluster on an Azure VM with only a couple of commands (This should only be used for proof of concept, please use [the official documentation](https://docs.microsoft.com/en-us/azure-stack/aks-hci/kubernetes-walkthrough-powershell) and hardware for production workloads).
-* An Azure Machine Learning (AML) Workspace deployed as part of your subscription. You can [create an AML workspace](https://docs.microsoft.com/azure/machine-learning/how-to-manage-workspace?tabs=python) if you don't already have one. If you are using the AML Python SDK to create your workspace, please make sure it has a version>= **1.30**
-Make sure you have access to Azure and your Azure Stack Hub is ready for use. We strongly recommend learning more about [the innerworkings and concepts in Azure Machine Learning](https://docs.microsoft.com/en-us/azure/machine-learning/concept-azure-machine-learning-architecture) before continuing with the rest of this article (optional).
+* An Azure Machine Learning (AML) Workspace deployed as part of your subscription. You can [create an AML workspace](https://docs.microsoft.com/azure/machine-learning/how-to-manage-workspace?tabs=python) if you don't already have one. If you are using the AML Python SDK to create your workspace, please make sure it has a version>= **1.30**. We strongly recommend learning more about [the innerworkings and concepts in Azure Machine Learning](https://docs.microsoft.com/en-us/azure/machine-learning/concept-azure-machine-learning-architecture) before continuing with the rest of this article (optional).
 
 ## Connect your AKS on Azure Stack HCI Cluster to Azure Via Azure Arc
 
@@ -22,7 +21,7 @@ We start the process of connecting our newly created Kubernetes cluster to Azure
 *	Make sure the system that you are using to install CLI extensions has access to your cluster, cluster-admin role and, Azure. For more information please read [Before you Begin](https://docs.microsoft.com/en-in/azure/azure-arc/kubernetes/connect-cluster#before-you-begin). 
 *   Follow the instructions given in the Pre-requisites section of [this repository](https://github.com/Azure/azure-arc-kubernetes-preview/blob/master/docs/k8s-extensions.md#pre-requisites) to install preview extensions and connect your cluster to Azure via Azure ARC.
 
-## Install AzureML training and inferencing extention on your AKS on Azure Stack HCI 
+## Install AzureML training and inferencing extentions on your AKS on Azure Stack HCI 
 
 ## Attach your Azure Arc-enabled AKS on Azure Stack HCI's cluster to your Azure Machine Learning workspace as a compute target
 
@@ -66,4 +65,4 @@ If you do not already have an Azure Machine learning workspace in your desired A
 
 ## Next Steps
 
-Learn how to [Setup NFS Server on Azure Stack HCI Run your First Managed Machine Learning Experiment On-Premises](Train-AzureArc.md).
+Learn how to [Setup NFS Server on Azure Stack HCI and Use your Data and run managed Machine Learning Experiments On-Premises](Train-AzureArc.md).
