@@ -1,4 +1,4 @@
-# Setup NFS Server on Azure Stack HCI Run your First Managed Machine Learning Experiment On-Premises
+# Setup NFS Server on Azure Stack HCI and Use your Data and run managed Machine Learning Experiments On-Premises
 
 In this article, you:
 *	Create storage account on Azure Stack Hub
