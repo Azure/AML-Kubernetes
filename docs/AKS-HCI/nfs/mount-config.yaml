@@ -1,0 +1,13 @@
+apiVersion: v1
+data:
+  mounts.yaml: |
+    mountPoints:
+    - mountPath: <Mounting path on training pod>
+      mountType: nfs
+      name: amlarc-nfs-share-0
+      path: <EXPORT_DIRECTORY in nfs-server-setup.sh>
+      server: <IP of the NFS Ubuntu VM>
+kind: ConfigMap
+metadata:
+  name: mount-config
+  namespace: azureml
