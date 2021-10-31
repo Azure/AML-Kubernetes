@@ -4,9 +4,9 @@ data:
     mountPoints:
     - mountPath: <Mounting path on training pod>
       mountType: nfs
-      name: amlarc-nfs-share-0
-      path: <EXPORT_DIRECTORY in nfs-server-setup.sh>
-      server: <IP of the NFS Ubuntu VM>
+      name: <NFS_NAME>
+      path: <NFS_EXPORT_FILE_PATH>
+      server: <NFS_IP>
 kind: ConfigMap
 metadata:
   name: mount-config

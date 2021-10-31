@@ -20,28 +20,68 @@ Helper link of creating VM on Azure Stack HCI: https://docs.microsoft.com/en-us/
 Example, creating Ubuntu VM with ISO on Azure Stack HCI.
 
 <p align="center">
-  <img src="nfs/create-ubuntu-vm.png" />
+  <img src="nfs/images/create-ubuntu-vm.png" />
 </p>
 
 After the deployment finishes successfully, you can see the VM from Windows Admin Center.
 
 <p align="center">
-  <img src="nfs/ubuntu-vm-created.png" />
+  <img src="nfs/images/ubuntu-vm-created.png" />
 </p>
 
-2. Configure the network of the Ubuntu VM.
+2. Prerequisites on Ubuntu VM
 
 To make sure the Ubuntu VM NFS Server can be accessed externally, if you don't use DHCP, you need to assign the public IP manually. Like,
 
 <p align="center">
-  <img src="nfs/configure-public-ip.png" />
+  <img src="nfs/images/configure-public-ip.png" />
 </p>
 
 Then reset the network to take effect.
 
 <p align="center">
-  <img src="nfs/reset-network.png" />
+  <img src="nfs/images/reset-network.png" />
 </p>
+
+About SSH, you need to install openSSH server and open the required port - 22.
+
+First update the system and install openssh-server package, run,
+
+```shell
+sudo apt update
+sudo apt upgrade
+sudo apt install openssh-server
+```
+Verify the ssh service running status
+```shell
+sudo systemctl status ssh
+```
+<p align="center">
+  <img src="nfs/images/ssh-status.png" />
+</p>
+
+If the SSH service is not started automatically, you can start (or restart) the SSH service manually via below command:
+```shell
+sudo service ssh start
+```
+To make sure the Ubuntu VM can be connected from a remote location, need to enable UFW firewall and add a rule to allow incoming SSH connections.
+
+To configure the UFW firewall and add a rule to allow incoming SSH connections.
+```shell
+sudo ufw allow ssh
+```
+Then enable UFW firewall via below command:
+```shell
+sudo ufw enable
+```
+Then check the status of UFW:
+```shell
+sudo ufw status numbered
+```
+<p align="center">
+  <img src="nfs/images/ufw-ssh.png" />
+</p>
+
 
 3. Setup the NFS Server on the Ubuntu VM.
 
@@ -52,7 +92,11 @@ After you've created your VM, copy the script to your machine, then into the VM 
 ```shell
 scp /path/to/script_file username@vm-ip-address:/home/{username}
 ```
-
+If you copy the script from Windows machine, please pay attention to the format, could use dos2unix to convert the format:
+```shell
+sudo apt install dos2unix
+dos2unix ~/nfs-server-setup.sh
+```
 Once your script is in your VM, you can ssh into the VM and execute it via the command:
 
 ```shell
@@ -64,12 +108,33 @@ If its execution fails because of a permission denied error, set execution permi
 chmod +x ~/nfs-server-setup.sh
 ```
 
-In [nfs-server-setup.sh](nfs/nfs-server-setup.sh), it accepts three parameters,
-* The first one is EXPORT_DIRECTORY, indicating a folder to be exported.
-* The second one is DATA_DIRECTORY, indicating a folder where data locates.
-* The third one is AKS_SUBNET, indicating Kubernetes subnet address. Make sure to replace the AKS_SUBNET with the correct one from your cluster or else "*" will open your NFS Server to all ports and connections.
+In [nfs-server-setup.sh](nfs/nfs-server-setup.sh), it accepts two parameters,
+* The first one is DATA_DIRECTORY, indicating a folder which is used as the data store for NFS server
+* The second one is AKS_SUBNET, indicating Kubernetes subnet address. Make sure to replace the AKS_SUBNET with the correct one from your cluster or else "*" will open your NFS Server to all ports and connections.
 
-The NFS server will restart (because of the script) and you can mount the NFS Server for AKS-HCI.
+The NFS server will restart (because of the script) and you can mount the NFS Server for AKS-HCI. The mounting point is <NFS_IP>:/$(basename $DATA_DIRECTORY).
+
+Configure the UFW firewall to allow the NFS incoming connection.
+```shell
+sudo ufw allow from any to any port nfs
+sudo ufw allow from any to any port 111
+```
+<p align="center">
+  <img src="nfs/images/ufw-nfs.png" />
+</p>
+
+You can verify the mounting point on another Ubuntu machine, with nfs-common installed and the network access to the NFS server.
+```shell
+# install nfs client
+sudo apt install nfs-common -y
+# mount: </path/to/desired/mountpoint> needs to be created in advance
+sudo mount -t nfs <NFS_IP>:<folder name of DATA_DIRECTORY> </path/to/desired/mountpoint>
+# umount
+sudo fusermount -u </path/to/desired/mountpoint>
+```
+<p align="center">
+  <img src="nfs/images/verify-nfs-vm.png" />
+</p>
 
 ## Configure the NFS server as the training data source
 
@@ -84,9 +149,9 @@ data:
     mountPoints:
     - mountPath: <Mounting path on training pod>
       mountType: nfs
-      name: amlarc-nfs-share-0
-      path: <EXPORT_DIRECTORY in nfs-server-setup.sh>
-      server: <IP of the NFS Ubuntu VM>
+      name: <NFS_NAME>
+      path: <NFS_EXPORT_FILE_PATH>
+      server: <NFS_IP>
 kind: ConfigMap
 metadata:
   name: mount-config

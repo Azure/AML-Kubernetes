@@ -2,9 +2,10 @@
 
 # This script should be executed on Linux Ubuntu Virtual Machine
 
-EXPORT_DIRECTORY=${1:-/export/data}
-DATA_DIRECTORY=${2:-/data}
-AKS_SUBNET=${3:-*}
+DATA_DIRECTORY=${1:-/data}
+AKS_SUBNET=${2:-*}
+
+EXPORT_DIRECTORY="/export/$(basename "$DATA_DIRECTORY")"
 
 echo "Updating packages"
 apt-get -y update
