@@ -2,9 +2,9 @@
 
 In this article, you will:
 
-*	Connect your AKS on Azure Stack HCI Cluster to Azure Via Azure Arc
-*	Install AzureML training and inferencing extentions on your AKS on Azure Stack HCI 
-*	Attach your Azure Arc-enabled AKS on Azure Stack HCI's cluster to your Azure Machine Learning workspace as a compute target
+*	Connect your AKS on Azure Stack HCI cluster to Azure Via Azure Arc
+*	Install AzureML training and inferencing extentions on your AKS on Azure Stack HCI cluster
+*	Attach your Azure Arc-enabled AKS on Azure Stack HCI's vluster to your Azure Machine Learning Workspace as a Compute Target
 
 ## Prerequisites
 
@@ -26,6 +26,16 @@ You can connect your cluster to Azure using Azure Arc. Clusters are attached to 
 To connect a Kubernetes cluster to Azure, the cluster administrator needs to deploy a couple of Arc agents. The agents are responsible for connectivity to Azure, collecting Azure Arc logs and metrics, and enabling the above-mentioned scenarios on the cluster. These agents run in a Kubernetes namespace named azure-arc and are standard Kubernetes deployments. You can follow [Connect an Azure Kubernetes Service on Azure Stack HCI cluster to Azure Arc-enabled Kubernetes](https://docs.microsoft.com/en-us/azure-stack/aks-hci/connect-to-arc) to connect your cluster to Azure. 
 
 ## Install AzureML training and inferencing extentions on your AKS on Azure Stack HCI 
+
+Now that you have an Arc-enabled cluster, you can install Arc extensions onto your cluster and expand its capabilities using the available extensions. To learn more about available Azure Arc extensions please visit [Deploy and manage Azure Arc-enabled Kubernetes cluster extensions](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/extensions).
+
+To enable managed ML training and inferencing on your Arc-enabled AKS-HCI cluster, you will need to install AzureML Arc extension using Azure Arc `k8s-extension` CLI. Please follow the following steps to install the extension:
+
+1. Make sure your Arc-enabled AKS-HCI cluster meets AzureML Arc [extention prerequisites](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-attach-arc-kubernetes#prerequisites) and [networking requirements](../network-requirements.md).
+2. 
+
+
+
 
 ## Attach your Azure Arc-enabled cluster to your Azure Machine Learning Workspace as a Compute Target
 
