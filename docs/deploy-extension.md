@@ -1,7 +1,7 @@
 # Deploy AzureML extension to your Kubernetes cluster
 
 With an AKS cluster or any Azure Arc enabled Kuberntes cluter, you can execute a single Azure CLI command to deploy AzureML extension to the cluster and instantly onboard data science professionals submit ML workload to the cluster with preferred tools and languages. You can deploy AzureML extension and enables Kuberntes cluster for following machine learning needs:
-* Deploy AzureML extension for model training and batch inference only
+* Deploy AzureML extension for model training and batch inference
 * Deploy AzureML extension for real-time inferencing only
 * Deploy AzureML extension for both model training and inferencing
 

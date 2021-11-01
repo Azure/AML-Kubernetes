@@ -47,8 +47,8 @@ Now let's see simple deployment flow in action!
 1. Git clone preview Github repo and switch to simple-flow directory
 
     ```console
-    git clone https://github.com/Azure/amlarc-preview.git
-    cd amlarc-preview/examples/simple-flow
+    git clone https://github.com/Azure/AML-Kubernetes.git
+    cd AML-Kubernetes/examples/inference/simple-flow
     ```
 
 1. Modify endpoint YAML file to replace "\<your compute target name>" with your own compute target name, and replace "\<your instance type>" to the instance type defined in your compute configuration. Create an endpoint with blue deployment with following CLI command, endpoint creation and deployment might take a few minutes.

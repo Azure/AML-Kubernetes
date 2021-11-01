@@ -1,7 +1,6 @@
-# Azure Arc-enabled Machine Learning (ArcML)
-As part of Azure Machine Learning (AzureML) service capabilities, Azure Arc-enabled Machine Learning (ArcML) brings AzureML to any infrastructure across multi-cloud, on-premises, and the edge using Kubernetes on your hardware of choice. Enterprisse now can manage and provision AzureML extension on Kubernetes with 1-click deployment and instantly onboard data science professionals with preferred tools and languages without creating siloed development environments. Enterprise can also operationalize machine learning (ML) at scale and optimize model training or inference workload in multi-cloud, on-premises, or in a hybrid environment to suit your business requirements.
+# Azure Arc-enabled Machine Learning
 
-The design for ArcML helps IT operators leverage native Kubernetes concepts such as namespace, node selector, and resources requests/limits for ML compute utilization and optimization. By letting the IT operator manage ML compute setup, ArcML creates a seamless AzureML experience for data sciennce professionals who do not need to learn or use Kubernetes directly. 
+As part of Azure Machine Learning (AzureML) service capabilities,  Azure Arc enabled ML extends Azure ML service capabilities seamlessly to Kubernetes clusters, and enables customer to train and deploy models on Kubernetes anywhere at scale. With a simple AzureML extension deployment, customer can instantly onboard their data science team with productivity tools for full ML lifecycle, and they have access to both Azure managed compute and customer managed Kubernetes anywhere. Customer is flexible to train and deploy models wherever and whenever business requires so. With built-in AzureML pipeline and MLOps support for Kubernetes, customer can scale machine learning adoption in their organization easily. Built on top of Azure Arc hybrid cloud platform, Arc enabled ML natively supports on-premise machine learning with Kubernetes.
 
 This repository is intended to serve as an information hub for customers and partners who are interested in Azure Arc enabled ML public preview. Use this repository for onboarding and testing instructions as well as an avenue to provide feedback, issues, enhancement requests and stay up to date as the preview progresses. 
 
@@ -31,7 +30,8 @@ Getting started with ArcML is easy with following steps:
 
 ## Supported AzureML built-features and ArcML unique features
 
-ArcML enables Kubernetes to become just another compute target for AzureML, and data science professionals can run ML workload with buillt-in AzureML features instantly without any Kubernetes expertise or knowledge. 
+Azure Arc enabled ML essentially brings a new compute target to Azure Machine Learning service. With this new Kubernetes compute target, customer can use existing Azure ML tools and service capabilities to train or deploy model on Kubernetes anywhere. You can git clone available Azure ML examples on the internet, with simple change of compute target name, and those examples will run seamlessly on Kubernetes.
+
 |AzureML built-in features  |ArcML support  |
    |--|--|
    |[Train with the CLI (v2)](https://docs.microsoft.com/azure/machine-learning/how-to-train-cli?view=azure-devops) |&check;|
