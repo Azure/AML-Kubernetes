@@ -14,9 +14,9 @@ nfs_folder = args.nfs_folder
 print('NFS folder:', nfs_folder)
 
 if (Path(nfs_folder).exists() != True):
-    raise Exception(f"{nfs_folder} doesn't exist")
+    raise AssertionError(f"{nfs_folder} doesn't exist")
 if (Path(nfs_folder).is_dir() != True):
-    raise Exception(f"{nfs_folder} is not a directory")
+    raise AssertionError(f"{nfs_folder} is not a directory")
 
 from itertools import islice
 
