@@ -4,7 +4,7 @@ In this article, you will:
 
 *	Connect your AKS on Azure Stack HCI cluster to Azure Via Azure Arc
 *	Install AzureML training and inferencing extentions on your AKS on Azure Stack HCI cluster
-*	Attach your Azure Arc-enabled AKS on Azure Stack HCI's vluster to your Azure Machine Learning Workspace as a Compute Target
+*	Attach your Azure Arc-enabled AKS on Azure Stack HCI's cluster to your Azure Machine Learning Workspace as a Compute Target
 
 ## Prerequisites
 
@@ -32,8 +32,12 @@ Now that you have an Arc-enabled cluster, you can install Arc extensions onto yo
 To enable managed ML training and inferencing on your Arc-enabled AKS-HCI cluster, you will need to install AzureML Arc extension using Azure Arc `k8s-extension` CLI. Please follow the following steps to install the extension:
 
 1. Make sure your Arc-enabled AKS-HCI cluster meets AzureML Arc [extension prerequisites](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-attach-arc-kubernetes#prerequisites) and [networking requirements](../network-requirements.md).
-2. 
+2. If your AKS-HCI cluster has a mix of Windows and Linux worker nodes please [taint](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/) your all of your cluster's windows worker nodes using the following `kubectl` command. Since all of AzureML's extension constructs require Linux worker nodes, this makes sure that the constructs do not get scheduled onto your Windows worker nodes and fail. Please review [Adapt apps for mixed-OS Kubernetes clusters using node selectors or taints and tolerations](https://docs.microsoft.com/en-us/azure-stack/aks-hci/adapt-apps-mixed-os-clusters) to learn more about running ways to adapt applications for AKS-HCI mixed-OS environment.
 
+    ```
+    kubectl taint nodes <name-of-your-windows-nodes> node.kubernetes.io/os=windows:NoSchedule
+    ```
+3. 
 
 
 
