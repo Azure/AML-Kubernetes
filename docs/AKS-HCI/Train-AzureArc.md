@@ -157,3 +157,7 @@ metadata:
   name: mount-config
   namespace: azureml
 ```
+
+## Verify the NFS Setup using verify notebook
+
+[Verify the NFS Setup in AMLArc](nfs/Verify_NFS_Setup_in_AMLArc.ipynb)
