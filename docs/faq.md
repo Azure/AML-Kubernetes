@@ -22,9 +22,8 @@ Once Kubernetes cluster is enabled for Azure Machine Learning, data science prof
 
 ## How does model deployment with Azure Arc enabled Machine Learning compare to Azure Machine Learning Managed Online Endpoint?
 
-Azure Machine Learning aims to provide different model deployment funnels to serve enterprise needs. For enterprises who want to scale model production by leveraging powerful CPU or GPU in cloud and leave Azure to manage compute, Azure Machine Learning Managed Online Endpoint is the preferred choice. For enterprises who want to deploy and serve model in multi-cloud and on-premises, and want to manage their own compute infrastructure, Azure Arc enabled Machine Learning would be the preferred choice. Regardless of which underlying model deployment infrastructure, Azure Machine Learning model deployment shares the same concepts such as online endpoint and the same CLI/SDK/Studio UI tooling.
+Both online endpoints are built on AzureML online endpoint concept, and customers use the same set of tools to create and manage both types of online endpoints. Managed online endpoint runs on powerful Azure managed compute, no compute and infrastructure management for customers and customer gets a turnkey solution with guaranteed SLA. Kubernetes online endpoint runs on customer managed Kubernetes, customer is responsible for managing Kubernetes cluster and ensuring online endpoint SLA. 
 
-## How does Azure Arc enabled Machine Learning AKS support compare to current AzureML AKS inference support that is in GA?
 
 ## Recommended AKS cluster resources
 

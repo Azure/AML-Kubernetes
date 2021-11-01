@@ -1,6 +1,6 @@
 # Deploy AzureML extension to your Kubernetes cluster
 
-With an AKS cluster or any Azure Arc enabled Kuberntes cluter, you can execute a single Azure CLI command to deploy AzureML extension to the cluster and instantly onboard data science professionals submit ML workload to the cluster with preferred tools and languages. You can deploy AzureML extension and enables Kuberntes cluster for following machine learning needs:
+With a simple AzureML extension deployment an AKS cluster or any Azure Arc enabled Kuberntes cluter, you can instantly onboard data science professionals to submit ML workload to the Kubernetes clusters by using existing Azure ML tools and service capabilities. You can deploy AzureML extension and enables Kuberntes cluster for following machine learning needs:
 * Deploy AzureML extension for model training and batch inference
 * Deploy AzureML extension for real-time inferencing only
 * Deploy AzureML extension for both model training and inferencing
@@ -40,7 +40,7 @@ Upon AzureML extension deployment completes, it will create following resources 
 
 ## Review AzureML deployment configuration settings
 
-You will use ```k8s-extension create``` CLI command to deploy AzureML extension. You can review list of required and optional parameters for ```k8s-extension create``` CLI command [here](https://docs.microsoft.com/en-us/cli/azure/k8s-extension?view=azure-cli-latest#az_k8s_extension_create). You can use ```--config``` or ```--config-protected``` to specify list of key=value pairs for AuzreML deployment configurations. Following is the list of configuration settings available to be used for different AzureML extension deployment scenarions.
+Use ```k8s-extension create``` CLI command to deploy AzureML extension, review list of required and optional parameters for ```k8s-extension create``` CLI command [here](https://docs.microsoft.com/en-us/cli/azure/k8s-extension?view=azure-cli-latest#az_k8s_extension_create). For AzureML extension deployment configurations, use ```--config``` or ```--config-protected``` to specify list of ```key=value``` pairs. Following is the list of configuration settings available to be used for different AzureML extension deployment scenarions.
    |Configuration Setting Key Name  |Description  |Training |Inference |Training and Inference
    |--|--|--|--|--|
    |```enableTraining``` |```True``` or ```False```, default ```False```. **Must** be set to ```True``` for AzureML extension deployment with Machine Learning model training support.  |  **&check;**| N/A |  **&check;** |
@@ -86,14 +86,14 @@ Following CLI command will deploy AzureML extension and enable Kubernetes cluste
    az k8s-extension create --name arcml-extension --extension-type Microsoft.AzureML.Kubernetes --config enableTraining=True  --cluster-type connectedClusters --cluster-name <your-connected-cluster-name> --resource-group <resource-group> --scope cluster
    ```
 > **<span stype="color:orane">Notes**:</span>
-   > * **If you deploy AzureML extension on AKS directly without Azure Arc connection, please change ```--cluster-type``` to ```managedClusters```**
+   > * **If you deploy AzureML extension on AKS directly without Azure Arc connection, please change ```--cluster-type``` parameter value to ```managedClusters```**
 
 ## Deploy AzureML extension for real-time inference workload only
 
 Depending your network setup, Kubernetes distribution variant, and where your Kubernetes cluster is hosted (in cloud or on-premises), you can choose one of following options to deploy AzureML extension.
 
 > **<span stype="color:orane">Notes**:</span>
-   > * **If you deploy AzureML extension on AKS directly without Azure Arc connection, please change ```--cluster-type``` to ```managedClusters```**
+   > * **If you deploy AzureML extension on AKS directly without Azure Arc connection, please change ```--cluster-type``` parameter value to ```managedClusters```**
 
    * **Public HTTPS endpoints support with public load balancer**
 
@@ -121,17 +121,17 @@ Depending your network setup, Kubernetes distribution variant, and where your Ku
       ```
    * **Public HTTP endpoints support with public load balancer - the least secure way, NOT recommended**
       ```azurecli
-      az k8s-extension create --name arcml-extension --extension-type Microsoft.AzureML.Kubernetes --cluster-type connectedClusters --cluster-name <your-connected-cluster-name>  --configuration-settings enableInference=True allowInsecureConnections=True --resource-group <resource-group> --scope cluster
+      az k8s-extension create --name arcml-extension --extension-type Microsoft.AzureML.Kubernetes --cluster-type connectedClusters --cluster-name <your-connected-cluster-name>  --config enableInference=True allowInsecureConnections=True --resource-group <resource-group> --scope cluster
       ```
 ## Deploy AzureML extension for training, batch inference, and real-time inference workload
 
 To enable Kubernetes cluster for all kinds of ML workload, choose one of above inference deployment options and append config settings for training and batch inference. Following CLI command will enable cluster with real-time inference HTTPS endpoints support, training, and batch inference workload:
    ```azurecli
-   az k8s-extension create --name arcml-extension --extension-type Microsoft.AzureML.Kubernetes --cluster-type connectedClusters --cluster-name <your-connected-cluster-name> --config enableTraining=True enableInference=True --config-protected sslCertPemFile=<path-to-the-SSL-cert-PEM-ile> sslKeyPemFile=<path-to-the-SSL-key-PEM-file>--resource-group <resource-group> --scope cluster
+   az k8s-extension create --name arcml-extension --extension-type Microsoft.AzureML.Kubernetes --cluster-type connectedClusters --cluster-name <your-connected-cluster-name> --config enableTraining=True enableInference=True --config-protected sslCertPemFile=<path-to-the-SSL-cert-PEM-ile> sslKeyPemFile=<path-to-the-SSL-key-PEM-file> --resource-group <resource-group> --scope cluster
    ```
 
 > **<span stype="color:orane">Notes**:</span>
-   > * **If you deploy AzureML extension on AKS directly without Azure Arc connection, please change ```--cluster-type``` to ```managedClusters```**
+   > * **If you deploy AzureML extension on AKS directly without Azure Arc connection, please change ```--cluster-type``` parameter value to ```managedClusters```**
 
 ## Verify your AzureML extension deployment
 

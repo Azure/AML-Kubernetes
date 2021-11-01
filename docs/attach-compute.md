@@ -67,11 +67,10 @@ It is easy to attach Azure Arc-enabled Kubernetes cluster to AML workspace, you 
 
    ![Create a generic compute target](./media/attach-1.png)
 
-1. Enter a compute name, and select your Azure Arc-enabled Kubernetes cluster from Azure Arc-enabled Kubernetes cluster dropdown list.
+1. Enter a compute name, and select your AKS or Azure Arc-enabled Kubernetes cluster from Kubernetes cluster dropdown list.
 
-   ![Create a generic compute target](./media/MI-create1.png)
+   ![Create a generic compute target](./media/attach.png)
 
-   * (Optional) Browse and upload an attach config file. **Skip this step, which would be deprecated soon.**
 
    * (Optional) Assign system-assigned or user-assigned [Managed Identity](https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/overview).
 
