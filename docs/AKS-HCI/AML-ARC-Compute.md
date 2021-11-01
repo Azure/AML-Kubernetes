@@ -29,7 +29,7 @@ To connect a Kubernetes cluster to Azure, the cluster administrator needs to dep
 
 Now that you have an Arc-enabled cluster, you can install Arc extensions onto your cluster and expand its capabilities using the available extensions. To learn more about available Azure Arc extensions please visit [Deploy and manage Azure Arc-enabled Kubernetes cluster extensions](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/extensions).
 
-To enable managed ML training and inferencing on your Arc-enabled AKS-HCI cluster, you will need to install AzureML Arc extension using Azure Arc `k8s-extension` CLI. Please follow the following steps to install the extension:
+To enable managed ML training and inferencing on your Arc-enabled AKS-HCI cluster, you will need to install AzureML Arc extension using Azure Arc `k8s-extension` CLI. Please follow the following steps to prepare your cluster for extension installation:
 
 1. Make sure your Arc-enabled AKS-HCI cluster meets AzureML Arc [extension prerequisites](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-attach-arc-kubernetes#prerequisites) and [networking requirements](../network-requirements.md).
 2. If your AKS-HCI cluster has a mix of Windows and Linux worker nodes please [taint](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/) your all of your cluster's windows worker nodes using the following `kubectl` command. Since all of AzureML's extension constructs require Linux worker nodes, this makes sure that the constructs do not get scheduled onto your Windows worker nodes and fail. Please review [Adapt apps for mixed-OS Kubernetes clusters using node selectors or taints and tolerations](https://docs.microsoft.com/en-us/azure-stack/aks-hci/adapt-apps-mixed-os-clusters) to learn more about running ways to adapt applications for AKS-HCI mixed-OS environment.
@@ -37,9 +37,20 @@ To enable managed ML training and inferencing on your Arc-enabled AKS-HCI cluste
     ```
     kubectl taint nodes <name-of-your-windows-nodes> node.kubernetes.io/os=windows:NoSchedule
     ```
-3. 
 
+Now your cluster is ready for AzureML Arc extension installation. You can use the below command to install AzureML extension onto your cluster:
 
+```
+az k8s-extension create --name <extension-name> --extension-type Microsoft.AzureML.Kubernetes --cluster-type connectedClusters --cluster-name <your-connected-cluster-name> --resource-group <resource-group> --configuration-settings enableTraining=True
+```
+
+**Please note that the parameters you pass as part of `--configuration-settings` in the command above will decide what ML capabilities are enabled as part of the installation. For example, the above command enables AzureML Training on your AKS-HCI cluster. If you want to enable both training and HTTP endpoint inferencing, you can use the below command during your installation:**
+
+```
+az k8s-extension create --name <extension-name> --extension-type Microsoft.AzureML.Kubernetes --cluster-type connectedClusters --cluster-name <your-connected-cluster-name> --resource-group <resource-group> --scope cluster --configuration-settings enableTraining=True enableInference=True allowInsecureConnections=True
+```
+
+You can find a list of available `--configuration-settings` here: [Training Configurations](../deploy-extension.md#deploy-azureml-extension-for-model-training), [Inferencing Configuration](https://github.com/Azure/amlarc-preview/blob/main/docs/deploy-extension.md#review-azureml-extension-deployment-configuration-settings)
 
 ## Attach your Azure Arc-enabled cluster to your Azure Machine Learning Workspace as a Compute Target
 
