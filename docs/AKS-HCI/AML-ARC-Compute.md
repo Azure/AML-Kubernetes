@@ -16,14 +16,18 @@ Before you begin, please make sure that you have the following items available:
 
 ## Connect your AKS on Azure Stack HCI Cluster to Azure Via Azure Arc
 
-We start the process of connecting our newly created Kubernetes cluster to Azure by installing the most recent Arc enabled Kubernetes CLI extensions (private preview). Follow the instructions below to install the required extensions and connect your newly created cluster to Azure az an Azure Arc Cluster:
+Your AKS on Azure Stack HCI cluster needs Azure Resource Manager representation to be able to take advantage of AzureML training and Inferencing Arc extensions. 
+You can connect your cluster to Azure using Azure Arc. Clusters are attached to standard Azure subscriptions, are located in a resource group, and can receive tags just like any other Azure resource. Also, the Azure Arc-enabled Kubernetes representation allows for extending the following capabilities on to your Kubernetes cluster beyond AzureML capabilities being discussed as part of this document:
 
-*	Make sure the system that you are using to install CLI extensions has access to your cluster, cluster-admin role and, Azure. For more information please read [Before you Begin](https://docs.microsoft.com/en-in/azure/azure-arc/kubernetes/connect-cluster#before-you-begin). 
-*   Follow the instructions given in the Pre-requisites section of [this repository](https://github.com/Azure/azure-arc-kubernetes-preview/blob/master/docs/k8s-extensions.md#pre-requisites) to install preview extensions and connect your cluster to Azure via Azure ARC.
+* Management services - Configurations (GitOps), Azure Monitor for containers, Azure Policy (Gatekeeper)
+* Data Services - SQL Managed Instance, PostgreSQL Hyperscale
+* Application services - App Service, Functions, Event Grid, Logic Apps, API Management
+
+To connect a Kubernetes cluster to Azure, the cluster administrator needs to deploy a couple of Arc agents. The agents are responsible for connectivity to Azure, collecting Azure Arc logs and metrics, and enabling the above-mentioned scenarios on the cluster. These agents run in a Kubernetes namespace named azure-arc and are standard Kubernetes deployments. You can follow [Connect an Azure Kubernetes Service on Azure Stack HCI cluster to Azure Arc-enabled Kubernetes](https://docs.microsoft.com/en-us/azure-stack/aks-hci/connect-to-arc) to connect your cluster to Azure. 
 
 ## Install AzureML training and inferencing extentions on your AKS on Azure Stack HCI 
 
-## Attach your Azure Arc-enabled AKS on Azure Stack HCI's cluster to your Azure Machine Learning workspace as a compute target
+## Attach your Azure Arc-enabled cluster to your Azure Machine Learning Workspace as a Compute Target
 
 If you do not already have an Azure Machine learning workspace in your desired Azure resource group, please [create your Machine learning workspace](https://docs.microsoft.com/en-us/azure/machine-learning/concept-workspace#-create-a-workspace). You can then attach Azure Arc’s Kubernetes cluster to your workspace through Azure Machine Learning’s Python SDK:
 
