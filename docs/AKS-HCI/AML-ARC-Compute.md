@@ -3,7 +3,7 @@
 In this article, you will:
 
 *	Connect your AKS on Azure Stack HCI cluster to Azure Via Azure Arc
-*	Install AzureML training and inferencing extentions on your AKS on Azure Stack HCI cluster
+*	Install AzureML Arc extention on your AKS on Azure Stack HCI cluster
 *	Attach your Azure Arc-enabled AKS on Azure Stack HCI's cluster to your Azure Machine Learning Workspace as a Compute Target
 
 ## Prerequisites
@@ -25,7 +25,7 @@ You can connect your cluster to Azure using Azure Arc. Clusters are attached to 
 
 To connect a Kubernetes cluster to Azure, the cluster administrator needs to deploy a couple of Arc agents. The agents are responsible for connectivity to Azure, collecting Azure Arc logs and metrics, and enabling the above-mentioned scenarios on the cluster. These agents run in a Kubernetes namespace named azure-arc and are standard Kubernetes deployments. You can follow [Connect an Azure Kubernetes Service on Azure Stack HCI cluster to Azure Arc-enabled Kubernetes](https://docs.microsoft.com/en-us/azure-stack/aks-hci/connect-to-arc) to connect your cluster to Azure. 
 
-## Install AzureML training and inferencing extensions on your AKS on Azure Stack HCI 
+## Install AzureML Arc extention on your AKS on Azure Stack HCI cluster
 
 Now that you have an Arc-enabled cluster, you can install Arc extensions onto your cluster and expand its capabilities using the available extensions. To learn more about available Azure Arc extensions please visit [Deploy and manage Azure Arc-enabled Kubernetes cluster extensions](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/extensions).
 
@@ -44,7 +44,7 @@ Now your cluster is ready for AzureML Arc extension installation. You can use th
 az k8s-extension create --name <extension-name> --extension-type Microsoft.AzureML.Kubernetes --cluster-type connectedClusters --cluster-name <your-connected-cluster-name> --resource-group <resource-group> --configuration-settings enableTraining=True
 ```
 
-**Please note that the parameters you pass as part of `--configuration-settings` in the command above will decide what ML capabilities are enabled as part of the installation. For example, the above command enables AzureML Training on your AKS-HCI cluster. If you want to enable both training and HTTP endpoint inferencing, you can use the below command during your installation:**
+**Please note that the parameters you pass as part of `--configuration-settings` in the command above will decide what ML capabilities are enabled as part of the installation. For example, the above command enables AzureML Training on your AKS-HCI cluster. If you want to enable both training and HTTP endpoint inferencing, you can use the below command for installation:**
 
 ```
 az k8s-extension create --name <extension-name> --extension-type Microsoft.AzureML.Kubernetes --cluster-type connectedClusters --cluster-name <your-connected-cluster-name> --resource-group <resource-group> --scope cluster --configuration-settings enableTraining=True enableInference=True allowInsecureConnections=True
