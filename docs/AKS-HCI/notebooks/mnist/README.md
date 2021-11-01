@@ -1,10 +1,10 @@
 # Image Classification Using Scikit-learn
 
-Using MNIST as an example, this sample notebook demonstrates how to train a machine learning model using ASH Arc compute and storage. Training data is stored on ASH storage blobs.
+Using MNIST as an example, this sample notebook demonstrates how to train a machine learning model using AKS-HCI Arc compute and on-premise NFS Server. Training data is stored on on-premise NFS Server. The register the trained model and deploy that on the AKS-HCI Arc compute for inference.
  
 ## Notebooks
 
-* [Image Classification Using Scikit-learn](MNIST_Training_with_ASH_Cluster_and_Storage.ipynb)
+* [Image Classification Using Scikit-learn](MNIST_Training_with_AKS-HCI_Cluster_and_NFS.ipynb)
 
 
 

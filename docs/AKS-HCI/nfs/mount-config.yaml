@@ -1,0 +1,13 @@
+apiVersion: v1
+data:
+  mounts.yaml: |
+    mountPoints:
+    - mountPath: <Mounting path on training pod>
+      mountType: nfs
+      name: <NFS_NAME>
+      path: <NFS_EXPORT_FILE_PATH>
+      server: <NFS_IP>
+kind: ConfigMap
+metadata:
+  name: mount-config
+  namespace: azureml

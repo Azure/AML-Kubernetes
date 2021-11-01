@@ -1,115 +1,163 @@
 # Setup NFS Server on Azure Stack HCI and Use your Data and run managed Machine Learning Experiments On-Premises
 
 In this article, you:
-*	Create storage account on Azure Stack Hub
-*	Configure the storage account to work with Azure Machine Learning and Azure Stack Hub’s Kubernetes Cluster
-*	Connect the storage account to Azure Machine Learning as a datastore (where you hold all your training data) 
-*	Run your first Azure Machine Learning training job on Azure Stack Hub using AzureML Python SDK (example notebooks)
+* How to setup an NFS server on Azure Stack HCI
+* Configure the NFS server as the training data source (where you hold all your training data)
+* Run your first Azure Machine Learning training job on AKS-HCI using AzureML Python SDK (example notebooks)
 
+## Setting up the NFS Server
 
+You can follow this [link](https://help.ubuntu.com/community/SettingUpNFSHowTo) to setup an NFS server on an Ubuntu machine. The Ubuntu machine can be hosted on Azure Stack HCI or in the place which AKS-HCI cluster can access. Below shows an example how to setup an NFS Server on Azure Stack HCI VM. If you already have an NFS Server that AKS-HCI cluster can access, you can skip step this part and go to **Configure the NFS server as the training data source**.
 
+1. Deploy a Ubuntu VM on Azure Stack HCI.
 
-## Prerequisites
+Helper link of creating VM on Azure Stack HCI: https://docs.microsoft.com/en-us/azure-stack/hci/manage/vm#create-a-new-vm
 
-Make sure you have access to Azure and your Azure Stack Hub is ready for use. In addition, this article assumes you have already:
+* Download the Ubuntu ISO file from https://ubuntu.com/download/desktop
+* Select **Generation 1** (Recommended for Linux VMs)
+* Choose **Install an operation system from an image file(.iso)** and load the Ubuntu ISO file from local.
 
-1. Deployed a Kubernetes cluster in you Azure Stack Hub
-2. Connected the Kubernetes cluster to Azure via Azure ARC
-
-If you have not completed any of the two above, please do so using [instructions given here](AML-ARC-Compute.md). Furthermore, please verify that you have already created an Azure Machine learning workspace. If not, please [create your Machine learning workspace](https://docs.microsoft.com/en-us/azure/machine-learning/concept-workspace#-create-a-workspace). It is also strongly recommended to learn more about the innerworkings and concepts in Azure Machine Learning before continuing with the rest of this article (optional). Lastly, make sure both Python and AzureML Python SDK are installed on the device that you will be using to communicate with Azure Machine Learning. 
-
-
-## Create and Configure Azure Stack Hub’s Storage Account
-
-We first start by creating a storage account on Azure Stack Hub’s Portal:
-
-1. Select **Create a resource > Data + Storage**. Select **Storage account**. If you do not see the **Storage account**, contact your Azure Stack Hub cloud operator and ask for the image to be added to the Azure Stack Hub Marketplace.
+Example, creating Ubuntu VM with ISO on Azure Stack HCI.
 
 <p align="center">
-  <img src="imgs/Cstorage.png" />
+  <img src="nfs/images/create-ubuntu-vm.png" />
 </p>
 
-2. Fill project details and click on **Review + create**. Make sure to select the same subscription and resource group used for already deployed Kubernetes cluster.
+After the deployment finishes successfully, you can see the VM from Windows Admin Center.
 
-3.	Select **Create** after the validation process has passed. Wait until the resource creation process is complete. 
+<p align="center">
+  <img src="nfs/images/ubuntu-vm-created.png" />
+</p>
 
-We can now start configuring our storage account to work with Azure Machine Learning and Azure storage:
+2. Prerequisites on Ubuntu VM
 
-1.	Select **CORS** under settings section of the storage’s overview page. 
-2.	Under **Blob service** fill the following information:
-    
-        Allowed origins: https://mlworkspace.azure.ai,https://ml.azure.com,https://*.ml.azure.com,https://mlworkspacecanary.azure.ai,https://mlworkspace.azureml-test.net
-    
-        Allowed methods: GET, HEAD, PUT (PUT is only needed if you are planning on using Azure Machine Learning tools to add data to your storage)
-    
-        Allowed headers: *
-    
-        Exposed headers: *
-    
-        Max age: 1800
+To make sure the Ubuntu VM NFS Server can be accessed externally, if you don't use DHCP, you need to assign the public IP manually. Like,
 
-3.	Click on **Save**.
+<p align="center">
+  <img src="nfs/images/configure-public-ip.png" />
+</p>
 
-    <p align="center">
-      <img src="imgs/cors.png" />
-    </p>
-    
-4.	Select **Shared access signature** under settings section of the storage’s overview page. 
-5.	Fill the form as shown in the image below and click on **Generate SAS and connection string**. Fill the **Start and expiry date/time** based on your workload’s needs.
+Then reset the network to take effect.
 
-    <p align="center">
-      <img src="imgs/sas.png" />
-    </p>
+<p align="center">
+  <img src="nfs/images/reset-network.png" />
+</p>
 
-6.	Copy the SAS token generated to clipboard. You will use this in the next section when connecting your storage account to Azure Machine Learning as a datastore.
+About SSH, you need to install openSSH server and open the required port - 22.
 
-    <p align="center">
-      <img src="imgs/sas-token.png" />
-    </p>
-    
-7.	Select **Containers** under Blob service section of the storage’s overview page. Select **+ Container**  to create a new container.
+First update the system and install openssh-server package, run,
 
-    <p align="center">
-      <img src="imgs/container.png" />
-    </p>
-    
-8.	Choose a name for your storage container and leave the public access level to Private. Select Create and then enter the newly created container by clicking on it.
-9.	Click on **Properties** under the settings section. Copy the URL to clipboard. You will use the URL when setting up your Azure Machine Learning datastore.
+```shell
+sudo apt update
+sudo apt upgrade
+sudo apt install openssh-server
+```
+Verify the ssh service running status
+```shell
+sudo systemctl status ssh
+```
+<p align="center">
+  <img src="nfs/images/ssh-status.png" />
+</p>
 
-    <p align="center">
-      <img src="imgs/url.png" />
-    </p>
-    
+If the SSH service is not started automatically, you can start (or restart) the SSH service manually via below command:
+```shell
+sudo service ssh start
+```
+To make sure the Ubuntu VM can be connected from a remote location, need to enable UFW firewall and add a rule to allow incoming SSH connections.
 
-## Connect the storage account to Azure Machine Learning as a datastore
-
-Now we will connect Azure Stack Hub’s storage account to Azure Machine Learning:
-
-1. Go to your Azure Machine Learning workspace studio and select **Datastore > New datastore**:
-
-    <p align="center">
-      <img src="imgs/datastore.png" />
-    </p>
-    
-2.	Fill the form as shown in the image below. Paste both the container URL and SAS token copied earlier in the designated area and click on **Create**.
+To configure the UFW firewall and add a rule to allow incoming SSH connections.
+```shell
+sudo ufw allow ssh
+```
+Then enable UFW firewall via below command:
+```shell
+sudo ufw enable
+```
+Then check the status of UFW:
+```shell
+sudo ufw status numbered
+```
+<p align="center">
+  <img src="nfs/images/ufw-ssh.png" />
+</p>
 
 
-    <p align="center">
-      <img src="imgs/datastore-set.png" />
-    </p>
+3. Setup the NFS Server on the Ubuntu VM.
 
-Congratulations! you successfully have setup our Azure Stack Hub’s storage blob container as a datastore in Azure Machine Learning. The datastore can be used in conjunction with our Arc Cluster (from Azure Stack Hub) to train machine learning workloads.
+Here is the script to setup an NFS Server within your Ubuntu virtual machine - [nfs-server-setup.sh](nfs/nfs-server-setup.sh)
 
-**IMPORTANT: Only FileDataset is currently supported for training purposes. Please use mounting to access your files during training since downloading is not yet stable. For more information on ways you can access your Azure Machine Learning Datasets please review [FileDataset class](https://docs.microsoft.com/en-us/python/api/azureml-core/azureml.data.filedataset?view=azure-ml-py).**
+After you've created your VM, copy the script to your machine, then into the VM using: 
 
-## Run your first Azure Machine Learning training job on Azure Stack Hub using AzureML Python SDK (example notebooks)
+```shell
+scp /path/to/script_file username@vm-ip-address:/home/{username}
+```
+If you copy the script from Windows machine, please pay attention to the format, could use dos2unix to convert the format:
+```shell
+sudo apt install dos2unix
+dos2unix ~/nfs-server-setup.sh
+```
+Once your script is in your VM, you can ssh into the VM and execute it via the command:
 
-Check [the following video](https://msit.microsoftstream.com/video/51f7a3ff-0400-b9eb-2703-f1eb38bc6232) that goes through a simple training example using scikit-learn library on MNIST dataset:
+```shell
+sudo ~/nfs-server-setup.sh
+```
+If its execution fails because of a permission denied error, set execution permission via the command:
 
+```shell
+chmod +x ~/nfs-server-setup.sh
+```
 
-<a href="https://msit.microsoftstream.com/video/51f7a3ff-0400-b9eb-2703-f1eb38bc6232" target="_blank"><p align="center"><img src="imgs/vid-img.png" alt="Video Tutorial" class="center" width="700"></p></a>
+In [nfs-server-setup.sh](nfs/nfs-server-setup.sh), it accepts two parameters,
+* The first one is DATA_DIRECTORY, indicating a folder which is used as the data store for NFS server
+* The second one is AKS_SUBNET, indicating Kubernetes subnet address. Make sure to replace the AKS_SUBNET with the correct one from your cluster or else "*" will open your NFS Server to all ports and connections.
 
-## Next Steps:
+The NFS server will restart (because of the script) and you can mount the NFS Server for AKS-HCI. The mounting point is <NFS_IP>:/$(basename $DATA_DIRECTORY).
 
-Check out our [Sample Notebooks](README.md#sample-notebooks) to get a better understanding of how the process works and the possibilities it can unlock.
+Configure the UFW firewall to allow the NFS incoming connection.
+```shell
+sudo ufw allow from any to any port nfs
+sudo ufw allow from any to any port 111
+```
+<p align="center">
+  <img src="nfs/images/ufw-nfs.png" />
+</p>
 
+You can verify the mounting point on another Ubuntu machine, with nfs-common installed and the network access to the NFS server.
+```shell
+# install nfs client
+sudo apt install nfs-common -y
+# mount: </path/to/desired/mountpoint> needs to be created in advance
+sudo mount -t nfs <NFS_IP>:<folder name of DATA_DIRECTORY> </path/to/desired/mountpoint>
+# umount
+sudo fusermount -u </path/to/desired/mountpoint>
+```
+<p align="center">
+  <img src="nfs/images/verify-nfs-vm.png" />
+</p>
+
+## Configure the NFS server as the training data source
+
+Follow the [doc](../setup-ephemeral-nfs-volume.md), complete the steps after setting up the NFS server.
+
+[mount-config.yaml](nfs/mount-config.yaml) shows an example config as the following.
+
+```yaml
+apiVersion: v1
+data:
+  mounts.yaml: |
+    mountPoints:
+    - mountPath: <Mounting path on training pod>
+      mountType: nfs
+      name: <NFS_NAME>
+      path: <NFS_EXPORT_FILE_PATH>
+      server: <NFS_IP>
+kind: ConfigMap
+metadata:
+  name: mount-config
+  namespace: azureml
+```
+
+## Verify the NFS Setup using verify notebook
+
+[Verify the NFS Setup in AMLArc](nfs/Verify_NFS_Setup_in_AMLArc.ipynb)
