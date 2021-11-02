@@ -136,7 +136,7 @@ sudo fusermount -u </path/to/desired/mountpoint>
   <img src="nfs/images/verify-nfs-vm.png" />
 </p>
 
-## Configure the NFS server as the training data source
+## Configure the NFS server as the Training Data Source
 
 Follow the [doc](../setup-ephemeral-nfs-volume.md), complete the steps after setting up the NFS server.
 
@@ -158,6 +158,10 @@ metadata:
   namespace: azureml
 ```
 
-## Verify the NFS Setup using verify notebook
+## Verify the NFS Setup
 
-[Verify the NFS Setup in AMLArc](nfs/Verify_NFS_Setup_in_AMLArc.ipynb)
+You can verify your NFS setup using [Verify the NFS Setup in AMLArc Notebook](nfs/Verify_NFS_Setup_in_AMLArc.ipynb).
+
+## Next steps
+
+* Experiment with ArcML on AKS on Azure Stack HCI using [Interactive Python Notebooks and AzureML CLI V2 Sample Examples](../AKS-HCI#sample-notebooks).
