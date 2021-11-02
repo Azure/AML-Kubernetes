@@ -54,7 +54,7 @@ az k8s-extension create --name <extension-name> --extension-type Microsoft.Azure
 az k8s-extension create --name <extension-name> --extension-type Microsoft.AzureML.Kubernetes --cluster-type connectedClusters --cluster-name <your-connected-cluster-name> --resource-group <resource-group> --scope cluster --configuration-settings enableTraining=True enableInference=True allowInsecureConnections=True
 ```
 
-You can find a list of available `--configuration-settings` here: [Training Configurations](../deploy-extension.md#deploy-azureml-extension-for-model-training), [Inferencing Configuration](https://github.com/Azure/amlarc-preview/blob/main/docs/deploy-extension.md#review-azureml-extension-deployment-configuration-settings)
+You can find a list of available `--configuration-settings` here: [Training Configurations](../deploy-extension.md#deploy-azureml-extension-for-model-training), [Inferencing Configurations](https://github.com/Azure/amlarc-preview/blob/main/docs/deploy-extension.md#review-azureml-extension-deployment-configuration-settings)
 
 ## Attach your Azure Arc-enabled Cluster to your Azure Machine Learning Workspace as a Compute Target
 
