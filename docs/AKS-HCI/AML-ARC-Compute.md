@@ -54,43 +54,9 @@ You can find a list of available `--configuration-settings` here: [Training Conf
 
 ## Attach your Azure Arc-enabled cluster to your Azure Machine Learning Workspace as a Compute Target
 
-If you do not already have an Azure Machine learning workspace in your desired Azure resource group, please [create your Machine learning workspace](https://docs.microsoft.com/en-us/azure/machine-learning/concept-workspace#-create-a-workspace). You can then attach Azure Arc’s Kubernetes cluster to your workspace through Azure Machine Learning’s Python SDK:
+If you do not already have an Azure Machine learning workspace in your desired Azure resource group, please [create your Machine learning workspace](https://docs.microsoft.com/en-us/azure/machine-learning/concept-workspace#-create-a-workspace).
 
-### Python SDK:
-
-1. Install the latest version of the AzureML SDK by running following command:
-
-    ```pip install --upgrade azureml-sdk```
-
-2. Make sure your Azure Machine Learning workspace is defined/loaded in your python environment. If not, you can load your workspace using Workspace class:
-    
-    ```python 
-    from azureml.core import Workspace 
-    
-    ws = Workspace.from_config(path = "<PATH TO CONFIG FILE>")
-    ws.get_details()
-    ```
-    ‘from_config’ method reads JSON configuration file that tells SDK how to communicate with your Azure Machine Learning workspace. If needed, [create a workspace JSON configuration file](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-configure-environment#workspace) before running the snippet above.
-
-3. Attach/Register Azure Arc’s Kubernetes cluster as Azure Machine Learning compute target by running the following python code snippet:
-    
-    ```python
-    from azureml.core.compute import KubernetesCompute
-
-    k8s_config = {
-    }
-
-    attach_config = KubernetesCompute.attach_configuration(
-      resource_id="<Arc_Cluster_ResourceID>",
-      aml_k8s_config=k8s_config
-    )
-    
-    compute_target = KubernetesCompute.attach(ws, "arccompute", attach_config)
-    compute_target.wait_for_completion(show_output=True)
-    ```
-
-4. If the attachment is successful, “SucceededProvisioning operation finished, operation "Succeeded"” message will be printed as a result. This means that we have successfully attached the Arc Cluster as a compute target named “arccompute” in your Azure Machine Learning workspace. 
-
+Follow the steps mentioned in [Attach Arc cluster to AzureML Workspace](../attach-compute.md) to connect your Arc-enabled AKS on Azure Stack HCI cluster to Azure Machine Learning.
 
 ## Next Steps
 
