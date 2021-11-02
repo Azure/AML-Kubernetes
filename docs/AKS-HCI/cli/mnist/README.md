@@ -121,7 +121,7 @@ mnist
 |-- sample-request.json
 |--...
 ```
-As you can see from above, "model" directory contains Conda environment definition, "score.py" is the scoring script. At top level directory, we have endpoint YAML definition and sample request JSON file. In general, this is very typical project setup for Azure Arc enabled ML model deployment.
+As you can see from above, "model" directory contains Conda environment definition, "[score.py](score.py)" is the scoring script. At top level directory, we have endpoint YAML definition and sample request JSON file. In general, this is very typical project setup for Azure Arc enabled ML model deployment.
 
 Replace the compute name, instance type name, model name / version in endpoint.yml, then trigger real-time endpoint deployment.
 ```
@@ -138,7 +138,7 @@ Check if deployment was successful
 ```
 az ml endpoint get-logs -n <endpoint_name> --deployment blue
 ```
-Get deployment logs. (The deployment name blue is defined in endpoint.yml)
+Get deployment logs. (The deployment name blue is defined in [endpoint.yml](endpoint.yml))
 
 8. Test endpoint by scoring request
 
