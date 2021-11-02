@@ -19,7 +19,7 @@ After following the setup documents, you can go through the sample notebooks lin
 
 * [Image Classification Using Scikit-learn](notebooks/mnist/MNIST_Training_with_AKS-HCI_Cluster_and_NFS.ipynb) (Image Classification)
 
-  This notebook serves as "hello world" of using for training and inference with AKS-HCI Cluster, on-premise NFS Server and Azure Machine Learning workspaces, including
+  This notebook serves as "hello world" of using for training and inference with AKS-HCI Cluster, on-premise NFS Server, and Azure Machine Learning, including
   * Training with AKS-HCI cluster and on-premise NFS Server
   * Register model
   * Inference with the registered model on AKS-HCI cluster
@@ -29,13 +29,13 @@ After following the setup documents, you can go through the sample notebooks lin
 
 ### Prerequisites 
 
-Follow this [document](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-train-cli?view=azure-devops#prerequisites) to set up the prerequisites of using Azure Machine CLI v2.  
+Follow this [document](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-train-cli?view=azure-devops#prerequisites) to set up the prerequisites of using Azure Machine Learning CLI v2.  
 
 ### Examples
 
 * [Image Classification Using Scikit-learn](cli/mnist/README.md) (Image Classification)
 
-  This example serves as "hello world" of using for training and inference with AKS-HCI Cluster, on-premise NFS Server and Azure Machine Learning workspaces, including
+  This example serves as "hello world" of using for training and inference with AKS-HCI Cluster, on-premise NFS Server, and Azure Machine Learning, including
   * Training with AKS-HCI cluster and on-premise NFS Server
   * Register model
   * Inference with the registered model on AKS-HCI cluster
