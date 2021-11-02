@@ -25,7 +25,7 @@ After following the setup documents, you can go through the sample notebooks lin
   * Inference with the registered model on AKS-HCI cluster
   * Test model
 
-Note: Above run time estimated to assume a VM size comparable to [Standard_DS8_v2](https://docs.microsoft.com/en-us/azure-stack/aks-hci/concepts-support#supported-vm-sizes)
+Note: Above run time estimated to assume a VM size comparable to [Standard_DS8_v3](https://docs.microsoft.com/en-us/azure-stack/aks-hci/concepts-support#supported-vm-sizes)
 
 ## CLI v2 Examples
 
