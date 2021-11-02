@@ -15,33 +15,35 @@ You can use the following documents to get started with setting up your Azure Ar
 
 ## Sample Notebooks
 
+After following the setup documents, you can go through the sample notebooks linked below to get a better understanding of how the process works and the possibilities it can unlock:
+
 * [Image Classification Using Scikit-learn](notebooks/mnist/MNIST_Training_with_AKS-HCI_Cluster_and_NFS.ipynb) (Image Classification, Aprox. 20 Minutes)
 
-  This notebook serves as "hello world" of using for training and inference with AKS-HCI Cluster, on-premise NFS Server and Azure Machine Learning workspaces. Estimated run time for the notebook is 20 minutes, including
+  This notebook serves as "hello world" of using for training and inference with AKS-HCI Cluster, on-premise NFS Server, and Azure Machine Learning. The estimated run time for the notebook is 20 minutes, including
   * Training with AKS-HCI cluster and on-premise NFS Server
   * Register model
-  * Inference with registered model on AKS-HCI cluster
+  * Inference with the registered model on AKS-HCI cluster
   * Test model
 
-Note: Above run time estimated assume a vm size comparable to [Standard_DS8_v2](https://docs.microsoft.com/en-us/azure-stack/aks-hci/concepts-support#supported-vm-sizes)
+Note: Above run time estimated to assume a VM size comparable to [Standard_DS8_v2](https://docs.microsoft.com/en-us/azure-stack/aks-hci/concepts-support#supported-vm-sizes)
 
 ## CLI v2 Examples
 
 ### Prerequisites 
 
-Follow this [doc](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-train-cli?view=azure-devops#prerequisites) to setup the prerequisites of using Azure Machine CLI v2.  
+Follow this [doc](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-train-cli?view=azure-devops#prerequisites) to set up the prerequisites of using Azure Machine CLI v2.  
 
 ### Examples
 
 * [Image Classification Using Scikit-learn](cli/mnist/README.md) (Image Classification, Aprox. 20 Minutes)
 
-  This example serves as "hello world" of using for training and inference with AKS-HCI Cluster, on-premise NFS Server and Azure Machine Learning workspaces. Estimated run time for the notebook is 20 minutes, including
+  This example serves as "hello world" of using for training and inference with AKS-HCI Cluster, on-premise NFS Server, and Azure Machine Learning workspaces. The estimated run time for the notebook is 20 minutes, including
   * Training with AKS-HCI cluster and on-premise NFS Server
   * Register model
-  * Inference with registered model on AKS-HCI cluster
+  * Inference with the registered model on AKS-HCI cluster
   * Test model
 
-Note: Above run time estimated assume a vm size comparable to [Standard_D8s_v3](https://docs.microsoft.com/en-us/azure-stack/aks-hci/concepts-support#supported-vm-sizes)
+Note: Above run time estimated to assume a VM size comparable to [Standard_D8s_v3](https://docs.microsoft.com/en-us/azure-stack/aks-hci/concepts-support#supported-vm-sizes)
 
 ## Troubleshooting
 
