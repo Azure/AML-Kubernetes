@@ -64,4 +64,5 @@ Follow the steps mentioned in [Attach Arc cluster to AzureML Workspace](../attac
 
 ## Next Steps
 
-Learn how to [Setup NFS Server on Azure Stack HCI and Use your Data and run managed Machine Learning Experiments On-Premises](Train-AzureArc.md).
+* Learn how to [Setup NFS Server on Azure Stack HCI and Use your Data and run managed Machine Learning Experiments On-Premises](Train-AzureArc.md).
+* Experiment with ArcML on AKS on Azure Stack HCI using [Interactive Python Notebooks and AzureML CLI V2 Sample Examples](../AKS-HCI#sample-notebooks).
