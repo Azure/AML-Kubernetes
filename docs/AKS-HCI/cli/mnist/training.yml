@@ -1,0 +1,19 @@
+$schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
+code: 
+  local_path: mnist_script
+command: >-
+  python train.py
+  --data-folder <your nfs mounting point on training pods>/mnist
+  --regularization 0.5
+environment: 
+  name: tutorial-env
+  version: 1
+  path: .
+  conda_file: file:./train_env/conda.yml
+  docker:
+    image: mcr.microsoft.com/azureml/openmpi3.1.2-ubuntu18.04:20210806.v1
+compute:
+  target: azureml:<your compute target name>
+  instance_type: <your instance type>
+experiment_name: mnist-demo
+description: Image Classification Using Scikit-learn
