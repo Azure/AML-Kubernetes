@@ -162,6 +162,6 @@ metadata:
 
 You can verify your NFS setup using [Verify the NFS Setup in AMLArc Notebook](nfs/Verify_NFS_Setup_in_AMLArc.ipynb).
 
-## Next steps
+## Next Steps
 
 * Experiment with ArcML on AKS on Azure Stack HCI using [Interactive Python Notebooks and AzureML CLI V2 Sample Examples](../AKS-HCI#sample-notebooks).
