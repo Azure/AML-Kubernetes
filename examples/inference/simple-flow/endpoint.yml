@@ -1,0 +1,3 @@
+name: sklearn-mnist
+compute: azureml:tailwind-k8s
+auth_mode: key

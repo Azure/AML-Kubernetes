@@ -1,0 +1,6 @@
+$schema: https://azuremlschemas.azureedge.net/latest/model.schema.json
+name: sklearn-model
+version: 1
+datastore: azureml:workspaceartifactstore
+path: "ExperimentRun/dcid.9c143e8b-a6ed-4c6f-a907-34b8ec21127c/outputs/sklearn_mnist_model.pkl"
+description: Model asset from run output folder.
