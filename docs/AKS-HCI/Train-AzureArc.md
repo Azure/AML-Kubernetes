@@ -1,9 +1,9 @@
 # Setup NFS Server on Azure Stack HCI and Use your Data and run managed Machine Learning Experiments On-Premises
 
 In this article, you:
-* How to setup an NFS server on Azure Stack HCI
+* How to set up an NFS server on Azure Stack HCI
 * Configure the NFS server as the training data source (where you hold all your training data)
-* Run your first Azure Machine Learning training job on AKS-HCI using AzureML Python SDK (example notebooks)
+* Verify the NFS server setup using a sample notebook
 
 ## Setting up the NFS Server
 
