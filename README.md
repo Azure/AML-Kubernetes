@@ -1,4 +1,4 @@
-# Azure Arc-enabled Machine Learning
+# Azure Arc-enabled Machine Learnings
 
 As part of Azure Machine Learning (AzureML) service capabilities,  Azure Arc enabled ML extends Azure ML service capabilities seamlessly to Kubernetes clusters, and enables customer to train and deploy models on Kubernetes anywhere at scale. With a simple AzureML extension deployment, customer can instantly onboard their data science team with productivity tools for full ML lifecycle, and have access to both Azure managed compute and customer managed Kubernetes anywhere. Customer is flexible to train and deploy models wherever and whenever business requires so. With built-in AzureML pipeline and MLOps support for Kubernetes, customer can scale machine learning adoption in their organization easily. Built on top of Azure Arc hybrid cloud platform, Arc enabled ML natively supports on-premise machine learning with Kubernetes.
 
