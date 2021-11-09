@@ -153,3 +153,6 @@ Possible values are:
 default value: None
 
 List of resource ids for the user assigned identity. e.g. ['subscriptions/\<sub ID>/resourceGroups/\<RG>/providers/Microsoft.ManagedIdentity/userAssignedIdentities/\<identity name>']
+
+## Next Step
+- [Create and select different instance types for training and inferencing workloads](./instance-type.md)
