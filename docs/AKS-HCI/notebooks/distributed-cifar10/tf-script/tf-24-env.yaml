@@ -1,0 +1,9 @@
+name: tf-24-env
+dependencies:
+  - python=3.6.2
+  - python-graphviz
+  - pip:
+    - azureml-defaults
+    - tensorflow==2.4.1
+    - tensorflow-addons
+    - pydot
