@@ -62,7 +62,7 @@ In addition to above built-in AzureML features, ArcML also supports following un
 * [Target different node types for training or inference workload deployment](./docs/instance-type.md) 
 <!-- * [Train model with NFS](./docs/setup-ephemeral-nfs-volume.md) -->
 * [Train model with PV/PVC storage mount](./docs/pvc.md)
-* Use managed idenity for your endpoint
+* Use managed identity for your endpoint
 * [Custom container registry support](https://github.com/Azure/azure-arc-kubernetes-preview/blob/master/docs/custom-registry/connect-cluster.md)
 * Multiple AzureML workspaces share the same Kubernetes cluster
 * [Interactive job](https://github.com/Azure/azureml-previews/tree/main/previews/interactive-job) to access your training compute using VS Code, Jupyter Notebook, Jupyter Lab, and summarize metrics with Tensorboard. Sign up [here](https://forms.office.com/pages/responsepage.aspx?id=v4j5cvGGr0GRqy180BHbR8PsZ1-HON9JqtABfkUgwtpUNUtMWTEyRklBQUk2RzZQTUZGTjBUQzJINy4u) to get access to its Github repo.
@@ -76,7 +76,7 @@ In addition to above built-in AzureML features, ArcML also supports following un
 * OpenShift Container Platform (OCP)
 * Google GKE  
 * Canonical Kubernetes Distribution
-* Aazon EKS 
+* Amazon EKS 
 * Kind
 * K3s-Lightweight Kubernetes 
 * Kubernetes 1.18.x, 1.19.x and 1.20.x
