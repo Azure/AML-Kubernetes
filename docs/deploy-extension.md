@@ -68,12 +68,12 @@ Use ```k8s-extension update``` CLI command to update the mutable properties of  
 
 > **<span style="color:orange">Important**:</span>
 > 
-> * DO NOT update following configs if you have active training workloads, otherwise, the training jobs will be crashed.
+> * DO NOT update following configs if you have active training workloads, otherwise, the training jobs will be impacted.
 > * * `enableTraining` from `True` to `False`
 > * * `installNvidiaDevicePlugin` from `True` to `False` if GPU is used.
 > * * narrow down `nodeSelector`
-> * DO NOT update following configs if you have active real-time inference endpoints, otherwise, the endpoints will be crashed.
-> * * `enableTInference` from `True` to `False`
+> * DO NOT update following configs if you have active real-time inference endpoints, otherwise, the endpoints will be unavailable.
+> * * `enableInference` from `True` to `False`
 > * * `installNvidiaDevicePlugin` from `True` to `False` if GPU is used.
 > * * narrow down `nodeSelector`
 > * * `allowInsecureConnections`,`privateEndpointNodeport`,`privateEndpointILB`
