@@ -60,7 +60,7 @@ Azure Arc enabled ML essentially brings a new compute target to Azure Machine Le
 In addition to above built-in AzureML features, ArcML also supports following unique machine learning features:
 
 * [Target different node types for training or inference workload deployment](./docs/instance-type.md) 
-* [Train model with NFS](./docs/setup-ephemeral-nfs-volume.md)
+<!-- * [Train model with NFS](./docs/setup-ephemeral-nfs-volume.md) -->
 * [Train model with PV/PVC storage mount](./docs/pvc.md)
 * Use managed idenity for your endpoint
 * [Custom container registry support](https://github.com/Azure/azure-arc-kubernetes-preview/blob/master/docs/custom-registry/connect-cluster.md)
