@@ -28,9 +28,9 @@ Need outbound access to following URLs when submitting any AML workload (trainin
 | *.blob.core.windows.net | https:443 | Azure blob storage, required to fetch ML project scripts, container images and job logs/metrics|
 | *.workspace.\<region\>.api.azureml.ms ,  \<region\>.experiments.azureml.net,  \<region\>.api.azureml.ms | https:443 | Azure mahince learning service api, required to communucate with AML |
 
-### Training job
+#### Training job
  
- Need outbound access to following URLs when submitting AML training workloads to the cluster. If the cluster is only used for inferencing, the following URLs are not required.
+ Besides above URLs, need outbound access to following URLs for training workloads. If the cluster is only used for real-time inferencing, the following URLs are not required.
 
 | Destination Endpoint| Port | Use |
 |--|--|--|
