@@ -58,26 +58,6 @@ Use ```k8s-extension create``` CLI command to deploy AzureML extension, review l
    |--|--|--|--|--|
    | ```sslCertPemFile```, ```sslKeyPemFile``` |Path to SSL certificate and key file (PEM-encoded), required for AzureML extension deployment with HTTPS endpoint support for inference. | N/A| Optional |  Optional |
 
-### Extension update
-
-Use ```k8s-extension update``` CLI command to update the mutable properties of  AzureML extension, review list of required and optional parameters for ```k8s-extension update``` CLI command [here](https://docs.microsoft.com/en-us/cli/azure/k8s-extension?view=azure-cli-latest#az_k8s_extension_update). 
-
-1.	Azure Arc supports update of  ``--auto-upgrade-minor-version``, ``--version``,  ``--configuration-settings``, ``--configuration-protected-settings``.  
-2.	For configurationSettings, only the settings that require update need to be provided. If the user provides all settings, they would be merged/overwritten with the provided values. 
-3.	For ConfigurationProtectedSettings, ALL  settings should to be provided. If some settings are omitted, those settings would be considered obsolete and deleted. 
-
-> **<span style="color:orange">Important**:</span>
-> 
-> * DO NOT update following configs if you have active training workloads, otherwise, the training jobs will be impacted.
-> * * `enableTraining` from `True` to `False`
-> * * `installNvidiaDevicePlugin` from `True` to `False` if GPU is used.
-> * * reduce/remove existed `nodeSelector`
-> * DO NOT update following configs if you have active real-time inference endpoints, otherwise, the endpoints will be unavailable.
-> * * `enableInference` from `True` to `False`
-> * * `installNvidiaDevicePlugin` from `True` to `False` if GPU is used.
-> * * reduce/remove existed `nodeSelector`
-> * * `allowInsecureConnections`,`privateEndpointNodeport`,`privateEndpointILB`
-> *  To update `logAnalyticsWS` from `True` to `False`, please provide all configurationProtectedSettings. Otherwise, those settings would be considered obsolete and deleted .
 ## Prerequesites 
 
 -  For AzureML extension deployment on ARO or OCP cluster, please grant privileged access to AzureML service accounts, run ```oc edit scc privileged``` command, and add following service accounts under "users:":
@@ -174,3 +154,23 @@ To enable Kubernetes cluster for all kinds of ML workload, choose one of above i
    ```bash
     kubectl get pods -n azureml
    ```
+## Extension update
+
+Use ```k8s-extension update``` CLI command to update the mutable properties of  AzureML extension, review list of required and optional parameters for ```k8s-extension update``` CLI command [here](https://docs.microsoft.com/en-us/cli/azure/k8s-extension?view=azure-cli-latest#az_k8s_extension_update). 
+
+1.	Azure Arc supports update of  ``--auto-upgrade-minor-version``, ``--version``,  ``--configuration-settings``, ``--configuration-protected-settings``.  
+2.	For configurationSettings, only the settings that require update need to be provided. If the user provides all settings, they would be merged/overwritten with the provided values. 
+3.	For ConfigurationProtectedSettings, ALL  settings should to be provided. If some settings are omitted, those settings would be considered obsolete and deleted. 
+
+> **<span style="color:orange">Important**:</span>
+> 
+> * DO NOT update following configs if you have active training workloads, otherwise, the training jobs will be impacted.
+> * * `enableTraining` from `True` to `False`
+> * * `installNvidiaDevicePlugin` from `True` to `False` if GPU is used.
+> * * reduce/remove existed `nodeSelector`
+> * DO NOT update following configs if you have active real-time inference endpoints, otherwise, the endpoints will be unavailable.
+> * * `enableInference` from `True` to `False`
+> * * `installNvidiaDevicePlugin` from `True` to `False` if GPU is used.
+> * * reduce/remove existed `nodeSelector`
+> * * `allowInsecureConnections`,`privateEndpointNodeport`,`privateEndpointILB`
+> *  To update `logAnalyticsWS` from `True` to `False`, please provide all configurationProtectedSettings. Otherwise, those settings would be considered obsolete and deleted .
