@@ -10,7 +10,7 @@ Azure Machine Learning requires both inbound and outbound access to the public i
 
 Here is a graph to show network flow:
 
-![Network Flow](media/privatelink-networkflow-v1.png)
+![Network Flow](media/privatelink-networkflow-v2.png)
 
 ### Setting up VNET:
 
