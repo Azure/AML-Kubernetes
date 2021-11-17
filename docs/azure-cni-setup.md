@@ -6,6 +6,12 @@ Using an AMLArc enabled AzureCNI AKS cluster for compute in a workspace allow s 
 
 Azure Machine Learning requires both inbound and outbound access to the public internet. Documentation for inbound and outbound access is provided here: https://docs.microsoft.com/en-us/azure/machine-learning/how-to-secure-workspace-vnet?tabs=pe#required-public-internet-access
 
+### Network flow:
+
+Here is a graph to show network flow:
+
+![Network Flow](media/privatelink-networkflow-v1.png)
+
 ### Setting up VNET:
 
 The Azure VNET can be created independently or during the creation of the AKS cluster explained in the next section.
