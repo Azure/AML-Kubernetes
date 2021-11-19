@@ -140,6 +140,9 @@ def save_to_outputs(model, task_type, task_id):
         model_folder = str(task_type)+str(task_id)
 
     model_path = os.path.join("outputs", model_folder)
+
+    print("saving model to " + model_path)
+    os.makedirs("outputs", exist_ok=True)
     tf.saved_model.save(model, model_path)
 
 def _is_chief(task_type, task_id):
