@@ -119,6 +119,6 @@ Now let's see simple deployment flow in action!
 
 ## Additional resources
 
-* [Deploy model using customer container with built-in model or entry script](./inference-byoc.md). In this case, the model and the entry script will not be saved at the cloud, but in local.
+* [Deploy model using customer container with built-in model or entry script](inference-byoc.md). In this case, the model and the entry script will not be saved at the cloud, but in local.
 * To learn more about Azure ML endpoint and deployment concents, please check [Managed Online Endpoints](https://docs.microsoft.com/azure/machine-learning/how-to-deploy-managed-online-endpoints).
 * [Additional Examples](https://github.com/Azure/azureml-examples/tree/main/cli/endpoints/online)
