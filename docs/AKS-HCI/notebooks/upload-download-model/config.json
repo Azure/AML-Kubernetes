@@ -1,5 +1,5 @@
 {
-    "subscription_id": "<sub_id>",
-    "resource_group": "<resource_group_name>",
-    "workspace_name": "<AML_workspace_name>"
+    "subscription_id": "86204643-5a96-427b-b6bb-b35b2bd6e6ce",
+    "resource_group": "AKS-HCI2",
+    "workspace_name": "amlarc-sample-test-ws-eastus"
 }
