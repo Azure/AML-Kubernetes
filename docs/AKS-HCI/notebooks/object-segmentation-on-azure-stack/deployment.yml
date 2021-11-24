@@ -1,5 +1,4 @@
 $schema: https://azuremlschemas.azureedge.net/latest/managedOnlineDeployment.schema.json
-name: blue
 type: kubernetes
 app_insights_enabled: true
 model: azureml:obj_seg_model_aml:1
