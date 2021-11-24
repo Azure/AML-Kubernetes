@@ -1,0 +1,12 @@
+$schema: https://azuremlschemas.azureedge.net/latest/managedOnlineDeployment.schema.json
+name: blue
+type: kubernetes
+app_insights_enabled: true
+model: azureml:obj_seg_model_aml:1
+code_configuration:
+  code: 
+    local_path: ./
+  scoring_script: score.py
+instance_type: defaultInstanceType
+instance_count: 1
+environment: azureml:AzureML-pytorch-1.7-ubuntu18.04-py37-cpu-inference:21
