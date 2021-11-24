@@ -1,0 +1,15 @@
+$schema: https://azuremlschemas.azureedge.net/latest/managedOnlineDeployment.schema.json
+type: kubernetes
+app_insights_enabled: true
+model: azureml:taxi_model:1
+code_configuration:
+  code: 
+    local_path: ./
+  scoring_script: score.py
+instance_type: defaultInstanceType
+instance_count: 1
+environment: 
+  name: taxi-model-env
+  version: 1
+  conda_file: ./model/conda.yml
+  image: mcr.microsoft.com/azureml/openmpi3.1.2-ubuntu18.04:20210727.v1

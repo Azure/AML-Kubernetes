@@ -1,0 +1,15 @@
+
+name: model-env
+
+dependencies:
+  - python=3.6.2
+  - pip:
+    - pyarrow
+    - azureml-defaults
+  - pandas
+  - scikit-learn
+  - numpy=1.19.5
+
+channels:
+  - anaconda
+  - conda-forge
