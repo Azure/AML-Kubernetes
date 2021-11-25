@@ -9,6 +9,8 @@ import shlex
 import shutil
 import datetime
 import time
+import random
+import string
 
 from subprocess import Popen, PIPE
 from IPython.display import Markdown
@@ -231,3 +233,14 @@ def run(cmd, return_output=False, no_output=False, retry_count=0):
     
     if return_output:
         return output
+
+def randStr(chars = string.ascii_uppercase + string.digits, N=10):
+	return ''.join(random.choice(chars) for _ in range(N))
+
+def randFolderName():
+    return randStr(chars=string.ascii_lowercase, N=5)+"_"+randStr(chars=string.ascii_letters+string.digits, N=8)
+
+def currentTimeStr(format="%Y%m%d%H%M%S"):
+    current = datetime.datetime.now()
+    currentStr = current.strftime(format)
+    return currentStr
