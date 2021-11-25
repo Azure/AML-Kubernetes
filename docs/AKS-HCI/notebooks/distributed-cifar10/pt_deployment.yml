@@ -1,0 +1,29 @@
+$schema: https://azuremlschemas.azureedge.net/latest/managedOnlineDeployment.schema.json
+type: kubernetes
+app_insights_enabled: true
+model: azureml:cifar10torch:1
+code_configuration:
+  code: 
+    local_path: ./
+  scoring_script: score_pytorch.py
+instance_type: defaultInstanceType
+environment: 
+  name: pytorch-cifar
+  version: 1
+  conda_file: ./pytorch-script/conda_dependencies.yml
+  image: mcr.microsoft.com/azureml/openmpi3.1.2-ubuntu18.04:20210727.v1
+instance_count: 1
+request_settings:
+  request_timeout_ms: 1000
+  max_concurrent_requests_per_instance: 1
+  max_queue_wait_ms: 1000
+resources:
+  requests:
+    cpu: "1"
+    memory: "1Gi"
+liveness_probe:
+  initial_delay: 10
+  period: 10
+  timeout: 10
+  success_threshold: 1
+  failure_threshold: 1
