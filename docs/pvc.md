@@ -33,6 +33,7 @@ metadata:
     ml.azure.com/pvc: "true"
   annotations:
     ml.azure.com/mountpath: "/mnt/nfs"
+    ml.azure.com/gid:"XXX"
 spec:
   storageClassName: ""
   accessModes:
@@ -41,12 +42,22 @@ spec:
      requests:
        storage: 1Gi
 ```
+### Access control
+
+All AML workloads will be executed as a special user with `uid` `200513`. To have proper read/write permission to the mounted file system like NFS, refer to the following guidance,
+
+* If the shared folder has '777' permission, all ML workloads will have read and write permission. 
+* if the file system has set all_squash and anonuid/anongid, all ML workloads will have read and write permission. 
+* If `uid 200513` is added to the group with proper read/write access to NFS, all ML workloads will have read and write permission. In this case, use the annotation `ml.azure.com/gid: "XXX"` in PVC setting, then the uid 200513 will be added to the specified group. **Note** to remove `RPCMOUNTDOPTS="--manage-gids` at the path of `/etc/default/nfs-kernel-server ` in NFS server to respect the permission control in the client side.
+
 
 
 ### How AML will use the PVC
 
 The training job in the same `namespace` with the PVC will be mounted the volume automatically. Then data scientist can access the mount path in the training job.
 
-By default, the job will be created in  `default` namespace. IT operator can decide/update the namespace in attached compute target configuration. 
+By default, the job will be created in  `default` namespace. IT operator can decide the namespace in attached compute attach.
+
+
 
 
