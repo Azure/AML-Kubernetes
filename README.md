@@ -62,6 +62,7 @@ In addition to above built-in AzureML features, ArcML also supports following un
 * [Target different node types for training or inference workload deployment](./docs/instance-type.md) 
 <!-- * [Train model with NFS](./docs/setup-ephemeral-nfs-volume.md) -->
 * [Train model with PV/PVC storage mount](./docs/pvc.md)
+* [Assign managed identity to the compute](./docs/managed-identity.md)
 * Use managed identity for your endpoint
 * [Custom container registry support](https://github.com/Azure/azure-arc-kubernetes-preview/blob/master/docs/custom-registry/connect-cluster.md)
 * Multiple AzureML workspaces share the same Kubernetes cluster
