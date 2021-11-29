@@ -167,10 +167,10 @@ Use ```k8s-extension update``` CLI command to update the mutable properties of  
 > * DO NOT update following configs if you have active training workloads, otherwise, the training jobs will be impacted.
 > * * `enableTraining` from `True` to `False`
 > * * `installNvidiaDevicePlugin` from `True` to `False` if GPU is used.
-> * * reduce/remove existed `nodeSelector`
+> * * add more `nodeSelector` to narrow down the target nodes
 > * DO NOT update following configs if you have active real-time inference endpoints, otherwise, the endpoints will be unavailable.
 > * * `enableInference` from `True` to `False`
 > * * `installNvidiaDevicePlugin` from `True` to `False` if GPU is used.
-> * * reduce/remove existed `nodeSelector`
+> * * add more `nodeSelector` to narrow down the target nodes
 > * * `allowInsecureConnections`,`privateEndpointNodeport`,`privateEndpointILB`
 > *  To update `logAnalyticsWS` from `True` to `False`, please provide all configurationProtectedSettings. Otherwise, those settings would be considered obsolete and deleted .
