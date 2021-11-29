@@ -1,12 +1,12 @@
 $schema: https://azuremlschemas.azureedge.net/latest/managedOnlineDeployment.schema.json
 type: kubernetes
 app_insights_enabled: true
-model: azureml:cifar10torch:1
+model: <modelId>
 code_configuration:
   code: 
     local_path: ./
   scoring_script: score_pytorch.py
-instance_type: defaultInstanceType
+instance_type: <instanceTypeName>
 environment: 
   name: pytorch-cifar
   version: 1
