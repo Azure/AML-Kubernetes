@@ -173,4 +173,4 @@ Use ```k8s-extension update``` CLI command to update the mutable properties of  
 > * * `installNvidiaDevicePlugin` from `True` to `False` if GPU is used.
 > * * add more `nodeSelector` to narrow down the target nodes
 > * * `allowInsecureConnections`,`privateEndpointNodeport`,`privateEndpointILB`
-> *  To update `logAnalyticsWS` from `True` to `False`, please provide all configurationProtectedSettings. Otherwise, those settings would be considered obsolete and deleted .
+> *  To update `logAnalyticsWS` from `True` to `False`, please provide all originial configurationProtectedSettings. Otherwise, those settings would be considered obsolete and deleted .
