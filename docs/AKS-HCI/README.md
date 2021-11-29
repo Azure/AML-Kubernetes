@@ -82,7 +82,7 @@ After following the setup documents, you can go through the sample notebooks lin
   * Inference with the registered model on AKS-HCI cluster
   * Test model 
 
-* [Model Download and Upload](notebooks/download-upload-model/AML-model-download-upload.ipynb)
+* [Model Download and Upload](notebooks/upload-download-model/AML-model-download-upload.ipynb)
 
 ## CLI v2 Examples
 
