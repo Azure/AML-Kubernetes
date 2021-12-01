@@ -8,17 +8,17 @@ With a simple AzureML extension deployment an AKS cluster or any Azure Arc enabl
 Upon AzureML extension deployment completes, it will create following resources in Azure cloud and in Kubernetes cluster, depending on each AzureML extension deployment scenario:
    |Resource name  |Resource type |Training |Inference |Training and Inference| Description |
    |--|--|--|--|--|--|
-   |Azure ServiceBus|Azure resource|**&check;**|**&check;**|**&check;**||
-   |Azure Relay|Azure resource|**&check;**|**&check;**|**&check;**||
+   |Azure ServiceBus|Azure resource|**&check;**|**&check;**|**&check;**|Used by gateway to sync job and cluster status to AML services regularly.|
+   |Azure Relay|Azure resource|**&check;**|**&check;**|**&check;**|Route traffic from AML services to on-prem k8s cluster.|
    |{EXTENSION-NAME}|Azure resource|**&check;**|**&check;**|**&check;**||
    |aml-operator|Kubernetes deployment|**&check;**|N/A|**&check;**|Mange the lifecycle of training jobs.|
    |{EXTENSION-NAME}-kube-state-metrics|Kubernetes deployment|**&check;**|**&check;**|**&check;**|Export kubernetes metrics.|
    |{EXTENSION-NAME}-prometheus-operator|Kubernetes deployment|**&check;**|**&check;**|**&check;**|Gather the metrics of running job and upload.|
-   |amlarc-identity-controller|Kubernetes deployment|N/A|**&check;**|**&check;**|
-   |amlarc-identity-proxy|Kubernetes deployment|N/A|**&check;**|**&check;**|
-   |azureml-fe|Kubernetes deployment|N/A|**&check;**|**&check;**|
-   |inference-operator-controller-manager|Kubernetes deployment|N/A|**&check;**|**&check;**|
-   |metrics-controller-manager|Kubernetes deployment|**&check;**|**&check;**|**&check;**|
+   |amlarc-identity-controller|Kubernetes deployment|N/A|**&check;**|**&check;**|Request and renew blob/acr token with managed identity for infra and user container.|
+   |amlarc-identity-proxy|Kubernetes deployment|N/A|**&check;**|**&check;**|Request and renew blob/acr token with managed identity for infra and user container.|
+   |azureml-fe|Kubernetes deployment|N/A|**&check;**|**&check;**|The front-end component that routes incoming inference requests to deployed services.|
+   |inference-operator-controller-manager|Kubernetes deployment|N/A|**&check;**|**&check;**|Manage the lifecycle of inference endpoints. |
+   |metrics-controller-manager|Kubernetes deployment|**&check;**|**&check;**|**&check;**|Manage the configuration for prometheus|
    |relayserver|Kubernetes deployment|**&check;**|**&check;**|**&check;**|Pass the job spec from Azure service to cluster.|
    |cluster-status-reporter|Kubernetes deployment|**&check;**|**&check;**|**&check;**|Gather the nodes and resource information, then send it to Azure service through gateway.|
    |nfd-master|Kubernetes deployment|**&check;**|N/A|**&check;**|Node feature discovery.|
