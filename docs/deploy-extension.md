@@ -9,27 +9,27 @@ Upon AzureML extension deployment completes, it will create following resources 
    |Resource name  |Resource type |Training |Inference |Training and Inference| Description |
    |--|--|--|--|--|--|
    |Azure ServiceBus|Azure resource|**&check;**|**&check;**|**&check;**|Used by gateway to sync job and cluster status to AML services regularly.|
-   |Azure Relay|Azure resource|**&check;**|**&check;**|**&check;**|Route traffic from AML services to on-prem k8s cluster.|
-   |{EXTENSION-NAME}|Azure resource|**&check;**|**&check;**|**&check;**||
+   |Azure Relay|Azure resource|**&check;**|**&check;**|**&check;**|Route traffic from AML services to the kubernetes cluster.|
    |aml-operator|Kubernetes deployment|**&check;**|N/A|**&check;**|Mange the lifecycle of training jobs.|
-   |{EXTENSION-NAME}-kube-state-metrics|Kubernetes deployment|**&check;**|**&check;**|**&check;**|Export kubernetes metrics.|
-   |{EXTENSION-NAME}-prometheus-operator|Kubernetes deployment|**&check;**|**&check;**|**&check;**|Gather the metrics of running job and upload.|
-   |amlarc-identity-controller|Kubernetes deployment|N/A|**&check;**|**&check;**|Request and renew blob/acr token with managed identity for infra and user container.|
-   |amlarc-identity-proxy|Kubernetes deployment|N/A|**&check;**|**&check;**|Request and renew blob/acr token with managed identity for infra and user container.|
+   |{EXTENSION-NAME}-kube-state-metrics|Kubernetes deployment|**&check;**|**&check;**|**&check;**|Export the cluster related metrics to Prometheus.|
+   |{EXTENSION-NAME}-prometheus-operator|Kubernetes deployment|**&check;**|**&check;**|**&check;**| Provide Kubernetes native deployment and management of Prometheus and related monitoring components.|
+   |amlarc-identity-controller|Kubernetes deployment|N/A|**&check;**|**&check;**|Request and renew Blob/ACR token with managed identity for infra and user container.|
+   |amlarc-identity-proxy|Kubernetes deployment|N/A|**&check;**|**&check;**|Request and renew Blob/ACR token with managed identity for infra and user container.|
    |azureml-fe|Kubernetes deployment|N/A|**&check;**|**&check;**|The front-end component that routes incoming inference requests to deployed services.|
    |inference-operator-controller-manager|Kubernetes deployment|N/A|**&check;**|**&check;**|Manage the lifecycle of inference endpoints. |
    |metrics-controller-manager|Kubernetes deployment|**&check;**|**&check;**|**&check;**|Manage the configuration for prometheus|
    |relayserver|Kubernetes deployment|**&check;**|**&check;**|**&check;**|Pass the job spec from Azure service to cluster.|
-   |cluster-status-reporter|Kubernetes deployment|**&check;**|**&check;**|**&check;**|Gather the nodes and resource information, then send it to Azure service through gateway.|
+   |cluster-status-reporter|Kubernetes deployment|**&check;**|**&check;**|**&check;**|Gather the nodes and resource information, and upload it to Azure service through gateway.|
    |nfd-master|Kubernetes deployment|**&check;**|N/A|**&check;**|Node feature discovery.|
    |gateway|Kubernetes deployment|**&check;**|**&check;**|**&check;**|Send nodes and cluster resource information to Azure service.|
-   |csi-blob-controller|Kubernetes deployment|**&check;**|N/A|**&check;**|csi for azure blob.|
-   |csi-blob-node|Kubernetes daemonset|**&check;**|N/A|**&check;**|csi for azure blob.|
+   |csi-blob-controller|Kubernetes deployment|**&check;**|N/A|**&check;**|CSI for azure blob.|
+   |csi-blob-node|Kubernetes daemonset|**&check;**|N/A|**&check;**|CSI for azure blob.|
    |fluent-bit|Kubernetes daemonset|**&check;**|**&check;**|**&check;**|Gather infra components' log.|
-   |k8s-host-device-plugin-daemonset|Kubernetes daemonset|**&check;**|**&check;**|**&check;**|Expose fuse on nodes to pods.|
+   |k8s-host-device-plugin-daemonset|Kubernetes daemonset|**&check;**|**&check;**|**&check;**|Expose fuse to pods on each node.|
    |nfd-worker|Kubernetes daemonset|**&check;**|N/A|**&check;**|Node feature discovery.|
    |prometheus-prom-prometheus|Kubernetes statefulset|**&check;**|**&check;**|**&check;**|Gather and send job metrics to Azure.|
    |frameworkcontroller|Kubernetes statefulset|**&check;**|N/A|**&check;**|Manage the lifecycle of actual training pods.|
+   |alertmanager|Kubernetes statefulset|**&check;**|**&check;**|**&check;**|Handle alerts sent by client applications such as the Prometheus server.|
 
 > **<span style="color:orange">Important**:</span> 
    > * Azure ServiceBus and Azure Relay resources  are under the same resource group as the Arc cluster resource. These resources are used to communicate with the Kubernetes cluster and modifying them will break attached compute targets.
