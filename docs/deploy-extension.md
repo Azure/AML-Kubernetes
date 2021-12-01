@@ -29,7 +29,7 @@ Upon AzureML extension deployment completes, it will create following resources 
    |nfd-worker|Kubernetes daemonset|**&check;**|N/A|**&check;**|Node feature discovery.|
    |prometheus-prom-prometheus|Kubernetes statefulset|**&check;**|**&check;**|**&check;**|Gather and send job metrics to Azure.|
    |frameworkcontroller|Kubernetes statefulset|**&check;**|N/A|**&check;**|Manage the lifecycle of actual training pods.|
-   |alertmanager|Kubernetes statefulset|**&check;**|**&check;**|**&check;**|Handle alerts sent by client applications such as the Prometheus server.|
+   |alertmanager|Kubernetes statefulset|**&check;**|N/A|**&check;**|Handle alerts sent by client applications such as the Prometheus server.|
 
 > **<span style="color:orange">Important**:</span> 
    > * Azure ServiceBus and Azure Relay resources  are under the same resource group as the Arc cluster resource. These resources are used to communicate with the Kubernetes cluster and modifying them will break attached compute targets.
