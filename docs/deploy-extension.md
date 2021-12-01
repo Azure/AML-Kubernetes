@@ -8,7 +8,7 @@ With a simple AzureML extension deployment an AKS cluster or any Azure Arc enabl
 Upon AzureML extension deployment completes, it will create following resources in Azure cloud and in Kubernetes cluster, depending on each AzureML extension deployment scenario:
    |Resource name  |Resource type |Training |Inference |Training and Inference| Description |
    |--|--|--|--|--|--|
-   |Azure ServiceBus|Azure resource|**&check;**|**&check;**|**&check;**|Sync job status to AML services regularly.|
+   |Azure ServiceBus|Azure resource|**&check;**|**&check;**|**&check;**|Used by gateway to sync job and cluster status to AML services regularly.|
    |Azure Relay|Azure resource|**&check;**|**&check;**|**&check;**|Route traffic from AML services to on-prem k8s cluster.|
    |{EXTENSION-NAME}|Azure resource|**&check;**|**&check;**|**&check;**||
    |aml-operator|Kubernetes deployment|**&check;**|N/A|**&check;**|Mange the lifecycle of training jobs.|
