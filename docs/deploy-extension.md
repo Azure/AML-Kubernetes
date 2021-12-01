@@ -86,7 +86,7 @@ Use ```k8s-extension create``` CLI command to deploy AzureML extension, review l
    az account set --subscription <your-subscription-id>
    ```
    
-- Install features for your subscription
+- Register features for your subscription
   ```azurecli
   az feature register --namespace Microsoft.Kubernetes --name previewAccess
   az provider register -n Microsoft.Kubernetes
