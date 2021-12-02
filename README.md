@@ -27,7 +27,7 @@ Getting started with ArcML is easy with following steps:
 * [Train image classification model with AzureML CLI v2](./docs/simple-train-cli.md)
 * [Train image classification model with AzureML Python SDK 1.30 or above](./examples/training/simple-train-sdk/img-classification-training.ipynb)
 * [Deploy an image classification model - create an endpoint with blue/green deployment](./docs/simple-flow.md)
-* [Use AKS on Azure Stack HCI for on-premises machine learning](https://aka.ms/aks-hci-ml)
+* [Use AKS on Azure Stack HCI for on-premises machine learning](https://github.com/Azure/AML-Kubernetes/tree/master/docs/AKS-HCI)
 
 ## Supported AzureML built-features and ArcML unique features
 
