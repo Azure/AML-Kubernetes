@@ -79,4 +79,4 @@ That is it! You have successfully trained an image classification model and down
 ## Additional resources
 
 * [Train models (create jobs) with the 2.0 CLI (preview)](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-train-cli)
-* [Additional examples](https://github.com/Azure/azureml-examples/tree/main/cli/jobs/train)
+* [Additional examples](https://github.com/Azure/azureml-examples/tree/main/cli/jobs)
