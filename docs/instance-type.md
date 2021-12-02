@@ -121,8 +121,8 @@ command: python -c "print('Hello world!')"
 environment:
   docker:
     image: python
-compute:
-  target: azureml:<compute_target_name>
+compute: azureml:<compute_target_name>
+resources:
   instance_type: <instance_type_name>
 ```
 
@@ -131,16 +131,9 @@ target and `<instance_type_name>` with the name of the instance type you wish to
 
 ## Select instance type to deploy model
 
-To select an instance type for a model deployment using CLI (V2), specify its name as part of the
-`deployments` section.  For example:
+To select an instance type for a model deployment using CLI (V2), specify its name deployment YAML.  For example:
 
 ```yaml
-type: online
-auth_mode: key
-compute: azureml:<your compute target name>
-traffic:
-  blue: 100
-
 deployments:
   - name: blue
     app_insights_enabled: true

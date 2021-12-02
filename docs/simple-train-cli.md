@@ -40,8 +40,8 @@
      local_path: ./src
    command: python train.py --data-folder {inputs.mnist} --regularization 0.5
    environment: azureml:AzureML-sklearn-0.24-ubuntu18.04-py37-cpu:7
-   compute:
-     target: azureml:<your compute target name>
+   compute: azureml:<your compute target name>
+   resources:
      instance_type: <your instance type>
    inputs:
      mnist:
