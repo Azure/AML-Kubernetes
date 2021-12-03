@@ -33,7 +33,7 @@ Upon AzureML extension deployment completes, it will create following resources 
 
 > **<span style="color:orange">Important**:</span> 
    > * Azure ServiceBus and Azure Relay resources  are under the same resource group as the Arc cluster resource. These resources are used to communicate with the Kubernetes cluster and modifying them will break attached compute targets.
-   > * By default, the component - deployment resource are randomly deployed to sevaral nodes. The component - daemonset are deployed to ALL nodes in the cluster. If you only want to deploy the components to specific nodes, please use `nodeSelector` configuration setting described as below.
+   > * By default, the deployed kubernetes deployment resourcse are randomly deployed to 1 or more nodes of the cluster, and daemonset resource are deployed to ALL nodes. If you want to restrict the extension deployment to specific nodes, please use `nodeSelector` configuration setting described as below.
 
 
 > **<span stype="color:orane">Notes**:</span>
@@ -58,6 +58,7 @@ Use ```k8s-extension create``` CLI command to deploy AzureML extension, review l
    |Configuration Protected Setting Key Name  |Description  |Training |Inference |Training and Inference
    |--|--|--|--|--|
    | ```sslCertPemFile```, ```sslKeyPemFile``` |Path to SSL certificate and key file (PEM-encoded), required for AzureML extension deployment with HTTPS endpoint support for inference. | N/A| Optional |  Optional |
+
 
 ## Prerequesites 
 
