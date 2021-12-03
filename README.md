@@ -38,6 +38,7 @@ Azure Arc enabled ML essentially brings a new compute target to Azure Machine Le
    |[Train with the CLI (v2)](https://docs.microsoft.com/azure/machine-learning/how-to-train-cli?view=azure-devops) |&check;|
    |[Train with the job creation UI](https://docs.microsoft.com/azure/machine-learning/how-to-train-with-ui) |&check;|
    |[Train with the Python SDK](https://docs.microsoft.com/azure/machine-learning/how-to-set-up-training-targets) |&check;|
+   |[Train with the REST API](https://docs.microsoft.com/azure/machine-learning/how-to-train-with-rest) |&check;|
    |[Basic Python training job](https://docs.microsoft.com/azure/machine-learning/how-to-train-cli?view=azure-devops#basic-python-training-job) |&check;|
    [Distributed training - PyTorch](https://docs.microsoft.com/azure/machine-learning/how-to-train-cli?view=azure-devops#pytorch)|&check;|
    [Distributed training - TensorFlow](https://docs.microsoft.com/azure/machine-learning/how-to-train-cli?view=azure-devops#tensorflow)|&check;|
@@ -53,7 +54,6 @@ Azure Arc enabled ML essentially brings a new compute target to Azure Machine Le
    |[Use managed identity to access Azure resources](./docs/managed-identity)|&check;|
    |[Deploy model with Designer UI](https://docs.microsoft.com/azure/machine-learning/how-to-deploy-model-designer)|Coming soon|
    |[Train and deploy with AutoML (Studio UI)](https://docs.microsoft.com/azure/machine-learning/how-to-use-automated-ml-for-ml-models)|Coming soon|
-   |[Train with the REST API](https://docs.microsoft.com/azure/machine-learning/how-to-train-with-rest) |&check;|
    |[Deploy model with Batch Endpoint](https://docs.microsoft.com/azure/machine-learning/how-to-deploy-managed-online-endpoints)|Coming soon|
 
 
