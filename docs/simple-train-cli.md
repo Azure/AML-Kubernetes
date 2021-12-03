@@ -45,7 +45,7 @@
      instance_type: <your instance type>
    ```
    
-   **Note**: **Instance type** is optional parameter. If it's not given, the compute default instance type will be used. For this example to run, you would have created following assets in AML Workspace: compute target named **\<your compute name>**
+   **Note**: **Instance type** is optional parameter. If it's not given, the compute default instance type will be used. Refer to [here](./instance-type.md) to learn how to create different instance types.
 
 1. Git clone preview Github repo and switch to simple-train-cli directory
 
