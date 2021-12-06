@@ -87,19 +87,9 @@ Use ```k8s-extension create``` CLI command to deploy AzureML extension, review l
    az account set --subscription <your-subscription-id>
    ```
    
-- Register features for your subscription
-  ```azurecli
-  az feature register --namespace Microsoft.Kubernetes --name previewAccess
-  az provider register -n Microsoft.Kubernetes
-
-  az feature register --namespace Microsoft.KubernetesConfiguration --name sourceControlConfiguration
-  az feature register --namespace Microsoft.KubernetesConfiguration --name extensions
-  az provider register -n Microsoft.KubernetesConfiguration
-  ```
-  If you use Azure Kubernetes Services(AKS) cluster and it's not connected to Azure Arc, please also register below.
+- If you use Azure Kubernetes Services(AKS) cluster and it's not connected to Azure Arc, please register below feature for your subscription.
   ```azurecli
   az feature register --namespace Microsoft.ContainerService -n AKS-ExtensionManager
-  az provider register – namespace Microsoft.ContainerService
   ```
 
 ## Deploy AzureML extension for model training or batch inference workload
