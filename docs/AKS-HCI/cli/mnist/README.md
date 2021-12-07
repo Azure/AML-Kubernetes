@@ -118,42 +118,48 @@ mnist
 |-- model
 |   |-- conda.yml
 |-- endpoint.yml
+|-- deployment.yml
 |-- sample-request.json
 |--...
 ```
-As you can see from above, "model" directory contains Conda environment definition, "[score.py](score.py)" is the scoring script. At top level directory, we have endpoint YAML definition and sample request JSON file. In general, this is very typical project setup for Azure Arc enabled ML model deployment.
+As you can see from above, "model" directory contains Conda environment definition, "[score.py](score.py)" is the scoring script. At top level directory, we have endpoint YAML definition, deployment YAML definition and sample request JSON file. In general, this is very typical project setup for Azure Arc enabled ML model deployment.
 
-Replace the compute name, instance type name, model name / version in endpoint.yml, then trigger real-time endpoint deployment.
+Replace the compute name in endpoint.yml, then trigger real-time endpoint creation.
 ```
-az ml endpoint create -n <endpoint_name> -f endpoint.yml
+az ml online-endpoint create -n <endpoint_name> -f endpoint.yml
 ```
 
-7. Check status of deployment and get deployment logs
+Check status of endpoint
 
 ```
-az ml endpoint show -n <endpoint_name>
+az ml online-endpoint show -n <endpoint_name>
+```
+Check if endpoint creation was successful
+
+Replace instance type name, model name / version in deployment.yml, then create blue deployment
+```
+az ml online-deployment create --name blue --endpoint <endpoint_name> -f deployment.yml --all-traffic
+```
+Check status of blue deployment
+```
+az ml online-deployment show --name blue --endpoint <endpoint_name>
 ```
 Check if deployment was successful
 
-```
-az ml endpoint get-logs -n <endpoint_name> --deployment blue
-```
-Get deployment logs. (The deployment name blue is defined in [endpoint.yml](endpoint.yml))
-
-8. Test endpoint by scoring request
+7. Test endpoint by scoring request
 
 ```
-az ml endpoint invoke -n <endpoint_name> -r sample-request.json
+az ml online-endpoint invoke -n <endpoint_name> -r sample-request.json
 ```
 You can also send a scoring request using cURL or Invoke-WebRequest
 
 Obtain a token/keys for the scoring endpoint
 ```
-az ml endpoint get-credentials --name <endpoint_name>
+az ml online-endpoint get-credentials --name <endpoint_name>
 ```
 Obtain the scoring_uri of the endpoint
 ```
-az ml endpoint show --name <endpoint_name>
+az ml online-endpoint show --name <endpoint_name>
 ```
 Score using the token/key obtained above
 
