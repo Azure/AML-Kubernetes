@@ -2,7 +2,7 @@
 
 If your cluster has Internect access, it's all done. Otherwise, If the cluster is behind the outbound proxy or firewall with strict outbound network, make sure following protocols/ports/outbound URLs to function.
 
-AMLArc depends on Azure Arc connection. Please make sure to meet [Azure Arc network requirements](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/quickstart-connect-cluster?tabs=azure-cli#meet-network-requirements) 
+AMLArc depends on Azure Arc components. Please make sure to meet [Azure Arc network requirements](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/quickstart-connect-cluster?tabs=azure-cli#meet-network-requirements) 
 
 ### AML extension
  
@@ -10,12 +10,6 @@ Need outbound access to following URLs when deploying ML extension to the cluste
 
 | Destination Endpoint| Port | Description |
 |--|--|--|
-|  *.data.mcr.microsoft.com| https:443 | Required for MCR storage backed by the Azure content delivery network (CDN). |
-| quay.io, *.quay.io | https:443 | Quay.io registry, required to pull container images for AML extension components |
-| gcr.io| https:443 | Google cloud repository, required to pull container images for AML extension components |
-| storage.googleapis.com | https:443 | Google cloud storage, gcr images are hosted on |
-| registry-1.docker.io, production.cloudflare.docker.com  | https:443 | Docker hub registry,required to pull container images for AML extension components |
-| auth.docker.io| https:443 | Docker repository authentication, required to access docker hub registry |
 | *.kusto.windows.net, *.table.core.windows.net, *.queue.core.windows.net | https:443 | Required to upload and anaylize system logs in Kusto |
 
 ### AML workload
