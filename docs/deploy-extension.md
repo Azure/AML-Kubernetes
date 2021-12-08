@@ -185,4 +185,4 @@ Use ```k8s-extension update``` CLI command to update the mutable properties of  
 
 ## Extension delete
 
-Use [``kis-extension delete``](https://docs.microsoft.com/en-us/cli/azure/k8s-extension?view=azure-cli-latest#az_k8s_extension_delete) CLI command to delete the existed AzureMl extension. It will take around 10 minitues to delete all componenents deployed to the cluster. You can run ``kubectl get pods -n azureml`` to check if all components being deleted.
+Use [``k8s-extension delete``](https://docs.microsoft.com/en-us/cli/azure/k8s-extension?view=azure-cli-latest#az_k8s_extension_delete) CLI command to delete the existed AzureMl extension. It will take around 10 minitues to delete all componenents deployed to the cluster. You can run ``kubectl get pods -n azureml`` to check if all components being deleted.
