@@ -38,18 +38,14 @@
    experiment_name: Tutorial-sklearn-mnist
    code:
      local_path: ./src
-   command: python train.py --data-folder {inputs.mnist} --regularization 0.5
+   command: python train.py --data-folder ./mnist-data --regularization 0.5
    environment: azureml:AzureML-sklearn-0.24-ubuntu18.04-py37-cpu:7
-   compute:
-     target: azureml:<your compute target name>
+   compute: azureml:<your compute target name>
+   resources:
      instance_type: <your instance type>
-   inputs:
-     mnist:
-       data: azureml:mnist_opendataset:1
-       mode: mount
    ```
    
-   **Note**: **Instance type** is optional parameter. If it's not given, the compute default instance type will be used. For this example to run, you would have created following assets in AML Workspace: compute target named **\<your compute name>**, and file dataset named **mnist_opendataset**. 
+   **Note**: **Instance type** is optional parameter. If it's not given, the compute default instance type will be used. Refer to [here](./instance-type.md) to learn how to create different instance types.
 
 1. Git clone preview Github repo and switch to simple-train-cli directory
 
@@ -58,7 +54,7 @@
    cd AML-Kubernetes/examples/training/simple-train-cli
    ```
 
-1. Modify job YAML file to replace **amlarc-ml** with your own compute target name, and register open dataset MNIST as file dataset and named **mnist_opendataset** in AML Workspace from public URL: https://azureopendatastorage.blob.core.windows.net/mnist/*.gz
+1. Modify job YAML file to specify your own compute target name
 
 1. Run the image classification training job
 
@@ -79,4 +75,4 @@ That is it! You have successfully trained an image classification model and down
 ## Additional resources
 
 * [Train models (create jobs) with the 2.0 CLI (preview)](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-train-cli)
-* [Additional examples](https://github.com/Azure/azureml-examples/tree/main/cli/jobs/train)
+* [Additional examples](https://github.com/Azure/azureml-examples/tree/main/cli/jobs)

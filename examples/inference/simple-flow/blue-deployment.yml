@@ -12,7 +12,7 @@ code_configuration:
     version: 1
     local_path: ./script/
   scoring_script: score.py
-instance_type: defaultInstanceType
+instance_type: defaultinstancetype
 environment:
   name: sklearn-mnist-env
   version: 1

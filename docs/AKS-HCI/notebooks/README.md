@@ -9,3 +9,61 @@ After following the setup documents, you can go through the sample notebooks lin
   * Register model
   * Inference with the registered model on AKS-HCI cluster
   * Test model
+
+* [Distributed PyTorch Training with DistributedDataParallel](distributed-cifar10/distributed-pytorch-cifar10.ipynb) (Image Classification)
+
+  This notebook demonstrates an example of Image classification with PyTorch, including,
+  * Distributed training using PyTorch with 2 worker nodes on AKS-HCI cluster and the training data is stored in on-premise NFS Server
+  * Register model
+  * Inference with the registered model on AKS-HCI cluster
+  * Test model
+
+* [Object Segmentation with Transfer Learning](object-segmentation-on-azure-stack/object_segmentation-akshci.ipynb) (Object Segmentation)
+  
+  Object segmentation using pre-trained Mask R-CNN model on PyTorch. AML pipeline steps are used for data preprocessing. **Training data are stored in on-premise NFS server, and the intermediate data are stored in default datastore associated with the ML workspace.** The whole flow includes,
+  * Use AML pipelines to read training data from on-premise NFS server, do data preprocessing and generate intermediate data to default datastore
+  * Use AML pipelines to trigger train step on AKS-HCI cluster
+  * Register model
+  * Inference with the registered model on AKS-HCI cluster
+  * Test model 
+
+* [Object Segmentation with Transfer Learning with all data on NFS server](object-segmentation-on-azure-stack/object_segmentation-akshci-nfs.ipynb) (Object Segmentation)
+
+  Object segmentation using pre-trained Mask R-CNN model on PyTorch. AML pipeline steps are used for data preprocessing. **Both the training and intermediate data are stored in on-prem NFS server.** The whole flow includes,
+  * Use AML pipelines to read training data from on-premise NFS server, do data preprocessing and generate intermediate data to NFS server.
+  * Use AML pipelines to trigger train step on AKS-HCI cluster
+  * Register model
+  * Inference with the registered model on AKS-HCI cluster
+  * Test model 
+
+* [AML Pipelines with NYC-TAXI-DATA](pipeline/nyc-taxi-data-regression-model-building.ipynb) (Structured Text Data Prediction)
+
+  This notebook demonstrates an example of Structured Text Data Prediction, preparing / preprocessing / training data in **default datastore associated with the ML workspace**. The whole flow includes,
+  * Download and upload training data to default datastore
+  * Use AML pipelines to preprocess and train
+    * Cleanse data in parallel
+    * Merge cleansed data
+    * Normalize data
+    * Transform data
+    * Split data
+    * Train model
+  * Register model
+  * Inference with the registered model on AKS-HCI cluster
+  * Test model 
+
+* [AML Pipelines with NYC-TAXI-DATA with all data on NFS server](pipeline/nyc-taxi-data-regression-model-building-nfs.ipynb) (Structured Text Data Prediction)
+
+  This notebook demonstrates an example of Structured Text Data Prediction, preparing / preprocessing / training data on **on-prem NFS server**. The whole flow includes,
+  * Download and upload training data to default datastore
+  * Use AML pipelines to preprocess and train
+    * Cleanse data in parallel
+    * Merge cleansed data
+    * Normalize data
+    * Transform data
+    * Split data
+    * Train model
+  * Register model
+  * Inference with the registered model on AKS-HCI cluster
+  * Test model 
+
+* [Model Download and Upload](upload-download-model/AML-model-download-upload.ipynb)

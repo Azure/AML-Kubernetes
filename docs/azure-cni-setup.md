@@ -6,6 +6,13 @@ Using an AMLArc enabled AzureCNI AKS cluster for compute in a workspace allow s 
 
 Azure Machine Learning requires both inbound and outbound access to the public internet. Documentation for inbound and outbound access is provided here: https://docs.microsoft.com/en-us/azure/machine-learning/how-to-secure-workspace-vnet?tabs=pe#required-public-internet-access
 
+### Required permissions for Azure CNI AKS
+
+The cluster identity used by the AKS cluster must have at least Network Contributor permissions on the subnet within your virtual network. If you wish to define a custom role instead of using the built-in Network Contributor role, the following permissions are required:
+
+- Microsoft.Network/virtualNetworks/subnets/join/action
+- Microsoft.Network/virtualNetworks/subnets/read
+
 ### Network flow:
 
 Here is a graph to show network flow:
@@ -18,11 +25,6 @@ The Azure VNET can be created independently or during the creation of the AKS cl
 
 The VNET does need to have a sufficiently  large address space, The default address space of 10.0.0.0/16 has worked in our testing. The subnet also needs to be large enough to accommodate the AKS cluster, In general, you'll want 128 addresses per node in your cluster, if using default settings. More documentation on creating an Azure VNET can be found here:
 https://docs.microsoft.com/en-us/azure/virtual-network/quick-create-portal.
-
-Make sure your user account must have permissions to the following actions in Azure role-based access control (Azure RBAC):
-
-- "Microsoft.Network/virtualNetworks/join/action" on the virtual network resource.
-- "Microsoft.Network/virtualNetworks/subnet/join/action" on the subnet resource.
 
 ### Setting up AKS cluster:
 
