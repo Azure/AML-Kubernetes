@@ -13,6 +13,12 @@ The cluster identity used by the AKS cluster must have at least Network Contribu
 - Microsoft.Network/virtualNetworks/subnets/join/action
 - Microsoft.Network/virtualNetworks/subnets/read
 
+### Network flow:
+
+Here is a graph to show network flow:
+
+![Network Flow](media/privatelink-networkflow-v3.png)
+
 ### Setting up VNET:
 
 The Azure VNET can be created independently or during the creation of the AKS cluster explained in the next section.
@@ -63,8 +69,3 @@ Documentation for a private link key vault is provided here: https://docs.micros
 Azure Machine Learning uses Azure Container Registry to store customers image. Documentation for a private link container registry is provided here: https://docs.microsoft.com/en-us/azure/container-registry/container-registry-private-link#set-up-private-endpoint---portal-recommended. 
 
 Configure compute cluster for building image in your vnet. https://docs.microsoft.com/en-us/azure/machine-learning/how-to-secure-workspace-vnet?tabs=pe#enable-azure-container-registry-acr
-
-### Setting up Azure Relay
-
-Azure Machine Learning uses an associated relay to talk to k8s cluster:
-https://docs.microsoft.com/en-us/azure/azure-relay/private-link-service#add-a-private-endpoint-using-azure-portal
