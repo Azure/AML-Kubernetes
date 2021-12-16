@@ -1,5 +1,21 @@
 # Create a compute target - attach AKS or Arc cluster to AML workspace
 
+## Pre-requesitie
+
+Azure Machine Learning workspace defaults to have a system-assigned managed identity to access Azure ML resources. It's all done if this default setting is applied. 
+
+![Managed Identity in workspace](./media/ws-msi.png)
+
+Otherwise, if a user-assigned managed identity is specified in Azure Machine Learning workspace creation, the following role assignments need to be granted to the identity manually before attaching the compute,
+
+|Azure resource name  |Role to be assigned|
+|--|--|
+|Azure Service Bus|Azure Service Bus Data Owner|
+|Azure Relay|Azure Relay Owner|Azure Relay Owner|
+|Azure Arc-enable Kubernetes|Reader|
+
+The Azure Service Bus and Azure Relay resource are created under the same Resource Group as the Arc cluster.
+
 ## Create compute target via Azure ML 2.0 CLI
 
 You can attach AKS or Arc cluster and create KubernetesCompute target easily via AzureML 2.0 CLI.
