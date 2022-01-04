@@ -78,13 +78,13 @@ items:
       name: defaultinstancetype
     spec:
       resources:
+        requests:
+          cpu: "1"
+          memory: "1Gi" 
         limits:
           cpu: "1"
           nvidia.com/gpu: 0
           memory: "1Gi"
-        requests:
-          cpu: "1"
-          memory: "1Gi" 
 ```
 
 The above example creates two instance types: `cpusmall` and `defaultinstancetype`.  The latter
@@ -97,21 +97,22 @@ type with name `defaultinstancetype`.  It will automatically be recognized as th
 
 If no default instance type was defined, the following default behavior applies:
 - No nodeSelector is applied, meaning the pod can get scheduled on any node.
-- The workload's pods are assigned default resources:
+- The workload's pods are assigned default resources with 0.6 cpu cores, 1536Mi memory and 0 GPU:
 ```yaml
 resources:
-  limits:
-    cpu: "0.6"
-    memory: "1536Mi"
   requests:
     cpu: "0.6"
     memory: "1536Mi"
+  limits:
+    cpu: "0.6"
+    memory: "1536Mi"
+    nvidia.com/gpu: null
 ```
-- This default instance type will not appear as an InstanceType custom resource in the cluster,
+- This default instance type will not appear as an InstanceType custom resource in the cluster when running the command ```kubectl get instancetype```,
 but it will appear in all clients (UI, CLI, SDK).
 
-Note: The default instance type purposefully uses little resources.  To ensure all ML workloads
-run with appropriate resources, it is highly recommended to create custom instance types.
+**Note:** The default instance type purposefully uses little resources.  To ensure all ML workloads
+run with appropriate resources, for example GPU resource,  it is highly recommended to create custom instance types.
 
 ## Select instance type to submit training job
 To select an instance type for a training job using CLI (V2), specify its name as part of the
