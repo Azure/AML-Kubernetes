@@ -180,8 +180,8 @@ Use ```k8s-extension update``` CLI command to update the mutable properties of  
 >
 > **Don't** update following configs if you have active real-time inference endpoints, otherwise, the endpoints will be unavailable.
 > * `allowInsecureConnections`
-> *`privateEndpointNodeport`
-> *`privateEndpointILB`
+> * `privateEndpointNodeport`
+> * `privateEndpointILB`
 > *  To update `logAnalyticsWS` from `True` to `False`, provide all original `configurationProtectedSettings`. Otherwise, those settings are considered obsolete and deleted.
 
 ## Delete Azure Machine Learning extension
