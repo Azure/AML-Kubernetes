@@ -81,7 +81,7 @@ In addition to above built-in AzureML features, ArcML also supports following un
 * Amazon EKS 
 * Kind
 * K3s-Lightweight Kubernetes 
-* Kubernetes 1.18.x, 1.19.x, 1.20.x, 1.21.x
+* Kubernetes 1.18.x, 1.19.x, 1.20.x, 1.21.x, 1.22.x
 
 ## [Frequently Asked Questions](./docs/faq.md)
 
