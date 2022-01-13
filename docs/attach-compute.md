@@ -57,7 +57,7 @@ az ml compute attach --resource-group
    For AKS cluster with ML extension deployed without Arc conntected, it's like ` "/subscriptions/<sub ID>/resourceGroups/<resource group>/providers/Microsoft.ContainerService/managedclusters/<cluster name>`
 * `--type -t`
 
-   The type of compute target. Allowed values: kubernetes, AKS, virtualmachine. Specify `kubernetes` to attach arc-enabled kubernetes cluster or AKS cluster with ML extension deployed.
+   The type of compute target. Allowed values: kubernetes, virtualmachine. Specify `kubernetes` to attach arc-enabled kubernetes cluster or AKS cluster with ML extension deployed.
 
 **Optional Parameters**
 
