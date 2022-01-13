@@ -125,7 +125,7 @@ Depending on your network setup, Kubernetes distribution variant, and where your
       ```  
      > **Note:**
      * Using a NodePort gives you the freedom to set up your own load-balancing solution, to configure environments that are not fully supported by Kubernetes, or even to expose one or more nodes' IPs directly.
-     * When you deploy with NodePort service, the scoring url (or swagger url) will be responded with one of Node IP (for example, ```http://<NodeIP><NodePort>/<scoring_path>```) and remain unchanged even if the Node is unavailable. But you can replace it with any other Node IP.
+     * When you deploy with NodePort service, the scoring url (or swagger url) will be responded with one of Node IP (for example, ```https://<NodeIP>:<NodePort>/<scoring_path>```) and remain unchanged even if the Node is unavailable. But you can replace it with any other Node IP.
    * **Private HTTP endpoints support with internal load balancer**   
       ```azurecli
       az k8s-extension create --name arcml-extension --extension-type Microsoft.AzureML.Kubernetes --cluster-type connectedClusters --cluster-name <your-connected-cluster-name> --config enableInference=True privateEndpointILB=True allowInsecureConnections=True --resource-group <resource-group> --scope cluster --auto-upgrade-minor-version False
