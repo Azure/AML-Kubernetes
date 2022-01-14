@@ -28,7 +28,6 @@ fi
 
 # STEP1 Export services
 echo 'Export services...'
-#read storage_account blob_folder < <(python3 export-service-util.py --export --export-json -w $workspace_name -g $resource_group -s $subscription_id|tail -1| jq -r '"\(.storage_account) \(.blob_folder)"')
 output=$(python3 export-service-util.py --export --export-json -w $workspace_name -g $resource_group -s $subscription_id| tee /dev/tty)
 read -r storage_account blob_folder < <(echo "$output" |tail -n1| jq -r '"\(.storage_account) \(.blob_folder)"')
 
