@@ -14,28 +14,29 @@ ssl_key_pem_file="<YOUR_KEY_PEM_FILE>"
 
 # STEP1 Register feature providers
 echo 'Register features...'
-az feature register --namespace Microsoft.ContainerService -n AKS-ExtensionManager --subscription "$subscription_id"> /dev/null
+az feature register --namespace Microsoft.ContainerService -n AKS-ExtensionManager --subscription "$subscription_id"
 echo 'Waiting for feature register...'
 while [ "$(az feature list --query "[?contains(name, 'Microsoft.ContainerService/AKS-ExtensionManager')].[properties.state]" -o json |jq '.[0][0]')" == 'Registered' ]
 do
   sleep 5
 done
-az provider register -n Microsoft.ContainerService 1> /dev/null
+az provider register -n Microsoft.ContainerService 1
 
 
 # STEP2 Deploy AmlArc extension
+# OPTION A) AKS service has public https endpoint
 az k8s-extension create --cluster-name $cluster_name --cluster-type managedClusters -n $arcml_extension_name \
 --extension-type Microsoft.AzureML.Kubernetes --scope cluster --configuration-settings enableInference=True isAKSMigration=true \
 scoringFe.namespace=default sslCname=$ssl_cname --config-protected sslCertPemFile=$ssl_cert_pem_file sslKeyPemFile=$ssl_key_pem_file \
 --subscription $subscription_id -g $resource_group --auto-upgrade-minor-version False
 
-# OPTIONAL B) AKS service has public http endpoint
+# OPTION B) AKS service has public http endpoint
 #az k8s-extension create --cluster-name $cluster_name --cluster-type managedClusters -n $arcml_extension_name \
 #--extension-type Microsoft.AzureML.Kubernetes --scope cluster --configuration-settings enableInference=True allowInsecureConnections=true \
 #isAKSMigration=true scoringFe.namespace=default \
 #--subscription $subscription_id -g $resource_group --auto-upgrade-minor-version False
 
-# OPTIONAL C) AKS service has private http endpoint
+# OPTION C) AKS service has private http endpoint
 #az k8s-extension create --cluster-name $cluster_name --cluster-type managedClusters -n $arcml_extension_name \
 #--extension-type Microsoft.AzureML.Kubernetes --scope cluster --configuration-settings enableInference=True allowInsecureConnections=true \
 #privateEndpointILB=True isAKSMigration=true scoringFe.namespace=default \
@@ -51,6 +52,3 @@ else
   echo "AzureML extention creation failed"
   exit 1
 fi
-
-
-

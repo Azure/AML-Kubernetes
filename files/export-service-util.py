@@ -62,7 +62,7 @@ def export(ws: Workspace,
     if compute_type:
         if compute_type.upper() not in MIGRATION_WEBSERVICE_TYPES:
             raise WebserviceException('Invalid compute type "{}". Valid options are "{}"'
-                                      .format(compute_type, ",".join(())))
+                                      .format(compute_type, ",".join(MIGRATION_WEBSERVICE_TYPES)))
         params = {'computeType': compute_type}
     try:
         resp = ClientBase._execute_func(get_requests_session().get, mms_endpoint, headers=headers,

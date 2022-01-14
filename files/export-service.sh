@@ -47,4 +47,3 @@ echo "Params have been saved to $params"
 echo "Deploy $migrate_type service $online_endpoint_name..."
 deployment_name="Migration-$online_endpoint_name-$(echo $RANDOM | md5sum | head -c 4)"
 az deployment group create --name "$deployment_name" --resource-group "$resource_group" --template-file "$template_file" --parameters "$params" --subscription $subscription_id
-
