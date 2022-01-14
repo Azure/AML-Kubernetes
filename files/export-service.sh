@@ -20,8 +20,6 @@ online_deployment_name="<ONLINE_DEPLOYMENT_NAME>"
 if [[ $migrate_type == "AmlArc" ]]
 then
   resource_id="/subscriptions/$subscription_id/resourceGroups/$resource_group/providers/Microsoft.ContainerService/managedClusters/$cluster_name"
-  # If you are providing an arc-enabled cluster, using the resource id below
-  # resource_id="/subscriptions/$subscription_id/resourceGroups/$resource_group/providers/Microsoft.ContainerService/managedClusters/$cluster_name"
   az ml compute attach -n "$compute_name" --namespace "$compute_namespace" -g "$resource_group" -w "$workspace_name" --resource-id "$resource_id" -t Kubernetes --only-show-errors
   migrate_compute=$(az ml compute show -n "$compute_name" -g "$resource_group" -w "$workspace_name" --only-show-errors -o json| jq -r '.id')
 fi
