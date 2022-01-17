@@ -34,7 +34,7 @@ Make sure you have read the [docs](https://docs.microsoft.com/en-us/azure/machin
 about AmlArc. Check `migrate-aks-service.sh`, fill in all the parameters, and find the right scenarios under OPTIONS. 
 Then migrate your aks service by run:
 ```bash
-./export-service-util
+./migrate-aks-service.sh
 ```
 > Attention: direct migration is a irreversible process. 
 
@@ -49,7 +49,7 @@ about AmlArc, and understand your using scenarios also the corresponding [networ
 Check `deploy-amlarc.sh`, fill in all the parameters, and find the right scenarios under step2. 
 Then install AmlArc extension by run:
 ```bash
-./migrate-aks-service.sh
+./deploy-amlarc.sh
 ```
 
 The script will register feature provider for your sub, and install extension into your cluster.
