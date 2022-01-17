@@ -49,7 +49,7 @@ about AmlArc, and understand your using scenarios also the corresponding [networ
 Check `deploy-amlarc.sh`, fill in all the parameters, and find the right scenarios under step2. 
 Then install AmlArc extension by run:
 ```bash
-./deploy-amlarc.sh
+./migrate-aks-service.sh
 ```
 
 The script will register feature provider for your sub, and install extension into your cluster.
