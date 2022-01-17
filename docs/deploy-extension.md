@@ -56,6 +56,7 @@ Use ```k8s-extension create``` CLI command to deploy AzureML extension, review l
    |```openshift``` | ```True``` or ```False```, default ```False```. Set to ```True``` if you deploy AzureML extension on ARO or OCP cluster. The deployment process will automatically compile a policy package and load policy package on each node so AzureML services operation can function properly.  | Optional| Optional |  Optional |
    |```nodeSelector``` | Set the node selector so the extension components and the training/inference workloads will only be deployed to the nodes with all specified selectors. Usage: `nodeSelector.key=value`, support multiple selectors. Example: `nodeSelector.node-purpose=worker nodeSelector.node-region=eastus`| Optional| Optional |  Optional |
    |```sslCname``` |A SSL CName to use if enabling SSL validation on the cluster.   |  N/A | Optional |  Optional |
+   |```reuseExistingPromOp```|True or False, default False. AzureML extension needs prometheus operator to manage prometheus. Set to True to reuse existing promethues operator. Compatible [kube-prometheus-stack](https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-prometheus-stack/README.md) helm chart versions are from 9.3.4 to 20.0.1.| Optional| Optional |  Optional |
 
    |Configuration Protected Setting Key Name  |Description  |Training |Inference |Training and Inference
    |--|--|--|--|--|
