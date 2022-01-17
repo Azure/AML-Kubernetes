@@ -4,18 +4,15 @@ endpoint_name: tf-mnist
 app_insights_enabled: true
 model:
   name: tf-mnist
-  version: 1
   local_path: ./model/
 code_configuration:
   code:
     name: "score"
-    version: 1
     local_path: ./script/
   scoring_script: score.py
 instance_type: myinstancetypename
 environment: 
   name: tf-mnist-model
-  version: 1
   image: mcr.microsoft.com/azureml/openmpi3.1.2-ubuntu18.04:20210727.v1
   conda_file: ./model/conda.yml
 request_settings:
