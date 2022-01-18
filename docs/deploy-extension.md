@@ -15,7 +15,7 @@ Upon AzureML extension deployment completes, it will create following resources 
    |{EXTENSION-NAME}-prometheus-operator|Kubernetes deployment|**&check;**|**&check;**|**&check;**| Provide Kubernetes native deployment and management of Prometheus and related monitoring components.|
    |amlarc-identity-controller|Kubernetes deployment|N/A|**&check;**|**&check;**|Request and renew Blob/Azure Container Registry token with managed identity for infrastructure and user containers.|
    |amlarc-identity-proxy|Kubernetes deployment|N/A|**&check;**|**&check;**|Request and renew Blob/Azure Container Registry token with managed identity for infrastructure and user containers.|
-   |azureml-fe|Kubernetes deployment|N/A|**&check;**|**&check;**|The front-end component that routes incoming inference requests to deployed services.|
+   |[azureml-fe](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-deploy-azure-kubernetes-service?tabs=python#azure-ml-router)|Kubernetes deployment|N/A|**&check;**|**&check;**|The front-end component that routes incoming inference requests to deployed services.|
    |inference-operator-controller-manager|Kubernetes deployment|N/A|**&check;**|**&check;**|Manage the lifecycle of inference endpoints. |
    |metrics-controller-manager|Kubernetes deployment|**&check;**|**&check;**|**&check;**|Manage the configuration for Prometheus|
    |relayserver|Kubernetes deployment|**&check;**|**&check;**|**&check;**|Pass the job spec from Azure Machine Learning services to the Kubernetes cluster.|
