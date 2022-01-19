@@ -571,7 +571,7 @@ ICM_XML_TEMPLATE='<?xml version="1.0" encoding="UTF-8"?>
     KEY_FILE="${KEY_FILE:-key.pem}"
     CERT_FILE="${CERT_FILE:-cert.pem}"
     ICM_HOST="${ICM_HOST:-test}"
-    ICM_URL="https://${HOST}/Connector3/ConnectorIncidentManager.svc?wsdl"
+    ICM_URL="https://${ICM_HOST}/Connector3/ConnectorIncidentManager.svc?wsdl"
       
     PAYLOAD=$(echo $ICM_XML_TEMPLATE | xmlstarlet ed \
             -N s=http://www.w3.org/2003/05/soap-envelope \
