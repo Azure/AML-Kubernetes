@@ -18,8 +18,6 @@ jobs:
     env:
       SUBSCRIPTION: ${{ secrets.SUBSCRIPTION }}
       RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }}
-      KEY_FILE: ${{ secrets.KEY_FILE }}
-      CERT_FILE: ${{ secrets.CERT_FILE }}
       ICM_HOST: ${{ secrets.ICM_HOST }}
       LOCATION: ${{ github.event.inputs.LOCATION }}
       RELEASE_TRAIN: ${{ github.event.inputs.AMLARC_RELEASE_TRAIN }}
@@ -86,10 +84,11 @@ jobs:
     - name: file_icm
       if: ${{ always() }}
       run: |
-        bash .github/amlarc-tool.sh count_result
-        if [ "$?" != "0" ]; then
+        bash .github/amlarc-tool.sh count_result || ret=$?
+        if [ "$ret" != "0" ]; then
             # download certificates
-
+            echo "${{secrets.AMLARC_CERT_PEM}}" > cert.pem
+            echo "${{secrets.AMLARC_KEY_PEM}}" > key.pem  
             export SUMMARY=$(bash .github/amlarc-tool.sh gen_summary_for_github_test)
             bash .github/amlarc-tool.sh file_icm
         fi
