@@ -3,7 +3,6 @@ type: kubernetes
 endpoint_name: sklearn-mnist
 app_insights_enabled: true
 model: 
-  name: sklearn_mnist_model
   local_path: ./model/sklearn_mnist_model.pkl
 code_configuration:
   code:
@@ -11,7 +10,6 @@ code_configuration:
   scoring_script: score.py
 instance_type: defaultinstancetype
 environment:
-  name: sklearn-mnist-env
   image: mcr.microsoft.com/azureml/openmpi3.1.2-ubuntu18.04:20210727.v1
   conda_file: ./model/conda.yml
 request_settings:
