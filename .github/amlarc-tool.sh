@@ -84,6 +84,7 @@ install_tools(){
     && sudo mv ./kubectl /usr/local/bin/kubectl  
 
     pip install azureml-core 
+    pip install notebook
 
     pip list || true
     az version || true
