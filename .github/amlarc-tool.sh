@@ -84,6 +84,7 @@ install_tools(){
     && sudo mv ./kubectl /usr/local/bin/kubectl  
 
     pip install azureml-core 
+    pip install notebook
 
     pip list || true
     az version || true
@@ -450,6 +451,29 @@ count_result(){
 ##
 ########################################
 
+gen_summary_for_github_test(){
+    echo "
+This ticket is automatically filed by github workflow.
+The workflow is used to test github examples.
+PLease check the following links for detailed errors.
+
+Owners:
+$OWNERS
+
+Github repo:
+$GITHUB_REPO
+
+Workflow url:
+$WORKFLOW_URL
+
+Test result:
+$(cat $RESULT_FILE)
+"
+}
+
+
+file_icm(){
+
 ICM_XML_TEMPLATE='<?xml version="1.0" encoding="UTF-8"?>
 <s:Envelope xmlns:s="http://www.w3.org/2003/05/soap-envelope" xmlns:a="http://www.w3.org/2005/08/addressing">
    <s:Header>
@@ -525,28 +549,6 @@ ICM_XML_TEMPLATE='<?xml version="1.0" encoding="UTF-8"?>
    </s:Body>
 </s:Envelope>
 '  
-
-gen_summary_for_github_test(){
-    echo "
-This ticket is automatically filed by github workflow. 
-The workflow is used to test github examples.
-PLease check the following links for detailed errors.
-
-Owners:
-$OWNERS
-
-Github repo:
-$GITHUB_REPO
-
-Workflow url:
-$WORKFLOW_URL
-
-Test result:
-$(cat $RESULT_FILE)
-"
-}
-
-file_icm(){
 
     UUID="$(uuidgen)"  
     DATE=$(date --iso-8601=second)

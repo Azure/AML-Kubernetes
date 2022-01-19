@@ -7,7 +7,7 @@ on:
       LOCATION:
         description: 'Resource Region'
         required: false
-        default: 'experimental'
+        default: 'eastus'
       AMLARC_RELEASE_TRAIN:
         description: 'Release version: experimental, staging or stable'
         required: false
@@ -23,7 +23,7 @@ jobs:
       ICM_HOST: ${{ secrets.ICM_HOST }}
       LOCATION: ${{ github.event.inputs.LOCATION }}
       RELEASE_TRAIN: ${{ github.event.inputs.AMLARC_RELEASE_TRAIN }}
-      
+
       OWNERS: zetia@microsoft.com;jing.zhong@microsoft.com
       GITHUB_REPO: https://github.com/Azure/AML-Kubernetes
       WORKFLOW_URL: https://github.com/Azure/AML-Kubernetes
@@ -39,7 +39,7 @@ jobs:
     - name: azure login
       uses: azure/login@v1
       with:
-        creds: ${{secrets.AZ_AMLARC_CREDS}}
+        creds: ${{secrets.AMLARC_SP_CREDS}}
     - name: install tools
       run: bash .github/amlarc-tool.sh install_tools
       
@@ -61,13 +61,23 @@ jobs:
     
     # run test cases
     - name: run examples/training/simple-train-cli/job.yml
-      run: bash amlarc-tool.sh run_cli_job examples/training/simple-train-cli/job.yml
+      run: bash .github/amlarc-tool.sh run_cli_job examples/training/simple-train-cli/job.yml
+      continue-on-error: true
     - name: prepare workspace config
       run: bash .github/amlarc-tool.sh generate_workspace_config
-    - name: run examples/training/simple-train-sdk/img-classification-training.ipynb
-      run: bash ../../../.github/amlarc-tool.sh run_jupyter_test img-classification-training.ipynb
-      working-directory: examples/training/simple-train-sdk/
       continue-on-error: true
+    - name: run examples/training/simple-train-sdk/img-classification-training.ipynb
+      run: |
+        export AMLARC_COMPUTE_NAME=githubtest
+        bash ../../../.github/amlarc-tool.sh run_jupyter_test img-classification-training.ipynb
+      working-directory: examples/training/simple-train-sdk/
+
+    - name: clean up resources
+      if: ${{ always() }}
+      run: |
+        bash .github/amlarc-tool.sh delete_extension
+        bash .github/amlarc-tool.sh delete_arc
+        bash .github/amlarc-tool.sh delete_aks 
       
     # check result
     - name: count_result
@@ -80,16 +90,7 @@ jobs:
         bash .github/amlarc-tool.sh count_result
         if [ "$?" != "0" ]; then
             # download certificates
+
             export SUMMARY=$(bash .github/amlarc-tool.sh gen_summary_for_github_test)
             bash .github/amlarc-tool.sh file_icm
         fi
-    - name: clean up resources
-      if: ${{ always() }}
-      run: |
-        bash .github/amlarc-tool.sh delete_extension
-        bash .github/amlarc-tool.sh delete_arc
-        bash .github/amlarc-tool.sh delete_aks
-    
-   
-
-
