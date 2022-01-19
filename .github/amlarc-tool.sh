@@ -399,8 +399,13 @@ run_jupyter_test(){
 
     JOB_SPEC="${1:-examples/training/simple-train-sdk/img-classification-training.ipynb}"
 
+    echo "Job helloword" >> $RESULT_FILE
+    echo "Job $JOB_SPEC completed" | tee -a $RESULT_FILE
+    echo "Job $JOB_YML completed" | tee -a $RESULT_FILE
+    echo "Job $JOB_SPEC failed" | tee -a $RESULT_FILE
+    echo "Job helloword" >> $RESULT_FILE
     jupyter nbconvert --debug --execute $JOB_SPEC --to python
-
+    
     status=$?
     echo $status
     if [[ "$status" == "0" ]]
@@ -408,6 +413,7 @@ run_jupyter_test(){
         echo "Job $JOB_SPEC completed" | tee -a $RESULT_FILE
     else
         echo "Job $JOB_SPEC failed" | tee -a $RESULT_FILE
+	sleep 5
         return 1
     fi
 }
