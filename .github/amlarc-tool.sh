@@ -378,7 +378,7 @@ run_cli_job(){
         return 1
     else 
         echo "Job $JOB_YML unknown" | tee -a $RESULT_FILE 
-	    return 2
+	return 2
     fi
 }
 
@@ -398,22 +398,20 @@ EOF
 run_jupyter_test(){
 
     JOB_SPEC="${1:-examples/training/simple-train-sdk/img-classification-training.ipynb}"
+    JOB_DIR=$(dirname $JOB_SPEC)
+    JOB_FILE=$(basename $$JOB_SPEC)
 
-    echo "Job helloword" >> $RESULT_FILE
-    echo "Job $JOB_SPEC completed" | tee -a $RESULT_FILE
-    echo "Job $JOB_YML completed" | tee -a $RESULT_FILE
-    echo "Job $JOB_SPEC failed" | tee -a $RESULT_FILE
-    echo "Job helloword" >> $RESULT_FILE
-    jupyter nbconvert --debug --execute $JOB_SPEC --to python
-    
+    cd $JOB_DIR
+    jupyter nbconvert --debug --execute $JOB_FILE --to python
     status=$?
+    cd -
+
     echo $status
     if [[ "$status" == "0" ]]
     then
         echo "Job $JOB_SPEC completed" | tee -a $RESULT_FILE
     else
         echo "Job $JOB_SPEC failed" | tee -a $RESULT_FILE
-	sleep 5
         return 1
     fi
 }
@@ -422,10 +420,14 @@ run_jupyter_test(){
 run_py_test(){
 
     JOB_SPEC="${1:-python-sdk/workflows/train/fastai/mnist/job.py}"
+    JOB_DIR=$(dirname $JOB_SPEC)
+    JOB_FILE=$(basename $$JOB_SPEC)
 
-    python $JOB_SPEC
-
+    cd $JOB_DIR
+    python $JOB_FILE
     status=$?
+    cd -
+
     echo $status
     if [[ "$status" == "0" ]]
     then
