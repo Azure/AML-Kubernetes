@@ -375,10 +375,10 @@ run_cli_job(){
         echo "Job $JOB_YML completed" | tee -a $RESULT_FILE
     elif [[ $status ==  "Failed" ]]; then
         echo "Job $JOB_YML failed" | tee -a $RESULT_FILE
-        exit 1
+        return 1
     else 
         echo "Job $JOB_YML unknown" | tee -a $RESULT_FILE 
-	    exit 2
+	    return 2
     fi
 }
 
@@ -399,8 +399,13 @@ run_jupyter_test(){
 
     JOB_SPEC="${1:-examples/training/simple-train-sdk/img-classification-training.ipynb}"
 
+    echo "Job helloword" >> $RESULT_FILE
+    echo "Job $JOB_SPEC completed" | tee -a $RESULT_FILE
+    echo "Job $JOB_YML completed" | tee -a $RESULT_FILE
+    echo "Job $JOB_SPEC failed" | tee -a $RESULT_FILE
+    echo "Job helloword" >> $RESULT_FILE
     jupyter nbconvert --debug --execute $JOB_SPEC --to python
-
+    
     status=$?
     echo $status
     if [[ "$status" == "0" ]]
@@ -408,7 +413,8 @@ run_jupyter_test(){
         echo "Job $JOB_SPEC completed" | tee -a $RESULT_FILE
     else
         echo "Job $JOB_SPEC failed" | tee -a $RESULT_FILE
-        exit 1
+	sleep 5
+        return 1
     fi
 }
 
@@ -426,7 +432,7 @@ run_py_test(){
         echo "Job $JOB_SPEC completed" | tee -a $RESULT_FILE
     else
         echo "Job $JOB_SPEC failed" | tee -a $RESULT_FILE
-        exit 1
+        return 1
     fi
 }
 
@@ -436,10 +442,10 @@ count_result(){
     echo "RESULT:"
     cat $RESULT_FILE
     
-    [ ! -f $RESULT_FILE ] && echo "No test has run!" && exit 1 
-    [ "$(grep -c Job $RESULT_FILE)" == "0" ] && echo "No test has run!" && exit 1
+    [ ! -f $RESULT_FILE ] && echo "No test has run!" && return 1 
+    [ "$(grep -c Job $RESULT_FILE)" == "0" ] && echo "No test has run!" && return 1
     unhealthy_num=$(grep Job $RESULT_FILE | grep -ivc completed)
-    [ "$unhealthy_num" != "0" ] && echo "There are $unhealthy_num unhealthy jobs."  && exit 1
+    [ "$unhealthy_num" != "0" ] && echo "There are $unhealthy_num unhealthy jobs."  && return 1
     
     echo "All tests passed."
 }
