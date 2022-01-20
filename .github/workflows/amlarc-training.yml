@@ -34,12 +34,12 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: "3.8"
+    - name: install tools
+      run: bash .github/amlarc-tool.sh install_tools
     - name: azure login
       uses: azure/login@v1
       with:
         creds: ${{secrets.AMLARC_SP_CREDS}}
-    - name: install tools
-      run: bash .github/amlarc-tool.sh install_tools
       
     # provision resources
     - name: setup_aks
@@ -49,7 +49,9 @@ jobs:
         bash .github/amlarc-tool.sh get_kubeconfig
         bash .github/amlarc-tool.sh setup_aks
     - name: install_extension
-      run: bash .github/amlarc-tool.sh install_extension
+      run: |
+        export EXTENSION_SETTINGS="enableTraining=True enableInference=True allowInsecureConnections=True"
+        bash .github/amlarc-tool.sh install_extension
     - name: setup_workspace
       run: bash .github/amlarc-tool.sh setup_workspace
     - name: setup_compute
@@ -57,7 +59,7 @@ jobs:
     - name: setup_instance_type
       run: bash .github/amlarc-tool.sh setup_instance_type
     
-    # run test cases
+    # run training test cases
     - name: run examples/training/simple-train-cli/job.yml
       run: bash .github/amlarc-tool.sh run_cli_job examples/training/simple-train-cli/job.yml
       continue-on-error: true
