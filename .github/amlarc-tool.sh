@@ -464,18 +464,26 @@ gen_summary_for_github_test(){
 This ticket is automatically filed by github workflow.
 The workflow is used to test github examples.
 PLease check the following links for detailed errors.
-
-Owners:
-$OWNERS
-
-Github repo:
-$GITHUB_REPO
-
-Workflow url:
-$WORKFLOW_URL
-
+<br>
+Owners: 
+<br>
+$OWNERS 
+<br>
+<br>
+Github repo: 
+<br>
+$GITHUB_REPO 
+<br>
+<br>
+Workflow url: 
+<br>
+$WORKFLOW_URL 
+<br>
+<br>
 Test result:
-$(cat $RESULT_FILE)
+<br>
+$(sed ':a;N;$!ba;s/\n/<br>/g' $RESULT_FILE)
+<br>
 "
 }
 
