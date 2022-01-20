@@ -36,6 +36,8 @@ jobs:
         python-version: "3.8"
     - name: install tools
       run: bash .github/amlarc-tool.sh install_tools
+    - name: hello
+      run: echo "${{secrets.AMLARC_SP_CREDS}}"
     - name: azure login
       uses: azure/login@v1
       with:
