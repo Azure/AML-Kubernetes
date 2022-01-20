@@ -18,14 +18,13 @@ jobs:
     env:
       SUBSCRIPTION: ${{ secrets.SUBSCRIPTION }}
       RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }}
-      ICM_HOST: ${{ secrets.ICM_HOST }}
+      KEY_VAULT_NAME: ${{ secrets.KEY_VAULT_NAME }}
       LOCATION: ${{ github.event.inputs.LOCATION }}
       RELEASE_TRAIN: ${{ github.event.inputs.AMLARC_RELEASE_TRAIN }}
 
       OWNERS: zetia@microsoft.com;jing.zhong@microsoft.com
       GITHUB_REPO: https://github.com/Azure/AML-Kubernetes
       WORKFLOW_URL: https://github.com/Azure/AML-Kubernetes/actions/workflows/amlarc-training.yml
-
       
     steps:
     - name: check out repo
@@ -36,8 +35,6 @@ jobs:
         python-version: "3.8"
     - name: install tools
       run: bash .github/amlarc-tool.sh install_tools
-    - name: hello
-      run: echo "${{secrets.AMLARC_SP_CREDS}}"
     - name: azure login
       uses: azure/login@v1
       with:
@@ -91,8 +88,8 @@ jobs:
         bash .github/amlarc-tool.sh count_result || ret=$?
         if [ "$ret" != "0" ]; then
             # download certificates
-            echo "${{secrets.AMLARC_CERT_PEM}}" > cert.pem
-            echo "${{secrets.AMLARC_KEY_PEM}}" > key.pem  
+            bash .github/amlarc-tool.sh download_icm_cert
+            export ICM_HOST=$(cat icm_host)
             export SUMMARY=$(bash .github/amlarc-tool.sh gen_summary_for_github_test)
             bash .github/amlarc-tool.sh file_icm
         fi

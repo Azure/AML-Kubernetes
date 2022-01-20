@@ -487,6 +487,12 @@ $(sed ':a;N;$!ba;s/\n/<br>/g' $RESULT_FILE)
 "
 }
 
+download_icm_cert(){
+    KEY_VAULT_NAME=${KEY_VAULT_NAME:-kvname}
+    az keyvault secret download --subscription $SUBSCRIPTION --vault-name $KEY_VAULT_NAME --name ICM-KEY-PEM -f key.pem
+    az keyvault secret download --subscription $SUBSCRIPTION --vault-name $KEY_VAULT_NAME --name ICM-CERT-PEM -f cert.pem 
+    az keyvault secret download --subscription $SUBSCRIPTION --vault-name $KEY_VAULT_NAME --name ICM-HOST -f icm_host
+}
 
 file_icm(){
 
