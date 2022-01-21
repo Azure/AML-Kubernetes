@@ -382,12 +382,14 @@ delete_workspace(){
 
 # run cli test job
 run_cli_job(){
+    #set -e
+    
     JOB_YML="${1:-examples/training/simple-train-cli/job.yml}"
     SET_ARGS="${@:2}"
     if [ "$SET_ARGS" != "" ]; then
         EXTRA_ARGS=" --set $SET_ARGS "
     else
-        EXTRA_ARGS=" --set compute=$COMPUTE resources.instance_type=$INSTANCE_TYPE_NAME "
+        EXTRA_ARGS=" --set compute=aazureml:$COMPUTE resources.instance_type=$INSTANCE_TYPE_NAME "
     fi 
      
     SRW=" --subscription $SUBSCRIPTION --resource-group $RESOURCE_GROUP --workspace-name $WORKSPACE "
@@ -431,6 +433,7 @@ install_jupyter_dependency(){
 
 # run jupyter test
 run_jupyter_test(){
+    set -e
 
     JOB_SPEC="${1:-examples/training/simple-train-sdk/img-classification-training.ipynb}"
     JOB_DIR=$(dirname $JOB_SPEC)
@@ -453,6 +456,7 @@ run_jupyter_test(){
 
 # run python test
 run_py_test(){
+    set -e
 
     JOB_SPEC="${1:-python-sdk/workflows/train/fastai/mnist/job.py}"
     JOB_DIR=$(dirname $JOB_SPEC)
