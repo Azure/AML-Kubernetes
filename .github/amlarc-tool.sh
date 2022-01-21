@@ -5,7 +5,7 @@ set -x
 export LOCK_FILE=$0.lock
 export RESULT_FILE=amlarc-test-result.txt
 export MAX_RETRIES=60
-export SLEEP_SECONDS=5
+export SLEEP_SECONDS=20
 
 # Resource group
 export SUBSCRIPTION="${SUBSCRIPTION:-6560575d-fa06-4e7d-95fb-f962e74efd7a}"  
@@ -154,6 +154,9 @@ setup_aks(){
             break
         fi
     done
+    
+    [[ $provisioningState == "Succeeded" ]]
+
 }
 
 get_kubeconfig(){
@@ -195,6 +198,7 @@ connect_arc(){
         fi
     done
     
+    [[ $connectivityStatus == "Connected" ]]
 }
 
 # install extension
@@ -243,6 +247,8 @@ install_extension(){
             break
         fi
     done
+
+    [[ $provisioningState == "Succeeded" ]]
     
 }
 
