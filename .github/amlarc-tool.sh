@@ -417,8 +417,8 @@ install_jupyter_dependency(){
     pip install jupyter
     pip install notebook 
     ipython kernel install --name "amlarc" --user
-    pip install matplotlib numpy scikit-learn==0.22.1 numpy joblib azureml.core
-
+    pip install matplotlib numpy scikit-learn==0.22.1 numpy joblib glob2
+    pip install azureml.core azure.cli.core
     pip list || true
 }
 
