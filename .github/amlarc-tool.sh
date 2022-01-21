@@ -90,6 +90,26 @@ install_tools(){
     az version || true
 }
 
+register_provider(){
+    
+    # For aks
+    az provider register --namespace Microsoft.ContainerService
+    
+    # For arc
+    az provider register -n 'Microsoft.Kubernetes'
+    
+    # For amlarc extension
+    az provider register --namespace Microsoft.Relay
+    az provider register --namespace Microsoft.ServiceBus
+    az provider register --namespace Microsoft.KubernetesConfiguration
+    az provider register --namespace Microsoft.ContainerService
+    az feature register --namespace Microsoft.ContainerService -n AKS-ExtensionManager
+    
+    # For workspace
+    az provider register --namespace Microsoft.Storage
+    
+}
+
 # setup RG
 setup_resource_group(){
     # create resource group
