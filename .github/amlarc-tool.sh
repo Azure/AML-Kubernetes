@@ -84,10 +84,29 @@ install_tools(){
     && sudo mv ./kubectl /usr/local/bin/kubectl  
 
     pip install azureml-core 
-    pip install notebook
 
     pip list || true
     az version || true
+}
+
+register_provider(){
+    
+    # For aks
+    az provider register --namespace Microsoft.ContainerService
+    
+    # For arc
+    az provider register -n 'Microsoft.Kubernetes'
+    
+    # For amlarc extension
+    az provider register --namespace Microsoft.Relay
+    az provider register --namespace Microsoft.ServiceBus
+    az provider register --namespace Microsoft.KubernetesConfiguration
+    az provider register --namespace Microsoft.ContainerService
+    az feature register --namespace Microsoft.ContainerService -n AKS-ExtensionManager
+    
+    # For workspace
+    az provider register --namespace Microsoft.Storage
+    
 }
 
 # setup RG
@@ -394,12 +413,22 @@ generate_workspace_config(){
 EOF
 }
 
+install_jupyter_dependency(){
+    pip install jupyter
+    pip install notebook 
+    ipython kernel install --name "amlarc" --user
+    pip install matplotlib numpy scikit-learn==0.22.1 numpy joblib glob2
+    pip install azureml.core azure.cli.core azureml.opendatasets azureml.widgets
+    pip list || true
+}
+
+
 # run jupyter test
 run_jupyter_test(){
 
     JOB_SPEC="${1:-examples/training/simple-train-sdk/img-classification-training.ipynb}"
     JOB_DIR=$(dirname $JOB_SPEC)
-    JOB_FILE=$(basename $$JOB_SPEC)
+    JOB_FILE=$(basename $JOB_SPEC)
 
     cd $JOB_DIR
     jupyter nbconvert --debug --execute $JOB_FILE --to python
@@ -462,8 +491,11 @@ count_result(){
 gen_summary_for_github_test(){
     echo "
 This ticket is automatically filed by github workflow.
+<br>
 The workflow is used to test github examples.
+<br>
 PLease check the following links for detailed errors.
+<br>
 <br>
 Owners: 
 <br>
@@ -487,6 +519,12 @@ $(sed ':a;N;$!ba;s/\n/<br>/g' $RESULT_FILE)
 "
 }
 
+download_icm_cert(){
+    KEY_VAULT_NAME=${KEY_VAULT_NAME:-kvname}
+    az keyvault secret download --subscription $SUBSCRIPTION --vault-name $KEY_VAULT_NAME --name ICM-KEY-PEM -f key.pem
+    az keyvault secret download --subscription $SUBSCRIPTION --vault-name $KEY_VAULT_NAME --name ICM-CERT-PEM -f cert.pem 
+    az keyvault secret download --subscription $SUBSCRIPTION --vault-name $KEY_VAULT_NAME --name ICM-HOST -f icm_host
+}
 
 file_icm(){
 
@@ -606,8 +644,12 @@ ICM_XML_TEMPLATE='<?xml version="1.0" encoding="UTF-8"?>
         -H "Expect: 100-continue" \
         -H "Content-Type: application/soap+xml; charset=utf-8" \
         -d "$PAYLOAD" 
-
+    
+    ret=$?
+    echo "code: $ret" 
+    echo "Response: $temp_file"
     xmlstarlet fo --indent-tab --omit-decl $temp_file
+    return $ret
 }
 
 

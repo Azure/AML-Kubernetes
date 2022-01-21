@@ -18,14 +18,13 @@ jobs:
     env:
       SUBSCRIPTION: ${{ secrets.SUBSCRIPTION }}
       RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }}
-      ICM_HOST: ${{ secrets.ICM_HOST }}
+      KEY_VAULT_NAME: ${{ secrets.KEY_VAULT_NAME }}
       LOCATION: ${{ github.event.inputs.LOCATION }}
       RELEASE_TRAIN: ${{ github.event.inputs.AMLARC_RELEASE_TRAIN }}
 
       OWNERS: zetia@microsoft.com;jing.zhong@microsoft.com
       GITHUB_REPO: https://github.com/Azure/AML-Kubernetes
-      WORKFLOW_URL: https://github.com/Azure/AML-Kubernetes
-
+      WORKFLOW_URL: https://github.com/Azure/AML-Kubernetes/actions/workflows/amlarc-training.yml
       
     steps:
     - name: check out repo
@@ -34,22 +33,22 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: "3.8"
+    - name: install tools
+      run: bash .github/amlarc-tool.sh install_tools
     - name: azure login
       uses: azure/login@v1
       with:
         creds: ${{secrets.AMLARC_SP_CREDS}}
-    - name: install tools
-      run: bash .github/amlarc-tool.sh install_tools
       
     # provision resources
     - name: setup_aks
       run: bash .github/amlarc-tool.sh setup_aks
     - name: connect_arc
-      run: |
-        bash .github/amlarc-tool.sh get_kubeconfig
-        bash .github/amlarc-tool.sh setup_aks
+      run: bash .github/amlarc-tool.sh connect_arc
     - name: install_extension
-      run: bash .github/amlarc-tool.sh install_extension
+      run: |
+        export EXTENSION_SETTINGS="enableTraining=True enableInference=True allowInsecureConnections=True"
+        bash .github/amlarc-tool.sh install_extension
     - name: setup_workspace
       run: bash .github/amlarc-tool.sh setup_workspace
     - name: setup_compute
@@ -57,24 +56,20 @@ jobs:
     - name: setup_instance_type
       run: bash .github/amlarc-tool.sh setup_instance_type
     
-    # run test cases
+    # run training test cases
     - name: run examples/training/simple-train-cli/job.yml
       run: bash .github/amlarc-tool.sh run_cli_job examples/training/simple-train-cli/job.yml
       continue-on-error: true
-    - name: prepare workspace config
-      run: bash .github/amlarc-tool.sh generate_workspace_config
+    - name: prepare jupyter dependency
+      run: |
+        bash .github/amlarc-tool.sh generate_workspace_config
+        bash .github/amlarc-tool.sh install_jupyter_dependency
       continue-on-error: true
     - name: run examples/training/simple-train-sdk/img-classification-training.ipynb
       run: |
         export AMLARC_COMPUTE_NAME=githubtest
         bash .github/amlarc-tool.sh run_jupyter_test examples/training/simple-train-sdk/img-classification-training.ipynb
-
-    - name: clean up resources
-      if: ${{ always() }}
-      run: |
-        bash .github/amlarc-tool.sh delete_extension
-        bash .github/amlarc-tool.sh delete_arc
-        bash .github/amlarc-tool.sh delete_aks 
+      continue-on-error: true
       
     # check result
     - name: count_result
@@ -85,10 +80,20 @@ jobs:
       if: ${{ always() }}
       run: |
         bash .github/amlarc-tool.sh count_result || ret=$?
-        if [ "$ret" != "0" ]; then
+        if [ "$ret" != "0" ] && [ "$ret" != "" ] ; then
             # download certificates
-            echo "${{secrets.AMLARC_CERT_PEM}}" > cert.pem
-            echo "${{secrets.AMLARC_KEY_PEM}}" > key.pem  
+            bash .github/amlarc-tool.sh download_icm_cert
+            export ICM_HOST=$(cat icm_host)
             export SUMMARY=$(bash .github/amlarc-tool.sh gen_summary_for_github_test)
             bash .github/amlarc-tool.sh file_icm
         fi
+
+    - name: clean up resources
+      if: ${{ always() }}
+      run: |
+        bash .github/amlarc-tool.sh delete_extension
+        bash .github/amlarc-tool.sh delete_arc
+        bash .github/amlarc-tool.sh delete_aks
+
+
+
