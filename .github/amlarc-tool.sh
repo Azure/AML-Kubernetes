@@ -482,8 +482,11 @@ count_result(){
 gen_summary_for_github_test(){
     echo "
 This ticket is automatically filed by github workflow.
+<br>
 The workflow is used to test github examples.
+<br>
 PLease check the following links for detailed errors.
+<br>
 <br>
 Owners: 
 <br>
