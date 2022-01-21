@@ -84,7 +84,6 @@ install_tools(){
     && sudo mv ./kubectl /usr/local/bin/kubectl  
 
     pip install azureml-core 
-    pip install notebook
 
     pip list || true
     az version || true
@@ -413,6 +412,13 @@ generate_workspace_config(){
 }
 EOF
 }
+
+install_jupyter_dependency(){
+    pip install jupyter
+    pip install notebook 
+    ipython kernel install --name "amlarc" --user
+}
+
 
 # run jupyter test
 run_jupyter_test(){

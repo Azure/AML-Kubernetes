@@ -60,8 +60,10 @@ jobs:
     - name: run examples/training/simple-train-cli/job.yml
       run: bash .github/amlarc-tool.sh # run_cli_job examples/training/simple-train-cli/job.yml
       continue-on-error: true
-    - name: prepare workspace config
-      run: bash .github/amlarc-tool.sh generate_workspace_config
+    - name: prepare jupyter dependency
+      run: |
+        bash .github/amlarc-tool.sh generate_workspace_config
+        bash .github/amlarc-tool.sh install_jupyter_dependency
       continue-on-error: true
     - name: run examples/training/simple-train-sdk/img-classification-training.ipynb
       run: |
