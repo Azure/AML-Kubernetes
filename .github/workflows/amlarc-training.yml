@@ -44,9 +44,7 @@ jobs:
     - name: setup_aks
       run: bash .github/amlarc-tool.sh setup_aks
     - name: connect_arc
-      run: |
-        bash .github/amlarc-tool.sh get_kubeconfig
-        bash .github/amlarc-tool.sh setup_aks
+      run: bash .github/amlarc-tool.sh connect_arc
     - name: install_extension
       run: |
         export EXTENSION_SETTINGS="enableTraining=True enableInference=True allowInsecureConnections=True"
@@ -69,13 +67,6 @@ jobs:
       run: |
         export AMLARC_COMPUTE_NAME=githubtest
         bash .github/amlarc-tool.sh run_jupyter_test examples/training/simple-train-sdk/img-classification-training.ipynb
-
-    - name: clean up resources
-      if: ${{ always() }}
-      run: |
-        bash .github/amlarc-tool.sh delete_extension
-        bash .github/amlarc-tool.sh delete_arc
-        bash .github/amlarc-tool.sh delete_aks 
       
     # check result
     - name: count_result
@@ -93,3 +84,13 @@ jobs:
             export SUMMARY=$(bash .github/amlarc-tool.sh gen_summary_for_github_test)
             bash .github/amlarc-tool.sh file_icm
         fi
+
+    - name: clean up resources
+      if: ${{ always() }}
+      run: |
+        bash .github/amlarc-tool.sh #delete_extension
+        bash .github/amlarc-tool.sh #delete_arc
+        bash .github/amlarc-tool.sh #delete_aks
+
+
+
