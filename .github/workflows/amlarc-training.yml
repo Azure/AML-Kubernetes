@@ -48,7 +48,7 @@ jobs:
     - name: install_extension
       run: |
         export EXTENSION_SETTINGS="enableTraining=True enableInference=True allowInsecureConnections=True"
-        bash .github/amlarc-tool.sh install_extension
+        bash .github/amlarc-tool.sh # install_extension
     - name: setup_workspace
       run: bash .github/amlarc-tool.sh setup_workspace
     - name: setup_compute
@@ -58,7 +58,7 @@ jobs:
     
     # run training test cases
     - name: run examples/training/simple-train-cli/job.yml
-      run: bash .github/amlarc-tool.sh run_cli_job examples/training/simple-train-cli/job.yml
+      run: bash .github/amlarc-tool.sh # run_cli_job examples/training/simple-train-cli/job.yml
       continue-on-error: true
     - name: prepare workspace config
       run: bash .github/amlarc-tool.sh generate_workspace_config
