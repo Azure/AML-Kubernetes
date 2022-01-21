@@ -419,7 +419,7 @@ run_jupyter_test(){
 
     JOB_SPEC="${1:-examples/training/simple-train-sdk/img-classification-training.ipynb}"
     JOB_DIR=$(dirname $JOB_SPEC)
-    JOB_FILE=$(basename $$JOB_SPEC)
+    JOB_FILE=$(basename $JOB_SPEC)
 
     cd $JOB_DIR
     jupyter nbconvert --debug --execute $JOB_FILE --to python

@@ -67,6 +67,7 @@ jobs:
       run: |
         export AMLARC_COMPUTE_NAME=githubtest
         bash .github/amlarc-tool.sh run_jupyter_test examples/training/simple-train-sdk/img-classification-training.ipynb
+      continue-on-error: true
       
     # check result
     - name: count_result
