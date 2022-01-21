@@ -80,7 +80,7 @@ jobs:
       if: ${{ always() }}
       run: |
         bash .github/amlarc-tool.sh count_result || ret=$?
-        if [ "$ret" != "0" ]; then
+        if [ "$ret" != "0" ] && [ "$ret" != "" ] ; then
             # download certificates
             bash .github/amlarc-tool.sh download_icm_cert
             export ICM_HOST=$(cat icm_host)
