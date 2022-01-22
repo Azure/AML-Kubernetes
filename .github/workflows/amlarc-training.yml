@@ -78,12 +78,18 @@ jobs:
     # run inference test cases
     - name: run examples/inference/simple-flow/endpoint.yml
       run: |
+        set +e
         source .github/amlarc-tool.sh
-        WS_DIR=/examples/inference/simple-flow/
+        WS_DIR=examples/inference/simple-flow/
         SUB_RG_WS=" --subscription ${SUBSCRIPTION} --resource-group ${RESOURCE_GROUP} --workspace-name ${WORKSPACE} "
         az ml online-endpoint create $SUB_RG_WS --name sklearn-mnist -f $WS_DIR/endpoint.yml --set compute=azureml:$COMPUTE
         az ml online-deployment create $SUB_RG_WS --name blue --endpoint sklearn-mnist -f $WS_DIR/blue-deployment.yml --all-traffic
-        az ml online-endpoint invoke $SUB_RG_WS -n sklearn-mnist -r $WS_DIR/sample-request.json 
+        az ml online-endpoint invoke $SUB_RG_WS -n sklearn-mnist -r $WS_DIR/sample-request.json
+        if [ "$?" == "0" ] ; then
+            echo "Job $WS_DIR/endpoint.yml completed" | tee -a $RESULT_FILE
+        else
+            echo "Job $WS_DIR/endpoint.yml failed" | tee -a $RESULT_FILE
+        fi
       continue-on-error: true
       
     # check result
