@@ -116,6 +116,7 @@ jobs:
     - name: clean up resources
       if: ${{ always() }}
       run: |
+        set +e
         bash .github/amlarc-tool.sh delete_endpoints
         bash .github/amlarc-tool.sh delete_compute
         bash .github/amlarc-tool.sh delete_extension

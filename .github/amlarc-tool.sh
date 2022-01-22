@@ -353,7 +353,7 @@ delete_endpoints(){
         name=`echo $id | awk -F '/' '{print $2}'`
         if [ "$ws_name" == "$WORKSPACE" ];then
             echo "delete online endpoint $name in workspace $ws_name"
-            az ml endpoint delete --debug --no-wait --subscription $SUBSCRIPTION -g $RESOURCE_GROUP -w $WORKSPACE -n $name -y
+            az ml online-endpoint delete --debug --no-wait --subscription $SUBSCRIPTION -g $RESOURCE_GROUP -w $WORKSPACE -n $name -y
         fi
     done;
   
