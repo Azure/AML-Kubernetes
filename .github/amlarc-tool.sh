@@ -333,6 +333,15 @@ delete_aks(){
         --yes --no-wait
 }
 
+delete_compute(){
+    az ml compute detach \
+        --subscription $SUBSCRIPTION \
+        --resource-group $RESOURCE_GROUP \
+        --workspace-name $WORKSPACE \
+        --name $COMPUTE \
+        --yes 
+}
+
 delete_endpoints(){
     endpoints=`az resource list \
         --subscription ${SUBSCRIPTION} \
@@ -387,7 +396,7 @@ run_cli_job(){
     if [ "$SET_ARGS" != "" ]; then
         EXTRA_ARGS=" --set $SET_ARGS "
     else
-        EXTRA_ARGS=" --set compute=aazureml:$COMPUTE resources.instance_type=$INSTANCE_TYPE_NAME "
+        EXTRA_ARGS=" --set compute=azureml:$COMPUTE resources.instance_type=$INSTANCE_TYPE_NAME "
     fi 
      
     SRW=" --subscription $SUBSCRIPTION --resource-group $RESOURCE_GROUP --workspace-name $WORKSPACE "
