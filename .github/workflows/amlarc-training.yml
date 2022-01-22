@@ -15,7 +15,7 @@ on:
       CLEANUP_CLUSTER:
         description: 'Whether to delete cluster: true or false'
         required: false
-        default: 'fasle'
+        default: 'false'
 jobs:
   training:
     runs-on: ubuntu-latest
