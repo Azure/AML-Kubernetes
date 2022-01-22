@@ -44,41 +44,51 @@ jobs:
         python-version: "3.8"
     - name: install tools
       run: bash .github/amlarc-tool.sh install_tools
+      timeout-minutes: 30
     - name: azure login
       uses: azure/login@v1
       with:
         creds: ${{secrets.AMLARC_SP_CREDS}}
-      
+      timeout-minutes: 30
     # provision resources
     - name: setup_aks
       run: bash .github/amlarc-tool.sh setup_aks
+      timeout-minutes: 30
     - name: connect_arc
       run: bash .github/amlarc-tool.sh connect_arc
+      timeout-minutes: 30
     - name: install_extension
       run: |
         export EXTENSION_SETTINGS="enableTraining=True enableInference=True allowInsecureConnections=True"
         bash .github/amlarc-tool.sh install_extension
+      timeout-minutes: 30
     - name: setup_workspace
       run: bash .github/amlarc-tool.sh setup_workspace
+      timeout-minutes: 30
     - name: setup_compute
       run: bash .github/amlarc-tool.sh setup_compute
+      timeout-minutes: 30
     - name: setup_instance_type
       run: bash .github/amlarc-tool.sh setup_instance_type
+      timeout-minutes: 30
     
     # run training test cases
     - name: run examples/training/simple-train-cli/job.yml
       run: bash .github/amlarc-tool.sh run_cli_job examples/training/simple-train-cli/job.yml
       continue-on-error: true
+      timeout-minutes: 30
     - name: prepare jupyter dependency
       run: |
         bash .github/amlarc-tool.sh generate_workspace_config
         bash .github/amlarc-tool.sh install_jupyter_dependency
       continue-on-error: true
+      timeout-minutes: 30
     - name: run examples/training/simple-train-sdk/img-classification-training.ipynb
       run: |
         export AMLARC_COMPUTE_NAME=githubtest
         bash .github/amlarc-tool.sh run_jupyter_test examples/training/simple-train-sdk/img-classification-training.ipynb
       continue-on-error: true
+      timeout-minutes: 30
 
     # run inference test cases
     - name: run examples/inference/simple-flow/endpoint.yml
@@ -96,12 +106,14 @@ jobs:
             echo "Job $WS_DIR/endpoint.yml failed" | tee -a $RESULT_FILE
         fi
       continue-on-error: true
+      timeout-minutes: 30
       
     # check result
     - name: count_result
       if: ${{ always() }}
       run: |
         bash .github/amlarc-tool.sh count_result
+      timeout-minutes: 30
     - name: file_icm
       if: ${{ always() }}
       run: |
@@ -113,6 +125,7 @@ jobs:
             export SUMMARY=$(bash .github/amlarc-tool.sh gen_summary_for_github_test)
             bash .github/amlarc-tool.sh file_icm
         fi
+      timeout-minutes: 30
 
     - name: clean up resources
       if: ${{ always() }}
@@ -128,6 +141,7 @@ jobs:
         if [ "${{ github.event.inputs.CLEANUP_WORKSPACE }}" == "true" ] ; then
             bash .github/amlarc-tool.sh delete_workspace
         fi
+      timeout-minutes: 30
 
 
 
