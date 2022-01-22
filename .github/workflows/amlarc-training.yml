@@ -30,6 +30,7 @@ jobs:
       LOCATION: ${{ github.event.inputs.LOCATION }}
       RELEASE_TRAIN: ${{ github.event.inputs.AMLARC_RELEASE_TRAIN }}
 
+      SEVERITY: 3
       OWNERS: zetia@microsoft.com;jing.zhong@microsoft.com
       GITHUB_REPO: https://github.com/Azure/AML-Kubernetes
       WORKFLOW_URL: https://github.com/Azure/AML-Kubernetes/actions/workflows/amlarc-training.yml
