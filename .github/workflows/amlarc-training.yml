@@ -1,4 +1,4 @@
-name: amlarc-training-test
+name: amlarc-examples-test
 on:
   schedule:
     - cron: "0 23 * * *"
@@ -21,7 +21,7 @@ on:
         required: false
         default: 'false'
 jobs:
-  training:
+  test:
     runs-on: ubuntu-latest
     env:
       SUBSCRIPTION: ${{ secrets.SUBSCRIPTION }}
