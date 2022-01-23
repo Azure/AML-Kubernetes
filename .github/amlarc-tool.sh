@@ -343,20 +343,17 @@ delete_compute(){
 }
 
 delete_endpoints(){
-    endpoints=`az resource list \
-        --subscription ${SUBSCRIPTION} \
-        --resource-group ${RESOURCE_GROUP} \
-        --query "[?type=='Microsoft.MachineLearningServices/workspaces/onlineEndpoints'].name" -o tsv`
-   
-    for id in $endpoints; do
-        ws_name=`echo $id | awk -F '/' '{print $1}'`
-        name=`echo $id | awk -F '/' '{print $2}'`
-        if [ "$ws_name" == "$WORKSPACE" ];then
-            echo "delete online endpoint $name in workspace $ws_name"
-            az ml online-endpoint delete --debug --no-wait --subscription $SUBSCRIPTION -g $RESOURCE_GROUP -w $WORKSPACE -n $name -y
-        fi
+    SUB_RG_WS=" --subscription $SUBSCRIPTION --resource-group $RESOURCE_GROUP --workspace-name $WORKSPACE "
+    endpoints=$(az ml online-endpoint list $SUB_RG_WS --query "[].name" -o tsv)
+    
+    for ep in $endpoints; do
+        deployments=$(az ml online-deployment list $SUB_RG_WS --endpoint-name $ep --query "[].name" -o tsv)
+        
+        for dp in $deployments; do
+            az ml online-deployment delete $SUB_RG_WS --endpoint-name $ep --name $dp --yes
+        done;
+        az ml online-endpoint delete $SUB_RG_WS --name $ep --yes
     done;
-  
 }
 
 delete_workspace(){
