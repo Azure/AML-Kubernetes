@@ -483,14 +483,28 @@ run_py_test(){
 # count result
 count_result(){
 
+    MIN_SUCCESS_NUM=${MIN_SUCCESS_NUM:--1}
+
     echo "RESULT:"
     cat $RESULT_FILE
+
+    [ ! -f $RESULT_FILE ] && touch $RESULT_FILE
+
+    total=$(grep -c Job $RESULT_FILE)
+    success=$(grep Job $RESULT_FILE | grep -ic completed)
+    unhealthy=$(grep Job $RESULT_FILE | grep -ivc completed)
+    echo "Total: ${total}, Success: ${success}, Unhealthy: ${unhealthy}, MinSuccessNum: ${MIN_SUCCESS_NUM}."
     
-    [ ! -f $RESULT_FILE ] && echo "No test has run!" && return 1 
-    [ "$(grep -c Job $RESULT_FILE)" == "0" ] && echo "No test has run!" && return 1
-    unhealthy_num=$(grep Job $RESULT_FILE | grep -ivc completed)
-    [ "$unhealthy_num" != "0" ] && echo "There are $unhealthy_num unhealthy jobs."  && return 1
+    if (( 10#${unhealthy} > 0 )) ; then
+        echo "There are $unhealthy unhealthy jobs."
+        return 1
+    fi
     
+    if (( 10#${MIN_SUCCESS_NUM} > 10#${success} )) ; then
+        echo "There should be at least ${MIN_SUCCESS_NUM} success jobs. Found ${success} success jobs."
+        return 1
+    fi
+ 
     echo "All tests passed."
 }
 
