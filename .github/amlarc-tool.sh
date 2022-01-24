@@ -1,4 +1,4 @@
-## This script is used to run training test on AmlArc-enabled compute
+## This script is used to run amlarc test on AmlArc-enabled compute
 set -x
 
 # Global variables
@@ -548,6 +548,8 @@ download_icm_cert(){
     az keyvault secret download --subscription $SUBSCRIPTION --vault-name $KEY_VAULT_NAME --name ICM-KEY-PEM -f key.pem
     az keyvault secret download --subscription $SUBSCRIPTION --vault-name $KEY_VAULT_NAME --name ICM-CERT-PEM -f cert.pem 
     az keyvault secret download --subscription $SUBSCRIPTION --vault-name $KEY_VAULT_NAME --name ICM-HOST -f icm_host
+    az keyvault secret download --subscription $SUBSCRIPTION --vault-name $KEY_VAULT_NAME --name ICM-CONNECTOR-ID -f icm_connector_id
+    az keyvault secret download --subscription $SUBSCRIPTION --vault-name $KEY_VAULT_NAME --name ICM-ROUTING-ID -f icm_routing_id
 }
 
 file_icm(){
