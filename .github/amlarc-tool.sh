@@ -347,6 +347,7 @@ delete_endpoints(){
     endpoints=$(az ml online-endpoint list $SUB_RG_WS --query "[].name" -o tsv)
     
     for ep in $endpoints; do
+        az ml online-endpoint update $SUB_RG_WS --name $ep --traffic "*=0"
         deployments=$(az ml online-deployment list $SUB_RG_WS --endpoint-name $ep --query "[].name" -o tsv)
         
         for dp in $deployments; do
