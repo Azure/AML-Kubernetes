@@ -5,7 +5,7 @@ set -x
 export LOCK_FILE=$0.lock
 export RESULT_FILE=amlarc-test-result.txt
 export MAX_RETRIES=60
-export SLEEP_SECONDS=5
+export SLEEP_SECONDS=20
 
 # Resource group
 export SUBSCRIPTION="${SUBSCRIPTION:-6560575d-fa06-4e7d-95fb-f962e74efd7a}"  
@@ -154,6 +154,9 @@ setup_aks(){
             break
         fi
     done
+    
+    [[ $provisioningState == "Succeeded" ]]
+
 }
 
 get_kubeconfig(){
@@ -195,6 +198,7 @@ connect_arc(){
         fi
     done
     
+    [[ $connectivityStatus == "Connected" ]]
 }
 
 # install extension
@@ -243,6 +247,8 @@ install_extension(){
             break
         fi
     done
+
+    [[ $provisioningState == "Succeeded" ]]
     
 }
 
@@ -327,21 +333,27 @@ delete_aks(){
         --yes --no-wait
 }
 
+delete_compute(){
+    az ml compute detach \
+        --subscription $SUBSCRIPTION \
+        --resource-group $RESOURCE_GROUP \
+        --workspace-name $WORKSPACE \
+        --name $COMPUTE \
+        --yes 
+}
+
 delete_endpoints(){
-    endpoints=`az resource list \
-        --subscription ${SUBSCRIPTION} \
-        --resource-group ${RESOURCE_GROUP} \
-        --query "[?type=='Microsoft.MachineLearningServices/workspaces/onlineEndpoints'].name" -o tsv`
-   
-    for id in $endpoints; do
-        ws_name=`echo $id | awk -F '/' '{print $1}'`
-        name=`echo $id | awk -F '/' '{print $2}'`
-        if [ "$ws_name" == "$WORKSPACE" ];then
-            echo "delete online endpoint $name in workspace $ws_name"
-            az ml endpoint delete --debug --no-wait --subscription $SUBSCRIPTION -g $RESOURCE_GROUP -w $WORKSPACE -n $name -y
-        fi
+    SUB_RG_WS=" --subscription $SUBSCRIPTION --resource-group $RESOURCE_GROUP --workspace-name $WORKSPACE "
+    endpoints=$(az ml online-endpoint list $SUB_RG_WS --query "[].name" -o tsv)
+    
+    for ep in $endpoints; do
+        deployments=$(az ml online-deployment list $SUB_RG_WS --endpoint-name $ep --query "[].name" -o tsv)
+        
+        for dp in $deployments; do
+            az ml online-deployment delete $SUB_RG_WS --endpoint-name $ep --name $dp --yes
+        done;
+        az ml online-endpoint delete $SUB_RG_WS --name $ep --yes
     done;
-  
 }
 
 delete_workspace(){
@@ -381,7 +393,7 @@ run_cli_job(){
     if [ "$SET_ARGS" != "" ]; then
         EXTRA_ARGS=" --set $SET_ARGS "
     else
-        EXTRA_ARGS=" --set compute=$COMPUTE resources.instance_type=$INSTANCE_TYPE_NAME "
+        EXTRA_ARGS=" --set compute=azureml:$COMPUTE resources.instance_type=$INSTANCE_TYPE_NAME "
     fi 
      
     SRW=" --subscription $SUBSCRIPTION --resource-group $RESOURCE_GROUP --workspace-name $WORKSPACE "
@@ -425,7 +437,6 @@ install_jupyter_dependency(){
 
 # run jupyter test
 run_jupyter_test(){
-
     JOB_SPEC="${1:-examples/training/simple-train-sdk/img-classification-training.ipynb}"
     JOB_DIR=$(dirname $JOB_SPEC)
     JOB_FILE=$(basename $JOB_SPEC)
@@ -447,7 +458,6 @@ run_jupyter_test(){
 
 # run python test
 run_py_test(){
-
     JOB_SPEC="${1:-python-sdk/workflows/train/fastai/mnist/job.py}"
     JOB_DIR=$(dirname $JOB_SPEC)
     JOB_FILE=$(basename $$JOB_SPEC)
@@ -470,14 +480,28 @@ run_py_test(){
 # count result
 count_result(){
 
+    MIN_SUCCESS_NUM=${MIN_SUCCESS_NUM:--1}
+
     echo "RESULT:"
     cat $RESULT_FILE
+
+    [ ! -f $RESULT_FILE ] && touch $RESULT_FILE
+
+    total=$(grep -c Job $RESULT_FILE)
+    success=$(grep Job $RESULT_FILE | grep -ic completed)
+    unhealthy=$(grep Job $RESULT_FILE | grep -ivc completed)
+    echo "Total: ${total}, Success: ${success}, Unhealthy: ${unhealthy}, MinSuccessNum: ${MIN_SUCCESS_NUM}."
     
-    [ ! -f $RESULT_FILE ] && echo "No test has run!" && return 1 
-    [ "$(grep -c Job $RESULT_FILE)" == "0" ] && echo "No test has run!" && return 1
-    unhealthy_num=$(grep Job $RESULT_FILE | grep -ivc completed)
-    [ "$unhealthy_num" != "0" ] && echo "There are $unhealthy_num unhealthy jobs."  && return 1
+    if (( 10#${unhealthy} > 0 )) ; then
+        echo "There are $unhealthy unhealthy jobs."
+        return 1
+    fi
     
+    if (( 10#${MIN_SUCCESS_NUM} > 10#${success} )) ; then
+        echo "There should be at least ${MIN_SUCCESS_NUM} success jobs. Found ${success} success jobs."
+        return 1
+    fi
+ 
     echo "All tests passed."
 }
 
