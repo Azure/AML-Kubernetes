@@ -11,3 +11,7 @@ For MPI job on Azure Arc-enabled on-premise Kubernetes cluster, AzureML provides
 ## AML Dataset support
 
 Azure Arc-enabled Machine Learning job supports mounting/downloading an AML Dataset to a local path specified by the field "PathOnCompute". But this path can not be any of following: under root folder (e.g. /<myfolder>), priviledge folder (e.g. /data/<myfolder>), and an existing folder. 
+  
+## Compute with Managed Identity in Private Azure Machine Learning Workspace
+  
+AMLArc compute can be assigned with either system-assigned or user-assigned managed identity, to access custom Azure Container Registry (ACR) or access AML dataset. The current limitation is that the managed identity doesn't work in AML workspace with private endpoint.
