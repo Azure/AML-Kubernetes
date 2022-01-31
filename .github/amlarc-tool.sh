@@ -279,7 +279,7 @@ setup_compute(){
         --workspace-name $WORKSPACE \
         --type Kubernetes \
         --resource-id "$RESOURCE_ID" \
-        --namespace "$COMPUTE_NS"
+        --namespace "$COMPUTE_NS" \
         --name $COMPUTE \
         $@
 
