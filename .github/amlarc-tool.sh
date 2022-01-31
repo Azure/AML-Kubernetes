@@ -271,12 +271,15 @@ setup_workspace(){
 # setup compute
 setup_compute(){
 
+   COMPUTE_NS=${COMPUTE_NS:-default}
+
     az ml compute attach \
         --subscription $SUBSCRIPTION \
         --resource-group $RESOURCE_GROUP \
         --workspace-name $WORKSPACE \
         --type Kubernetes \
         --resource-id "$RESOURCE_ID" \
+        --namespace "$COMPUTE_NS"
         --name $COMPUTE \
         $@
 
