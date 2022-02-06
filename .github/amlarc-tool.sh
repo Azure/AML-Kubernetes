@@ -271,12 +271,15 @@ setup_workspace(){
 # setup compute
 setup_compute(){
 
+   COMPUTE_NS=${COMPUTE_NS:-default}
+
     az ml compute attach \
         --subscription $SUBSCRIPTION \
         --resource-group $RESOURCE_GROUP \
         --workspace-name $WORKSPACE \
         --type Kubernetes \
         --resource-id "$RESOURCE_ID" \
+        --namespace "$COMPUTE_NS" \
         --name $COMPUTE \
         $@
 
@@ -461,7 +464,7 @@ run_jupyter_test(){
 run_py_test(){
     JOB_SPEC="${1:-python-sdk/workflows/train/fastai/mnist/job.py}"
     JOB_DIR=$(dirname $JOB_SPEC)
-    JOB_FILE=$(basename $$JOB_SPEC)
+    JOB_FILE=$(basename $JOB_SPEC)
 
     cd $JOB_DIR
     python $JOB_FILE
@@ -546,11 +549,11 @@ $(sed ':a;N;$!ba;s/\n/<br>/g' $RESULT_FILE)
 
 download_icm_cert(){
     KEY_VAULT_NAME=${KEY_VAULT_NAME:-kvname}
-    az keyvault secret download --subscription $SUBSCRIPTION --vault-name $KEY_VAULT_NAME --name ICM-KEY-PEM -f key.pem
-    az keyvault secret download --subscription $SUBSCRIPTION --vault-name $KEY_VAULT_NAME --name ICM-CERT-PEM -f cert.pem 
-    az keyvault secret download --subscription $SUBSCRIPTION --vault-name $KEY_VAULT_NAME --name ICM-HOST -f icm_host
-    az keyvault secret download --subscription $SUBSCRIPTION --vault-name $KEY_VAULT_NAME --name ICM-CONNECTOR-ID -f icm_connector_id
-    az keyvault secret download --subscription $SUBSCRIPTION --vault-name $KEY_VAULT_NAME --name ICM-ROUTING-ID -f icm_routing_id
+    az keyvault secret download --vault-name $KEY_VAULT_NAME --name ICM-KEY-PEM -f key.pem
+    az keyvault secret download --vault-name $KEY_VAULT_NAME --name ICM-CERT-PEM -f cert.pem 
+    az keyvault secret download --vault-name $KEY_VAULT_NAME --name ICM-HOST -f icm_host
+    az keyvault secret download --vault-name $KEY_VAULT_NAME --name ICM-CONNECTOR-ID -f icm_connector_id
+    az keyvault secret download --vault-name $KEY_VAULT_NAME --name ICM-ROUTING-ID -f icm_routing_id
 }
 
 file_icm(){
