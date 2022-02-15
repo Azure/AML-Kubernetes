@@ -3,7 +3,7 @@ code:
   local_path: ./src
 command: python train.py --data-folder ./mnist-data --regularization 0.5
 environment: azureml:AzureML-sklearn-0.24-ubuntu18.04-py37-cpu:7
-compute: azureml:<your compute target name>
+compute: azureml:tailwind-k8s
 resources:
   instance_type: <your instance type>
     
