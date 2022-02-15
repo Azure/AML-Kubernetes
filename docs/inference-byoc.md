@@ -73,6 +73,10 @@ dependencies:
   - scikit-learn==0.22.1
 name: azureml
 ```
+### Authenticate to private container registry
+
+The username and password of the container registry can't be passed from the cloud. If you are building the docker image to your custom container registry. Please follow the Kubernetes instruction [using a private registry](https://kubernetes.io/docs/concepts/containers/images/#using-a-private-registry) to provide the credentials, so your cluster can pull the docker image.
+
 
 ### Create the online-endpoint
 Create online endpoint yaml,
