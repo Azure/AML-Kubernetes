@@ -1,5 +1,5 @@
 ## Meet network requirements
-Clusters running behind an outbound proxy server or firewall need additional network configurations. Fulfill [Azure Arc network requirements](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/quickstart-connect-cluster?tabs=azure-cli#meet-network-requirement) needed by Azure Arc agents. Besides that, the following output URLs are required for Azure Machine Learning,
+Clusters running behind an outbound proxy server or firewall need additional network configurations. Fulfill [Azure Arc network requirements](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/quickstart-connect-cluster?tabs=azure-cli#meet-network-requirement) needed by Azure Arc agents. Besides that, the following outbound URLs are required for Azure Machine Learning,
 
 | Outbound Endpoint| Port | Description|Training |Inference |
 |--|--|--|--|--|
