@@ -64,7 +64,7 @@ Use ```k8s-extension create``` CLI command to deploy AzureML extension, review l
    | ```sslCertPemFile```, ```sslKeyPemFile``` |Path to SSL certificate and key file (PEM-encoded), required for AzureML extension deployment with HTTPS endpoint support for inference, when  ``allowInsecureConnections`` is set to False. | N/A| Optional |  Optional |
 
 
-## Prerequisites 
+## Prerequisites for ARO and OCP
 
 -  For AzureML extension deployment on ARO or OCP cluster, grant privileged access to AzureML service accounts, run ```oc edit scc privileged``` command, and add following service accounts under "users:":
 
@@ -84,13 +84,8 @@ Use ```k8s-extension create``` CLI command to deploy AzureML extension, review l
       >* **{EXTENSION-NAME}:** is the extension name specified with ```az k8s-extension create --name``` CLI command. 
       >* **{KUBERNETES-COMPUTE-NAMESPACE}:** is the namespace of kubernetes compute specified with ```az ml compute attach --namespace``` CLI command. Skip configuring 'system:serviceaccount:{KUBERNETES-COMPUTE-NAMESPACE}:default' if no namespace specified with ```az ml compute attach ``` CLI command.
 
--  Log in to Azure
+## Prerequisites for Azure Kubernetes Services (AKS) - No Azure Arc connection
 
-   ```azurecli
-   az login
-   az account set --subscription <your-subscription-id>
-   ```
-   
 - If you use Azure Kubernetes Services(AKS) cluster and it's not connected to Azure Arc, please register below feature for your subscription.
   ```azurecli
   az feature register --namespace Microsoft.ContainerService -n AKS-ExtensionManager
