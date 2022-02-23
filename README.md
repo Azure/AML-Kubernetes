@@ -51,7 +51,7 @@ Azure Arc enabled ML essentially brings a new compute target to Azure Machine Le
    |[Build and use ML Pipeline (Python)](https://docs.microsoft.com/azure/machine-learning/how-to-create-machine-learning-pipelines)|&check;|
    |[Train with Designer pipeline](https://docs.microsoft.com/azure/machine-learning/how-to-track-designer-experiments)|&check;|
    |[Train and deploy with AutoML (Python)](https://docs.microsoft.com/azure/machine-learning/how-to-configure-auto-train)|&check;|
-   |[Use managed identity to access Azure resources](./docs/managed-identity)|&check;|
+   |[Use managed identity to access Azure resources](./docs/managed-identity.md)|&check;|
    |[Deploy model with Designer UI](https://docs.microsoft.com/azure/machine-learning/how-to-deploy-model-designer)|Coming soon|
    |[Train and deploy with AutoML (Studio UI)](https://docs.microsoft.com/azure/machine-learning/how-to-use-automated-ml-for-ml-models)|Coming soon|
    |[Deploy model with Batch Endpoint](https://docs.microsoft.com/azure/machine-learning/how-to-deploy-managed-online-endpoints)|Coming soon|
