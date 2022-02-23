@@ -22,12 +22,17 @@ This repository is intended to serve as an information hub for customers and par
 
 Getting started with ArcML is easy with following steps:
 
-* [Deploy AzureML extension Kubernetes cluster](./docs/deploy-extension.md)
-* [Attach Kubernetes cluster to AzureML workspace and create a compute target](./docs/attach-compute.md)
-* [Train image classification model with AzureML CLI v2](./docs/simple-train-cli.md)
-* [Train image classification model with AzureML Python SDK 1.30 or above](./examples/training/simple-train-sdk/img-classification-training.ipynb)
-* [Deploy an image classification model - create an endpoint with blue/green deployment](./docs/simple-flow.md)
+1. [Install AzureML extension](./docs/deploy-extension.md)
+1. [Attach Kubernetes cluster to AzureML workspace and create a compute target](./docs/attach-compute.md)
+1. [Train image classification model with AzureML CLI v2](./docs/simple-train-cli.md)
+1. [Train image classification model with AzureML Python SDK 1.30 or above](./examples/training/simple-train-sdk/img-classification-training.ipynb)
+1. [Deploy an image classification model - create an endpoint with blue/green deployment](./docs/simple-flow.md)
+
+Using Azure Stack HCI:
 * [Use AKS on Azure Stack HCI for on-premises machine learning](https://aka.ms/aks-hci-ml)
+
+Trouble shooting:
+* [TroubleShootingGuide](./docs/troubleshooting.md)
 
 ## Supported AzureML built-features and ArcML unique features
 
