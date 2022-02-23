@@ -1,5 +1,37 @@
 # Deploy AzureML extension to your Kubernetes cluster
 
+AzureML extension can be easily installed with a single ```az k8s-extension create``` command. But according to your needs and deployment scenarios, different parameters and pre-checkings should be paid attention to, like K8s distro, cluster resources, networking, security, storage and AML features. 
+
+For a quick test scenario, please try the following two happy paths with [Minikube](#install-with-minikube) and [AKS](#install-with-aks) clusters respectively. For special production needs, please refer to the corresponding sections below. For any errors or failures, please refer to  [Trouble Shooting](./troubleshooting.md).
+
+* [Install with Minikube](#install-with-minikube)
+* [Install with AKS](#install-with-aks)
+* [AzureML Extension Agents](#azureml-extension-agents)
+* [AzureML Extension CLI Flags](#review-azureml-deployment-configuration-settings)
+* [Install with OCP](./deploy-on-ocp.md)
+* [Install with GKE](./gke-setup.md)
+* [Network Requirements](./network-requirements.md)
+* [Azure Cni Setup](./azure-cni-setup.md)
+* [Onprem Baremetal Blobfuse Detup](./onprem-baremetal-blobfuse-setup.md)
+* [Bring Your Own PVC](./pvc.md)
+* [NFS Storage](./setup-ephemeral-nfs-volume.md)
+* [Migrate AKS Service to Amlarc](./migrate-aks-service-to-amlarc.md)
+* 
+* [Update Extension](#update-azure-machine-learning-extension)
+* [Delete Extension](#delete-azure-machine-learning-extension)
+* [Trouble Shooting](./troubleshooting.md)
+
+[Verify Extension](#verify-your-azureml-extension-deployment)
+
+## Install with Minikube
+Basic knowledge intruduction
+
+[Minikube](https://minikube.sigs.k8s.io/docs/start/)
+
+## Install with AKS
+Managed aks
+
+## AzureML Extension Agents
 With a simple AzureML extension deployment, an AKS cluster or any Azure Arc enabled Kubernetes cluster, you can instantly onboard data science professionals to submit ML workload to the Kubernetes clusters by using existing Azure ML tools and service capabilities. You can deploy AzureML extension and enables Kubernetes cluster for following machine learning needs:
 * Deploy AzureML extension for model training and batch inference
 * Deploy AzureML extension for real-time inferencing only
