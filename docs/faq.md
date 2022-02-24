@@ -5,9 +5,19 @@
 
 With increasing adoption of Kubernetes for machine learning among enterprises, Azure Machine Learning provides enterprise ML infrastructure team to easily setup and enable Kubernetes for their data science teams to use. At the same time, data scientists can focus on building high quality models and model deployment professionals can focus on scaling models production without getting involved about Kubernetes technical details. 
 
-## Why should I use Azure Arc enabled Machine Learning for model deployment?
+## Why should I use Azure Arc enabled Machine Learning?
 
 Many enterprises want to start machine learning now with where data lives today, which could be in multi-cloud or on-premises. Enterprises also want to optimize IT operation to leverage wherever workload is available. With flexibility of cloud-native development provided by Kubernetes, enterprises now can spin up Kubernetes cluster anywhere to meet their machine learning needs, at the same time to address security and privacy compliance requirements in a highly regulated environment. With Azure Arc enabled Machine Learning, enterprises now can have hybrid machine learning lifecycle such as train models in cloud and deploy models on-premises, or train models on-premises and deploy models in cloud, to leverage where compute and data available and broaden service access.
+
+## Isn’t Azure Arc enabled Machine Learning still in public cloud?
+
+* The control plane (Azure Machine Learning Studio, Azure Machine Learning microservices, dependent Azure services) is in the cloud. The cluster and data can be on premises or in any cloud up to the infrastructure setup. The Azure Machine Learning extension deployed to the cluster is used to communicate with the control plance, and make machine learning workloads run properly in the cluster.
+
+* Azure Arc enabled Machine Learning extends AzureML anywhere to on-premises or any cloud. Both existing types of the compute in AzureML and Arc enabled cluster share the same AzureML control plane.
+
+* The hybrid archetecture (having control plane in cloud) benefits customer with the evolving experiences with Azure Machine Learning platform features.
+
+* Azure private link setup on Azure Arc and Azure Machine Learning related resources can avoid public network inbound and outbound.
 
 ## How do I use Azure Arc enabled Machine Learning?
 
