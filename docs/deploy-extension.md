@@ -2,7 +2,7 @@
 
 AzureML extension can be easily installed with a single ```az k8s-extension create``` command. But according to your needs and deployment scenarios, different parameters and pre-checkings should be paid attention to, like K8s distro, cluster resources, networking, security, storage and AML features. 
 
-For a quick test scenario, please try the following two happy paths with [Minikube](#install-with-minikube) and [AKS](#install-with-aks) clusters respectively. For special production needs, please refer to the corresponding sections below. For any errors or failures, please refer to  [Trouble Shooting](./troubleshooting.md).
+For a quick test scenario, please try the following two happy paths with [Minikube](#install-with-minikube) and [AKS](#install-with-aks) clusters respectively. For special production needs, please refer to the corresponding sections below. For any errors or failures, please refer to [Trouble Shooting](./troubleshooting.md).
 
 * [Install with Minikube](#install-with-minikube)
 * [Install with AKS](#install-with-aks)
@@ -16,17 +16,14 @@ For a quick test scenario, please try the following two happy paths with [Miniku
 * [Bring Your Own PVC](./pvc.md)
 * [NFS Storage](./setup-ephemeral-nfs-volume.md)
 * [Migrate AKS Service to Amlarc](./migrate-aks-service-to-amlarc.md)
-* 
+* [Verify Extension](#verify-your-azureml-extension-deployment)
 * [Update Extension](#update-azure-machine-learning-extension)
 * [Delete Extension](#delete-azure-machine-learning-extension)
 * [Trouble Shooting](./troubleshooting.md)
 
-[Verify Extension](#verify-your-azureml-extension-deployment)
-
 ## Install with Minikube
-Basic knowledge intruduction
+Assuming that you have a local K8s cluster created by [Minikube](https://minikube.sigs.k8s.io/docs/start/) and have [kubectl](https://kubernetes.io/docs/tasks/tools/) and [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli) tools installed. Check and make sure your cluster have at least 4 cpu cores and 8 Gib memeories by running ```kubectl describe node```.
 
-[Minikube](https://minikube.sigs.k8s.io/docs/start/)
 
 ## Install with AKS
 Managed aks
