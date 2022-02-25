@@ -24,3 +24,12 @@ Azure offers a couple of ways to assign roles to Managed Identity.
 >
 > If you have user-assigned managed identity, select **Managed identity** to find the target identity. 
    ![Managed identity](./media/assign-role.png)
+   
+   ### Use Managed Identity to pull image from Azure Container Registry
+   
+   "AcrPull" role shoule be granted to the compute Managed Identity.
+   
+   ### Use Managed Identity to access Azure Blob
+   
+-	For read-only purpose, at least “Reader and Data Access” and “Storage Blob Data Reader” roles should be granted to the compute Managed Identity.
+-	For read-write purpose, at least Reader and Data Access” and “Storage Blob Data Contributor” should be granted to the compute Managed Identity.
