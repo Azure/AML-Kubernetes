@@ -1,23 +1,28 @@
-This document is WIP.
-1. Use `kubectl` to get logs, and contact suport for support.
+## This document is WIP!
+# AzureML Extension Trouble Shooting
+This document is used to help customer solve problems when using AzureML extension. 
+* [General Guide](#general-guide)
+* [Installation Guide](#installation-guide)
+* [Training Guide](#training-guide)
+* [Inference Guide](#inference-guide)
 
 
-# Timeout
-Stuff took too long.
-Tends to be transient. Try again.
+## General Guide
 
-# AgentInstallationFailedDueToExceptions
-Encountered an error when attempting AMLK8s agent installation.
-Please check the logs for more info.
+## Installation Guide
 
-# ClusterNotReachable
-AKS API server cannot be connected. Please make sure AKS sets correct NSG rules and policy to allow AzureMachineLearning service.
-To start, read https://docs.microsoft.com/en-us/azure/machine-learning/how-to-network-security-overview
+1. Installation framework  
+    AzureML extension is released as a helm chart and installed by helm v3.
+1. Check extension agent status locally  
+    By default, AzureML extension is installed in azureml namespace. Run ```helm list -a -n azureml``` to check helm chart status. Run ```kubectl get pod -n azureml``` to check status of all agent pods. Run ```kubectl get events -n azureml --sort-by='.lastTimestamp'``` to get events of extension.
+1. Get health check report of extension  
+    Run ```helm test -n azureml <extension-name> --logs``` to trigger the build-in test to generate a health report of the extension. The report is saved in cofigmap named "amlarc-healthcheck" under azureml namespace. Run ```kubectl get configmap -n azureml amlarc-healthcheck --output="jsonpath={.data.status-test-success}"``` to get a summary of the report. Run ```kubectl get configmap -n azureml amlarc-healthcheck --output="jsonpath={.data.reports-test-success}"``` to get detailed infomation of the report. 
 
-# AttachmentOfPrivateAksClusterNotSupported
-The attachment of private Aks clusters in this AML region is currently not supported.
-During private preview Kubernetes compute is limited to only a few regions. One region is eastus.
+## Training Guide
 
-# ConflictingArtifactsInCluster
-The cluster contains artifacts that may conflict with the AMLK8s agent.
-Please make sure the namespaces are clear before starting install.
+## Inference Guide
+
+
+
+
+
