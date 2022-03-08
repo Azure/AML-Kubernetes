@@ -27,6 +27,36 @@ This document is used to help customer solve problems when using AzureML extensi
     * If the resource is also used by other components in your cluster and can't be modified. Please refer to [doc](./deploy-extension.md#review-azureml-deployment-configuration-settings) to see if there is a flag to disable the resource from AzureML extension side. Taking the previous error message as an example, it's a resource of [Volcano Schduler](https://github.com/volcano-sh/volcano). If Volcano Schduler has been installed in your cluster, you can set ```volcanoScheduler.enable=false``` flag to disable it to avoid the confliction.
 
 
+4. Skip installation of volcano in the extension
+   
+   If user have their own volcano suite installed, they can set `volcanoScheduler.enable=false` , so that the extension will not try to install the volcano scheduler. Volcano scheduler and volcano controller are required for job submission and scheduling.
+
+    1. The version of volcano we are using and run tests against with is `1.5.0` , other version may not work as expected.
+    2. The volcano scheduler config we are using is :
+    
+        ```yaml
+        volcano-scheduler.conf: |
+            actions: "enqueue, allocate, backfill"
+            tiers:
+            - plugins:
+              - name: task-topology
+              - name: priority
+              - name: gang
+              - name: conformance
+            - plugins:
+              - name: overcommit
+              - name: drf
+              - name: predicates
+              - name: proportion
+              - name: nodeorder
+              - name: binpack
+        ```
+    
+        We are using `task-topology` plugins in the scheduler, if user have a volcano version greater than `1.3.0` , please consider enable this plugin.
+    
+    3. There is a bug in volcano admission and it will break our job, so we disabled `job/validate` webhook explicitly in the volcano admission provided in our extension, user should also patch their volcano admission otherwise the common runtime job won’t work.
+    See this [issue](https://github.com/volcano-sh/volcano/issues/1680).
+
 ## Training Guide
 
 ## Inference Guide
