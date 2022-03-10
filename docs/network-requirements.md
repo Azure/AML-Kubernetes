@@ -1,5 +1,18 @@
 ## Meet network requirements
-Clusters running behind an outbound proxy server or firewall need additional network configurations. Fulfill [Azure Arc network requirements](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/quickstart-connect-cluster?tabs=azure-cli#meet-network-requirement) needed by Azure Arc agents. Besides that, the following outbound URLs are required for Azure Machine Learning,
+Clusters running behind an outbound proxy server or firewall need additional network configurations. Fulfill [Azure Arc network requirements](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/quickstart-connect-cluster?tabs=azure-cli#meet-network-requirement) needed by Azure Arc agents. 
+
+Considering the parameter --proxy-skip-range, at least the following ranges and endpoints are required:
+| endpoint/ramge |
+|--|
+| 127.0.0.1, localhost |
+| pod_ip_range |
+| k8s_svc_ip_range |
+| kubernetes.default.svc |
+| .svc.cluster.local |
+| .svc |
+
+
+Besides that, the following outbound URLs are required for Azure Machine Learning,
 
 | Outbound Endpoint| Port | Description|Training |Inference |
 |--|--|--|--|--|
