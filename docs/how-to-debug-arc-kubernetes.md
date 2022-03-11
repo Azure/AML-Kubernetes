@@ -86,7 +86,7 @@ Please try adjusting the batch size of the training job or using an instance-typ
 
 ## Permission Denied under '/workspaceblobstore/azureml'
 
-![image](./media/how-to-debug-arc-kubernetes/blobfuse-permission.png)
+![image](../pics/permission_denied.png)
 
 Please upgrade the blobfuse on the kubernetes nodes to 1.3.6 or above.
 
@@ -96,7 +96,7 @@ az k8s-extension create  -g <resource group> -c <cluster> --cluster-type connect
 
 ## stderr: nvidia-container-cli: initialization error: nvml error: driver/library version mismatch
 
-![image](./media/how-to-debug-arc-kubernetes/error-message-nvml.png)
+![image](../pics/nvml_error.png)
 
 1. Try restarting the problematic node.
 
