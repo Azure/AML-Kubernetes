@@ -75,10 +75,48 @@ If user have their own volcano suite installed, they can set `volcanoScheduler.e
 3. There is a bug in volcano admission, and it will break our job, so we disabled `job/validate` webhook explicitly in the volcano admission provided in our extension, user should also patch their volcano admission otherwise the common runtime job won’t work.
 See this [issue](https://github.com/volcano-sh/volcano/issues/1680).
 
-### 7. How to validate Workspace private endpoint 
+### 7. How to validate private workspace endpoint 
+If you setup private endpoint for your workspace, it's important to test its availability before using it. Otherwise, it may cause unknown errors, like installation errors. You can follow the steps below to test if the private workspace endpoint is available in your cluster.
+1. The format of private workspace endpoint should be like this ```{workspace_id}.workspace.{region}.api.azureml.ms```. You can find workspace id and region in your workspace portal or through ```az ml workspace``` command.
+1. Prepare a pod that can run ```curl``` and ```nslookup``` commands. If you have AzureML extension installed and enabled Inference features, azureml-fe pod is a good choice.
+1. Login into the pod. Taking azureml-fe as an example, you need to run ```kubectl exec -it -n azureml $(kubectl get pod -n azureml | grep azureml-fe | awk '{print $1}' | head -1) bash``` 
+1. If you don't configure proxy, just run ```nslookup {workspace_id}.workspace.{region}.api.azureml.ms```. If private link from cluster to workspace is set correctly, dns lookup will response an internal IP in VNET. The response should be something like this:
+    ```
+    Server:         10.0.0.10
+    Address:        10.0.0.10:53
 
+    Non-authoritative answer:
+    ***
 
+    Non-authoritative answer:
+    ***
+    ```
+1. If you have proxy configured, please run ```curl https://{workspace_id}.workspace.{region}.api.azureml.ms/metric/v2.0/subscriptions/{subscription}/resourceGroups/{resource_group}/providers/Microsoft.MachineLearningServices/workspaces/{workspace_name}/api/2.0/prometheus/post -X POST -x {proxy_address} -d {} -v -k```. If you configured proxy and workspace with private link correctly, you can see it's trying to connect to an internal IP, and get response with http 401 (which is expected as you don't provide token for runhistory). The response should be something like this:
+    ```
+    Note: Unnecessary use of -X or --request, POST is already inferred. 
+    * Trying 172.29.1.81:443... 
+    * Connected to ***.workspace.eastus.api.azureml.ms (172.29.1.81) port 443 (#0) 
+    * ALPN, offering h2 
+    * ALPN, offering http/l.l 
 
+    ***
+    {
+        "error": { 
+            "code": "UserError",
+            "severity": null, 
+            "message": "Bearer token not provided.", 
+            "messageFornat": null, 
+            "messageParameters": null, 
+            "innerError": { 
+                "code": "AuthorizationError",
+                "innerError": null
+            }
+            "debuglnfo" : null, 
+            "additionallnfo" :  null 
+        }
+        ***
+    }
+    ```
 ## Training Guide
 
 ## Inference Guide
