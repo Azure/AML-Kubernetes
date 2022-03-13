@@ -11,15 +11,37 @@ This document is used to help customer solve problems when using AzureML extensi
 
 ## Extension Installation Guide
 
-### 1. Check extension resources   
-AzureML extension is released as a helm chart and installed by helm v3. By default, all resources of AzureML extension are installed in azureml namespace. Run ```helm list -a -n azureml``` to check helm chart status. Run ```kubectl get pod -n azureml``` to check status of all agent pods. Run ```kubectl get events -n azureml --sort-by='.lastTimestamp'``` to get events of extension.
+### 1. How is AzureML extension installed   
+AzureML extension is released as a helm chart and installed by Helm V3. By default, all resources of AzureML extension are installed in azureml namespace. Currently, we don't find a way customise the installation error messages for a helm chart. The error message user received is the original error message returned by helm. This is why sometimes vague error messages are returned. But you can utilize the [built-in health check job](#2-do-health-check-for-extension) or the following commands to help you debug.
+```bash
+# check helm chart status
+helm list -a -n azureml
+# check status of all agent pods
+kubectl get pod -n azureml
+# get events of the extension
+kubectl get events -n azureml --sort-by='.lastTimestamp'
+# get release history
+helm history -n azureml --debug <extension-name>
+```
 ### 2. Do health check for extension   
-If the installation fails, you can use the built-in health check job to make a comprehensive check on the extension, and the check will also produce a report. This report can facilitate us to better locate the problem. Run ```helm test -n azureml <extension-name> --logs``` to trigger the built-in test to generate a health report of the extension. The report is saved in configmap named "amlarc-healthcheck" under azureml namespace. Run ```kubectl get configmap -n azureml arcml-healthcheck --output="jsonpath={.data.status-test}"``` to get a summary of the report. Run ```kubectl get configmap -n azureml arcml-healthcheck --output="jsonpath={.data.reports-test}"``` to get detailed information of the report. We recommend that you send us these reports when you need our help to solve the installation problems.
-> Note: The commands of old version are  ```kubectl get configmap -n azureml amlarc-healthcheck --output="jsonpath={.data.status-test-success}"``` and ```kubectl get configmap -n azureml amlarc-healthcheck --output="jsonpath={.data.reports-test-success}"```. When running "helm test" command, Error like "unable to get pod logs for healthcheck-config: pods 'healthcheck-config' not found" should be ignored. 
-### 3. Inference HA  
+If the installation fails, you can use the built-in health check job to make a comprehensive check on the extension, and the check will also produce a report. This report can facilitate us to better locate the problem. We recommend that you send us these reports when you need our help to solve the installation problems. The report is saved in configmap named "amlarc-healthcheck" under azureml namespace.
+```bash
+# trigger the built-in test to generate a health report of the extension
+helm test -n azureml <extension-name> --logs
+# get a summary of the report
+kubectl get configmap -n azureml arcml-healthcheck --output="jsonpath={.data.status-test}"
+# get detailed information of the report
+kubectl get configmap -n azureml arcml-healthcheck --output="jsonpath={.data.reports-test}"
+
+# for versions that is older than 1.0.75, the commands should be those
+kubectl get configmap -n azureml amlarc-healthcheck --output="jsonpath={.data.status-test-success}"
+kubectl get configmap -n azureml amlarc-healthcheck --output="jsonpath={.data.reports-test-success}"
+```
+> Note: When running "helm test" command, Error like "unable to get pod logs for healthcheck-config: pods 'healthcheck-config' not found" should be ignored. 
+### 3. Inference HA(High availability)  
 For inference azureml-fe agent, HA feature is enabled by default. So, by default, the inference feature requires at least 3 nodes to run. The phenomenon that this kind of issue may lead to is that some azureml-fe pods are pending on scheduling and error message of the pod could be like "0/1 nodes are available: 1 node(s) didn't match pod anti-affinity rules".
-### 4. Scoring endpoint  
-If you find that inference-operator pod is crashed and azureml-fe service is in pending or unhealthy state, it is likely that endpoint flags are not set properly. We have ```privateEndpointNodeport``` and ```privateEndpointILB``` flags to control how to expose scoring service. By default, public loadbalancer is enabled. For detailed flag usage, please refer to [doc](./deploy-extension.md#review-azureml-deployment-configuration-settings).
+### 4. Inference scoring endpoint  
+It's very important for inference to expose scoring endpoint. According to the cluster configuration and testing scenarios, we have three ways to expose scoring services: **public loadbalancer, private endpoint and nodeport**. Public loadbalancer is used by default. ```privateEndpointNodeport``` and ```privateEndpointILB``` flags are used for the rest two scenarios. For detailed flag usage, please refer to [doc](./deploy-extension.md#review-azureml-deployment-configuration-settings). Many customers got problems in setting up loadbalancer, so we strongly recommend reading the relevant documents and doing some checks before the installation. If you find that inference-operator pod is crashed and azureml-fe service is in pending or unhealthy state, it is likely that endpoint flags are not set properly. 
 ### 5. Error: resources cannot be imported into the current release: invalid ownership metadata
 If you get error like ```CustomResourceDefinition "queues.scheduling.volcano.sh" in namespace "" exists and cannot be imported into the current release: invalid ownership metadata; label validation error: missing key "app.kubernetes.io/managed-by": must be set to "Helm"; annotation validation error: missing key "meta.helm.sh/release-name": must be set to "amlarc-extension"; annotation validation error: missing key "meta.helm.sh/release-namespace": must be set to "azureml"```, that means there is a confliction between existing cluster resources and AzureML extension. Follow the steps below to mitigate the issue.
 * Check who owns the problematic resources and if the resource can be deleted or modified. 
@@ -53,7 +75,9 @@ If user have their own volcano suite installed, they can set `volcanoScheduler.e
 3. There is a bug in volcano admission, and it will break our job, so we disabled `job/validate` webhook explicitly in the volcano admission provided in our extension, user should also patch their volcano admission otherwise the common runtime job won’t work.
 See this [issue](https://github.com/volcano-sh/volcano/issues/1680).
 
-### 7. Verify Workspace private endpoint 
+### 7. How to validate Workspace private endpoint 
+
+
 
 ## Training Guide
 
