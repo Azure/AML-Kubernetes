@@ -25,14 +25,13 @@ For on premise scenario, you could use an outbound proxy and connect the proxy t
 Notice: For the VPN or expressRoute, please remember to config the related DNS setting for the private endpoint for workspace URL, storage account URL, container registries URL and Keyvault URLs. You could get the IP address from DNS configuration for related service which has private endpoints enabled. Below is the how to get the DNS setting for private endpoints from machine learning workspace.  
 ![Network Flow](media/privatelink/dns.png)
 
-Below is the example for DNS setting for private endpoints from machine learning workspace, storage account and ACR. 
-192.168.1.4 133b5a62-9724-4ab0-a273-f2d586e4676d.workspace.eastus.api.azureml.ms
-192.168.1.6 arcpleusws3240447895.blob.core.windows.net   
-192.168.1.7 arcpleusws3240447895.file.core.windows.net 
-192.168.1.8 arcpleusws3240447895.queue.core.windows.net    
-192.168.1.9 arcpleusws3240447895.table.core.windows.net 
+Below is the example for DNS setting for private endpoints from machine learning workspace, storage account and ACR.  
+192.168.1.4 133b5a62-9724-4ab0-a273-f2d586e4676d.workspace.eastus.api.azureml.ms  
+192.168.1.6 arcpleusws3240447895.blob.core.windows.net  
+192.168.1.7 arcpleusws3240447895.file.core.windows.net  
+192.168.1.8 arcpleusws3240447895.queue.core.windows.net  
+192.168.1.9 arcpleusws3240447895.table.core.windows.net  
 192.168.1.12 acrpleusws.azurecr.io
-
 
 ## Configurations
 ### Virtual Network
@@ -76,6 +75,7 @@ Please note that if you want to access the workspace studio you have to either e
 
 ### Azure storage account
 •	To secure the storage account created by workspace, following this link to set create the private endpoints for  Blob, File, Table and Queue. Set the firewall and virtual networks as follows:
+
 ![Network Flow](media/privatelink/storageaccount.png)
  
  “Allow Azure services on the trusted services list to access this storage account” should be enabled and Microsoft.MachineLearningServices/workspaces Resource type with related workspace should be added to the resource instances.
