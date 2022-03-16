@@ -112,3 +112,4 @@ It may be due to an outdated CRD of the aml-operator, please update the CRD in t
 ## x509: certificate signed by unknown authority
 
 It may be due to cluster is configured with an outbound proxy with self-signed certificate but arc extension doesn't trust the certificate. Please follow the [guidance to provide and trust proxy-cert when connect cluster to Azure Arc](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/quickstart-connect-cluster?tabs=azure-cli#4a-connect-using-an-outbound-proxy-server)
+

@@ -60,6 +60,7 @@ Azure Arc enabled ML essentially brings a new compute target to Azure Machine Le
    |[Deploy model with Designer UI](https://docs.microsoft.com/azure/machine-learning/how-to-deploy-model-designer)|Coming soon|
    |[Train and deploy with AutoML (Studio UI)](https://docs.microsoft.com/azure/machine-learning/how-to-use-automated-ml-for-ml-models)|Coming soon|
    |[Deploy model with Batch Endpoint](https://docs.microsoft.com/azure/machine-learning/how-to-deploy-managed-online-endpoints)|Coming soon|
+   |[Use Azure Private Link to securely access Azure services](./docs/private-link.md)|&check;|
 
 
 In addition to above built-in AzureML features, ArcML also supports following unique machine learning features:
