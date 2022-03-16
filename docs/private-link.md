@@ -1,4 +1,4 @@
-# Private Link for AzureML extension
+# Use Azure Private Link to securely access Azure services
 
 Azure Private Link enables you to access Azure PaaS Services (for example, Azure Storage and SQL Database) and Azure hosted customer-owned/partner services over a Private Endpoint in your virtual network. Traffic between your virtual network and the service traverses over the Microsoft backbone network, eliminating exposure from the public Internet. 
 
