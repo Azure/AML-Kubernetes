@@ -166,7 +166,9 @@ AzureML Kubernetes job failed. 137:PodPattern matched: {"containers":[{"name":"t
 Check your proxy setting and check whether 127.0.0.1 was added to proxy-skip-range when using “az connectedk8s connect” by following [this](https://github.com/Azure/AML-Kubernetes/blob/master/docs/network-requirements.md). 
 
 ## Inference Guide
+### InferencingClientCallFailed: The k8s-extension of the Kubernetes cluster is not connectable.
 
+Reattach your compute to the cluster and then try again. If it is still not working, use "kubectl get po -n azureml" to check the relayserver* pods are running.  
 
 
 
