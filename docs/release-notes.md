@@ -29,4 +29,4 @@ New features are released at a biweekly cadance.
 
 **Oct 14, 2021 Release**
 
-* [PV/PVC volume mount support in AMLArc training job](./docs/pvc.md).
+* [PV/PVC volume mount support in AMLArc training job](./pvc.md).
