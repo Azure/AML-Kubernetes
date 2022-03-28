@@ -130,21 +130,21 @@ jobs:
         fi
       timeout-minutes: 30
 
-    - name: clean up resources
-      if: ${{ always() }}
-      run: |
-        set +e
-        bash .github/amlarc-tool.sh delete_endpoints
-        bash .github/amlarc-tool.sh delete_compute
-        bash .github/amlarc-tool.sh delete_extension
-        if [ "${{ github.event.inputs.CLEANUP_CLUSTER }}" == "true" ] ; then
-            bash .github/amlarc-tool.sh delete_arc
-            bash .github/amlarc-tool.sh delete_aks
-        fi
-        if [ "${{ github.event.inputs.CLEANUP_WORKSPACE }}" == "true" ] ; then
-            bash .github/amlarc-tool.sh delete_workspace
-        fi
-      timeout-minutes: 30
+    #- name: clean up resources
+    #  if: ${{ always() }}
+    #  run: |
+    #    set +e
+    #    bash .github/amlarc-tool.sh delete_endpoints
+    #    bash .github/amlarc-tool.sh delete_compute
+    #    bash .github/amlarc-tool.sh delete_extension
+    #    if [ "${{ github.event.inputs.CLEANUP_CLUSTER }}" == "true" ] ; then
+    #        bash .github/amlarc-tool.sh delete_arc
+    #        bash .github/amlarc-tool.sh delete_aks
+    #    fi
+    #    if [ "${{ github.event.inputs.CLEANUP_WORKSPACE }}" == "true" ] ; then
+    #        bash .github/amlarc-tool.sh delete_workspace
+    #    fi
+    #  timeout-minutes: 30
 
 
 
