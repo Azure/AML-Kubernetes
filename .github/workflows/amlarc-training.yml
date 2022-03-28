@@ -58,11 +58,11 @@ jobs:
     - name: connect_arc
       run: bash .github/amlarc-tool.sh connect_arc
       timeout-minutes: 30
-    - name: install_extension
-      run: |
-        export EXTENSION_SETTINGS="enableTraining=True enableInference=True allowInsecureConnections=True"
-        bash .github/amlarc-tool.sh install_extension
-      timeout-minutes: 30
+    #- name: install_extension
+    #  run: |
+    #    export EXTENSION_SETTINGS="enableTraining=True enableInference=True allowInsecureConnections=True"
+    #    bash .github/amlarc-tool.sh install_extension
+    #  timeout-minutes: 30
     - name: setup_workspace
       run: bash .github/amlarc-tool.sh setup_workspace
       timeout-minutes: 30
@@ -98,13 +98,15 @@ jobs:
         source .github/amlarc-tool.sh
         WS_DIR=examples/inference/simple-flow/
         SUB_RG_WS=" --subscription ${SUBSCRIPTION} --resource-group ${RESOURCE_GROUP} --workspace-name ${WORKSPACE} "
-        #az ml online-endpoint create $SUB_RG_WS --name sklearn-mnist -f $WS_DIR/endpoint.yml --set compute=azureml:$COMPUTE
-        #az ml online-deployment create $SUB_RG_WS --name blue --endpoint sklearn-mnist -f $WS_DIR/blue-deployment.yml --all-traffic
-        
+        # create endpoint and deployment
+        az ml online-endpoint create $SUB_RG_WS --name sklearn-mnist -f $WS_DIR/endpoint.yml --set compute=azureml:$COMPUTE
+        az ml online-deployment create $SUB_RG_WS --name blue --endpoint sklearn-mnist -f $WS_DIR/blue-deployment.yml --all-traffic
+        # scoring
         primaryKey=$(az ml online-endpoint get-credentials $SUB_RG_WS --name sklearn-mnist -o tsv --query "primaryKey" )
         scoring_uri=$(az ml online-endpoint show $SUB_RG_WS --name sklearn-mnist  -o tsv  --query "scoring_uri" )
         sample_data=$(cat $WS_DIR/sample-request.json)
         res=$(kubectl exec -n azureml deploy/azureml-fe -- curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer $primaryKey" -s --connect-timeout 5 "$scoring_uri" -d "$sample_data")
+        
         echo "$res"
         if [ "$res" == "[8]" ] ; then
             echo "Job $WS_DIR/endpoint.yml completed" | tee -a $RESULT_FILE
