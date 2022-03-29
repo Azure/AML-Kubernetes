@@ -12,7 +12,7 @@ This document is used to help customer solve problems when using AzureML extensi
 ## Extension Installation Guide
 
 ### 1. How is AzureML extension installed   
-AzureML extension is released as a helm chart and installed by Helm V3. By default, all resources of AzureML extension are installed in azureml namespace. Currently, we don't find a way customise the installation error messages for a helm chart. The error message user received is the original error message returned by helm. This is why sometimes vague error messages are returned. But you can utilize the [built-in health check job](#2-do-health-check-for-extension) or the following commands to help you debug.
+You could get more detail Azureml extension information at [Install AzureML extension](./docs/deploy-extension.md). AzureML extension is released as a helm chart and installed by Helm V3. By default, all resources of AzureML extension are installed in azureml namespace. Currently, we don't find a way customise the installation error messages for a helm chart. The error message user received is the original error message returned by helm. This is why sometimes vague error messages are returned. But you can utilize the [built-in health check job](#2-do-health-check-for-extension) or the following commands to help you debug.
 ```bash
 # check helm chart status
 helm list -a -n azureml
@@ -168,8 +168,20 @@ Check your proxy setting and check whether 127.0.0.1 was added to proxy-skip-ran
 ## Inference Guide
 ### InferencingClientCallFailed: The k8s-extension of the Kubernetes cluster is not connectable.
 
-Reattach your compute to the cluster and then try again. If it is still not working, use "kubectl get po -n azureml" to check the relayserver* pods are running.  
+Reattach your compute to the cluster and then try again. If it is still not working, use "kubectl get po -n azureml" to check the relayserver* pods are running. 
 
+### How to check sslCertPemFile and sslKeyPemFile is correct?
 
+Below commands could be used to validate. Expect the second command return "RSA key ok" without prompting you for passphrase.
+```yaml
+openssl x509 -in cert.pem -text -noout 
+openssl rsa -in key.pem -check -noout
+```
+
+Below commands could be used to verify whether sslCertPemFile and sslKeyPemFile match:
+```yaml
+openssl x509 -noout -modulus -in cert.pem 
+openssl rsa -noout -modulus -in key.pem 
+```
 
 
