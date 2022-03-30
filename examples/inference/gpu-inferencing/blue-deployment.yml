@@ -9,8 +9,8 @@ code_configuration:
     local_path: ./script/
   scoring_script: score.py
 instance_type: myinstancetypename
-environment: 
-  image: mcr.microsoft.com/azureml/openmpi3.1.2-ubuntu18.04:20210727.v1
+environment:
+  image: mcr.microsoft.com/azureml/openmpi3.1.2-cuda10.2-cudnn8-ubuntu18.04
   conda_file: ./model/conda.yml
 request_settings:
   request_timeout_ms: 3000
@@ -19,10 +19,10 @@ request_settings:
 resources:
   requests:
     cpu: "0.1"
-    memory: "0.1Gi"
+    memory: "500Mi"
   limits:
     cpu: "0.2"
-    memory: "0.2Gi"
+    memory: "1Gi"
     nvidia.com/gpu: "1"
 liveness_probe:
   initial_delay: 10
