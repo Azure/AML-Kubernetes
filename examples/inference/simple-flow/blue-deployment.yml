@@ -3,10 +3,9 @@ type: kubernetes
 endpoint_name: sklearn-mnist
 app_insights_enabled: true
 model: 
-  local_path: ./model/sklearn_mnist_model.pkl
+  path: ./model/sklearn_mnist_model.pkl
 code_configuration:
-  code:
-    local_path: ./script/
+  code: ./script/
   scoring_script: score.py
 instance_type: defaultinstancetype
 environment:
@@ -35,3 +34,9 @@ readiness_probe:
   timeout: 10
   success_threshold: 1
   failure_threshold: 1
+scale_settings:
+  type: target_utilization
+  min_instances: 1
+  max_instances: 3
+  polling_interval: 10
+  target_utilization_percentage: 70
