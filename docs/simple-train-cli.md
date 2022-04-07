@@ -36,8 +36,7 @@
 
    ```yaml
    experiment_name: Tutorial-sklearn-mnist
-   code:
-     local_path: ./src
+   code: ./src
    command: python train.py --data-folder ./mnist-data --regularization 0.5
    environment: azureml:AzureML-sklearn-0.24-ubuntu18.04-py37-cpu:7
    compute: azureml:<your compute target name>
