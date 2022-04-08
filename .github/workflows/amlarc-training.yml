@@ -20,6 +20,11 @@ on:
         description: 'Whether to delete workspace: true or false'
         required: false
         default: 'false'
+      FILE_TICKET:
+        description: 'Whether to file icm ticket: true or false'
+        required: false
+        default: 'false'
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -126,7 +131,7 @@ jobs:
       if: ${{ always() }}
       run: |
         bash .github/amlarc-tool.sh count_result || ret=$?
-        if [ "$ret" != "0" ] && [ "$ret" != "" ] ; then
+        if [ "$ret" != "0" ] && [ "$ret" != "" ] && [ "${{ github.event.inputs.FILE_TICKET }}" != "false" ] ; then
             # download certificates
             export ICM_HOST_NAME=ICM-HOST-PROD
             export ICM_CONNECTOR_ID_NAME=ICM-CONNECTOR-ID-PROD
