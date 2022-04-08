@@ -104,8 +104,8 @@ jobs:
         WS_DIR=examples/inference/simple-flow/
         SUB_RG_WS=" --subscription ${SUBSCRIPTION} --resource-group ${RESOURCE_GROUP} --workspace-name ${WORKSPACE} "
         # create endpoint and deployment
-        az ml online-endpoint create $SUB_RG_WS --name sklearn-mnist -f $WS_DIR/endpoint.yml --set compute=azureml:$COMPUTE
-        az ml online-deployment create $SUB_RG_WS --name blue --endpoint sklearn-mnist -f $WS_DIR/blue-deployment.yml --all-traffic
+        az ml online-endpoint create $SUB_RG_WS --name sklearn-mnist -f $WS_DIR/endpoint.yml --set compute=azureml:$COMPUTE --debug
+        az ml online-deployment create $SUB_RG_WS --name blue --endpoint sklearn-mnist -f $WS_DIR/blue-deployment.yml --all-traffic --debug
         # scoring
         primaryKey=$(az ml online-endpoint get-credentials $SUB_RG_WS --name sklearn-mnist -o tsv --query "primaryKey" )
         scoring_uri=$(az ml online-endpoint show $SUB_RG_WS --name sklearn-mnist  -o tsv  --query "scoring_uri" )
@@ -133,9 +133,9 @@ jobs:
         bash .github/amlarc-tool.sh count_result || ret=$?
         if [ "$ret" != "0" ] && [ "$ret" != "" ] && [ "${{ github.event.inputs.FILE_TICKET }}" != "false" ] ; then
             # download certificates
-            export ICM_HOST_NAME=ICM-HOST-PROD
-            export ICM_CONNECTOR_ID_NAME=ICM-CONNECTOR-ID-PROD
-            export ICM_ROUTING_ID_NAME=ICM-ROUTING-ID-PROD 
+            #export ICM_HOST_NAME=ICM-HOST-PROD
+            #export ICM_CONNECTOR_ID_NAME=ICM-CONNECTOR-ID-PROD
+            #export ICM_ROUTING_ID_NAME=ICM-ROUTING-ID-PROD 
             bash .github/amlarc-tool.sh download_icm_cert
             export ICM_HOST=$(cat icm_host)
             export CONNECTOR_ID=$(cat icm_connector_id)
