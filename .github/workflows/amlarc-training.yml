@@ -105,8 +105,10 @@ jobs:
         SUB_RG_WS=" --subscription ${SUBSCRIPTION} --resource-group ${RESOURCE_GROUP} --workspace-name ${WORKSPACE} "
         # create endpoint and deployment
         az ml online-endpoint create $SUB_RG_WS --name sklearn-mnist -f $WS_DIR/endpoint.yml --set compute=azureml:$COMPUTE --debug
+        sleep 60
         az ml online-deployment create $SUB_RG_WS --name blue --endpoint sklearn-mnist -f $WS_DIR/blue-deployment.yml --all-traffic --debug
         # scoring
+        sleep 60
         primaryKey=$(az ml online-endpoint get-credentials $SUB_RG_WS --name sklearn-mnist -o tsv --query "primaryKey" )
         scoring_uri=$(az ml online-endpoint show $SUB_RG_WS --name sklearn-mnist  -o tsv  --query "scoring_uri" )
         sample_data=$(cat $WS_DIR/sample-request.json)
