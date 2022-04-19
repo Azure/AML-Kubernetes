@@ -75,7 +75,7 @@ In addition to above built-in AzureML features, ArcML also supports following un
 * [Deploy model using customer container with built-in model or entry script](./docs/inference-byoc.md). In this case, the model and the entry script will not be saved at the cloud, but in local.
 <!-- * [Interactive job](https://github.com/Azure/azureml-previews/tree/main/previews/interactive-job) to access your training compute using VS Code, Jupyter Notebook, Jupyter Lab, and summarize metrics with Tensorboard. Sign up [here](https://forms.office.com/pages/responsepage.aspx?id=v4j5cvGGr0GRqy180BHbR8PsZ1-HON9JqtABfkUgwtpUNUtMWTEyRklBQUk2RzZQTUZGTjBUQzJINy4u) to get access to its Github repo.
  -->
-## Supported Kubernetes distributions and versions
+## Supported Kubernetes distributions, versions and locations
 
 * Azure Kubernetes Services (AKS)
 * AKS Engine
@@ -88,6 +88,7 @@ In addition to above built-in AzureML features, ArcML also supports following un
 * Kind
 * K3s-Lightweight Kubernetes 
 * Kubernetes 1.18.x, 1.19.x, 1.20.x, 1.21.x, 1.22.x
+* Azure location availability: East US, East US 2, South Central US, West US 2, Australia East, Southeast Asia, North Europe, UK South, West Europe, West Central US, Central US, North Central US, West US, Korea Central, France Central
 
 ## [Frequently Asked Questions](./docs/faq.md)
 
