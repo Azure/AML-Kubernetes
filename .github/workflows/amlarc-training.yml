@@ -101,6 +101,8 @@ jobs:
       run: |
         set +e
         source .github/amlarc-tool.sh
+        echo "[JobSubmission] $WS_DIR/endpoint.yml" | tee -a $RESULT_FILE
+        
         WS_DIR=examples/inference/simple-flow/
         SUB_RG_WS=" --subscription ${SUBSCRIPTION} --resource-group ${RESOURCE_GROUP} --workspace-name ${WORKSPACE} "
         # create endpoint and deployment
@@ -116,9 +118,9 @@ jobs:
         
         echo "$res"
         if [ "$res" == "[8]" ] ; then
-            echo "Job $WS_DIR/endpoint.yml completed" | tee -a $RESULT_FILE
+            echo "[JobStatus] $WS_DIR/endpoint.yml completed" | tee -a $RESULT_FILE
         else
-            echo "Job $WS_DIR/endpoint.yml failed" | tee -a $RESULT_FILE
+            echo "[JobStatus] $WS_DIR/endpoint.yml failed" | tee -a $RESULT_FILE
         fi
       continue-on-error: true
       timeout-minutes: 30
