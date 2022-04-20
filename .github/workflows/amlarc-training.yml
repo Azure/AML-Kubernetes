@@ -65,7 +65,7 @@ jobs:
       timeout-minutes: 30
     - name: install_extension
       run: |
-        export EXTENSION_SETTINGS="enableTraining=True enableInference=True allowInsecureConnections=True"
+        export EXTENSION_SETTINGS="enableTraining=True enableInference=True inferenceRouterServiceType=loadBalancer allowInsecureConnections=True"
         bash .github/amlarc-tool.sh install_extension
       timeout-minutes: 30
     - name: setup_workspace
@@ -103,6 +103,9 @@ jobs:
         source .github/amlarc-tool.sh
         WS_DIR=examples/inference/simple-flow/
         SUB_RG_WS=" --subscription ${SUBSCRIPTION} --resource-group ${RESOURCE_GROUP} --workspace-name ${WORKSPACE} "
+        
+        echo "[JobSubmission] $WS_DIR/endpoint.yml" | tee -a $RESULT_FILE
+
         # create endpoint and deployment
         az ml online-endpoint create $SUB_RG_WS --name sklearn-mnist -f $WS_DIR/endpoint.yml --set compute=azureml:$COMPUTE --debug
         sleep 60
@@ -116,9 +119,9 @@ jobs:
         
         echo "$res"
         if [ "$res" == "[8]" ] ; then
-            echo "Job $WS_DIR/endpoint.yml completed" | tee -a $RESULT_FILE
+            echo "[JobStatus] $WS_DIR/endpoint.yml completed" | tee -a $RESULT_FILE
         else
-            echo "Job $WS_DIR/endpoint.yml failed" | tee -a $RESULT_FILE
+            echo "[JobStatus] $WS_DIR/endpoint.yml failed" | tee -a $RESULT_FILE
         fi
       continue-on-error: true
       timeout-minutes: 30
