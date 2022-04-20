@@ -32,7 +32,7 @@ export RELEASE_TRAIN="${RELEASE_TRAIN:-staging}"
 export RELEASE_NAMESPACE="${RELEASE_NAMESPACE:-azureml}"
 export EXTENSION_NAME="${EXTENSION_NAME:-amlarc-extension}"
 export EXTENSION_TYPE="${EXTENSION_TYPE:-Microsoft.AzureML.Kubernetes}"
-export EXTENSION_SETTINGS="${EXTENSION_SETTINGS:-enableTraining=True enableInference=True allowInsecureConnections=True}"
+export EXTENSION_SETTINGS="${EXTENSION_SETTINGS:-enableTraining=True enableInference=True allowInsecureConnections=True inferenceRouterServiceType=loadBalancer}"
 export CLUSTER_TYPE="${CLUSTER_TYPE:-connectedClusters}" # or managedClusters
 if [ "${CLUSTER_TYPE}" == "connectedClusters" ]; then
     export CLUSTER_NAME=${CLUSTER_NAME:-$ARC_CLUSTER_NAME}
@@ -414,20 +414,23 @@ run_cli_job(){
     else
         EXTRA_ARGS=" --set compute=azureml:$COMPUTE resources.instance_type=$INSTANCE_TYPE_NAME "
     fi 
-     
+
+    echo "[JobSubmission] $JOB_YML" | tee -a $RESULT_FILE
+    
     SRW=" --subscription $SUBSCRIPTION --resource-group $RESOURCE_GROUP --workspace-name $WORKSPACE "
 
     run_id=$(az ml job create $SRW -f $JOB_YML $EXTRA_ARGS --query name -o tsv)
-    az ml job stream $SRW -n $run_id
+    timeout 30m az ml job stream $SRW -n $run_id
     status=$(az ml job show $SRW -n $run_id --query status -o tsv)
+    timeout 5m az ml job cancel $SRW -n $run_id
     echo $status
     if [[ $status == "Completed" ]]; then
-        echo "Job $JOB_YML completed" | tee -a $RESULT_FILE
+        echo "[JobStatus] $JOB_YML completed" | tee -a $RESULT_FILE
     elif [[ $status ==  "Failed" ]]; then
-        echo "Job $JOB_YML failed" | tee -a $RESULT_FILE
+        echo "[JobStatus] $JOB_YML failed" | tee -a $RESULT_FILE
         return 1
     else 
-        echo "Job $JOB_YML unknown" | tee -a $RESULT_FILE 
+        echo "[JobStatus] $JOB_YML unknown" | tee -a $RESULT_FILE 
 	return 2
     fi
 }
@@ -460,6 +463,8 @@ run_jupyter_test(){
     JOB_DIR=$(dirname $JOB_SPEC)
     JOB_FILE=$(basename $JOB_SPEC)
 
+    echo "[JobSubmission] $JOB_SPEC" | tee -a $RESULT_FILE
+
     cd $JOB_DIR
     jupyter nbconvert --debug --execute $JOB_FILE --to python
     status=$?
@@ -468,9 +473,9 @@ run_jupyter_test(){
     echo $status
     if [[ "$status" == "0" ]]
     then
-        echo "Job $JOB_SPEC completed" | tee -a $RESULT_FILE
+        echo "[JobStatus] $JOB_SPEC completed" | tee -a $RESULT_FILE
     else
-        echo "Job $JOB_SPEC failed" | tee -a $RESULT_FILE
+        echo "[JobStatus] $JOB_SPEC failed" | tee -a $RESULT_FILE
         return 1
     fi
 }
@@ -481,6 +486,8 @@ run_py_test(){
     JOB_DIR=$(dirname $JOB_SPEC)
     JOB_FILE=$(basename $JOB_SPEC)
 
+    echo "[JobSubmission] $JOB_SPEC" | tee -a $RESULT_FILE
+
     cd $JOB_DIR
     python $JOB_FILE
     status=$?
@@ -489,9 +496,9 @@ run_py_test(){
     echo $status
     if [[ "$status" == "0" ]]
     then
-        echo "Job $JOB_SPEC completed" | tee -a $RESULT_FILE
+        echo "[JobStatus] $JOB_SPEC completed" | tee -a $RESULT_FILE
     else
-        echo "Job $JOB_SPEC failed" | tee -a $RESULT_FILE
+        echo "[JobStatus] $JOB_SPEC failed" | tee -a $RESULT_FILE
         return 1
     fi
 }
@@ -506,9 +513,9 @@ count_result(){
 
     [ ! -f $RESULT_FILE ] && touch $RESULT_FILE
 
-    total=$(grep -c Job $RESULT_FILE)
-    success=$(grep Job $RESULT_FILE | grep -ic completed)
-    unhealthy=$(grep Job $RESULT_FILE | grep -ivc completed)
+    total=$(grep -c "\[JobSubmission\]" $RESULT_FILE)
+    success=$(grep "\[JobStatus\]" $RESULT_FILE | grep -ic completed)
+    unhealthy=$(( $total - $success ))
     echo "Total: ${total}, Success: ${success}, Unhealthy: ${unhealthy}, MinSuccessNum: ${MIN_SUCCESS_NUM}."
     
     if (( 10#${unhealthy} > 0 )) ; then
@@ -558,6 +565,11 @@ $WORKFLOW_URL
 Test result:
 <br>
 $(sed ':a;N;$!ba;s/\n/<br>/g' $RESULT_FILE)
+<br>
+<br>
+Others:
+<br>
+$OtherIcmMessage
 <br>
 "
 }
@@ -660,8 +672,8 @@ ICM_XML_TEMPLATE='<?xml version="1.0" encoding="UTF-8"?>
     CONNECTOR_ID="${CONNECTOR_ID:-6872439d-31d6-4e5d-a73b-2d93edebf18a}"
     TITLE="${TITLE:-[Github] Github examples test failed}"
     ROUTING_ID="${ROUTING_ID:-Vienna-AmlArc}"
-    OWNING_ALIAS="${OWNING_ALIAS:-test}"
-    OWNING_CONTACT_FULL_NAME="${OWNING_CONTACT_FULL_NAME:-test@microsoft.com}"
+    OWNING_ALIAS="${OWNING_ALIAS}"
+    OWNING_CONTACT_FULL_NAME="${OWNING_CONTACT_FULL_NAME}"
     SUMMARY="${SUMMARY:-Test icm ticket}"
     SEVERITY="${SEVERITY:-4}"
     
