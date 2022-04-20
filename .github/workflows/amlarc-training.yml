@@ -101,10 +101,11 @@ jobs:
       run: |
         set +e
         source .github/amlarc-tool.sh
-        echo "[JobSubmission] $WS_DIR/endpoint.yml" | tee -a $RESULT_FILE
-        
         WS_DIR=examples/inference/simple-flow/
         SUB_RG_WS=" --subscription ${SUBSCRIPTION} --resource-group ${RESOURCE_GROUP} --workspace-name ${WORKSPACE} "
+        
+        echo "[JobSubmission] $WS_DIR/endpoint.yml" | tee -a $RESULT_FILE
+
         # create endpoint and deployment
         az ml online-endpoint create $SUB_RG_WS --name sklearn-mnist -f $WS_DIR/endpoint.yml --set compute=azureml:$COMPUTE --debug
         sleep 60
