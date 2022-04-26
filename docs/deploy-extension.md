@@ -26,8 +26,6 @@ Upon AzureML extension deployment completes, it will create following resources 
    |[azureml-fe](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-deploy-azure-kubernetes-service?tabs=python#azure-ml-router)|Kubernetes deployment|N/A|**&check;**|**&check;**|The front-end component that routes incoming inference requests to deployed services.|azureml-fe service logs are sent to Azure Blob.|
    |inference-operator-controller-manager|Kubernetes deployment|N/A|**&check;**|**&check;**|Manage the lifecycle of inference endpoints. |N/A|
    |cluster-status-reporter|Kubernetes deployment|**&check;**|**&check;**|**&check;**|Gather the cluster information, like cpu/gpu/memory usage, cluster healthness.|N/A|
-   |nfd-master|Kubernetes deployment|**&check;**|N/A|**&check;**|[Node Feature Discovery](https://kubernetes-sigs.github.io/node-feature-discovery/v0.10/get-started/introduction.html) is a Kubernetes add-on.|N/A|
-   |nfd-worker|Kubernetes daemonset|**&check;**|N/A|**&check;**|[Node Feature Discovery](https://kubernetes-sigs.github.io/node-feature-discovery/v0.10/get-started/introduction.html) is a Kubernetes add-on.|N/A|
    |csi-blob-controller|Kubernetes deployment|**&check;**|N/A|**&check;**|Azure Blob Storage Container Storage Interface(CSI) driver.|N/A|
    |csi-blob-node|Kubernetes daemonset|**&check;**|N/A|**&check;**|Azure Blob Storage Container Storage Interface(CSI) driver.|N/A|
    |fluent-bit|Kubernetes daemonset|**&check;**|**&check;**|**&check;**|Gather the components' system log.| Upload the components' system log to cloud.|
@@ -36,7 +34,6 @@ Upon AzureML extension deployment completes, it will create following resources 
    |volcano-admission|Kubernetes deployment|**&check;**|N/A|**&check;**|Volcano admission webhook.|N/A|
    |volcano-controllers|Kubernetes deployment|**&check;**|N/A|**&check;**|Manage the lifecycle of Azure Machine Learning training job pods.|N/A|
    |volcano-scheduler |Kubernetes deployment|**&check;**|N/A|**&check;**|Used to do in cluster job scheduling.|N/A|
-   |alertmanager|Kubernetes statefulset|**&check;**|N/A|**&check;**|Handle alerts sent by client applications such as the Prometheus server.|N/A|
 
 > **<span style="color:orange">Important**:</span> 
    > * Azure ServiceBus and Azure Relay resources  are under the same resource group as the Arc cluster resource. These resources are used to communicate with the Kubernetes cluster and modifying them will break attached compute targets.

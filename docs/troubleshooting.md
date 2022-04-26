@@ -16,7 +16,7 @@ This document is used to help customer solve problems when using AzureML extensi
 
 ## Extension Installation Guide
 ### How is AzureML extension installed <a name="how-is-extension-installed"></a>
-AzureML extension is released as a helm chart and installed by Helm V3. By default, all resources of AzureML extension are installed in azureml namespace. Currently, we don't find a way customise the installation error messages for a helm chart. The error message user received is the original error message returned by helm. This is why sometimes vague error messages are returned. But you can utilize the [built-in health check job](#2-do-health-check-for-extension) or the following commands to help you debug. You could get more detail Azureml extension information at [Install AzureML extension](./docs/deploy-extension.md). 
+AzureML extension is released as a helm chart and installed by Helm V3. By default, all resources of AzureML extension are installed in azureml namespace. Currently, we don't find a way customise the installation error messages for a helm chart. The error message user received is the original error message returned by helm. This is why sometimes vague error messages are returned. But you can utilize the [built-in health check job](#healthcheck) or the following commands to help you debug. You could get more detail Azureml extension information at [Install AzureML extension](./deploy-extension.md). 
 ```bash
 # check helm chart status
 helm list -a -n azureml
@@ -125,18 +125,18 @@ If you setup private endpoint for your workspace, it's important to test its ava
 ### Error Code of HealthCheck  <a name="healthcheck-error-code"></a>
 This table shows how to troubleshoot the error codes returned by the HealthCheck report. For error codes lower than E45000, this is a critical error, which means that some problems must be solved before continuing the installation. For error codes larger than E45000, this is a diagnostic error, which requires further manual analysis of the log to identify the problem.
 
-|Error Code | Description |
-|--|--|
-|E40000 | UNKNOWN_ERROR |
-|E40001 | LOAD_BALANCER_NOT_SUPPORT |
-|E40002 | INSUFFICIENT_NODE |
-|E40003 | INTERNAL_LOAD_BALANCER_NOT_SUPPORT |
-|E45001 | AGENT_UNHEALTHY |
-|E45002 | PROMETHEUS_CONFLICT |
-|E45003 | BAD_NETWORK_CONNECTIVITY |
-|E45004 | AZUREML_FE_ROLE_CONFLICT |
-|E45005 | AZUREML_FE_DEPLOYMENT_CONFLICT |
-|E49999 | CHECKER_PANIC |
+|Error Code |Error Message | Description |
+|--|--|--|
+|E40000 | UNKNOWN_ERROR | Unknown error happened. Need to check HealthCheck logs to identify the problem. |
+|E40001 | LOAD_BALANCER_NOT_SUPPORT | Load balancer is not supported by your cluster. Please refer to [Service type of inference scoring endpoint](#inference-service-type) for solution |
+|E40002 | INSUFFICIENT_NODE | The healthy nodes are insufficient. Maybe your node selector is not set properly. Or you may need to disable [Inference HA](#inference-ha)|
+|E40003 | INTERNAL_LOAD_BALANCER_NOT_SUPPORT | Currently, internal load balancer is only supported by AKS. Please refer to [Service type of inference scoring endpoint](#inference-service-type) |
+|E45001 | AGENT_UNHEALTHY |There are unhealty resources of AzureML extension. Resources checked by this checker are Pod, Job, Deployment, Daemonset and StatufulSet. From the HealthCheck logs, you can find out which resource is unhealthy. |
+|E45002 | PROMETHEUS_CONFLICT | |
+|E45003 | BAD_NETWORK_CONNECTIVITY | |
+|E45004 | AZUREML_FE_ROLE_CONFLICT | There exists an "azureml-fe-role" cluster role, but it doesn't belong Azureml extension. Usually, this is because Inference AKS V1 has been installed in your cluster. Please consider migration solution to install Azureml extension. |
+|E45005 | AZUREML_FE_DEPLOYMENT_CONFLICT | There exists an "azureml-fe" deployment, but it doesn't belong Azureml extension. Usually, this is because Inference AKS V1 has been installed in your cluster. Please consider migration solution to install Azureml extension. |
+|E49999 | CHECKER_PANIC | Checker run into panic. Need to check HealthCheck logs to identify the problem. |
 ## Training Guide
 
 ### UserError: AzureML Kubernetes job failed. : Dispatch Job Fail: Cluster does not support job type RegularJob
