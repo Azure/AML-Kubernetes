@@ -121,6 +121,7 @@ If you setup private endpoint for your workspace, it's important to test its ava
         ***
     }
     ```
+    
 ### Error Code of HealthCheck  <a name="healthcheck-error-code"></a>
 
 |Error Code | Description |
