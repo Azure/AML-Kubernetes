@@ -10,7 +10,7 @@ This document is used to help customer solve problems when using AzureML extensi
     * [Error: cannot be imported](#error-cannot-imported)
     * [Skip installation of volcano in the extension](#skip-volcano)
     * [How to validate private workspace endpoint](#valid-private-workspace)
-    * [Error Code of HealthCheck](#error-code-of-healthcheck)
+    * [Error Code of HealthCheck](#healthcheck-error-code)
 * [Training Guide](#training-guide)
 * [Inference Guide](#inference-guide)
 
@@ -123,18 +123,20 @@ If you setup private endpoint for your workspace, it's important to test its ava
     ```
     
 ### Error Code of HealthCheck  <a name="healthcheck-error-code"></a>
+This table shows how to troubleshoot the error codes returned by the HealthCheck report. For error codes lower than E45000, this is a critical error, which means that some problems must be solved before continuing the installation. For error codes larger than E45000, this is a diagnostic error, which requires further manual analysis of the log to identify the problem.
 
 |Error Code | Description |
 |--|--|
-|E40000 | TODO |
-|E40001 | TODO |
-|E40002 | TODO |
-|E40003 | TODO |
-|E45001 | TODO |
-|E45002 | TODO |
-|E45003 | TODO |
-|E45004 | TODO |
-|E49999 | TODO |
+|E40000 | UNKNOWN_ERROR |
+|E40001 | LOAD_BALANCER_NOT_SUPPORT |
+|E40002 | INSUFFICIENT_NODE |
+|E40003 | INTERNAL_LOAD_BALANCER_NOT_SUPPORT |
+|E45001 | AGENT_UNHEALTHY |
+|E45002 | PROMETHEUS_CONFLICT |
+|E45003 | BAD_NETWORK_CONNECTIVITY |
+|E45004 | AZUREML_FE_ROLE_CONFLICT |
+|E45005 | AZUREML_FE_DEPLOYMENT_CONFLICT |
+|E49999 | CHECKER_PANIC |
 ## Training Guide
 
 ### UserError: AzureML Kubernetes job failed. : Dispatch Job Fail: Cluster does not support job type RegularJob
