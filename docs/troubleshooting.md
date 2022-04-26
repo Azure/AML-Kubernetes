@@ -4,7 +4,7 @@ This document is used to help customer solve problems when using AzureML extensi
 
 * [Extension Installation Guide](#extension-installation-guide)
     * [How is AzureML extension installed](#how-is-azureml-extension-installed)
-    * [HealthCheck of extension](#introduction)
+    * [HealthCheck of extension](#healthcheck)
     * [Error Code of HealthCheck](#error-code-of-healthcheck)
 * [Training Guide](#training-guide)
 * [Inference Guide](#inference-guide)
