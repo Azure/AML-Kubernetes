@@ -1,16 +1,12 @@
 ## This document is WIP!
 # Azure Arc-enabled Machine Learning Trouble Shooting
 This document is used to help customer solve problems when using AzureML extension. 
-* [General Guide](#general-guide)
+
 * [Extension Installation Guide](#extension-installation-guide)
 * [Training Guide](#training-guide)
 * [Inference Guide](#inference-guide)
 
-
-## General Guide
-
 ## Extension Installation Guide
-
 ### 1. How is AzureML extension installed   
 You could get more detail Azureml extension information at [Install AzureML extension](./docs/deploy-extension.md). AzureML extension is released as a helm chart and installed by Helm V3. By default, all resources of AzureML extension are installed in azureml namespace. Currently, we don't find a way customise the installation error messages for a helm chart. The error message user received is the original error message returned by helm. This is why sometimes vague error messages are returned. But you can utilize the [built-in health check job](#2-do-health-check-for-extension) or the following commands to help you debug.
 ```bash
@@ -117,6 +113,19 @@ If you setup private endpoint for your workspace, it's important to test its ava
         ***
     }
     ```
+### 8. Error Code of HealthCheck
+
+|Error Code | Description |
+|--|--|
+|E40000 | TODO |
+|E40001 | TODO |
+|E40002 | TODO |
+|E40003 | TODO |
+|E45001 | TODO |
+|E45002 | TODO |
+|E45003 | TODO |
+|E45004 | TODO |
+|E49999 | TODO |
 ## Training Guide
 
 ### UserError: AzureML Kubernetes job failed. : Dispatch Job Fail: Cluster does not support job type RegularJob
