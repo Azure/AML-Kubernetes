@@ -209,34 +209,51 @@ check_arc_status(){
 
 # install extension
 install_extension(){
-    # remove extension if exists to avoid missing the major version upgrade. 
-    az k8s-extension show \
-        --cluster-name $CLUSTER_NAME \
-        --cluster-type $CLUSTER_TYPE \
-        --subscription $SUBSCRIPTION \
-        --resource-group $RESOURCE_GROUP \
-        --name $EXTENSION_NAME && \
-    az k8s-extension delete \
-        --cluster-name $CLUSTER_NAME \
-        --cluster-type $CLUSTER_TYPE \
-        --subscription $SUBSCRIPTION \
-        --resource-group $RESOURCE_GROUP \
-        --name $EXTENSION_NAME \
-        --yes || true
+    REINSTALL_EXTENSION="${REINSTALL_EXTENSION:-true}"
+    
+    if [[ $REINSTALL_EXTENSION != "true" ]]; then
+        # remove extension if exists to avoid missing the major version upgrade. 
+        az k8s-extension delete \
+            --cluster-name $CLUSTER_NAME \
+            --cluster-type $CLUSTER_TYPE \
+            --subscription $SUBSCRIPTION \
+            --resource-group $RESOURCE_GROUP \
+            --name $EXTENSION_NAME \
+            --yes || true
 
-    # install extension
-    az k8s-extension create \
-        --cluster-name $CLUSTER_NAME \
-        --cluster-type $CLUSTER_TYPE \
-        --subscription $SUBSCRIPTION \
-        --resource-group $RESOURCE_GROUP \
-        --name $EXTENSION_NAME \
-        --extension-type $EXTENSION_TYPE \
-        --scope cluster \
-        --release-train $RELEASE_TRAIN \
-        --configuration-settings $EXTENSION_SETTINGS \
-        --no-wait \
-        $@
+        # install extension
+        az k8s-extension create \
+            --cluster-name $CLUSTER_NAME \
+            --cluster-type $CLUSTER_TYPE \
+            --subscription $SUBSCRIPTION \
+            --resource-group $RESOURCE_GROUP \
+            --name $EXTENSION_NAME \
+            --extension-type $EXTENSION_TYPE \
+            --scope cluster \
+            --release-train $RELEASE_TRAIN \
+            --configuration-settings $EXTENSION_SETTINGS \
+            --no-wait \
+            $@
+    else
+        az k8s-extension show \
+            --cluster-name $CLUSTER_NAME \
+            --cluster-type $CLUSTER_TYPE \
+            --subscription $SUBSCRIPTION \
+            --resource-group $RESOURCE_GROUP \
+            --name $EXTENSION_NAME && \
+        az k8s-extension create \
+            --cluster-name $CLUSTER_NAME \
+            --cluster-type $CLUSTER_TYPE \
+            --subscription $SUBSCRIPTION \
+            --resource-group $RESOURCE_GROUP \
+            --name $EXTENSION_NAME \
+            --extension-type $EXTENSION_TYPE \
+            --scope cluster \
+            --release-train $RELEASE_TRAIN \
+            --configuration-settings $EXTENSION_SETTINGS \
+            --no-wait \
+            $@
+    fi
     
     check_extension_status
 }
@@ -420,7 +437,8 @@ run_cli_job(){
     SRW=" --subscription $SUBSCRIPTION --resource-group $RESOURCE_GROUP --workspace-name $WORKSPACE "
 
     run_id=$(az ml job create $SRW -f $JOB_YML $EXTRA_ARGS --query name -o tsv)
-    timeout 30m az ml job stream $SRW -n $run_id
+    TIMEOUT="${TIMEOUT:-30m}"
+    timeout ${TIMEOUT} az ml job stream $SRW -n $run_id
     status=$(az ml job show $SRW -n $run_id --query status -o tsv)
     timeout 5m az ml job cancel $SRW -n $run_id
     echo $status
