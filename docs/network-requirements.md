@@ -7,9 +7,9 @@ Besides that, the following outbound URLs are required for Azure Machine Learnin
 
 | Outbound Endpoint| Port | Description|Training |Inference |
 |--|--|--|--|--|
-| *.kusto.windows.net,<br> \*.table.core.windows.net, <br>\*.queue.core.windows.net | https:443 | Required to upload system logs to Kusto. |**&check;**|**&check;**|
-| *.azurecr.io | https:443 | Azure container registry, required to pull docker images used for machine learning workloads.|**&check;**|**&check;**|
-| *.blob.core.windows.net | https:443 | Azure blob storage, required to fetch machine learning project scripts,data or models, and upload job logs/outputs.|**&check;**|**&check;**|
+| *.kusto.windows.net,<br> \*.table.core.windows.net, <br>\*.queue.core.windows.net | https:443 | Required to upload system logs to Kusto. You can skip this if you have a data exfiltration concern to add table and queue FQDNs, but you cannot get the error diagnosis support from Microsoft.|**&check;**|**&check;**|
+| \<your ACR name>\.azurecr.io<br>\<your ACR name>\.\<region name>\.data.azurecr.io | https:443 | Azure container registry, required to pull docker images used for machine learning workloads.|**&check;**|**&check;**|
+| \<your Storage Account name>\.blob.core.windows.net | https:443 | Azure blob storage, required to fetch machine learning project scripts,data or models, and upload job logs/outputs.|**&check;**|**&check;**|
 | *.workspace.\<region\>.api.azureml.ms ,<br>  \<region\>.experiments.azureml.net, <br> \<region\>.api.azureml.ms | https:443 | Azure mahince learning service API.|**&check;**|**&check;**|
 | pypi.org | https:443 | Python package index, to install pip packages used for training job environment initialization.|**&check;**|N/A|
 
