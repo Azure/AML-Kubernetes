@@ -33,7 +33,7 @@ kubectl get events -n azureml --sort-by='.lastTimestamp'
 helm history -n azureml --debug <extension-name>
 ```
 ### HealthCheck of extension <a name="healthcheck"></a>
-When the installation failed, you can use the built-in health check job to make a comprehensive check on the extension. The job will output a report which is saved in a configmap named "arcml-healthcheck" under azureml namespace. The error codes and possible solutions for the report are list in [Error Code of HealthCheck](#healthcheck-error-code). The health check job will also be automatically triggered in pre-install, pre-upgrade, pre-rollback and pre-delete steps. When aksing [support](./../README.md#support), we recommend that you run the first command below and send the```healthcheck.logs``` file to us, as it can facilitate us to better locate the problem.
+When the installation failed, you can use the built-in health check job to make a comprehensive check on the extension. The job will output a report which is saved in a configmap named "arcml-healthcheck" under azureml namespace. The error codes and possible solutions for the report are list in [Error Code of HealthCheck](#healthcheck-error-code). The health check job will also be automatically triggered in pre-install, pre-upgrade, pre-rollback and pre-delete steps. When asking [support](./../README.md#support), we recommend that you run the first command below and send the```healthcheck.logs``` file to us, as it can facilitate us to better locate the problem.
 ```bash
 # collect all healthcheck logs when asking support
 helm test -n azureml <extension-name> --logs | tee healthcheck.logs
