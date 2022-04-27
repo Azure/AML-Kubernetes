@@ -7,9 +7,15 @@ This document is used to help customer solve problems when using AzureML extensi
     * [HealthCheck of extension](#healthcheck)
     * [Inference HA (High availability)](#inference-ha)
     * [Service type of inference scoring endpoint](#inference-service-type)
-    * [Error: cannot be imported](#error-cannot-imported)
     * [Skip installation of volcano in the extension](#skip-volcano)
     * [How to validate private workspace endpoint](#valid-private-workspace)
+    * [Reuse Prometheus](#prometheus)
+    * [Error: Failed pre-install: pod healthcheck failed](#error-healthcheck-failed)
+    * [Error: Resources cannot be imported](#error-cannot-imported)
+    * [Error: Cannot re-use a name that is still in use](#error-reuse-name)
+    * [Error: Earlier operation is in progress](#error-operation-in-progress)
+    * [Error: Extension is being terminated](#error-resource-terminating)
+    * [Error: Failed in download the Chart path not found](#error-chart-not-found)
     * [Error Code of HealthCheck](#healthcheck-error-code)
 * [Training Guide](#training-guide)
 * [Inference Guide](#inference-guide)
@@ -46,11 +52,6 @@ kubectl get configmap -n azureml amlarc-healthcheck --output="jsonpath={.data.re
 For inference azureml-fe agent, HA feature is enabled by default. So, by default, the inference feature requires at least 3 nodes to run. The phenomenon that this kind of issue may lead to is that some ```azureml-fe``` pods are pending on scheduling and error message of the pod could be like **"0/1 nodes are available: 1 node(s) didn't match pod anti-affinity rules"**.
 ### Service type of inference scoring endpoint  <a name="inference-service-type"></a>
 It's very important for inference to expose scoring endpoint. According to the cluster configuration and testing scenarios, we have three ways to expose scoring services: **public loadbalancer, private endpoint and nodeport**. Public loadbalancer is used by default. ```privateEndpointNodeport``` and ```privateEndpointILB``` flags are used for the rest two scenarios. For detailed flag usage, please refer to [doc](./deploy-extension.md#review-azureml-deployment-configuration-settings). Many customers got problems in setting up loadbalancer, so we strongly recommend reading the relevant documents and doing some checks before the installation. If you find that inference-operator pod is crashed and azureml-fe service is in pending or unhealthy state, it is likely that endpoint flags are not set properly. 
-### Error: resources cannot be imported into the current release: invalid ownership metadata <a name="error-cannot-imported"></a>
-If you get error like ```CustomResourceDefinition "queues.scheduling.volcano.sh" in namespace "" exists and cannot be imported into the current release: invalid ownership metadata; label validation error: missing key "app.kubernetes.io/managed-by": must be set to "Helm"; annotation validation error: missing key "meta.helm.sh/release-name": must be set to "amlarc-extension"; annotation validation error: missing key "meta.helm.sh/release-namespace": must be set to "azureml"```, that means there is a confliction between existing cluster resources and AzureML extension. Follow the steps below to mitigate the issue.
-* Check who owns the problematic resources and if the resource can be deleted or modified. 
-* If the resource is used only by AzureML extension and can be deleted, we can manually add labels to mitigate the issue. Taking the previous error message as an example, we can run commands ```kubectl label crd queues.scheduling.volcano.sh "app.kubernetes.io/managed-by=Helm" ``` and ```kubectl annotate crd queues.scheduling.volcano.sh "meta.helm.sh/release-namespace=azureml" "meta.helm.sh/release-name=<extension-name>"```. Please replace \<extension-name\> with your own extension name. By setting labels and annotations to the resource, it means the resource is managed by helm and owned by AzureML extension. 
-* If the resource is also used by other components in your cluster and can't be modified. Please refer to [doc](./deploy-extension.md#review-azureml-deployment-configuration-settings) to see if there is a flag to disable the resource from AzureML extension side. Taking the previous error message as an example, it's a resource of [Volcano Scheduler](https://github.com/volcano-sh/volcano). If Volcano Scheduler has been installed in your cluster, you can set ```volcanoScheduler.enable=false``` flag to disable it to avoid the confliction.
 
 ### Skip installation of volcano in the extension  <a name="skip-volcano"></a>
 If user have their own volcano suite installed, they can set `volcanoScheduler.enable=false`, so that the extension will not try to install the volcano scheduler. Volcano scheduler and volcano controller are required for job submission and scheduling.
@@ -121,7 +122,38 @@ If you setup private endpoint for your workspace, it's important to test its ava
         ***
     }
     ```
-    
+
+### Reuse Prometheus  <a name="prometheus"></a>
+TODO
+
+### Error: Failed pre-install: pod healthcheck failed <a name="error-healthcheck-failed"></a>
+Azureml extension contains a HealthCheck hook to check your cluster before the installation. If you got this error, it means some critical errors are found. You can follow [HealthCheck of extension](#healthcheck) to get detailed error message and follow [Error Code of HealthCheck](#healthcheck-error-code) to get some advice. But, in some corner cases, it may also be the problem of the cluster, such as unable to create a pod due to sandbox container issues or unable to pull the image due to network issues. So making sure the cluster is healthy is also very important before the installation.
+
+### Error: resources cannot be imported into the current release: invalid ownership metadata <a name="error-cannot-imported"></a>
+This error means there is a confliction between existing cluster resources and AzureML extension. A full error message could be like this: 
+```
+CustomResourceDefinition "jobs.batch.volcano.sh" in namespace "" exists and cannot be imported into the current release: invalid ownership metadata; label validation error: missing key "app.kubernetes.io/managed-by": must be set to "Helm"; annotation validation error: missing key "meta.helm.sh/release-name": must be set to "amlarc-extension"; annotation validation error: missing key "meta.helm.sh/release-namespace": must be set to "azureml"
+```
+
+Follow the steps below to mitigate the issue.
+* If the conflict resource is ClusterRole "azureml-fe-role", ClusterRoleBinding "azureml-fe-binding", ServiceAccount "azureml-fe", Deployment "azureml-fe" or other resource related to "azureml-fe", please check if you have Inference AKS v1 installed in your cluster. If yes, please contact us for migration solution ([Support](./../README.md#support)). If not, please follow the steps below.
+* Check who owns the problematic resources and if the resource can be deleted or modified. 
+* If the resource is used only by AzureML extension and can be deleted, we can manually add labels to mitigate the issue. Taking the previous error message as an example, you can run commands ```kubectl label crd jobs.batch.volcano.sh "app.kubernetes.io/managed-by=Helm" ``` and ```kubectl annotate crd jobs.batch.volcano.sh "meta.helm.sh/release-namespace=azureml" "meta.helm.sh/release-name=<extension-name>"```. Please replace \<extension-name\> with your own extension name. By setting labels and annotations to the resource, it means the resource is managed by helm and owned by AzureML extension. 
+* If the resource is also used by other components in your cluster and can't be modified. Please refer to [doc](./deploy-extension.md#review-azureml-deployment-configuration-settings) to see if there is a flag to disable the resource from AzureML extension side. For example, if it's a resource of [Volcano Scheduler](https://github.com/volcano-sh/volcano) and Volcano Scheduler has been installed in your cluster, you can set ```volcanoScheduler.enable=false``` flag to disable it to avoid the confliction or follow [Skip installation of volcano in the extension](#skip-volcano).
+
+### Error: cannot re-use a name that is still in use <a name="error-reuse-name"></a>
+This means the extension name you specified already exists. Run ```helm list -Aa``` to list all helm chart in your cluster. If the name is used by other helm chart, you need to use another name. If the name is used by Azureml extension, it depends. You can try to uninstall the extension and reinstall it if possible. Or maybe you need to wait for about an hour and try again after the unknown operation is completed.
+
+### Error: Earlier operation for the helm chart is still in progress <a name="error-operation-in-progress"></a>
+You need to wait for about an hour and try again after the unknown operation is completed.
+
+### Error: unable to create new content in namespace azureml because it is being terminated <a name="error-resource-terminating"></a>
+This happens when an uninstallation operation is unfinished and another installtion operation is triggered. You can run ```az k8s-extension show``` command to check the provision status of extension and make sure extension has been uninstalled before taking other actions.
+
+### Error: Failed in download the Chart path not found <a name="error-chart-not-found"></a>
+Most likely, you specified the wrong extension version. Or the ```--release-train``` flag and ```--version``` flag doesn't match. Please try the default value to mitigate this.
+
+
 ### Error Code of HealthCheck  <a name="healthcheck-error-code"></a>
 This table shows how to troubleshoot the error codes returned by the HealthCheck report. For error codes lower than E45000, this is a critical error, which means that some problems must be solved before continuing the installation. For error codes larger than E45000, this is a diagnostic error, which requires further manual analysis of the log to identify the problem.
 
@@ -132,10 +164,10 @@ This table shows how to troubleshoot the error codes returned by the HealthCheck
 |E40002 | INSUFFICIENT_NODE | The healthy nodes are insufficient. Maybe your node selector is not set properly. Or you may need to disable [Inference HA](#inference-ha)|
 |E40003 | INTERNAL_LOAD_BALANCER_NOT_SUPPORT | Currently, internal load balancer is only supported by AKS. Please refer to [Service type of inference scoring endpoint](#inference-service-type) |
 |E45001 | AGENT_UNHEALTHY |There are unhealty resources of AzureML extension. Resources checked by this checker are Pod, Job, Deployment, Daemonset and StatufulSet. From the HealthCheck logs, you can find out which resource is unhealthy. |
-|E45002 | PROMETHEUS_CONFLICT | |
-|E45003 | BAD_NETWORK_CONNECTIVITY | |
-|E45004 | AZUREML_FE_ROLE_CONFLICT | There exists an "azureml-fe-role" cluster role, but it doesn't belong Azureml extension. Usually, this is because Inference AKS V1 has been installed in your cluster. Please consider migration solution to install Azureml extension. |
-|E45005 | AZUREML_FE_DEPLOYMENT_CONFLICT | There exists an "azureml-fe" deployment, but it doesn't belong Azureml extension. Usually, this is because Inference AKS V1 has been installed in your cluster. Please consider migration solution to install Azureml extension. |
+|E45002 | PROMETHEUS_CONFLICT | Please refer to [Reuse Prometheus](#prometheus) |
+|E45003 | BAD_NETWORK_CONNECTIVITY | Please follow [network-requirements](./network-requirements.md) to check network connectivity. If you are using private link for workspace or other resources, you can refer to doc [private-link](./private-link.md)  |
+|E45004 | AZUREML_FE_ROLE_CONFLICT | There exists an "azureml-fe-role" cluster role, but it doesn't belong Azureml extension. Usually, this is because Inference AKS V1 has been installed in your cluster. Please contact us for migration solution. [Support](./../README.md#support)|
+|E45005 | AZUREML_FE_DEPLOYMENT_CONFLICT | There exists an "azureml-fe" deployment, but it doesn't belong Azureml extension. Usually, this is because Inference AKS V1 has been installed in your cluster. Please contact us for migration solution. [Support](./../README.md#support)|
 |E49999 | CHECKER_PANIC | Checker run into panic. Need to check HealthCheck logs to identify the problem. |
 ## Training Guide
 
