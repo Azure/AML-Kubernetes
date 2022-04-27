@@ -10,6 +10,7 @@ This document is used to help customer solve problems when using AzureML extensi
     * [Error: cannot be imported](#error-cannot-imported)
     * [Skip installation of volcano in the extension](#skip-volcano)
     * [How to validate private workspace endpoint](#valid-private-workspace)
+    * [Reuse Prometheus](#prometheus)
     * [Error Code of HealthCheck](#healthcheck-error-code)
 * [Training Guide](#training-guide)
 * [Inference Guide](#inference-guide)
@@ -79,6 +80,9 @@ If user have their own volcano suite installed, they can set `volcanoScheduler.e
 3. There is a bug in volcano admission, and it will break our job, so we disabled `job/validate` webhook explicitly in the volcano admission provided in our extension, user should also patch their volcano admission otherwise the common runtime job won’t work.
 See this [issue](https://github.com/volcano-sh/volcano/issues/1680).
 
+### Reuse Prometheus  <a name="prometheus"></a>
+
+TODO
 ### How to validate private workspace endpoint  <a name="valid-private-workspace"></a>
 If you setup private endpoint for your workspace, it's important to test its availability before using it. Otherwise, it may cause unknown errors, like installation errors. You can follow the steps below to test if the private workspace endpoint is available in your cluster.
 1. The format of private workspace endpoint should be like this ```{workspace_id}.workspace.{region}.api.azureml.ms```. You can find workspace id and region in your workspace portal or through ```az ml workspace``` command.
@@ -132,10 +136,10 @@ This table shows how to troubleshoot the error codes returned by the HealthCheck
 |E40002 | INSUFFICIENT_NODE | The healthy nodes are insufficient. Maybe your node selector is not set properly. Or you may need to disable [Inference HA](#inference-ha)|
 |E40003 | INTERNAL_LOAD_BALANCER_NOT_SUPPORT | Currently, internal load balancer is only supported by AKS. Please refer to [Service type of inference scoring endpoint](#inference-service-type) |
 |E45001 | AGENT_UNHEALTHY |There are unhealty resources of AzureML extension. Resources checked by this checker are Pod, Job, Deployment, Daemonset and StatufulSet. From the HealthCheck logs, you can find out which resource is unhealthy. |
-|E45002 | PROMETHEUS_CONFLICT | |
-|E45003 | BAD_NETWORK_CONNECTIVITY | |
-|E45004 | AZUREML_FE_ROLE_CONFLICT | There exists an "azureml-fe-role" cluster role, but it doesn't belong Azureml extension. Usually, this is because Inference AKS V1 has been installed in your cluster. Please consider migration solution to install Azureml extension. |
-|E45005 | AZUREML_FE_DEPLOYMENT_CONFLICT | There exists an "azureml-fe" deployment, but it doesn't belong Azureml extension. Usually, this is because Inference AKS V1 has been installed in your cluster. Please consider migration solution to install Azureml extension. |
+|E45002 | PROMETHEUS_CONFLICT | Please refer to [Reuse Prometheus](#prometheus) |
+|E45003 | BAD_NETWORK_CONNECTIVITY | Please follow [network-requirements](./network-requirements.md) to check network connectivity. If you are using private link for workspace or other resources, you can refer to doc [private-link](./private-link.md)  |
+|E45004 | AZUREML_FE_ROLE_CONFLICT | There exists an "azureml-fe-role" cluster role, but it doesn't belong Azureml extension. Usually, this is because Inference AKS V1 has been installed in your cluster. Please contact us for migration solution. [Support](./../README.md#support)|
+|E45005 | AZUREML_FE_DEPLOYMENT_CONFLICT | There exists an "azureml-fe" deployment, but it doesn't belong Azureml extension. Usually, this is because Inference AKS V1 has been installed in your cluster. Please contact us for migration solution. [Support](./../README.md#support)|
 |E49999 | CHECKER_PANIC | Checker run into panic. Need to check HealthCheck logs to identify the problem. |
 ## Training Guide
 
