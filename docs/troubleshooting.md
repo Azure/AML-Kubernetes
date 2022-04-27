@@ -34,18 +34,29 @@ kubectl get events -n azureml --sort-by='.lastTimestamp'
 helm history -n azureml --debug <extension-name>
 ```
 ### HealthCheck of extension <a name="healthcheck"></a>
-If the installation fails, you can use the built-in health check job to make a comprehensive check on the extension, and the check will also produce a report. This report can facilitate us to better locate the problem. We recommend that you send us these reports when you need our help to solve the installation problems. The report is saved in configmap named "arcml-healthcheck" under azureml namespace.
+When the installation failed, you can use the built-in health check job to make a comprehensive check on the extension. The job will output a report which is saved in a configmap named "arcml-healthcheck" under azureml namespace. The error codes and possible solutions for the report are list in [Error Code of HealthCheck](#healthcheck-error-code). The health check job will also be automatically triggered in pre-install, pre-upgrade, pre-rollback and pre-delete steps. When aksing [support](./../README.md#support), we recommend that you run the first command below and send the```healthcheck.logs``` file to us, as it can facilitate us to better locate the problem.
 ```bash
-# trigger the built-in test to generate a health report of the extension
+# collect all healthcheck logs when asking support
+helm test -n azureml <extension-name> --logs | tee healthcheck.logs
+
+# manually trigger the built-in health check test
 helm test -n azureml <extension-name> --logs
+# get the report in test step
+kubectl get configmap -n azureml arcml-healthcheck --output="jsonpath={.data.reports-test}"
+# get the report in pre-install step
+kubectl get configmap -n azureml arcml-healthcheck --output="jsonpath={.data.reports-pre-install}"
+# get the report in pre-upgrade step
+kubectl get configmap -n azureml arcml-healthcheck --output="jsonpath={.data.reports-pre-upgrade}"
+# get the report in pre-rollback step
+kubectl get configmap -n azureml arcml-healthcheck --output="jsonpath={.data.reports-pre-rollback}"
+# get the report in pre-delete step
+kubectl get configmap -n azureml arcml-healthcheck --output="jsonpath={.data.reports-pre-delete}"
+
+# for versions that is older than 1.0.88 the commands should be those
 # get a summary of the report
 kubectl get configmap -n azureml arcml-healthcheck --output="jsonpath={.data.status-test}"
 # get detailed information of the report
-kubectl get configmap -n azureml arcml-healthcheck --output="jsonpath={.data.reports-test}"
-
-# for versions that is older than 1.0.75, the commands should be those
-kubectl get configmap -n azureml amlarc-healthcheck --output="jsonpath={.data.status-test-success}"
-kubectl get configmap -n azureml amlarc-healthcheck --output="jsonpath={.data.reports-test-success}"
+kubectl get configmap -n azureml arcml-healthcheck --output="jsonpath={.data.reports-test}
 ```
 > Note: When running "helm test" command, Error like "unable to get pod logs for healthcheck-config: pods 'healthcheck-config' not found" should be ignored. 
 ### Inference HA (High availability) <a name="inference-ha"></a>
@@ -80,9 +91,6 @@ If user have their own volcano suite installed, they can set `volcanoScheduler.e
 3. There is a bug in volcano admission, and it will break our job, so we disabled `job/validate` webhook explicitly in the volcano admission provided in our extension, user should also patch their volcano admission otherwise the common runtime job won’t work.
 See this [issue](https://github.com/volcano-sh/volcano/issues/1680).
 
-### Reuse Prometheus  <a name="prometheus"></a>
-
-TODO
 ### How to validate private workspace endpoint  <a name="valid-private-workspace"></a>
 If you setup private endpoint for your workspace, it's important to test its availability before using it. Otherwise, it may cause unknown errors, like installation errors. You can follow the steps below to test if the private workspace endpoint is available in your cluster.
 1. The format of private workspace endpoint should be like this ```{workspace_id}.workspace.{region}.api.azureml.ms```. You can find workspace id and region in your workspace portal or through ```az ml workspace``` command.
