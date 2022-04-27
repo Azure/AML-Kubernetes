@@ -1,4 +1,3 @@
-## This document is WIP!
 # Azure Arc-enabled Machine Learning Trouble Shooting
 This document is used to help customer solve problems when using AzureML extension. 
 
