@@ -8,7 +8,7 @@ This document is used to help customer solve problems when using AzureML extensi
     * [Inference router service type](#inference-service-type)
     * [Skip installation of volcano in the extension](#skip-volcano)
     * [How to validate private workspace endpoint](#valid-private-workspace)
-    * [Reuse Prometheus](#prometheus)
+    * [DCGM exporter](#dcgm)
     * [Error: Failed pre-install: pod healthcheck failed](#error-healthcheck-failed)
     * [Error: Resources cannot be imported](#error-cannot-imported)
     * [Error: Cannot re-use a name that is still in use](#error-reuse-name)
@@ -139,7 +139,12 @@ If you setup private endpoint for your workspace, it's important to test its ava
     ```
 
 ### DCGM exporter <a name="dcgm"></a>
-TODO
+[Ecdgm-exporter](https://github.com/NVIDIA/dcgm-exporter) is the official tool recommended by NVIDIA for collecting GPU metrics. Specify ```installDcgmExporter``` flag to ```true``` to enable it. By default, dcgm-exporter is not installed, and no GPU metrics are collected. As it's NVIDIA's official tool, you may already have it installed in your GPU cluster. So, you can follow the steps below to integrate your dcgm-exporter into Azureml extension.
+1. Make sure you have Aureml extension and dcgm-exporter installed successfully. 
+1. Check if there is service for dcgm-exporter
+1. Setup ServiceMonitor to expose dcgm-exporter service to Azureml extension.
+
+
 
 ### Error: Failed pre-install: pod healthcheck failed <a name="error-healthcheck-failed"></a>
 Azureml extension contains a HealthCheck hook to check your cluster before the installation. If you got this error, it means some critical errors are found. You can follow [HealthCheck of extension](#healthcheck) to get detailed error message and follow [Error Code of HealthCheck](#healthcheck-error-code) to get some advice. But, in some corner cases, it may also be the problem of the cluster, such as unable to create a pod due to sandbox container issues or unable to pull the image due to network issues. So making sure the cluster is healthy is also very important before the installation.
