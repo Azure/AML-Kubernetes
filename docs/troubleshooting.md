@@ -4,8 +4,8 @@ This document is used to help customer solve problems when using AzureML extensi
 * [Extension Installation Guide](#extension-installation-guide)
     * [How is AzureML extension installed](#how-is-extension-installed)
     * [HealthCheck of extension](#healthcheck)
-    * [Inference HA (High availability)](#inference-ha)
-    * [Service type of inference scoring endpoint](#inference-service-type)
+    * [Inference HA](#inference-ha)
+    * [Inference router service type](#inference-service-type)
     * [Skip installation of volcano in the extension](#skip-volcano)
     * [How to validate private workspace endpoint](#valid-private-workspace)
     * [Reuse Prometheus](#prometheus)
@@ -58,10 +58,15 @@ kubectl get configmap -n azureml arcml-healthcheck --output="jsonpath={.data.sta
 kubectl get configmap -n azureml arcml-healthcheck --output="jsonpath={.data.reports-test}
 ```
 > Note: When running "helm test" command, Error like "unable to get pod logs for healthcheck-config: pods 'healthcheck-config' not found" should be ignored. 
-### Inference HA (High availability) <a name="inference-ha"></a>
-For inference azureml-fe agent, HA feature is enabled by default. So, by default, the inference feature requires at least 3 nodes to run. The phenomenon that this kind of issue may lead to is that some ```azureml-fe``` pods are pending on scheduling and error message of the pod could be like **"0/1 nodes are available: 1 node(s) didn't match pod anti-affinity rules"**.
-### Service type of inference scoring endpoint  <a name="inference-service-type"></a>
-It's very important for inference to expose scoring endpoint. According to the cluster configuration and testing scenarios, we have three ways to expose scoring services: **public loadbalancer, private endpoint and nodeport**. Public loadbalancer is used by default. ```privateEndpointNodeport``` and ```privateEndpointILB``` flags are used for the rest two scenarios. For detailed flag usage, please refer to [doc](./deploy-extension.md#review-azureml-deployment-configuration-settings). Many customers got problems in setting up loadbalancer, so we strongly recommend reading the relevant documents and doing some checks before the installation. If you find that inference-operator pod is crashed and azureml-fe service is in pending or unhealthy state, it is likely that endpoint flags are not set properly. 
+### Inference HA <a name="inference-ha"></a>
+For the high availability of inference service, azureml-fe agent will be deployed to three different nodes by default. Azureml-fe agent is used for load balancing, cooperative routing and security authentication. It's very important, especially for production environment. For a single azureml-fe agent, it requires about 0.5 cpu and 500Mi memory. Inference HA is enabled by default and requires at least 3 nodes to run, so, in many test scenarios, installation will fail due to insufficient resources.  
+
+The phenomenon that this kind of issue may lead to is that some ```azureml-fe``` pods are pending on scheduling and error message of the pod could be like **"0/1 nodes are available: 1 node(s) didn't match pod anti-affinity rules"**.
+
+### Inference router service type  <a name="inference-service-type"></a>
+According to the cluster configuration and testing scenarios, you may need different ways to expose our inference scoring services. you can specify ```loadBalancer``` and ```nodePort``` service type with ```inferenceRouterServiceType``` flag. And you can enable internal loadBalancer with ```internalLoadBalancerProvider``` flag, but internal loadBalancer is only supported by AKS cluster currently. 
+
+Please note that ```loadBalancer``` is not supported by raw k8s, like Minikube and Kind. Usually, ```loadBalancer``` are implemented by cloud provider, like AKS, GKE and EKS. If you are trying to use ```loadBalancer``` in a cluster which doesn't support ```loadBalancer```, you may get timeout error from cli and ```LOAD_BALANCER_NOT_SUPPORT``` error from healthcheck report. If you find that inference-operator pod is crashed and azureml-fe service is in pending or unhealthy state, it is likely that you are using the wrong service type or your cluster has something wrong to support the service type you specified. 
 
 ### Skip installation of volcano in the extension  <a name="skip-volcano"></a>
 If user have their own volcano suite installed, they can set `volcanoScheduler.enable=false`, so that the extension will not try to install the volcano scheduler. Volcano scheduler and volcano controller are required for job submission and scheduling.
@@ -133,7 +138,7 @@ If you setup private endpoint for your workspace, it's important to test its ava
     }
     ```
 
-### Reuse Prometheus  <a name="prometheus"></a>
+### DCGM exporter <a name="dcgm"></a>
 TODO
 
 ### Error: Failed pre-install: pod healthcheck failed <a name="error-healthcheck-failed"></a>

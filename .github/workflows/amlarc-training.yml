@@ -45,7 +45,7 @@ jobs:
       OWNERS: zetia@microsoft.com;jing.zhong@microsoft.com
       GITHUB_REPO: https://github.com/Azure/AML-Kubernetes
       WORKFLOW_URL: https://github.com/Azure/AML-Kubernetes/actions/workflows/amlarc-training.yml
-      TSG_ID: https://microsoft.sharepoint.com/teams/Vienna/SiteAssets/Vienna%20Notebook/AMLArcTSG.one#Troubleshooting%20github%20workflow&section-id=69e8bdb1-5734-4b07-967a-5a50a91cf040&page-id=53a1a232-f9f0-4192-b7d2-0474848ebb18&end
+      TSG_ID: https://microsoft.sharepoint.com/teams/Vienna/_layouts/15/Doc.aspx?sourcedoc=%7B7ebf9ccd-fa20-4e82-8b2b-6c14c9f1740f%7D&action=edit&wd=target(AMLArcTSG.one%7C69e8bdb1-5734-4b07-967a-5a50a91cf040%2FTroubleshooting%20github%20workflow%7C53a1a232-f9f0-4192-b7d2-0474848ebb18%2F)&share=IgHNnL9-IPqCTosrbBTJ8XQPAVwbVLD_kFe92G2Y9a49ROs
       
     steps:
     - name: check out repo
