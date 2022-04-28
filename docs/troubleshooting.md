@@ -139,12 +139,68 @@ If you setup private endpoint for your workspace, it's important to test its ava
     ```
 
 ### DCGM exporter <a name="dcgm"></a>
-[Ecdgm-exporter](https://github.com/NVIDIA/dcgm-exporter) is the official tool recommended by NVIDIA for collecting GPU metrics. Specify ```installDcgmExporter``` flag to ```true``` to enable it. By default, dcgm-exporter is not installed, and no GPU metrics are collected. As it's NVIDIA's official tool, you may already have it installed in your GPU cluster. So, you can follow the steps below to integrate your dcgm-exporter into Azureml extension.
-1. Make sure you have Aureml extension and dcgm-exporter installed successfully. 
-1. Check if there is service for dcgm-exporter
-1. Setup ServiceMonitor to expose dcgm-exporter service to Azureml extension.
+[Dcgm-exporter](https://github.com/NVIDIA/dcgm-exporter) is the official tool recommended by NVIDIA for collecting GPU metrics. Specify ```installDcgmExporter``` flag to ```true``` to enable it. By default, dcgm-exporter is not installed, and no GPU metrics are collected. As it's NVIDIA's official tool, you may already have it installed in your GPU cluster. So, you can follow the steps below to integrate your dcgm-exporter into Azureml extension. Another thing to note is that dcgm-exporter allows user to config which metrics to expose. So, for Azureml extension, please make sure ```DCGM_FI_DEV_GPU_UTIL```, ```DCGM_FI_DEV_FB_FREE``` and ```DCGM_FI_DEV_FB_USED``` metris are exposed. 
 
+1. Make sure you have Aureml extension and dcgm-exporter installed successfully. Dcgm-exporter can be installed by [Dcgm-exporter helm chart](https://github.com/NVIDIA/dcgm-exporter) or [Gpu-operator helm chart](https://github.com/NVIDIA/gpu-operator)
 
+1. Check if there is a service for dcgm-exporter. If you don't know how to detect it, please contact the one who installed it. If it doesn't exist or you don't know how to check , run the command below to create one.
+    ```bash
+    cat << EOF | kubectl apply -f -
+    apiVersion: v1
+    kind: Service
+    metadata:
+      name: dcgm-exporter-service
+      namespace: "<namespace-of-your-dcgm-exporter>" # Please change this to the same namespace of your dcgm-exporter
+      labels:
+        app.kubernetes.io/name: dcgm-exporter
+        app.kubernetes.io/instance: "<extension-name>" # Please replace to your Azureml extension name
+        app.kubernetes.io/component: "dcgm-exporter"
+      annotations:
+        prometheus.io/scrape: 'true'
+    spec:
+      type: "ClusterIP"
+      ports:
+      - name: "metrics"
+        port: 9400  # Please replace to the correct port of your dcgm-exporter. It's 9400 by default
+        targetPort: 9400  # Please replace to the correct port of your dcgm-exporter. It's 9400 by default
+        protocol: TCP
+      selector:
+        app.kubernetes.io/name: dcgm-exporter  # Those two labels are used to select dcgm-exporter pods. You can change them according to the actual label on the service
+        app.kubernetes.io/instance: "<dcgm-exporter-helm-chart-name>" # Please replace to the helm chart name of dcgm-exporter
+    EOF
+    ```
+1. Check if the service in previous step is set correctly
+    ```bash
+    kubectl -n <namespace-of-your-dcgm-exporter> port-forward service/dcgm-exporter-service 9400:9400
+    # run this command in a separate terminal. You will get a lot of dcgm metrics with this command.
+    curl http://127.0.0.1:9400/metrics
+    ```
+1. Setup ServiceMonitor to expose dcgm-exporter service to Azureml extension. Run the following command and it will take effect in a few minutes.
+    ```bash
+    cat << EOF | kubectl apply -f -
+    apiVersion: monitoring.coreos.com/v1
+    kind: ServiceMonitor
+    metadata:
+      name: dcgm-exporter-monitor
+      namespace: azureml
+      labels:
+        app.kubernetes.io/name: dcgm-exporter
+        release: "<extension-name>"   # Please replace to your Azureml extension name
+        app.kubernetes.io/component: "dcgm-exporter"
+    spec:
+      selector:
+        matchLabels:
+          app.kubernetes.io/name: dcgm-exporter
+          app.kubernetes.io/instance: "<extension-name>"   # Please replace to your Azureml extension name
+          app.kubernetes.io/component: "dcgm-exporter"
+      namespaceSelector:
+        matchNames:
+        - "<namespace-of-your-dcgm-exporter>"  # Please change this to the same namespace of your dcgm-exporter
+      endpoints:
+      - port: "metrics"
+        path: "/metrics"
+    EOF
+    ```
 
 ### Error: Failed pre-install: pod healthcheck failed <a name="error-healthcheck-failed"></a>
 Azureml extension contains a HealthCheck hook to check your cluster before the installation. If you got this error, it means some critical errors are found. You can follow [HealthCheck of extension](#healthcheck) to get detailed error message and follow [Error Code of HealthCheck](#healthcheck-error-code) to get some advice. But, in some corner cases, it may also be the problem of the cluster, such as unable to create a pod due to sandbox container issues or unable to pull the image due to network issues. So making sure the cluster is healthy is also very important before the installation.
