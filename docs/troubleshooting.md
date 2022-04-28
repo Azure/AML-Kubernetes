@@ -139,11 +139,11 @@ If you setup private endpoint for your workspace, it's important to test its ava
     ```
 
 ### DCGM exporter <a name="dcgm"></a>
-[Dcgm-exporter](https://github.com/NVIDIA/dcgm-exporter) is the official tool recommended by NVIDIA for collecting GPU metrics. Specify ```installDcgmExporter``` flag to ```true``` to enable it. By default, dcgm-exporter is not installed, and no GPU metrics are collected. As it's NVIDIA's official tool, you may already have it installed in your GPU cluster. So, you can follow the steps below to integrate your dcgm-exporter into Azureml extension. Another thing to note is that dcgm-exporter allows user to config which metrics to expose. So, for Azureml extension, please make sure ```DCGM_FI_DEV_GPU_UTIL```, ```DCGM_FI_DEV_FB_FREE``` and ```DCGM_FI_DEV_FB_USED``` metris are exposed. 
+[Dcgm-exporter](https://github.com/NVIDIA/dcgm-exporter) is the official tool recommended by NVIDIA for collecting GPU metrics. We have integrated it into Azureml extension. But, by default, dcgm-exporter is not enabled, and no GPU metrics are collected. You can specify ```installDcgmExporter``` flag to ```true``` to enable it. As it's NVIDIA's official tool, you may already have it installed in your GPU cluster. So, you can follow the steps below to integrate your dcgm-exporter into Azureml extension. Another thing to note is that dcgm-exporter allows user to config which metrics to expose. So, for Azureml extension, please make sure ```DCGM_FI_DEV_GPU_UTIL```, ```DCGM_FI_DEV_FB_FREE``` and ```DCGM_FI_DEV_FB_USED``` metris are exposed. 
 
 1. Make sure you have Aureml extension and dcgm-exporter installed successfully. Dcgm-exporter can be installed by [Dcgm-exporter helm chart](https://github.com/NVIDIA/dcgm-exporter) or [Gpu-operator helm chart](https://github.com/NVIDIA/gpu-operator)
 
-1. Check if there is a service for dcgm-exporter. If you don't know how to detect it, please contact the one who installed it. If it doesn't exist or you don't know how to check , run the command below to create one.
+1. Check if there is a service for dcgm-exporter. If it doesn't exist or you don't know how to check , run the command below to create one.
     ```bash
     cat << EOF | kubectl apply -f -
     apiVersion: v1
