@@ -24,6 +24,7 @@ Getting started with AzureML anywhere is easy with following steps:
 1. [Attach Kubernetes cluster to AzureML workspace and create a compute target](./docs/attach-compute.md)
 1. [Train image classification model with AzureML CLI v2](./docs/simple-train-cli.md)
 1. [Deploy a trained image classification model](./docs/simple-flow.md)
+1. [Trouble shooting guide](./docs/troubleshooting.md)
 
 ## Supported AzureML built-in features and unique features for Kubernetes
 
@@ -57,8 +58,6 @@ In addition to many built-in AzureML features support, AzureML anywhere also sup
 ## Additional resources
 
 ### [Use AKS on Azure Stack HCI for on-premises machine learning](https://aka.ms/aks-hci-ml)
-
-### [Trouble shooting guide](./docs/troubleshooting.md)
 
 ### [Frequently Asked Questions](./docs/faq.md)
 
