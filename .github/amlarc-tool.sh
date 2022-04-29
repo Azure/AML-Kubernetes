@@ -209,34 +209,51 @@ check_arc_status(){
 
 # install extension
 install_extension(){
-    # remove extension if exists to avoid missing the major version upgrade. 
-    az k8s-extension show \
-        --cluster-name $CLUSTER_NAME \
-        --cluster-type $CLUSTER_TYPE \
-        --subscription $SUBSCRIPTION \
-        --resource-group $RESOURCE_GROUP \
-        --name $EXTENSION_NAME && \
-    az k8s-extension delete \
-        --cluster-name $CLUSTER_NAME \
-        --cluster-type $CLUSTER_TYPE \
-        --subscription $SUBSCRIPTION \
-        --resource-group $RESOURCE_GROUP \
-        --name $EXTENSION_NAME \
-        --yes || true
+    REINSTALL_EXTENSION="${REINSTALL_EXTENSION:-true}"
+    
+    if [[ $REINSTALL_EXTENSION == "true" ]]; then
+        # remove extension if exists to avoid missing the major version upgrade. 
+        az k8s-extension delete \
+            --cluster-name $CLUSTER_NAME \
+            --cluster-type $CLUSTER_TYPE \
+            --subscription $SUBSCRIPTION \
+            --resource-group $RESOURCE_GROUP \
+            --name $EXTENSION_NAME \
+            --yes || true
 
-    # install extension
-    az k8s-extension create \
-        --cluster-name $CLUSTER_NAME \
-        --cluster-type $CLUSTER_TYPE \
-        --subscription $SUBSCRIPTION \
-        --resource-group $RESOURCE_GROUP \
-        --name $EXTENSION_NAME \
-        --extension-type $EXTENSION_TYPE \
-        --scope cluster \
-        --release-train $RELEASE_TRAIN \
-        --configuration-settings $EXTENSION_SETTINGS \
-        --no-wait \
-        $@
+        # install extension
+        az k8s-extension create \
+            --cluster-name $CLUSTER_NAME \
+            --cluster-type $CLUSTER_TYPE \
+            --subscription $SUBSCRIPTION \
+            --resource-group $RESOURCE_GROUP \
+            --name $EXTENSION_NAME \
+            --extension-type $EXTENSION_TYPE \
+            --scope cluster \
+            --release-train $RELEASE_TRAIN \
+            --configuration-settings $EXTENSION_SETTINGS \
+            --no-wait \
+            $@
+    else
+        az k8s-extension show \
+            --cluster-name $CLUSTER_NAME \
+            --cluster-type $CLUSTER_TYPE \
+            --subscription $SUBSCRIPTION \
+            --resource-group $RESOURCE_GROUP \
+            --name $EXTENSION_NAME || \
+        az k8s-extension create \
+            --cluster-name $CLUSTER_NAME \
+            --cluster-type $CLUSTER_TYPE \
+            --subscription $SUBSCRIPTION \
+            --resource-group $RESOURCE_GROUP \
+            --name $EXTENSION_NAME \
+            --extension-type $EXTENSION_TYPE \
+            --scope cluster \
+            --release-train $RELEASE_TRAIN \
+            --configuration-settings $EXTENSION_SETTINGS \
+            --no-wait \
+            $@
+    fi
     
     check_extension_status
 }
@@ -420,7 +437,8 @@ run_cli_job(){
     SRW=" --subscription $SUBSCRIPTION --resource-group $RESOURCE_GROUP --workspace-name $WORKSPACE "
 
     run_id=$(az ml job create $SRW -f $JOB_YML $EXTRA_ARGS --query name -o tsv)
-    timeout 30m az ml job stream $SRW -n $run_id
+    TIMEOUT="${TIMEOUT:-30m}"
+    timeout ${TIMEOUT} az ml job stream $SRW -n $run_id
     status=$(az ml job show $SRW -n $run_id --query status -o tsv)
     timeout 5m az ml job cancel $SRW -n $run_id
     echo $status
@@ -657,7 +675,7 @@ ICM_XML_TEMPLATE='<?xml version="1.0" encoding="UTF-8"?>
             <b:SupportTicketId i:nil="true" />
             <b:Title>{title}</b:Title>
             <b:TrackingTeams i:nil="true" />
-            <b:TsgId i:nil="true" />
+            <b:TsgId>{tsg_id}</b:TsgId>
             <b:TsgOutput i:nil="true" />
             <b:ValueSpecifiedFields>None</b:ValueSpecifiedFields>
          </incident>
@@ -676,6 +694,7 @@ ICM_XML_TEMPLATE='<?xml version="1.0" encoding="UTF-8"?>
     OWNING_CONTACT_FULL_NAME="${OWNING_CONTACT_FULL_NAME}"
     SUMMARY="${SUMMARY:-Test icm ticket}"
     SEVERITY="${SEVERITY:-4}"
+    TSG_ID="${TSG_ID:-tsg-link}"
     
     KEY_FILE="${KEY_FILE:-key.pem}"
     CERT_FILE="${CERT_FILE:-cert.pem}"
@@ -696,6 +715,7 @@ ICM_XML_TEMPLATE='<?xml version="1.0" encoding="UTF-8"?>
             -u '/s:Envelope/s:Body/aa:AddOrUpdateIncident2/aa:incident/b:OwningAlias' -v "$OWNING_ALIAS"  \
             -u '/s:Envelope/s:Body/aa:AddOrUpdateIncident2/aa:incident/b:OwningContactFullName' -v "$OWNING_CONTACT_FULL_NAME"  \
             -u '/s:Envelope/s:Body/aa:AddOrUpdateIncident2/aa:incident/b:Summary' -v "$SUMMARY"  \
+            -u '/s:Envelope/s:Body/aa:AddOrUpdateIncident2/aa:incident/b:TsgId' -v "$TSG_ID"  \
             -u '/s:Envelope/s:Body/aa:AddOrUpdateIncident2/aa:incident/b:Source/b:CreateDate' -v "$DATE"  \
             -u '/s:Envelope/s:Body/aa:AddOrUpdateIncident2/aa:incident/b:Source/b:IncidentId' -v "$UUID"  \
             -u '/s:Envelope/s:Body/aa:AddOrUpdateIncident2/aa:incident/b:Source/b:ModifiedDate' -v "$DATE"  \
