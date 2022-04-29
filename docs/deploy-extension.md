@@ -1,24 +1,24 @@
 # Deploy AzureML extension to your Kubernetes cluster
 
-[What is AzureML extension](#what-is-azureml-extension)
+1. [What is AzureML extension](#what-is-azureml-extension)
 
-[**Must Read**: key considerations for AzureML extension deployment](#key-considerations-for-azureml-extension-deployment)
+1. [**Must Read**: key considerations for AzureML extension deployment](#key-considerations-for-azureml-extension-deployment)
 
-[AzureML extension deployment scenarios](#azureml-extension-deployment-scenarios)
+1. [AzureML extension deployment example scenarios](#azureml-extension-deployment-scenarios)
 
-[Verify your AzureML extension deployment](#verify-your-azureml-extension-deployment)
+1. [Verify your AzureML extension deployment](#verify-your-azureml-extension-deployment)
 
-[Update your AzureML extension deployment](#update-azure-machine-learning-extension)
+1. [Update your AzureML extension deployment](#update-azure-machine-learning-extension)
 
-[Delete AzureML extension](#delete-azure-machine-learning-extension)
+1. [Delete AzureML extension](#delete-azure-machine-learning-extension)
 
-[Apendix: AzureML extension components](#azureml-extension-components)
+1. [Apendix I: AzureML extension components](#azureml-extension-components)
 
-[Appendix: Review AzureML extension config settings](#review-azureml-deployment-configuration-settings)
+1. [Appendix II: Review AzureML extension config settings](#review-azureml-deployment-configuration-settings)
 
 ## What is AzureML extension
 
-AzureML extension consists a set of system componenents deployed to your Kubernetes cluster so you can enable cluster to run AzureML workload - model training jobs or mdoel endpoints. You can use simple Azure CLI command ```k8s-extension``` to deployment AzureML extension.
+AzureML extension consists a set of system componenents deployed to your Kubernetes cluster so you can enable cluster to run AzureML workload - model training jobs or mdoel endpoints. You can use simple Azure CLI command ```k8s-extension create``` to deployment AzureML extension.
 
 For detailed list of AzureML extension system componenents, please see [AzureML extension componenets](#azureml-extension-components) section.
 
@@ -34,7 +34,7 @@ AzureML extension allows you to specify config settings needed for different wor
 
     For more information about ```azureml-fe``` router service, please refer to documentation [here](./azureml-fe.md)
    * For inference workload support, in order to ensure high availability of ```azureml-fe``` routing service, AzureML extension deployment by default creates 3 replicas of ```azureml-fe``` for clusters having 3 nodes or more. If your cluster has **less than 3 nodes**, please set ```inferenceLoadbalancerHA=False```.
-   * For inference workload support, you would also want to consider to use **HTTPS** to restrict access to model endpoints and secure the data that clients submit. For this purpose, you would need to specify either ```sslSecret``` config setting or combination of ```sslCertPemFile``` and ```sslCertKeyFile``` config settings. By default, AzureML extension deployment expects **HTTPS** support required and you would need to provide above config setting. For development or test purpose, **HTTP** support is conveniently supported through config setting ```allowInsecureConnections=True```.
+   * For inference workload support, you would also want to consider using **HTTPS** to restrict access to model endpoints and secure the data that clients submit. For this purpose, you would need to specify either ```sslSecret``` config setting or combination of ```sslCertPemFile``` and ```sslCertKeyFile``` config settings. By default, AzureML extension deployment expects **HTTPS** support required and you would need to provide above config setting. For development or test purpose, **HTTP** support is conveniently supported through config setting ```allowInsecureConnections=True```.
 
 For a quick POC using Minikube on your desktop or AKS in Azure, please try [happy path](./happy-path.md) instruction.
 
