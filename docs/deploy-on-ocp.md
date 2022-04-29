@@ -31,3 +31,26 @@ To Deploy AzureML extension on ARO or OCP, you would need to specify one additio
    ```azurecli
    az k8s-extension create --name amlarc-compute --extension-type Microsoft.AzureML.Kubernetes --configuration-settings enableTraining=True openshift=True  --cluster-type connectedClusters --cluster-name <your-connected-cluster-name> --resource-group <resource-group> --scope cluster
    ```
+
+
+## Prerequisites for ARO and OCP
+
+-  For AzureML extension deployment on ARO or OCP cluster, grant privileged access to AzureML service accounts, run ```oc edit scc privileged``` command, and add following service accounts under "users:":
+
+   * ```system:serviceaccount:azure-arc:azure-arc-kube-aad-proxy-sa```
+   * ```system:serviceaccount:azureml:{EXTENSION-NAME}-kube-state-metrics``` 
+   * ```system:serviceaccount:azureml:cluster-status-reporter```
+   * ```system:serviceaccount:azureml:prom-admission```
+   * ```system:serviceaccount:azureml:default```
+   * ```system:serviceaccount:azureml:prom-operator```
+   * ```system:serviceaccount:azureml:csi-blob-node-sa```
+   * ```system:serviceaccount:azureml:csi-blob-controller-sa```
+   * ```system:serviceaccount:azureml:load-amlarc-selinux-policy-sa```
+   * ```system:serviceaccount:azureml:azureml-fe```
+   * ```system:serviceaccount:azureml:prom-prometheus```
+   * ```system:serviceaccount:{KUBERNETES-COMPUTE-NAMESPACE}:default```
+   * ```system:serviceaccount:azureml:azureml-ingress-nginx```
+   * ```system:serviceaccount:azureml:azureml-ingress-nginx-admission```
+   > **<span stype="color:yellow">Notes</span>**
+      >* **{EXTENSION-NAME}:** is the extension name specified with ```az k8s-extension create --name``` CLI command. 
+      >* **{KUBERNETES-COMPUTE-NAMESPACE}:** is the namespace of kubernetes compute specified with ```az ml compute attach --namespace``` CLI command. Skip configuring 'system:serviceaccount:{KUBERNETES-COMPUTE-NAMESPACE}:default' if no namespace specified with ```az ml compute attach ``` CLI command.
