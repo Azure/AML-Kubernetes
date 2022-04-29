@@ -1,80 +1,44 @@
-# Azure Arc-enabled Machine Learning
+# Azure Machine Learning anywhere with Kubernetes (AzureML anywhere)
 
-As part of Azure Machine Learning (AzureML) service capabilities,  Azure Arc enabled ML extends Azure ML service capabilities seamlessly to Kubernetes clusters, and enables customer to train and deploy models on Kubernetes anywhere at scale. With a simple AzureML extension deployment, customer can instantly onboard their data science team with productivity tools for full ML lifecycle, and have access to both Azure managed compute and customer managed Kubernetes anywhere. Customer is flexible to train and deploy models wherever and whenever business requires so. With built-in AzureML pipeline and MLOps support for Kubernetes, customer can scale machine learning adoption in their organization easily. Built on top of Azure Arc hybrid cloud platform, Arc enabled ML natively supports on-premise machine learning with Kubernetes.
+As part of Azure Machine Learning (AzureML) service capabilities, AzureML anywhere extends AzureML service capabilities seamlessly from Azure cloud setting to any infrastructure across on-premises, multicloud, and the edge. With a simple AzureML extension deployment, you can instantly onboard your teams of ML professionals with productivity tools for full ML lifecycle, and have access to both Azure managed compute and customer managed Kubernetes anywhere. Your teams of ML professionals are flexible to build, train, and deploy models wherever and whenever business requires so and get consistent ML experience across different infrastructures.
 
-This repository is intended to serve as an information hub for customers and partners who are interested in Azure Arc enabled ML public preview. Use this repository for onboarding and testing instructions as well as an avenue to provide feedback, issues, enhancement requests and stay up to date as the preview progresses. 
+This repository is intended to serve as an information hub for customers and partners who are interested in Azure Machine Learning anywhere with Kubernetes. Use this repository for onboarding and testing instructions as well as an avenue to provide feedback, issues, enhancement requests and stay up to date as the product evolves. 
 
 ## Prerequisites
 
-1. An Azure subscription. If you don't have an Azure subscription, [create a free account](https://aka.ms/AMLFree) before you begin.
 1. A Kubernetes cluster up and running - **We recommend minimum of 4 vCPU cores and 8GB memory, around 2 vCPU cores and 3GB memory will be used by Azure Arc agent and AzureML extension components**.
-1. A ```kubeconfig``` file and context pointing to the Kubernetes cluster.
-1. Install the [latest release of Helm 3](https://helm.sh/docs/intro/install/).
-1. The Kubernetes cluster is [connected to Azure Arc](https://docs.microsoft.com/azure/azure-arc/kubernetes/quickstart-connect-cluster). For Azure Kubernetes Services (AKS) cluster, connection to Azure Arc is optional.
-1. (**Optional**) If the Kubernetes cluster is behind of [an outbound proxy server](https://docs.microsoft.com/azure/azure-arc/kubernetes/quickstart-connect-cluster?tabs=azure-cli#4a-connect-using-an-outbound-proxy-server) or [firewall](https://docs.microsoft.com/azure/firewall/protect-azure-kubernetes-service), please ensure to meet [network requirements](./docs/network-requirements.md). 
-1. Meet the pre-requisites listed under the [generic cluster extensions documentation](https://docs.microsoft.com/azure/azure-arc/kubernetes/extensions#prerequisites).
-   * Azure CLI version >=**2.24.0**
-   * Azure CLI extension k8s-extension version >=**1.0.0**.
-1. [Create an AzureML workspace](https://docs.microsoft.com/azure/machine-learning/how-to-manage-workspace?tabs=python) if you don't have one already.
-   * [Install and setup the latest AzureML CLI v2](https://docs.microsoft.com/azure/machine-learning/how-to-configure-cli).
+1. Other than Azure Kubernetes Services (AKS) cluster in Azure, you must connect your Kubernetes cluster to Azure Arc. Please follow instructions in [connect existing Kubernetes cluster to Azure Arc](https://docs.microsoft.com/azure/azure-arc/kubernetes/quickstart-connect-cluster).
+  * if you have Azure RedHat OpenShift Service (ARO) cluster or OpenShift Container Patform (OCP) cluster, follow additional prerequisite step [here](./docs/deploy-on-ocp.md) before AzureML extension deployment.
+1. If you have AKS cluster in Azure, Azure Arc connection is not required. Register the AKS-ExtensionManager feature flag by using the ```az feature register``` command, as shown in the following example:
+```azurecli
+   az feature register --namespace "Microsoft.ContainerService" --name "AKS-ExtensionManager"
+```
+1. [Install or upgrade Azure CLI](https://docs.microsoft.com/cli/azure/install-azure-cli) to version >=2.16.0
+1. Install Azure CLI extension ```k8s-extension``` (version>=1.0.0) by running ```az extension add --name k8s-extension```
 
 ## Getting started
 
-Getting started with ArcML is easy with following steps:
+Getting started with AzureML anywhere is easy with following steps:
 
-1. [Install AzureML extension](./docs/deploy-extension.md)
+1. [Deploy AzureML extension](./docs/deploy-extension.md)
 1. [Attach Kubernetes cluster to AzureML workspace and create a compute target](./docs/attach-compute.md)
 1. [Train image classification model with AzureML CLI v2](./docs/simple-train-cli.md)
-1. [Train image classification model with AzureML Python SDK 1.30 or above](./examples/training/simple-train-sdk/img-classification-training.ipynb)
-1. [Deploy an image classification model - create an endpoint with blue/green deployment](./docs/simple-flow.md)
+1. [Deploy a trained image classification model](./docs/simple-flow.md)
 
-Using Azure Stack HCI:
-* [Use AKS on Azure Stack HCI for on-premises machine learning](https://aka.ms/aks-hci-ml)
+## Supported AzureML built-in features and unique features for Kubernetes
 
-Trouble shooting:
-* [TroubleShootingGuide](./docs/troubleshooting.md)
+AzureML anywhere essentially brings a new compute target to Azure Machine Learning service. With this new Kubernetes compute target, you can use existing AzureML tools and service capabilities to build, train, and deploy model on Kubernetes cluster anywhere. This seamless integration supports many AzureML built-in features , and existing [AzureML examples](https://github.com/Azure/azureml-examples) can run on Kubernetes cluster with a smple change of compute target name.
 
-## Supported AzureML built-features and ArcML unique features
+In addition to many built-in AzureML features support, AzureML anywhere also supports following unique features leveraging native Kubernetes capability:
 
-Azure Arc enabled ML essentially brings a new compute target to Azure Machine Learning service. With this new Kubernetes compute target, customer can use existing Azure ML tools and service capabilities to train or deploy model on Kubernetes anywhere. You can git clone available Azure ML examples on the internet, with simple change of compute target name, and those examples will run seamlessly on Kubernetes.
-
-|AzureML built-in features  |ArcML support  |
-   |--|--|
-   |[Train with the CLI (v2)](https://docs.microsoft.com/azure/machine-learning/how-to-train-cli?view=azure-devops) |&check;|
-   |[Train with the job creation UI](https://docs.microsoft.com/azure/machine-learning/how-to-train-with-ui) |&check;|
-   |[Train with the Python SDK](https://docs.microsoft.com/azure/machine-learning/how-to-set-up-training-targets) |&check;|
-   |[Train with the REST API](https://docs.microsoft.com/azure/machine-learning/how-to-train-with-rest) |&check;|
-   |[Basic Python training job](https://docs.microsoft.com/azure/machine-learning/how-to-train-cli?view=azure-devops#basic-python-training-job) |&check;|
-   [Distributed training - PyTorch](https://docs.microsoft.com/azure/machine-learning/how-to-train-cli?view=azure-devops#pytorch)|&check;|
-   [Distributed training - TensorFlow](https://docs.microsoft.com/azure/machine-learning/how-to-train-cli?view=azure-devops#tensorflow)|&check;|
-   [Distributed training - MPI](https://docs.microsoft.com/azure/machine-learning/how-to-train-cli?view=azure-devops#mpi)|&check;|
-   [Sweep hyperparameters](https://docs.microsoft.com/azure/machine-learning/how-to-train-cli?view=azure-devops#sweep-hyperparameters)|&check;|
-   [Batch Inference](https://docs.microsoft.com/azure/machine-learning/tutorial-pipeline-batch-scoring-classification?view=azure-devops)|&check;|
-   |[Deploy model with Online Endpoint - safe production rollout with blue/green deployment](https://docs.microsoft.com/azure/machine-learning/how-to-deploy-managed-online-endpoints)|&check;|
-   |[Deploy model with Online Endpoint - REST endpoint with public/private IP and full TLS encryption](https://docs.microsoft.com/azure/machine-learning/how-to-deploy-managed-online-endpoints)|&check;|
-   |[Deploy model with isolated Azure Kubernetes Service - VNET and private link support](https://docs.microsoft.com/azure/machine-learning/how-to-deploy-managed-online-endpoints)|&check;|
-   |[Build and use ML Pipeline (Python)](https://docs.microsoft.com/azure/machine-learning/how-to-create-machine-learning-pipelines)|&check;|
-   |[Train with Designer pipeline](https://docs.microsoft.com/azure/machine-learning/how-to-track-designer-experiments)|&check;|
-   |[Train and deploy with AutoML (Python)](https://docs.microsoft.com/azure/machine-learning/how-to-configure-auto-train)|&check;|
-   |[Use managed identity to access Azure resources](./docs/managed-identity.md)|&check;|
-   |[Deploy model with Designer UI](https://docs.microsoft.com/azure/machine-learning/how-to-deploy-model-designer)|Coming soon|
-   |[Train and deploy with AutoML (Studio UI)](https://docs.microsoft.com/azure/machine-learning/how-to-use-automated-ml-for-ml-models)|Coming soon|
-   |[Deploy model with Batch Endpoint](https://docs.microsoft.com/azure/machine-learning/how-to-deploy-managed-online-endpoints)|Coming soon|
-   |[Use Azure Private Link to securely access Azure services](./docs/private-link.md)|&check;|
-
-
-In addition to above built-in AzureML features, ArcML also supports following unique machine learning features:
-
-* [Target different instance typs (node types) for training or inference workload deployment](./docs/instance-type.md) 
-<!-- * [Train model with NFS](./docs/setup-ephemeral-nfs-volume.md) -->
+* [Run training or inference workload with custom instance types for resource efficiency](./docs/instance-type.md) 
 * [Train model with PV/PVC storage mount](./docs/pvc.md)
 * [Assign managed identity to the compute](./docs/managed-identity.md)
 * Use managed identity for your endpoint
 * [Custom container registry support](https://github.com/Azure/azure-arc-kubernetes-preview/blob/master/docs/custom-registry/connect-cluster.md)
 * Multiple AzureML workspaces share the same Kubernetes cluster
-* [Deploy model using customer container with built-in model or entry script](./docs/inference-byoc.md). In this case, the model and the entry script will not be saved at the cloud, but in local.
-<!-- * [Interactive job](https://github.com/Azure/azureml-previews/tree/main/previews/interactive-job) to access your training compute using VS Code, Jupyter Notebook, Jupyter Lab, and summarize metrics with Tensorboard. Sign up [here](https://forms.office.com/pages/responsepage.aspx?id=v4j5cvGGr0GRqy180BHbR8PsZ1-HON9JqtABfkUgwtpUNUtMWTEyRklBQUk2RzZQTUZGTjBUQzJINy4u) to get access to its Github repo.
- -->
+* [Deploy model using custom container with built-in model or entry script](./docs/inference-byoc.md). In this case, the model and the entry scripts will stay on-premises localy and not uploaded to Azure cloud.
+
 ## Supported Kubernetes distributions, versions and locations
 
 * Azure Kubernetes Services (AKS)
@@ -90,11 +54,17 @@ In addition to above built-in AzureML features, ArcML also supports following un
 * Kubernetes 1.18.x, 1.19.x, 1.20.x, 1.21.x, 1.22.x
 * Azure location availability: East US, East US 2, South Central US, West US 2, Australia East, Southeast Asia, North Europe, UK South, West Europe, West Central US, Central US, North Central US, West US, Korea Central, France Central
 
-## [Frequently Asked Questions](./docs/faq.md)
+## Additional resources
 
-## [Release notes](./docs/release-notes.md) 
+### [Use AKS on Azure Stack HCI for on-premises machine learning](https://aka.ms/aks-hci-ml)
 
-## [Limitations and known issues](./docs/limitations-and-known-issues.md)
+### [Trouble shooting guide](./docs/troubleshooting.md)
+
+### [Frequently Asked Questions](./docs/faq.md)
+
+### [Release notes](./docs/release-notes.md) 
+
+### [Limitations and known issues](./docs/limitations-and-known-issues.md)
 
 ## Support
 
