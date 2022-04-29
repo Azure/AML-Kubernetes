@@ -1,5 +1,21 @@
 # Deploy AzureML extension to your Kubernetes cluster
 
+[What is AzureML extension](#what-is-azureml-extension)
+
+[**Must Read**: key considerations for AzureML extension deployment](#key-considerations-for-azureml-extension-deployment)
+
+[AzureML extension deployment scenarios](#azureml-extension-deployment-scenarios)
+
+[Verify your AzureML extension deployment](#verify-your-azureml-extension-deployment)
+
+[Update your AzureML extension deployment](#update-azure-machine-learning-extension)
+
+[Delete AzureML extension](#delete-azure-machine-learning-extension)
+
+[Apendix: AzureML extension components](#azureml-extension-components)
+
+[Appendix: Review AzureML extension config settings](#review-azureml-deployment-configuration-settings)
+
 ## What is AzureML extension
 
 AzureML extension consists a set of system componenents deployed to your Kubernetes cluster so you can enable cluster to run AzureML workload - model training jobs or mdoel endpoints. You can use simple Azure CLI command ```k8s-extension``` to deployment AzureML extension.
@@ -10,14 +26,15 @@ For detailed list of AzureML extension system componenents, please see [AzureML 
 
 AzureML extension allows you to specify config settings needed for different workload support at deployment time. Before AzureML extension deployment, **please read following carefully to avoid unnecessary extension deployment errors**:
 
-  * What kind of workload to enable for the cluster to run? ```enableTraining``` and ```enableInference``` config settings are your convenient choices here, they will enable training and inference workload respectively. 
-  * For inference workload support, it requires ```azureml-fe``` rounter service to be deployed for routing incoming inference requests to model pod, and you would need to specify ```inferenceRouterServiceType``` config setting for ```azureml-fe```. ```azureml-fe``` can be deployed with one of following ```inferenceRouterServiceType``` value:
+  * Type of workload to enable for your cluster. ```enableTraining``` and ```enableInference``` config settings are your convenient choices here, they will enable training and inference workload respectively. 
+  * For inference workload support, it requires ```azureml-fe``` rounter service to be deployed for routing incoming inference requests to model pod, and you would need to specify ```inferenceRouterServiceType``` config setting for ```azureml-fe```. ```azureml-fe``` can be deployed with one of following ```inferenceRouterServiceType```:
       * Type ```LoadBalancer```. Exposes ```azureml-fe``` externally using a cloud provider's load balancer. To specify this value, you have to ensure that your cluster supports load balancer provisioning. Note most on-premises Kubernetes clusters might not support external load balancer.
       * Type ```NodePort```. Exposes ```azureml-fe``` on each Node's IP at a staic port. You'll be able to contact ```azureml-fe```, from outside of cluster, by requesting ```<NodeIP>:<NodePort>```. Using ```NodePort``` also allows you to setup your own load balancing solution and SSL termination for ```azureml-fe```.
       * Type ```ClusterIP```. Exposes ```azureml-fe``` on a cluster-internal IP, and it makes ```azureml-fe``` only reachable from within the cluster. For ```azureml-fe``` to serve inference requests coming outside of cluster, it requires you to setup your own load balancing solution and SSL termination for ```azureml-fe```. 
-   For more information about ```azureml-fe``` router service, please refer to documentation [here](./azureml-fe.md)
+
+    For more information about ```azureml-fe``` router service, please refer to documentation [here](./azureml-fe.md)
    * For inference workload support, in order to ensure high availability of ```azureml-fe``` routing service, AzureML extension deployment by default creates 3 replicas of ```azureml-fe``` for clusters having 3 nodes or more. If your cluster has **less than 3 nodes**, please set ```inferenceLoadbalancerHA=False```.
-   * For inference workload support, you would also want to consider to use **HTTPS** to restrict access to model endpoints and secure the data that clients submit. For this purpose, you would need to specify either ```sslSecret``` config setting or combination of ```sslCertPemFile``` and ```sslCertKeyFile``` config settings. By default, AzureML extension deployment expects **HTTPS** support required and you would need to provide above config setting. For development or test purpose, **HTTP** support is conveniently provided through config setting ```allowInsecureConnections=True```.
+   * For inference workload support, you would also want to consider to use **HTTPS** to restrict access to model endpoints and secure the data that clients submit. For this purpose, you would need to specify either ```sslSecret``` config setting or combination of ```sslCertPemFile``` and ```sslCertKeyFile``` config settings. By default, AzureML extension deployment expects **HTTPS** support required and you would need to provide above config setting. For development or test purpose, **HTTP** support is conveniently supported through config setting ```allowInsecureConnections=True```.
 
 For a quick POC using Minikube on your desktop or AKS in Azure, please try [happy path](./happy-path.md) instruction.
 
@@ -67,7 +84,7 @@ Please ensure you have fullfiled [prerequisites](./../README.md#prerequisites). 
    ```bash
     kubectl get pods -n azureml
    ```
-   
+
 ## Update Azure Machine Learning extension
 
 Use ```k8s-extension update``` CLI command to update the mutable properties of  AzureML extension, review list of required and optional parameters for ```k8s-extension update``` CLI command [here](https://docs.microsoft.com/en-us/cli/azure/k8s-extension?view=azure-cli-latest#az_k8s_extension_update). 
