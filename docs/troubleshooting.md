@@ -9,6 +9,7 @@ This document is used to help customer solve problems when using AzureML extensi
     * [Skip installation of volcano in the extension](#skip-volcano)
     * [How to validate private workspace endpoint](#valid-private-workspace)
     * [DCGM exporter](#dcgm)
+    * [Error: Timed out or status not populated](#error-timeout)
     * [Error: Failed pre-install: pod healthcheck failed](#error-healthcheck-failed)
     * [Error: Resources cannot be imported](#error-cannot-imported)
     * [Error: Cannot re-use a name that is still in use](#error-reuse-name)
@@ -201,6 +202,16 @@ If you setup private endpoint for your workspace, it's important to test its ava
         path: "/metrics"
     EOF
     ```
+
+### Error: Timed out or status not populated <a name="error-timeout"></a>
+If installation is pending on some resources or process for more than 15 minutes, it will throw out error like the followings. For example, it may be due to insufficient CPU, memory and nodes. Or because the loadbalancer cannot be assigned an public IP address. In this case, please run [HealthCheck](#healthcheck) to get more debug information.
+```
+release amlarc-extension failed, and has been uninstalled due to atomic being set: timed out waiting for the condition
+```
+or
+```
+Error : Retry for given duration didn't get any results with err {status not populated}
+```
 
 ### Error: Failed pre-install: pod healthcheck failed <a name="error-healthcheck-failed"></a>
 Azureml extension contains a HealthCheck hook to check your cluster before the installation. If you got this error, it means some critical errors are found. You can follow [HealthCheck of extension](#healthcheck) to get detailed error message and follow [Error Code of HealthCheck](#healthcheck-error-code) to get some advice. But, in some corner cases, it may also be the problem of the cluster, such as unable to create a pod due to sandbox container issues or unable to pull the image due to network issues. So making sure the cluster is healthy is also very important before the installation.
