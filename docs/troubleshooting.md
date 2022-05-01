@@ -204,7 +204,7 @@ If you setup private endpoint for your workspace, it's important to test its ava
     ```
 
 ### Error: Timed out or status not populated <a name="error-timeout"></a>
-If installation is pending on some resources or process for more than 15 minutes, it will throw out error like the followings. For example, it may be due to insufficient CPU, memory and nodes. Or because the loadbalancer cannot be assigned an public IP address. In this case, please run [HealthCheck](#healthcheck) to get more debug information.
+If installation is pending on some resources or process for more than 15 minutes, it will throw out error like the followings. For example, it may be due to insufficient CPU, memory and nodes. Or because the loadbalancer cannot be assigned an public IP address. In this case, please run [HealthCheck](#healthcheck) to get more debug information. ```status not populated``` error is a known Arc error. It can be triggered by timeout error. In order to avoid ```status not populated``` error as much as possible, you can manaually upgrade the arc agents to the latest version by running ```az connectedk8s upgrade --subscription <subscription> -g <resource-group> -n <name>```. If you cluster is not connected through Arc, that is Azureml extension is installed directly in a raw managed AKS, Arc agents will be upgraded automatically.
 ```
 release amlarc-extension failed, and has been uninstalled due to atomic being set: timed out waiting for the condition
 ```
