@@ -9,6 +9,7 @@ This document is used to help customer solve problems when using AzureML extensi
     * [Skip installation of volcano in the extension](#skip-volcano)
     * [How to validate private workspace endpoint](#valid-private-workspace)
     * [DCGM exporter](#dcgm)
+    * [Promtheus operator](#promtheus-operator)
     * [Error: Timed out or status not populated](#error-timeout)
     * [Error: Failed pre-install: pod healthcheck failed](#error-healthcheck-failed)
     * [Error: Resources cannot be imported](#error-cannot-imported)
@@ -202,6 +203,38 @@ If you setup private endpoint for your workspace, it's important to test its ava
         path: "/metrics"
     EOF
     ```
+### Promtheus operator <a name="promtheus-operator"></a>
+create service monitor for your kubelet service
+  ```
+  apiVersion: monitoring.coreos.com/v1
+  kind: ServiceMonitor
+  metadata:
+    name: prom-kubelet
+    namespace: azureml    #  replace to the namespace of Azureml extension
+    labels:
+      release: amlarc-extension  #  replace to the name of amlarc-extension
+  spec:
+    endpoints:
+    - port: https-metrics
+      scheme: https
+      path: /metrics/cadvisor  
+      honorLabels: true
+      tlsConfig:
+        caFile: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+        insecureSkipVerify: true
+      bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+      relabelings:
+      - sourceLabels:
+        - __metrics_path__
+        targetLabel: metrics_path
+    jobLabel: k8s-app
+    namespaceSelector:
+      matchNames:
+      - kube-system    #  replace to the namespace of kubelet service created by your prometheus operator
+    selector:
+      matchLabels:
+        k8s-app: kubelet   # Please add more labela to limit only to the kubelet service created by your prometheus operator # BTW, obsolete kubelet services should be cleaned up
+  ```
 
 ### Error: Timed out or status not populated <a name="error-timeout"></a>
 If installation is pending on some resources or process for more than 15 minutes, it will throw out error like the followings. For example, it may be due to insufficient CPU, memory and nodes. Or because the loadbalancer cannot be assigned an public IP address. In this case, please run [HealthCheck](#healthcheck) to get more debug information. ```status not populated``` error is a known Arc error. It can be triggered by timeout error. In order to avoid ```status not populated``` error as much as possible, you can manaually upgrade the arc agents to the latest version by running ```az connectedk8s upgrade --subscription <subscription> -g <resource-group> -n <name>```. If you cluster is not connected through Arc, that is Azureml extension is installed directly in a raw managed AKS, Arc agents will be upgraded automatically.
