@@ -9,21 +9,6 @@ Azure Arc enabled ML supports both Azure RedHat OpenShift Service (ARO) and Open
    * To setup ARO Kubernetes cluster on Azure, please follow instruction [here](https://docs.microsoft.com/azure/openshift/tutorial-create-cluster)
    * to setup OCP Kubernetes clsuter, please follow instructure on [RedHat website](https://docs.openshift.com/container-platform/4.6/installing/installing_platform_agnostic/installing-platform-agnostic.html).
 
-1. Ensure you have cluster admin privilege and you have kubeconfig access from where you run Azure CLI command.
-1. Grant privileged access to AzureML service accounts, run $oc edit scc privileged, add following service accounts under users:
-
-   * ```system:serviceaccount:azure-arc:azure-arc-kube-aad-proxy-sa```
-   * ```system:serviceaccount:azureml:{EXTENSION NAME}-kube-state-metrics``` **(Note:** ```{EXTENSION NAME}``` **here must match with the extension name used in** ```az k8s-extension create --name``` **step)**
-   * ```system:serviceaccount:azureml:cluster-status-reporter```
-   * ```system:serviceaccount:azureml:prom-admission```
-   * ```system:serviceaccount:azureml:default```
-   * ```system:serviceaccount:azureml:prom-operator```
-   * ```system:serviceaccount:azureml:csi-blob-node-sa```
-   * ```system:serviceaccount:azureml:csi-blob-controller-sa```
-   * ```system:serviceaccount:azureml:load-amlarc-selinux-policy-sa```
-   * ```system:serviceaccount:azureml:azureml-fe```
-   * ```system:serviceaccount:azureml:prom-prometheus```
-
 ## Deploy AzureML extension
 
 To Deploy AzureML extension on ARO or OCP, you would need to specify one additional config setting ```openshift=True``` in addition to regular configuration settings for normal AzureML extension deployment. Following command will deploy AzureML extension to ARO or OCP and enable Kubernetes cluster for training workload.
