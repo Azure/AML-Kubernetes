@@ -33,7 +33,6 @@ metadata:
     ml.azure.com/pvc: "true"
   annotations:
     ml.azure.com/mountpath: "/mnt/nfs"
-    ml.azure.com/gid:"XXX"
 spec:
   storageClassName: ""
   accessModes:
