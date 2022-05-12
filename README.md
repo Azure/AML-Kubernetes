@@ -65,6 +65,14 @@ In addition to many built-in AzureML features support, AzureML anywhere also sup
 
 ### [Limitations and known issues](./docs/limitations-and-known-issues.md)
 
+## Examples
+
+path|status|
+-|-
+[deploy-safe-rollout-kubernetes-online-endpoints.sh](deploy-safe-rollout-kubernetes-online-endpoints.sh)|[![deploy-safe-rollout-kubernetes-online-endpoints](https://github.com/Azure/azureml-examples/workflows/cli-scripts-deploy-safe-rollout-kubernetes-online-endpoints/badge.svg?branch=main)](https://github.com/Azure/azureml-examples/actions/workflows/cli-scripts-deploy-safe-rollout-kubernetes-online-endpoints.yml)
+|[kubernetes-online-endpoints-safe-rollout](endpoints/online/kubernetes/kubernetes-online-endpoints-safe-rollout.ipynb)|[![kubernetes-online-endpoints-safe-rollout](https://github.com/Azure/azureml-examples/actions/workflows/sdk-endpoints-online-kubernetes-online-endpoints-safe-rollout.yml/badge.svg?branch=main)](https://github.com/Azure/azureml-examples/actions/workflows/sdk-endpoints-online-kubernetes-online-endpoints-safe-rollout.yml)|
+|[kubernetes-online-endpoints-simple-deployment](endpoints/online/kubernetes/kubernetes-online-endpoints-simple-deployment.ipynb)|[![kubernetes-online-endpoints-simple-deployment](https://github.com/Azure/azureml-examples/actions/workflows/sdk-endpoints-online-kubernetes-online-endpoints-simple-deployment.yml/badge.svg?branch=main)](https://github.com/Azure/azureml-examples/actions/workflows/sdk-endpoints-online-kubernetes-online-endpoints-simple-deployment.yml)|
+
 ## Support
 
 We are always looking for feedback on our current experiences and what we should work on next. If there is anything you would like us to prioritize, please feel free to suggest so via our [GitHub Issue Tracker](https://github.com/Azure/AML-Kubernetes/issues). You can submit a bug report, a feature suggestion or participate in discussions.
