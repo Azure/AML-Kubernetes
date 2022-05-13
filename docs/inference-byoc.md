@@ -87,7 +87,7 @@ auth_mode: key
 ```
 Create the endpoint by running,
 ```bash
-az ml online-endpoint create -f endpoint.yml -n ${endpoint_name} --sub ${subscription} -g ${resource_group} -w ${workspace}
+az ml online-endpoint create -f endpoint.yml --sub ${subscription} -g ${resource_group} -w ${workspace}
 ```
 ### Create the deployment
 Create a deployment yaml file, and you need to update the `image` accordingly, specify the `environment variables` to use custom container, and keep the SAME `inference_config` as the example below.
@@ -146,7 +146,7 @@ scale_settings:
 ### Create the online deployment
 Create online deployment with all traffic,
 ```bash
-az ml online-deployment create -f deployment.yaml -n blue --endpoint ${endpoint_name} -g --sub ${subscription} -g ${resource_group} -w ${workspace} --all-traffic
+az ml online-deployment create -f deployment.yaml -n blue -g --sub ${subscription} -g ${resource_group} -w ${workspace} --all-traffic
 ```
 
  Invoke the endpoint to test,
