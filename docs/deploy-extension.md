@@ -74,10 +74,10 @@ Please ensure you have fullfiled [prerequisites](./../README.md#prerequisites). 
 1. Run the following CLI command to check AzureML extension details:
 
    ```azurecli
-   az k8s-extension show --name arcml-extension --cluster-type connectedClusters --cluster-name <your-connected-cluster-name> --resource-group <resource-group>
+   az k8s-extension show --name azureml-extension --cluster-type connectedClusters --cluster-name <your-connected-cluster-name> --resource-group <resource-group>
    ```
 
-1. In the response, look for "name": "arcml-extension" and "provisioningState": "Succeeded". Note it might show "provisioningState": "Pending" for the first few minutes.
+1. In the response, look for "name": "azureml-extension" and "provisioningState": "Succeeded". Note it might show "provisioningState": "Pending" for the first few minutes.
 
 1. If the provisioningState shows Succeeded, run the following command on your machine with the kubeconfig file pointed to your cluster to check that all pods under "azureml" namespace are in 'Running' state:
 
