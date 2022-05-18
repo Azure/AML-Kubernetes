@@ -2,7 +2,7 @@ name: model-env
 channels:
   - conda-forge
 dependencies:
-  - python=3.6.2
+  - python=3.7
   - tensorflow-gpu==1.14.0
   - pip:
     - azureml-defaults
