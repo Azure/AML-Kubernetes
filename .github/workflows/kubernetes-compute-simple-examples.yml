@@ -1,4 +1,4 @@
-name: amlarc-examples-test
+name: kubernetes-compute-simple-examples
 on:
   schedule:
     - cron: "0 23 * * *"
