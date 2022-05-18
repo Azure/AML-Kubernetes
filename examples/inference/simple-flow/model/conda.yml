@@ -2,7 +2,7 @@
 name: model-env
 
 dependencies:
-  - python=3.6.2
+  - python=3.7
 
   - pip:
     - azureml-dataset-runtime[pandas,fuse]~=1.24.0.0
