@@ -36,18 +36,26 @@ jobs:
       SUBSCRIPTION: ${{ secrets.SUBSCRIPTION }}
       RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }}
       KEY_VAULT_NAME: ${{ secrets.KEY_VAULT_NAME }}
-      LOCATION: ${{ github.event.inputs.LOCATION }}
-      RELEASE_TRAIN: ${{ github.event.inputs.AMLARC_RELEASE_TRAIN }}
-      REINSTALL_EXTENSION: ${{ github.event.inputs.REINSTALL_EXTENSION }}
+      LOCATION: eastus
+      RELEASE_TRAIN: staging
+      REINSTALL_EXTENSION: true
 
       MIN_SUCCESS_NUM: 3
       SEVERITY: 3
-      OWNERS: zetia@microsoft.com;jing.zhong@microsoft.com
+      OWNERS: amlarc@microsoft.com
+      TITLE: "[Github Workflow] kubernetes-compute-simple-examples failed"
       GITHUB_REPO: https://github.com/Azure/AML-Kubernetes
-      WORKFLOW_URL: https://github.com/Azure/AML-Kubernetes/actions/workflows/amlarc-training.yml
+      WORKFLOW_URL: https://github.com/Azure/AML-Kubernetes/actions/workflows/kubernetes-compute-simple-examples.yml
       TSG_ID: https://microsoft.sharepoint.com/teams/Vienna/_layouts/15/Doc.aspx?sourcedoc=%7B7ebf9ccd-fa20-4e82-8b2b-6c14c9f1740f%7D&action=edit&wd=target(AMLArcTSG.one%7C69e8bdb1-5734-4b07-967a-5a50a91cf040%2FTroubleshooting%20github%20workflow%7C53a1a232-f9f0-4192-b7d2-0474848ebb18%2F)&share=IgHNnL9-IPqCTosrbBTJ8XQPAVwbVLD_kFe92G2Y9a49ROs
-      
+      ICM_MESSAGE: "Failed to run simple-examples on kubernetes compute!"
+
     steps:
+    - name: replace env from workflow_dispatch
+      if: ${{ github.event_name == 'workflow_dispatch' }}
+      run: |
+        echo "LOCATION=${{ github.event.inputs.TEST_REGION }}" | tee -a $GITHUB_ENV
+        echo "RELEASE_TRAIN=${{ github.event.inputs.AMLARC_RELEASE_TRAIN }}" | tee -a $GITHUB_ENV
+        echo "REINSTALL_EXTENSION=${{ github.event.inputs.REINSTALL_EXTENSION }}" | tee -a $GITHUB_ENV
     - name: check out repo
       uses: actions/checkout@v2
     - name: setup python
