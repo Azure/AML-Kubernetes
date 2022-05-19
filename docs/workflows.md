@@ -1,6 +1,8 @@
 
 # Github workflows
 
+## Kubernetes compute
+
 Path|Status|Description|
 -|-|-
 [deploy-safe-rollout-kubernetes-online-endpoints.sh](https://github.com/Azure/azureml-examples/blob/main/cli/deploy-safe-rollout-kubernetes-online-endpoints.sh)|[![deploy-safe-rollout-kubernetes-online-endpoints](https://github.com/Azure/azureml-examples/workflows/cli-scripts-deploy-safe-rollout-kubernetes-online-endpoints/badge.svg?branch=main)](https://github.com/Azure/azureml-examples/actions/workflows/cli-scripts-deploy-safe-rollout-kubernetes-online-endpoints.yml)
@@ -17,5 +19,11 @@ Path|Status|Description|
 |[kubernetes-compute-training-cli-jobs-pipelines](https://github.com/Azure/azureml-examples/blob/main/.github/workflows/kubernetes-compute-training-cli-jobs-pipelines.yml)|[![kubernetes-compute-training-cli-jobs-pipelines](https://github.com/Azure/azureml-examples/actions/workflows/kubernetes-compute-training-cli-jobs-pipelines.yml/badge.svg?branch=main)](https://github.com/Azure/azureml-examples/actions/workflows/kubernetes-compute-training-cli-jobs-pipelines.yml)|
 |[kubernetes-compute-training-cli-jobs-automl](https://github.com/Azure/azureml-examples/blob/main/.github/workflows/kubernetes-compute-training-cli-jobs-automl.yml)|[![kubernetes-compute-training-cli-jobs-automl](https://github.com/Azure/azureml-examples/actions/workflows/kubernetes-compute-training-cli-jobs-automl.yml/badge.svg?branch=main)](https://github.com/Azure/azureml-examples/actions/workflows/kubernetes-compute-training-cli-jobs-automl.yml)|
 |[kubernetes-compute-training-cli-jobs-bad-cases](https://github.com/Azure/azureml-examples/blob/main/.github/workflows/kubernetes-compute-training-cli-jobs-bad-cases.yml)|[![kubernetes-compute-training-cli-jobs-bad-cases](https://github.com/Azure/azureml-examples/actions/workflows/kubernetes-compute-training-cli-jobs-bad-cases.yml/badge.svg?branch=main)](https://github.com/Azure/azureml-examples/actions/workflows/kubernetes-compute-training-cli-jobs-bad-cases.yml)|
-|[kubernetes-compute-simple-examples](https://github.com/Azure/AML-Kubernetes/blob/master/.github/workflows/kubernetes-compute-simple-examples.yml)|[![kubernetes-compute-simple-examples](https://github.com/Azure/AML-Kubernetes/actions/workflows/kubernetes-compute-simple-examples.yml/badge.svg?branch=main)](https://github.com/Azure/AML-Kubernetes/actions/workflows/kubernetes-compute-simple-examples.yml)|
+|[kubernetes-compute-simple-examples](https://github.com/Azure/AML-Kubernetes/blob/master/.github/workflows/kubernetes-compute-simple-examples.yml)|[![kubernetes-compute-simple-examples](https://github.com/Azure/AML-Kubernetes/actions/workflows/kubernetes-compute-simple-examples.yml/badge.svg?branch=master)](https://github.com/Azure/AML-Kubernetes/actions/workflows/kubernetes-compute-simple-examples.yml)|
 
+
+## AML compute
+
+Path|Status|Description|
+-|-|-
+[deploy-safe-rollout-kubernetes-online-endpoints.sh](https://github.com/Azure/azureml-examples/blob/main/cli/deploy-safe-rollout-kubernetes-online-endpoints.sh)|[![deploy-safe-rollout-kubernetes-online-endpoints](https://github.com/Azure/azureml-examples/workflows/cli-scripts-deploy-safe-rollout-kubernetes-online-endpoints/badge.svg?branch=main)](https://github.com/Azure/azureml-examples/actions/workflows/cli-scripts-deploy-safe-rollout-kubernetes-online-endpoints.yml)
