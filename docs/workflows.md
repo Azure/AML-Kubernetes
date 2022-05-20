@@ -9,15 +9,15 @@ Path|Status|Description|
 |[kubernetes-compute-cpu-resources-setup](https://github.com/Azure/azureml-examples/blob/main/.github/workflows/kubernetes-compute-cpu-resources-cleanup.yml)|[![kubernetes-compute-cpu-resources-setup](https://github.com/Azure/azureml-examples/actions/workflows/kubernetes-compute-cpu-resources-cleanup.yml/badge.svg?branch=main)](https://github.com/Azure/azureml-examples/actions/workflows/kubernetes-compute-cpu-resources-cleanup.yml)|
 |[kubernetes-compute-gpu-resources-setup](https://github.com/Azure/azureml-examples/blob/main/.github/workflows/kubernetes-compute-gpu-resources-setup.yml)|[![kubernetes-compute-gpu-resources-setup](https://github.com/Azure/azureml-examples/actions/workflows/kubernetes-compute-gpu-resources-setup.yml/badge.svg?branch=main)](https://github.com/Azure/azureml-examples/actions/workflows/kubernetes-compute-gpu-resources-setup.yml)|
 |[kubernetes-compute-gpu-resources-cleanup](https://github.com/Azure/azureml-examples/blob/main/.github/workflows/kubernetes-compute-gpu-resources-cleanup.yml)|[![kubernetes-compute-gpu-resources-cleanup](https://github.com/Azure/azureml-examples/actions/workflows/kubernetes-compute-gpu-resources-cleanup.yml/badge.svg?branch=main)](https://github.com/Azure/azureml-examples/actions/workflows/kubernetes-compute-gpu-resources-cleanup.yml)|
-## Inference test on Kubernetes compute
 
+## Inference test on Kubernetes compute
 Path|Status|Description|
 -|-|-
 [deploy-safe-rollout-kubernetes-online-endpoints.sh](https://github.com/Azure/azureml-examples/blob/main/cli/deploy-safe-rollout-kubernetes-online-endpoints.sh)|[![deploy-safe-rollout-kubernetes-online-endpoints](https://github.com/Azure/azureml-examples/workflows/cli-scripts-deploy-safe-rollout-kubernetes-online-endpoints/badge.svg?branch=main)](https://github.com/Azure/azureml-examples/actions/workflows/cli-scripts-deploy-safe-rollout-kubernetes-online-endpoints.yml)
 |[kubernetes-online-endpoints-safe-rollout](https://github.com/Azure/azureml-examples/blob/sdk-preview/sdk/endpoints/online/kubernetes/kubernetes-online-endpoints-safe-rollout.ipynb)|[![kubernetes-online-endpoints-safe-rollout](https://github.com/Azure/azureml-examples/actions/workflows/sdk-endpoints-online-kubernetes-online-endpoints-safe-rollout.yml/badge.svg?branch=main)](https://github.com/Azure/azureml-examples/actions/workflows/sdk-endpoints-online-kubernetes-online-endpoints-safe-rollout.yml)|
 |[kubernetes-online-endpoints-simple-deployment](https://github.com/Azure/azureml-examples/blob/sdk-preview/sdk/endpoints/online/kubernetes/kubernetes-online-endpoints-simple-deployment.ipynb)|[![kubernetes-online-endpoints-simple-deployment](https://github.com/Azure/azureml-examples/actions/workflows/sdk-endpoints-online-kubernetes-online-endpoints-simple-deployment.yml/badge.svg?branch=main)](https://github.com/Azure/azureml-examples/actions/workflows/sdk-endpoints-online-kubernetes-online-endpoints-simple-deployment.yml)|
-## Training workflow on Kubernetes compute
 
+## Training test on Kubernetes compute
 Path|Status|Description|
 -|-|-
 |[kubernetes-compute-training-cli-jobs-basics](https://github.com/Azure/azureml-examples/blob/main/.github/workflows/kubernetes-compute-training-cli-jobs-basics.yml)|[![kubernetes-compute-training-cli-jobs-basics](https://github.com/Azure/azureml-examples/actions/workflows/kubernetes-compute-training-cli-jobs-basics.yml/badge.svg?branch=main)](https://github.com/Azure/azureml-examples/actions/workflows/kubernetes-compute-training-cli-jobs-basics.yml)|
