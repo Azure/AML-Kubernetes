@@ -72,7 +72,7 @@ class ArgsCommandBuilder(CommandBuilder):
             '--verbose'
         ]
 
-    def build(self) -> list(str):
+    def build(self) -> list:
         resource_group = os.environ.get('AML_RESOURCE_GROUP')
         configs_base64 = os.environ.get('AML_CONFIGS')
         if not resource_group or not configs_base64:
