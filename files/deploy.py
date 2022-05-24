@@ -114,7 +114,7 @@ class ArgsCommandBuilder(CommandBuilder):
             .gen_basic_settings() \
             .generate()
 
-        command = self._base_command.extend(config_settings)
+        command = self._base_command + config_settings
         return command
 
 
