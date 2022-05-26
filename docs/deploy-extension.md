@@ -140,7 +140,7 @@ Upon AzureML extension deployment completes, it will create following resources 
 
 
 > **<span style="color:orange">Important**:</span> 
-   > * Azure ServiceBus and Azure Relay resources  are under the same resource group as the Arc cluster resource. These resources are used to communicate with the Kubernetes cluster and modifying them will break attached compute targets.
+   > * Azure Relay resources  are under the same resource group as the Arc cluster resource. It is used to communicate with the Kubernetes cluster and modifying them will break attached compute targets.
    > * By default, the deployed kubernetes deployment resourses are randomly deployed to 1 or more nodes of the cluster, and daemonset resource are deployed to ALL nodes. If you want to restrict the extension deployment to specific nodes, please use `nodeSelector` configuration setting described as below.
 
 
