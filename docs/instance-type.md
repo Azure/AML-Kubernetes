@@ -120,8 +120,7 @@ To select an instance type for a training job using CLI (V2), specify its name a
 ```yaml
 command: python -c "print('Hello world!')"
 environment:
-  docker:
-    image: python
+  image: library/python:latest
 compute: azureml:<compute_target_name>
 resources:
   instance_type: <instance_type_name>
@@ -135,23 +134,16 @@ target and `<instance_type_name>` with the name of the instance type you wish to
 To select an instance type for a model deployment using CLI (V2), specify its name deployment YAML.  For example:
 
 ```yaml
-deployments:
-  - name: blue
-    app_insights_enabled: true
-    model: 
-      name: sklearn_mnist_model
-      version: 1
-      local_path: ./model/sklearn_mnist_model.pkl
-    code_configuration:
-      code: 
-        local_path: ./script/
-      scoring_script: score.py
-    instance_type: <your instance type>
-    environment: 
-      name: sklearn-mnist-env
-      version: 1
-      path: .
-      conda_file: file:./model/conda.yml
-      docker:
-        image: mcr.microsoft.com/azureml/openmpi3.1.2-ubuntu18.04:20210727.v1
+name: blue
+app_insights_enabled: true
+endpoint_name: <endpoint name>
+model: 
+  path: ./model/sklearn_mnist_model.pkl
+code_configuration:
+  code: ./script/
+  scoring_script: score.py
+instance_type: <instance type name>
+environment: 
+  conda_file: file:./model/conda.yml
+  image: mcr.microsoft.com/azureml/openmpi3.1.2-ubuntu18.04:20210727.v1
 ```
