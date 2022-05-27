@@ -60,13 +60,13 @@ Please ensure you have fullfiled [prerequisites](./../README.md#prerequisites). 
 
 Please ensure you have fullfiled [prerequisites](./../README.md#prerequisites). Assuming your cluster has more than 3 nodes, and you will use Azure public load balancer and HTTPS for inference workload support, run following Azure CLI command to deploy AzureML extension:
 ```azurecli
-   az k8s-extension create --name azureml-extension --extension-type Microsoft.AzureML.Kubernetes --config enableTraining=True enableInference=True inferenceRouterServiceType=LoadBalancer --config-protected sslCertPemFile=<file-path-to-cert-PEM> sslCertKeyFile=<file-path-to-cert-KEY> --cluster-type managedClusters --cluster-name <your-AKS-cluster-name> --resource-group <your-RG-name> --scope cluster
+   az k8s-extension create --name azureml-extension --extension-type Microsoft.AzureML.Kubernetes --config enableTraining=True enableInference=True inferenceRouterServiceType=LoadBalancer  sslCname=<ssl cname> --config-protected sslCertPemFile=<file-path-to-cert-PEM> sslCertKeyFile=<file-path-to-cert-KEY> --cluster-type managedClusters --cluster-name <your-AKS-cluster-name> --resource-group <your-RG-name> --scope cluster
 ```
 ### Enable an Azure Arc connected cluster anywhere for production training and inference workload
 
 Please ensure you have fullfiled [prerequisites](./../README.md#prerequisites). Assuming your cluster has more than 3 nodes, you will use NodePort service type and HTTPS for inference workload support, run following Azure CLI command to deploy AzureML extension:
 ```azurecli
-   az k8s-extension create --name azureml-extension --extension-type Microsoft.AzureML.Kubernetes --config enableTraining=True enableInference=True inferenceRouterServiceType=NodePort --config-protected sslCertPemFile=<file-path-to-cert-PEM> sslCertKeyFile=<file-path-to-cert-KEY> --cluster-type connectedClusters --cluster-name <your-connected-cluster-name> --resource-group <your-RG-name> --scope cluster
+   az k8s-extension create --name azureml-extension --extension-type Microsoft.AzureML.Kubernetes --config enableTraining=True enableInference=True inferenceRouterServiceType=NodePort sslCname=<ssl cname> --config-protected sslCertPemFile=<file-path-to-cert-PEM> sslCertKeyFile=<file-path-to-cert-KEY> --cluster-type connectedClusters --cluster-name <your-connected-cluster-name> --resource-group <your-RG-name> --scope cluster
 ```
 
 ## Verify your AzureML extension deployment
@@ -110,7 +110,9 @@ Use ```k8s-extension update``` CLI command to update the mutable properties of  
 
 Use [``k8s-extension delete``](https://docs.microsoft.com/en-us/cli/azure/k8s-extension?view=azure-cli-latest#az_k8s_extension_delete) CLI command to delete the existed AzureMl extension.
 
-It takes around 10 minutes to delete all components deployed to the Kubernetes cluster. Run `kubectl get pods -n azureml` to check if all components were deleted.
+It takes around 10 minutes to delete all components deployed to the Kubernetes cluster. Run `kubectl get pods -n azureml` to check if all components were deleted. 
+
+Please don't perform extension install or update action during extension deletion to avoid the exceptional errors.
 
 ## AzureML extension components
 
