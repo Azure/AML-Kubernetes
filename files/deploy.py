@@ -8,11 +8,13 @@ import sys
 from typing import TypeVar
 from azure.cli.core import get_default_cli
 
+
 class Context:
     def __init__(self, debug=False):
         self.debug = debug
         self.__output_file = os.environ['AZ_SCRIPTS_OUTPUT_PATH']
-        self.__temp_logger_file = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'deploy.log')
+        self.__temp_logger_file = os.path.join(
+            os.path.dirname(os.path.realpath(__file__)), 'deploy.log')
         log_format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
         level = logging.DEBUG if debug else logging.INFO
         logging.basicConfig(
@@ -33,7 +35,8 @@ class Context:
     def __exit__(self, exc_type, exc_val, exc_trace):
         exit_normally = True
         if any([exc_type, exc_trace, exc_val]):
-            self.__logger.error(f'Internal server error. error type: {exc_type}, error value: {exc_val}, error trace: {exc_trace}')
+            self.__logger.error(
+                f'Internal server error. error type: {exc_type}, error value: {exc_val}, error trace: {exc_trace}')
             exit_normally = False
 
         self.rootLogger.handlers[0].flush()
@@ -46,12 +49,17 @@ class Context:
         self.__logger.info('Exit context')
         return exit_normally
 
+
 T = TypeVar('T')
+
+
 class CommandBuilder:
     pass
 
+
 class BuildCommandError(Exception):
     pass
+
 
 class ArgsCommandBuilder(CommandBuilder):
     """
@@ -59,6 +67,7 @@ class ArgsCommandBuilder(CommandBuilder):
     which pass config settings with double dash args. Will implement another builder
     that passes config settings with json file, which need to modify the extension CLI
     """
+
     def __init__(self, context: Context) -> None:
         self._base_command = [
             'k8s-extension',
@@ -76,7 +85,8 @@ class ArgsCommandBuilder(CommandBuilder):
         resource_group = os.environ.get('AML_RESOURCE_GROUP')
         configs_base64 = os.environ.get('AML_CONFIGS')
         if not resource_group or not configs_base64:
-            self._logger.debug(f'missed nessesary args. configs_base64: {configs_base64}, resourceGroup: {resource_group}')
+            self._logger.debug(
+                f'missed nessesary args. configs_base64: {configs_base64}, resourceGroup: {resource_group}')
             raise BuildCommandError()
         self._base_command.extend([
             '--resource-group',
@@ -94,9 +104,10 @@ class ArgsCommandBuilder(CommandBuilder):
         clusterName = configs.get('clusterObject', {}).get('name')
         extensionName = configs.get('extensionName')
         if not clusterName or not extensionName:
-            self._logger.debug(f'missed nessesary args. clusterName: {clusterName}, extensionName: {extensionName}')
+            self._logger.debug(
+                f'missed nessesary args. clusterName: {clusterName}, extensionName: {extensionName}')
             raise BuildCommandError()
-        
+
         auto_upgrade = configs.get('autoUpgrade', False)
 
         self._base_command.extend([
@@ -107,7 +118,7 @@ class ArgsCommandBuilder(CommandBuilder):
             '--auto-upgrade',
             'true' if auto_upgrade else 'false'
         ])
-         
+
         generator = self.ConfigSettingsGenerator(configs)
         config_settings = generator \
             .gen_node_selector() \
@@ -117,12 +128,12 @@ class ArgsCommandBuilder(CommandBuilder):
         command = self._base_command + config_settings
         return command
 
-
     class ConfigSettingsGenerator:
         def __init__(self, configs: dict) -> None:
             self.__configs = configs
             self.__config_settings = ['--configuration-settings']
-            self.__config_protected_settings = ['--configuration-protected-settings']
+            self.__config_protected_settings = [
+                '--configuration-protected-settings']
 
         def gen_node_selector(self: T) -> T:
             node_selectors = self.__configs.get('nodeSelector', [])
@@ -137,10 +148,11 @@ class ArgsCommandBuilder(CommandBuilder):
         def gen_basic_settings(self: T) -> T:
             rename = {
                 'installBlobCSIDriver': 'blobCsiDriverEnabled',
-                'installPrometheusOperator': 'reuseExistingPromOp',
-                'installVolcanoScheduler': 'volcanoScheduler.enable',
+                'installPrometheusOperator': 'installPromOp',
+                'installVolcanoScheduler': 'installVolcano',
                 'internalLbProvider': 'internalLoadBalancerProvider',
                 'sslSecretName': 'sslSecret',
+                'inferenceLoadBalancerHA': 'inferenceRouterHA',
             }
 
             for setting in [
@@ -148,14 +160,17 @@ class ArgsCommandBuilder(CommandBuilder):
                 'enableTraining',
                 'enableInference',
                 'inferenceLoadBalancerHA',
+                'inferenceRouterHA',
                 'allowInsecureConnections',
                 'installNvidiaDevicePlugin',
                 'installBlobCSIDriver',
                 'installPrometheusOperator',
                 'installVolcanoScheduler',
+                'installVolcano',
                 'installDcgmExporter',
                 'inferenceRouterServiceType',
                 'internalLbProvider',
+                'installPromOp',
                 'sslCname',
                 'sslSecretName',
             ]:
@@ -175,8 +190,10 @@ class ArgsCommandBuilder(CommandBuilder):
                 self.__config_settings.extend(self.__config_protected_settings)
             return self.__config_settings
 
+
 class RunCommandError(Exception):
     pass
+
 
 def deploy(context: Context) -> None:
     command_builder = ArgsCommandBuilder(context)
@@ -190,6 +207,7 @@ def deploy(context: Context) -> None:
     logger.info(f'command run error: {cli.result.error}')
     if ret != 0:
         raise RunCommandError()
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Install AMLArc Extension')
