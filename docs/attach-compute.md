@@ -2,19 +2,18 @@
 
 ## Pre-requesitie
 
-Azure Machine Learning workspace defaults to have a system-assigned managed identity to access Azure ML resources. It's all done if this default setting is applied. 
+Azure Machine Learning workspace defaults to have a system-assigned managed identity to access Azure ML resources. he steps are completed if the system assigned default setting is on. 
 
 ![Managed Identity in workspace](./media/ws-msi.png)
 
-Otherwise, if a user-assigned managed identity is specified in Azure Machine Learning workspace creation, the following role assignments need to be granted to the identity manually before attaching the compute,
+Otherwise, if a user-assigned managed identity is specified in Azure Machine Learning workspace creation, the following role assignments need to be granted to the managed identity manually before attaching the compute.
 
-|Azure resource name  |Role to be assigned|
-|--|--|
-|Azure Service Bus|Azure Service Bus Data Owner|
-|Azure Relay|Azure Relay Owner|Azure Relay Owner|
-|Azure Arc-enable Kubernetes|Reader|
+|Azure resource name |Role to be assigned|Description|
+|--|--|--|
+|Azure Relay|Azure Relay Owner|Only applicable for Arc-enabled Kubernetes cluster. Azure Relay is not created for AKS cluster without Arc connected.|
+|Azure Arc-enabled Kubernetes|Reader|Applicable for both Arc-enabled Kubernetes cluster and AKS cluster.|
 
-The Azure Service Bus and Azure Relay resource are created under the same Resource Group as the Arc cluster.
+Azure Relay resource is created during the extension deployment under the same Resource Group as the Arc-enabled Kubernetes cluster.
 
 ## Create compute target via Azure ML 2.0 CLI
 
@@ -105,43 +104,26 @@ Following Python code snippets shows how you can easily attach an kubernetes clu
 
 
 ```python
-
-from azureml.core.compute import KubernetesCompute
-from azureml.core.compute import ComputeTarget
-from azureml.core.workspace import Workspace
-import os
-
-ws = Workspace.from_config()
+from azureml.core.compute import KubernetesCompute, ComputeTarget
 
 # Specify a name for your Kubernetes compute
-amlarc_compute_name = "<COMPUTE_CLUSTER_NAME>"
+compute_target_name = "<kubernetes compute target name>"
 
-# resource ID for the Kubernetes cluster and user-managed identity
-resource_id = "/subscriptions/<sub ID>/resourceGroups/<RG>/providers/Microsoft.Kubernetes/connectedClusters/<cluster name>"
+# resource ID of the Arc-enabled Kubernetes cluster
+cluster_resource_id = "/subscriptions/<sub ID>/resourceGroups/<RG>/providers/Microsoft.Kubernetes/connectedClusters/<cluster name>"
 
 user_assigned_identity_resouce_id = ['subscriptions/<sub ID>/resourceGroups/<RG>/providers/Microsoft.ManagedIdentity/userAssignedIdentities/<identity name>']
 
+# Specify Kubernetes namespace to run AzureML workloads
 ns = "default" 
 
-if amlarc_compute_name in ws.compute_targets:
-    amlarc_compute = ws.compute_targets[amlarc_compute_name]
-    if amlarc_compute and type(amlarc_compute) is KubernetesCompute:
-        print("found compute target: " + amlarc_compute_name)
-else:
-   print("creating new compute target...")
-
-
-# assign user-assigned managed identity
-amlarc_attach_configuration = KubernetesCompute.attach_configuration(resource_id = resource_id, namespace = ns,  identity_type ='UserAssigned',identity_ids = user_assigned_identity_resouce_id) 
-
-# assign system-assigned managed identity
-# amlarc_attach_configuration = KubernetesCompute.attach_configuration(resource_id = resource_id, namespace = ns,  identity_type ='SystemAssigned') 
-
-amlarc_compute = ComputeTarget.attach(ws, amlarc_compute_name, amlarc_attach_configuration)
-amlarc_compute.wait_for_completion(show_output=True)
-
-# get detailed compute description containing managed identity principle ID, used for permission access. 
-print(amlarc_compute.get_status().serialize())
+try:
+    compute_target = ComputeTarget(workspace=ws, name=compute_target_name)
+    print('Found existing cluster, use it.')
+except ComputeTargetException:
+    attach_configuration = KubernetesCompute.attach_configuration(resource_id = cluster_resource_id, namespace = ns,  identity_type ='UserAssigned',identity_ids = user_assigned_identity_resouce_id)
+    compute_target = ComputeTarget.attach(ws, compute_target_name, attach_configuration)
+    compute_target.wait_for_completion(show_output=True)
 ```
 
 **Parameters of `KubernetesCompute.attach_configuration()`**
