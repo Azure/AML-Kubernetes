@@ -21,7 +21,7 @@ spec:
     server: 20.98.110.84 
     readOnly: false
 ```
-2. Cteate PVC. In `metadata`, add label `ml.azure.com/pvc: "true"` to indicate the PVC can be mounted to the upcoming training job, and add annotation  `ml.azure.com/mountpath: <mount path>` to specify the mount path. 
+2. Create PVC. In `metadata`, you **must** add label `ml.azure.com/pvc: "true"` to indicate the PVC can be mounted to the upcoming training job, and add annotation  `ml.azure.com/mountpath: <mount path>` to specify the mount path. 
 
 ```
 apiVersion: v1

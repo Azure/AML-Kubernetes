@@ -20,7 +20,7 @@
 
 AzureML extension consists a set of system componenents deployed to your Kubernetes cluster so you can enable cluster to run AzureML workload - model training jobs or mdoel endpoints. You can use simple Azure CLI command ```k8s-extension create``` to deployment AzureML extension.
 
-For detailed list of AzureML extension system componenents, please see [AzureML extension componenets](#azureml-extension-components) section.
+For detailed list of AzureML extension system componenents, you need to disable `selinux`  on all workers in order to use AzureML dataset.
 
 ## Key considerations for AzureML extension deployment
 
@@ -128,8 +128,8 @@ Upon AzureML extension deployment completes, it will create following resources 
    |metrics-controller-manager|Kubernetes deployment|**&check;**|**&check;**|**&check;**|Manage the configuration for Prometheus|N/A|
    |{EXTENSION-NAME}-kube-state-metrics|Kubernetes deployment|**&check;**|**&check;**|**&check;**|Export the cluster-related metrics to Prometheus.|N/A|
    |{EXTENSION-NAME}-prometheus-operator|Kubernetes deployment|Optional|Optional|Optional| Provide Kubernetes native deployment and management of Prometheus and related monitoring components.|N/A|
-   |amlarc-identity-controller|Kubernetes deployment|N/A|**&check;**|**&check;**|Request and renew Azure Blob/Azure Container Registry token through managed identity.|Token exchange with the cloud token service for authentication and authorization of Azure Contianer Registry and Azure Blob used by inference/model deployment.|
-   |amlarc-identity-proxy|Kubernetes deployment|N/A|**&check;**|**&check;**|Request and renew Azure Blob/Azure Container Registry token  through managed identity.|Token exchange with the cloud token service for authentication and authorization of Azure Contianer Registry and Azure Blob used by inference/model deployment.|
+   |amlarc-identity-controller|Kubernetes deployment|N/A|**&check;**|**&check;**|Request and renew Azure Blob/Azure Container Registry token through managed identity.|Token exchange with the cloud token service for authentication and authorization of Azure Container Registry and Azure Blob used by inference/model deployment.|
+   |amlarc-identity-proxy|Kubernetes deployment|N/A|**&check;**|**&check;**|Request and renew Azure Blob/Azure Container Registry token  through managed identity.|Token exchange with the cloud token service for authentication and authorization of Azure Container Registry and Azure Blob used by inference/model deployment.|
    |azureml-fe-v2|Kubernetes deployment|N/A|**&check;**|**&check;**|The front-end component that routes incoming inference requests to deployed services.|Send service logs to Azure Blob.|
    |inference-operator-controller-manager|Kubernetes deployment|N/A|**&check;**|**&check;**|Manage the lifecycle of inference endpoints. |N/A|
    |volcano-admission|Kubernetes deployment|Optional|N/A|Optional|Volcano admission webhook.|N/A|
@@ -137,14 +137,14 @@ Upon AzureML extension deployment completes, it will create following resources 
    |volcano-scheduler |Kubernetes deployment|Optional|N/A|Optional|Used to perform in-cluster job scheduling.|N/A|
    |fluent-bit|Kubernetes daemonset|**&check;**|**&check;**|**&check;**|Gather the components' system log.| Upload the components' system log to cloud.|
    |{EXTENSION-NAME}-dcgm-exporter|Kubernetes daemonset|Optional|Optional|Optional|dcgm-exporter exposes GPU metrics for Prometheus.|N/A|
-   |nvidia-device-plugin-daemonset|Kubernetes daemonset|Optional|Optional|Optional|nvidia-device-plugin-daemonset exposes GPUs on each nodes of your cluster| N/A|
+   |nvidia-device-plugin-daemonset|Kubernetes daemonset|Optional|Optional|Optional|nvidia-device-plugin-daemonset exposes GPUs on each node of your cluster| N/A|
    |prometheus-prom-prometheus|Kubernetes statefulset|**&check;**|**&check;**|**&check;**|Gather and send job metrics to cloud.|Send job metrics like cpu/gpu/memory uitilization to cloud.|
 
 
 
 > **<span style="color:orange">Important**:</span> 
    > * Azure Relay resource  is under the same resource group as the Arc cluster resource. It is used to communicate with the Kubernetes cluster and modifying them will break attached compute targets.
-   > * By default, the deployed kubernetes deployment resourses are randomly deployed to 1 or more nodes of the cluster, and daemonset resource are deployed to ALL nodes. If you want to restrict the extension deployment to specific nodes, use `nodeSelector` configuration setting described as below.
+   > * By default, the deployed kubernetes deployment resources are randomly deployed to 1 or more nodes of the cluster, and daemonset resource are deployed to ALL nodes. If you want to restrict the extension deployment to specific nodes, use `nodeSelector` configuration setting described as below.
 
 
 > **<span stype="color:orane">Notes**:</span>
@@ -158,17 +158,17 @@ Use ```k8s-extension create``` CLI command to deploy AzureML extension, review l
    |--|--|--|--|--|
    |```enableTraining``` |```True``` or ```False```, default ```False```. **Must** be set to ```True``` for AzureML extension deployment with Machine Learning model training support.  |  **&check;**| N/A |  **&check;** |
    | ```enableInference``` |```True``` or ```False```, default ```False```.  **Must** be set to ```True``` for AzureML extension deployment with Machine Learning inference support. |N/A| **&check;** |  **&check;** |
-   | ```allowInsecureConnections``` |```True``` or ```False```, default `False`. This **must** be set to ```True``` to use inference HTTP endpoints for development or test purposes. |N/A| Optional |  Optional |
+   | ```allowInsecureConnections``` |```True``` or ```False```, default `False`. **Must** be set to ```True``` to use inference HTTP endpoints for development or test purposes. |N/A| Optional |  Optional |
    | ```inferenceRouterServiceType``` |```loadBalancer```, ```nodePort``` or ```clusterIP```.  **Required** if ```enableInference=True```. | N/A| **&check;** |   **&check;** |
    | ```internalLoadBalancerProvider``` | This config is only applicable for Azure Kubernetes Service(AKS) cluster now. Set to ```azure``` to allow the inference router using internal load balancer.  | N/A| Optional |  Optional |
    |```sslSecret```| The Kubernetes secret name under azureml namespace to store `cert.pem` (PEM-encoded SSL cert) and `key.pem` (PEM-encoded SSL key), required for inference HTTPS endpoint support, when  ``allowInsecureConnections`` is set to False. Use this config or combination of `sslCertPemFile` and `sslCertKeyFile` protected config settings. An example of SSL Kubernetes secret definition [YAML](../files/sslsecret.yaml)|N/A| Optional |  Optional |
    |```sslCname``` |A SSL CName used by inference HTTPS endpoint. **Required** if ```allowInsecureConnections=True```  |  N/A | Optional | Optional|
-   | ```inferenceRouterHA``` |```True``` or ```False```, default ```True```. By default, AzureML extension will deploy 3 ingress controller replicas for high availability, which requires at least 3 workers in a cluster. Set this to ```False``` if your cluster has fewer than 3 workers, in this case only one ingress controller is deployed. | N/A| Optional |  Optional |
+   | ```inferenceRouterHA``` |```True``` or ```False```, default ```True```. By default, AzureML extension will deploy 3 ingress controller replicas for high availability, which requires at least 3 workers in a cluster. Set to ```False``` if your cluster has fewer than 3 workers, in this case only one ingress controller is deployed. | N/A| Optional |  Optional |
    |```nodeSelector``` | By default, the deployed kubernetes resourses are randomly deployed to 1 or more nodes of the cluster, and daemonset resources are deployed to ALL nodes. If you want to restrict the extension deployment to specific nodes with label `key1=value1` and `key2=value2`, use `nodeSelector.key1=value1`, `nodeSelector.key2=value2` correspondingly. | Optional| Optional |  Optional |
-   |```installNvidiaDevicePlugin```  | ```True``` or ```False```, default ```False```. [Nvidia Device Plugin](https://github.com/NVIDIA/k8s-device-plugin#nvidia-device-plugin-for-kubernetes) is required for ML workloads on Nvidia GPU hardware. By default, AzureML extension deployment will not install Nvidia Device Plugin regardless Kubernetes cluster has GPU hardware or not. User can specify this setting to ```True```, to install it, but make sure to fulfill [Prerequesities](https://github.com/NVIDIA/k8s-device-plugin#prerequisites). | Optional |Optional |Optional |
+   |```installNvidiaDevicePlugin```  | ```True``` or ```False```, default ```False```. [Nvidia Device Plugin](https://github.com/NVIDIA/k8s-device-plugin#nvidia-device-plugin-for-kubernetes) is required for ML workloads on Nvidia GPU hardware. By default, AzureML extension deployment will not install Nvidia Device Plugin regardless Kubernetes cluster has GPU hardware or not. User can specify this setting to ```True```, to install it, but make sure to fulfill [Prerequisites](https://github.com/NVIDIA/k8s-device-plugin#prerequisites). | Optional |Optional |Optional |
    |```installPromOp```|```True``` or ```False```, default ```True```. AzureML extension needs prometheus operator to manage prometheus. Set to ```False``` to reuse existing prometheus operator. Compatible [kube-prometheus-stack](https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-prometheus-stack/README.md) helm chart versions are from 9.3.4 to 30.0.1.| Optional| Optional |  Optional |
  |```installVolcano```| ```True``` or ```False```, default ```True```. AzureML extension needs volcano scheduler to schedule the job. Set to ```False``` to reuse existing volcano scheduler. Supported volcano scheduler versions are 1.4, 1.5. | Optional| N/A |  Optional |
- |```installDcgmExporter```  |```True``` or ```False```, default ```False```. Dcgm-exporter can expose GPU metrics for AzureML workloads, which can be monitored in Azure Portal. Set ```installDcgmExporter```  to ```True``` to install dcgm-exporter. But if you want to utilize your own dcgm-exporter, please refer to [DCGM exporter](./troubleshooting.md#dcgm) |Optional |Optional |Optional |
+ |```installDcgmExporter```  |```True``` or ```False```, default ```False```. Dcgm-exporter can expose GPU metrics for AzureML workloads, which can be monitored in Azure Portal. Set ```installDcgmExporter```  to ```True``` to install dcgm-exporter. But if you want to utilize your own dcgm-exporter,  refer to [DCGM exporter](./troubleshooting.md#dcgm) |Optional |Optional |Optional |
 
 
    |Configuration Protected Setting Key Name  |Description  |Training |Inference |Training and Inference

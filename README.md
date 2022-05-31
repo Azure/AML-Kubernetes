@@ -12,7 +12,7 @@ This repository is intended to serve as an information hub for customers and par
    * if you have AKS cluster in Azure, Azure Arc connection is not required.
 1. Cluster running behind an outbound proxy server or firewall needs additional network configurations. Fulfill the [network requirements](./docs/network-requirements.md)
 1. [Install or upgrade Azure CLI](https://docs.microsoft.com/cli/azure/install-azure-cli) to version >=2.16.0
-1. Install Azure CLI extension ```k8s-extension``` (version>=1.0.0) by running ```az extension add --name k8s-extension```
+1. Install Azure CLI extension ```k8s-extension``` (version>=1.2.2) by running ```az extension add --name k8s-extension```
 
 ## Getting started
 
@@ -38,7 +38,7 @@ In addition to many built-in AzureML features support, AzureML anywhere also sup
 * Multiple AzureML workspaces share the same Kubernetes cluster
 * [Deploy model using custom container with built-in model or entry script](./docs/inference-byoc.md). In this case, the model and the entry scripts will stay on-premises localy and not uploaded to Azure cloud.
 
-## Supported Kubernetes distributions, versions and locations
+## Supported Kubernetes distributions and locations
 
 * Azure Kubernetes Services (AKS)
 * AKS Engine
@@ -50,8 +50,15 @@ In addition to many built-in AzureML features support, AzureML anywhere also sup
 * Amazon EKS 
 * Kind
 * K3s-Lightweight Kubernetes 
-* Kubernetes 1.18.x, 1.19.x, 1.20.x, 1.21.x, 1.22.x
 * Azure location availability: East US, East US 2, South Central US, West US 2, Australia East, Southeast Asia, North Europe, UK South, West Europe, West Central US, Central US, North Central US, West US, Korea Central, France Central
+
+# Supported Kubernetes version
+
+Kubernetes clusters installing AzureML extension have a version support window of "N-2", that is aligned with [Azure Kubernetes Service (AKS) version support policy](https://docs.microsoft.com/en-us/azure/aks/supported-kubernetes-versions?tabs=azure-cli#kubernetes-version-support-policy), where 'N' is the latest GA minor version of Azure Kubernetes Service.
+
+For example, if AKS introduces 1.20.a today, versions 1.20.a, 1.20.b, 1.19.c, 1.19.d, 1.18.e, and 1.18.f are supported.
+
+If customers are running an unsupported Kubernetes version, they will be asked to upgrade when requesting support for the cluster. Clusters running unsupported Kubernetes releases are not covered by the AzureML extension support policies.
 
 ## Additional resources
 
