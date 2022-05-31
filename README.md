@@ -9,10 +9,8 @@ This repository is intended to serve as an information hub for customers and par
 1. A Kubernetes cluster up and running - **We recommend minimum of 4 vCPU cores and 8GB memory, around 2 vCPU cores and 3GB memory will be used by Azure Arc agent and AzureML extension components**.
 1. Other than Azure Kubernetes Services (AKS) cluster in Azure, you must connect your Kubernetes cluster to Azure Arc. Please follow instructions in [connect existing Kubernetes cluster to Azure Arc](https://docs.microsoft.com/azure/azure-arc/kubernetes/quickstart-connect-cluster).
    * if you have Azure RedHat OpenShift Service (ARO) cluster or OpenShift Container Patform (OCP) cluster, follow additional prerequisite step [here](./docs/deploy-on-ocp.md) before AzureML extension deployment.
-1. If you have AKS cluster in Azure, Azure Arc connection is not required. Register the AKS-ExtensionManager feature flag by using the ```az feature register``` command, as shown in the following example:
-   ```azurecli
-   az feature register --namespace "Microsoft.ContainerService" --name "AKS-ExtensionManager"
-   ```
+   * if you have AKS cluster in Azure, Azure Arc connection is not required.
+1. Cluster running behind an outbound proxy server or firewall needs additional network configurations. Fulfill the [network requirements](./docs/network-requirements.md)
 1. [Install or upgrade Azure CLI](https://docs.microsoft.com/cli/azure/install-azure-cli) to version >=2.16.0
 1. Install Azure CLI extension ```k8s-extension``` (version>=1.0.0) by running ```az extension add --name k8s-extension```
 
