@@ -24,7 +24,7 @@ jobs:
           id: extract_branch
           
         - name: Azure Pipelines Action
-          uses: Azure/pipelines@v1
+          uses: Azure/pipelines@v1.2
           with:
             azure-devops-project-url: https://msdata.visualstudio.com/Vienna
             azure-pipeline-name: 'AMLArc-Portal-Provision-Gate'
