@@ -1,0 +1,32 @@
+name: Portal Provision PR Gate
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [ master ]
+    # TODO: move these files into a folder
+    paths:
+      - files/deploy.py
+      - files/entry.sh
+  pull_request:
+    branches: [ master ]
+    # TODO: move these files into a folder
+    paths:
+      - files/deploy.py
+      - files/entry.sh
+jobs:
+    build:
+        name: Call Azure Pipeline
+        runs-on: ubuntu-latest
+        steps:
+        - name: Extract branch name
+          shell: bash
+          run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+          id: extract_branch
+          
+        - name: Azure Pipelines Action
+          uses: Azure/pipelines@v1.2
+          with:
+            azure-devops-project-url: https://msdata.visualstudio.com/Vienna
+            azure-pipeline-name: 'AMLArc-Portal-Provision-Gate'
+            azure-devops-token: ${{ secrets.AMLARC_PORTAL_PROVISION_PIPELINE_PAT }}
+            azure-pipeline-variables:  '{"GITHUB_BRANCH": "${{ steps.extract_branch.outputs.branch }}"}'
