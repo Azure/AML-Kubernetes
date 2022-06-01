@@ -2,7 +2,7 @@ name: Portal Provision PR Gate
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: [ master ]
+    branches: [ master, mingj/add-portal-provision-gate ]
     # TODO: move these files into a folder
     paths:
       - files/deploy.py
