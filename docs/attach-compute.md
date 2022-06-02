@@ -2,7 +2,7 @@
 
 ## Pre-requesitie
 
-Azure Machine Learning workspace defaults to have a system-assigned managed identity to access Azure ML resources. he steps are completed if the system assigned default setting is on. 
+Azure Machine Learning workspace defaults to have a system-assigned managed identity to access Azure ML resources. The steps are completed if the system assigned default setting is on. 
 
 ![Managed Identity in workspace](./media/ws-msi.png)
 
