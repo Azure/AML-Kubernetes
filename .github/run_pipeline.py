@@ -2,7 +2,7 @@ import argparse
 import os
 from msrest.authentication import BasicAuthentication
 from azure.devops.connection import Connection
-from azure.devops.v6_0.pipelines.models import RunPipelineParameters, RunResourcesParameters, RepositoryResourceParameters, Run
+from azure.devops.v6_0.pipelines.models import RunPipelineParameters, RunResourcesParameters, RepositoryResourceParameters, Run, Variable
 import time
 
 def init_parser():
@@ -67,7 +67,7 @@ if __name__ == '__main__':
     if args.variables:
         for kv in args.variables:
             key, value = kv.split('=')
-            variables[key] = value
+            variables[key] = Variable(False, value)
     print(f'variables: {variables}')
     clients = init_clients()
 
