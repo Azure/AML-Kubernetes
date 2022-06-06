@@ -6,8 +6,6 @@ from azure.devops.connection import Connection
 from azure.devops.v6_0.pipelines.models import RunPipelineParameters, RunResourcesParameters, RepositoryResourceParameters, Run
 import time
 
-from sqlalchemy import false, true
-
 def init_parser():
     parser = argparse.ArgumentParser()
     parser.add_argument(
