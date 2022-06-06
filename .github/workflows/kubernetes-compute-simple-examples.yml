@@ -129,7 +129,7 @@ jobs:
         primaryKey=$(az ml online-endpoint get-credentials $SUB_RG_WS --name sklearn-mnist -o tsv --query "primaryKey" )
         scoring_uri=$(az ml online-endpoint show $SUB_RG_WS --name sklearn-mnist  -o tsv  --query "scoring_uri" )
         sample_data=$(cat $WS_DIR/sample-request.json)
-        res=$(kubectl exec -n azureml deploy/azureml-fe -- curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer $primaryKey" -s --connect-timeout 5 "$scoring_uri" -d "$sample_data")
+        res=$(kubectl exec -n azureml deploy/azureml-fe-v2 -- curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer $primaryKey" -s --connect-timeout 5 "$scoring_uri" -d "$sample_data")
         
         echo "$res"
         if [ "$res" == "[8]" ] ; then

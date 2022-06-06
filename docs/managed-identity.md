@@ -31,5 +31,5 @@ Azure offers a couple of ways to assign roles to Managed Identity.
    
    ### Use Managed Identity to access Azure Blob
    
--	For read-only purpose, at least “Reader and Data Access” and “Storage Blob Data Reader” roles should be granted to the compute Managed Identity.
--	For read-write purpose, at least Reader and Data Access” and “Storage Blob Data Contributor” should be granted to the compute Managed Identity.
+-	For read-only purpose, `Storage Blob Data Reader` role should be granted to the compute Managed Identity.
+-	For read-write purpose, `Storage Blob Data Contributor` role should be granted to the compute Managed Identity.

@@ -251,6 +251,7 @@ This table shows how to troubleshoot the error codes returned by the HealthCheck
 |E40001 | LOAD_BALANCER_NOT_SUPPORT | Load balancer is not supported by your cluster. Please refer to [Service type of inference scoring endpoint](#inference-service-type) for solution |
 |E40002 | INSUFFICIENT_NODE | The healthy nodes are insufficient. Maybe your node selector is not set properly. Or you may need to disable [Inference HA](#inference-ha)|
 |E40003 | INTERNAL_LOAD_BALANCER_NOT_SUPPORT | Currently, internal load balancer is only supported by AKS. Please refer to [Service type of inference scoring endpoint](#inference-service-type) |
+|E40004 | INVALID_SSL_SETTING | The SSL settings for extension installation is invalid. Please make sure both SSL key and certificate are provided, and check the integrity of the SSL key and certificate. Also, the CNAME should be compatible with the certificate. You can refer to [Validate SSL settings](#check-ssl-key-cert) for further information. |
 |E45001 | AGENT_UNHEALTHY |There are unhealty resources of AzureML extension. Resources checked by this checker are Pod, Job, Deployment, Daemonset and StatufulSet. From the HealthCheck logs, you can find out which resource is unhealthy. |
 |E45002 | PROMETHEUS_CONFLICT | Please refer to [Reuse Prometheus](#prometheus) |
 |E45003 | BAD_NETWORK_CONNECTIVITY | Please follow [network-requirements](./network-requirements.md) to check network connectivity. If you are using private link for workspace or other resources, you can refer to doc [private-link](./private-link.md)  |
@@ -313,7 +314,7 @@ When submit a training job with dataset on openshift, the job may failed to star
 
 Reattach your compute to the cluster and then try again. If it is still not working, use "kubectl get po -n azureml" to check the relayserver* pods are running. 
 
-### How to check sslCertPemFile and sslKeyPemFile is correct?
+### How to check sslCertPemFile and sslKeyPemFile is correct? <a name="check-ssl-key-cert"></a>
 
 Below commands could be used to validate. Expect the second command return "RSA key ok" without prompting you for passphrase.
 ```yaml
