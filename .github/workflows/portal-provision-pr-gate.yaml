@@ -41,6 +41,7 @@ jobs:
           run: |
             pip install msrest
             pip install azure-devops
+            pip install azureml
           id: install_dependencies
 
         - name: Run pipeline
