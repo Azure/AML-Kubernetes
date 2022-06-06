@@ -18,6 +18,8 @@ jobs:
         name: Call Azure Pipeline
         runs-on: ubuntu-latest
         steps:
+        - name: check out repo
+          uses: actions/checkout@v3
         - name: Extract branch name
           shell: bash
           run: |
