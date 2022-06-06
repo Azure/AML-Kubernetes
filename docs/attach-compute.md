@@ -1,6 +1,6 @@
 # Create a compute target - attach AKS or Arc cluster to AML workspace
 
-## Pre-requesitie
+## Pre-requisite
 
 Azure Machine Learning workspace defaults to have a system-assigned managed identity to access Azure ML resources. The steps are completed if the system assigned default setting is on. 
 
