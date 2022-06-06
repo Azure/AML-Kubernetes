@@ -31,7 +31,6 @@ For AzureML extension deployment on ARO or OCP cluster, grant privileged access 
    * ```system:serviceaccount:{KUBERNETES-COMPUTE-NAMESPACE}:default```
    * ```system:serviceaccount:azureml:azureml-ingress-nginx```
    * ```system:serviceaccount:azureml:azureml-ingress-nginx-admission```
-   * ```system:serviceaccount:azureml:volcano-admission```
    > **<span stype="color:yellow">Notes</span>**
       >* **{EXTENSION-NAME}:** is the extension name specified with ```az k8s-extension create --name``` CLI command. 
       >* **{KUBERNETES-COMPUTE-NAMESPACE}:** is the namespace of kubernetes compute specified with ```az ml compute attach --namespace``` CLI command. Skip configuring 'system:serviceaccount:{KUBERNETES-COMPUTE-NAMESPACE}:default' if no namespace specified with ```az ml compute attach ``` CLI command.
