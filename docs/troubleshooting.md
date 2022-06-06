@@ -306,7 +306,7 @@ AzureML Kubernetes job failed. 137:PodPattern matched: {"containers":[{"name":"t
 
 Check your proxy setting and check whether 127.0.0.1 was added to proxy-skip-range when using “az connectedk8s connect” by following [this](https://github.com/Azure/AML-Kubernetes/blob/master/docs/network-requirements.md). 
 
-### Container error when using dataset on openshift <a name="dataset-on-openshift"></a>
+### Training job with dataset failed to run on Openshift <a name="dataset-on-openshift"></a>
 When submit a training job with dataset on openshift, the job may failed to start, inside cluster user can observe that pod is created but failed to run because of `failed to start/create container`, this error is caused by the relabel operation on the mounted dataset performed by Kubernetes when the node's selinux is enabled. To mitigate this issue, please disable the selinux on the node.
 
 ## Inference Guide
