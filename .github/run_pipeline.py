@@ -1,7 +1,6 @@
 import argparse
 import os
-from azureml.core.authentication import InteractiveLoginAuthentication, ServicePrincipalAuthentication
-from msrest.authentication import BasicTokenAuthentication, BasicAuthentication
+from msrest.authentication import BasicAuthentication
 from azure.devops.connection import Connection
 from azure.devops.v6_0.pipelines.models import RunPipelineParameters, RunResourcesParameters, RepositoryResourceParameters, Run
 import time
@@ -39,7 +38,6 @@ def init_clients():
 def trigger_build(clients, branch, def_id, variables = {}) -> Run:
     prj = 'Vienna'
     branch = f'refs/heads/{branch}'
-
     repo = RepositoryResourceParameters(branch)
     res = RunResourcesParameters(repositories={'self': repo})
     params = RunPipelineParameters(resources=res)
@@ -65,12 +63,14 @@ def wait_run_complete(clients, def_id, run_id, timeout_in_sec=3600) -> bool:
 if __name__ == '__main__':
     parser = init_parser()
     args = parser.parse_args()
-    clients = init_clients()
     variables = {}
     if args.variables:
         for kv in args.variables:
             key, value = kv.split('=')
             variables[key] = value
+    print(f'variables: {variables}')
+    clients = init_clients()
+
     run = trigger_build(clients, 'master', args.definition_id, variables)
     if not run:
         exit(1)
