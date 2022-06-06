@@ -9,6 +9,7 @@ This document is used to help customer solve problems when using AzureML extensi
     * [Skip installation of volcano in the extension](#skip-volcano)
     * [How to validate private workspace endpoint](#valid-private-workspace)
     * [DCGM exporter](#dcgm)
+    * [Training job with dataset failed to run on Openshift](#dataset-on-openshift)
     * [Error: Timed out or status not populated](#error-timeout)
     * [Error: Failed pre-install: pod healthcheck failed](#error-healthcheck-failed)
     * [Error: Resources cannot be imported](#error-cannot-imported)
@@ -303,6 +304,9 @@ AzureML Kubernetes job failed. 137:PodPattern matched: {"containers":[{"name":"t
 ```
 
 Check your proxy setting and check whether 127.0.0.1 was added to proxy-skip-range when using “az connectedk8s connect” by following [this](https://github.com/Azure/AML-Kubernetes/blob/master/docs/network-requirements.md). 
+
+### Container error when using dataset on openshift <a name="dataset-on-openshift"></a>
+When submit a training job with dataset on openshift, the job may failed to start, inside cluster user can observe that pod is created but failed to run because of `failed to start/create container`, this error is caused by the relabel operation on the mounted dataset performed by Kubernetes when the node's selinux is enabled. To mitigate this issue, please disable the selinux on the node.
 
 ## Inference Guide
 ### InferencingClientCallFailed: The k8s-extension of the Kubernetes cluster is not connectable.
