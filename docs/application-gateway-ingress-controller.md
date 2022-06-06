@@ -11,6 +11,9 @@ These tutorials help illustrate how to integrate [Azure Application Gateway](htt
 
 ## Prerequisites
 
+- Install the latest k8s-extension and ml cli.
+  - `az extension add -n k8s-extension --upgrade`
+  - `az extension add -n ml --upgrade`
 - Setup Application Gateway.
   - [**Greenfield Deployment**](https://docs.microsoft.com/en-us/azure/application-gateway/tutorial-ingress-controller-add-on-new): If you are starting from scratch, refer to these instructions.
   - [**Brownfield Deployment**](https://docs.microsoft.com/en-us/azure/application-gateway/tutorial-ingress-controller-add-on-existing): If you have an existing AKS cluster and Application Gateway, refer to these instructions.
