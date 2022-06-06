@@ -30,7 +30,7 @@ jobs:
               echo "##[set-output name=branch;]$(echo $BASE_BRANCH)"
             fi
           env:
-            BASE_BRANCH: ${{ github.base_ref }}
+            BASE_BRANCH: ${{ github.head_ref }}
             EVENT_NAME: ${{ github.event_name }}
           id: extract_branch
 
