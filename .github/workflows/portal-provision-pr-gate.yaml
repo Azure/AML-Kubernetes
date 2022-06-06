@@ -18,15 +18,35 @@ jobs:
         name: Call Azure Pipeline
         runs-on: ubuntu-latest
         steps:
+        - name: check out repo
+          uses: actions/checkout@v3
         - name: Extract branch name
           shell: bash
-          run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+          run: |
+            if [ $EVENT_NAME = "push" ]
+            then
+              echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+            else
+              echo "##[set-output name=branch;]$(echo $BASE_BRANCH)"
+            fi
+          env:
+            BASE_BRANCH: ${{ github.head_ref }}
+            EVENT_NAME: ${{ github.event_name }}
           id: extract_branch
-          
-        - name: Azure Pipelines Action
-          uses: Azure/pipelines@v1.2
-          with:
-            azure-devops-project-url: https://msdata.visualstudio.com/Vienna
-            azure-pipeline-name: 'AMLArc-Portal-Provision-Gate'
-            azure-devops-token: ${{ secrets.AMLARC_PORTAL_PROVISION_PIPELINE_PAT }}
-            azure-pipeline-variables:  '{"GITHUB_BRANCH": "${{ steps.extract_branch.outputs.branch }}"}'
+
+        - uses: actions/setup-python@v3          
+
+        - name: Install dependencies
+          shell: bash
+          run: |
+            pip install msrest
+            pip install azure-devops
+          id: install_dependencies
+
+        - name: Run pipeline
+          shell: bash
+          env:
+            PAT_TOKEN: ${{ secrets.AMLARC_PORTAL_PROVISION_PIPELINE_PAT }}
+            BRANCH: ${{ steps.extract_branch.outputs.branch }}
+          run: python .github/run_pipeline.py --definition-id 21230 --variables GITHUB_BRANCH=$BRANCH
+          id: run_pipeline
