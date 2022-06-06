@@ -53,7 +53,14 @@ def wait_run_complete(clients, def_id, run_id, timeout_in_sec=3600) -> bool:
     run = pipeline.get_run('Vienna', def_id, run_id)
     current = time.time()
     while run.state != 'completed' and time.time() - current < timeout_in_sec:
-        time.sleep(10)
+        time.sleep(30)
+        for _ in range(3):
+            run = pipeline.get_run('Vienna', def_id, run_id)
+            if run:
+                break
+        if not run:
+            print("failed to get pipeline status")
+            return False
     if run.state != 'completed':
         return False
     if run.result == 'failed':
