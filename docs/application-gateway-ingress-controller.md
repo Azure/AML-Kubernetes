@@ -18,7 +18,7 @@ These tutorials help illustrate how to integrate [Azure Application Gateway](htt
 
 ## Deploy AzureML extension
 
-[Create extension](https://github.com/Azure/AML-Kubernetes/blob/master/docs/deploy-extension.md#azureml-extension-deployment-scenarios) with `inferenceRouterServiceType=ClusterIP` and `allowInsecureConnections=True`, so that the Application gateway can handle TLS termination by itself instead of handing it over to azureml-fe (azureml inference router created by extension) when service is exposed over HTTPS.
+[Deploy extension](https://github.com/Azure/AML-Kubernetes/blob/master/docs/deploy-extension.md#azureml-extension-deployment-scenarios) with `inferenceRouterServiceType=ClusterIP` and `allowInsecureConnections=True`, so that the Application gateway can handle TLS termination by itself instead of handing it over to azureml-fe (azureml inference router created by extension) when service is exposed over HTTPS.
 
 
 ## Expose services over HTTP
