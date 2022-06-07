@@ -9,7 +9,7 @@ This document is used to help customer solve problems when using AzureML extensi
     * [Skip installation of volcano in the extension](#skip-volcano)
     * [How to validate private workspace endpoint](#valid-private-workspace)
     * [DCGM exporter](#dcgm)
-    * [Promtheus operator](#prom-op)
+    * [Prometheus operator](#prom-op)
     * [Inference V1](#inference-v1)
     * [Error: Timed out or status not populated](#error-timeout)
     * [Error: Failed pre-install: pod healthcheck failed](#error-healthcheck-failed)
@@ -205,9 +205,13 @@ If you setup private endpoint for your workspace, it's important to test its ava
     EOF
     ```
 
-### Promtheus operator <a name="prom-op"></a>
-
-
+### Prometheus operator <a name="prom-op"></a>
+Promtheus operator is an open source framework to help build metric monitoring system in kubernetes. AzureML extension also utilizes promtheus operator to help customer monitor resource utilization of jobs. The monitoring components include , Promtheus, CAdvisor, 
+Promtheus operator
+Promtheus
+CAdvisor
+kube-state-metrics
+dcgm-exporter
 ### Inference V1 <a name="inference-v1"></a>
 
 
@@ -265,7 +269,7 @@ This table shows how to troubleshoot the error codes returned by the HealthCheck
 |E40003 | INTERNAL_LOAD_BALANCER_NOT_SUPPORT | Currently, internal load balancer is only supported by AKS. Please refer to [Service type of inference scoring endpoint](#inference-service-type) |
 |E40004 | INVALID_SSL_SETTING | The SSL settings for extension installation is invalid. Please make sure both SSL key and certificate are provided, and check the integrity of the SSL key and certificate. Also, the CNAME should be compatible with the certificate. You can refer to [Validate SSL settings](#check-ssl-key-cert) for further information. |
 |E45001 | AGENT_UNHEALTHY |There are unhealty resources of AzureML extension. Resources checked by this checker are Pod, Job, Deployment, Daemonset and StatufulSet. From the HealthCheck logs, you can find out which resource is unhealthy. |
-|E45002 | PROMETHEUS_CONFLICT | Please refer to [Reuse Prometheus](#prometheus) |
+|E45002 | PROMETHEUS_CONFLICT | Please refer to [Prometheus operator](#prom-op) |
 |E45003 | BAD_NETWORK_CONNECTIVITY | Please follow [network-requirements](./network-requirements.md) to check network connectivity. If you are using private link for workspace or other resources, you can refer to doc [private-link](./private-link.md)  |
 |E45004 | AZUREML_FE_ROLE_CONFLICT | There exists an "azureml-fe-role" cluster role, but it doesn't belong Azureml extension. Usually, this is because Inference AKS V1 has been installed in your cluster. Please contact us for migration solution. [Support](./../README.md#support)|
 |E45005 | AZUREML_FE_DEPLOYMENT_CONFLICT | There exists an "azureml-fe" deployment, but it doesn't belong Azureml extension. Usually, this is because Inference AKS V1 has been installed in your cluster. Please contact us for migration solution. [Support](./../README.md#support)|
