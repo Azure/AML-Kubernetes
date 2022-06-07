@@ -34,9 +34,8 @@ kind: Ingress
 metadata:
   name: azureml-fe
   namespace: azureml
-  annotations:
-    kubernetes.io/ingress.class: azure/application-gateway
 spec:
+  ingressClassName: azure-application-gateway
   rules:
   - http:
       paths:
@@ -83,13 +82,15 @@ Save the above ingress resource as `ing-azureml-fe.yaml`.
     metadata:
       name: azureml-fe
       namespace: azureml
-      annotations:
-        kubernetes.io/ingress.class: azure/application-gateway
     spec:
+      ingressClassName: azure-application-gateway
       tls:
-        - secretName: <ingress-secret-name>
+      - hosts:
+        - <domain>
+        secretName: <ingress-secret-name>
       rules:
-      - http:
+      - host: <domain>
+        http:
           paths:
           - path: /
             backend:
@@ -100,7 +101,7 @@ Save the above ingress resource as `ing-azureml-fe.yaml`.
             pathType: Prefix
     ```
 
-    *NOTE:* Replace `<ingress-secret-name>` in the above Ingress Resource with the name of your secret. Store the above Ingress Resource in a file name `ing-azureml-fe-tls.yaml`.
+    *NOTE:* Replace `<domain>` and `<ingress-secret-name>` in the above Ingress Resource with the domain pointing to the Application Gateway and the name of your secret. Store the above Ingress Resource in a file name `ing-azureml-fe-tls.yaml`.
 
 1. Deploy ing-azureml-fe-tls.yaml by running
 
