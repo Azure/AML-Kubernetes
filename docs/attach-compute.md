@@ -2,9 +2,7 @@
 
 ## Pre-requesitie
 
-Azure Machine Learning workspace defaults to have a system-assigned managed identity to access Azure ML resources. he steps are completed if the system assigned default setting is on. 
-
-![Managed Identity in workspace](./media/ws-msi.png)
+Azure Machine Learning workspace defaults to have a system-assigned managed identity to access Azure ML resources. The steps are completed if the system assigned default setting is on. 
 
 Otherwise, if a user-assigned managed identity is specified in Azure Machine Learning workspace creation, the following role assignments need to be granted to the managed identity manually before attaching the compute.
 
@@ -155,3 +153,4 @@ List of resource ids for the user assigned identity. e.g. ['subscriptions/\<sub 
 ## Next Step
 - [Create and select different instance types for training and inferencing workloads](./instance-type.md)
 - [Update Managed Identity and Assign roles to Managed Identity](./managed-identity.md)
+- [Train image classification model with AzureML CLI v2](./docs/simple-train-cli.md)

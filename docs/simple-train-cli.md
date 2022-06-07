@@ -32,7 +32,7 @@
    |-- job.yml
    ```
 
-   As you can see from above, the project simply contains a job YAML file and some Python training scripts. In general, this a very typical project setup for Azure Arc-enabled ML training. Let's take a look a job YAML file: 
+   As you can see from above, the project simply contains a job YAML file and some Python training scripts. In general, this a very typical project setup for Azure Arc-enabled ML training. Let's take a look at job YAML file: 
 
    ```yaml
    experiment_name: Tutorial-sklearn-mnist
@@ -44,7 +44,17 @@
      instance_type: <your instance type>
    ```
    
-   **Note**: **Instance type** is optional parameter. If it's not given, the compute default instance type will be used. Refer to [here](./instance-type.md) to learn how to create different instance types.
+   **Note**: **Instance type** is optional parameter. If it's not given, like the YAML file below, the compute default instance type will be used. 
+   
+   ```yaml
+   experiment_name: Tutorial-sklearn-mnist
+   code: ./src
+   command: python train.py --data-folder ./mnist-data --regularization 0.5
+   environment: azureml:AzureML-sklearn-0.24-ubuntu18.04-py37-cpu:7
+   compute: azureml:<your compute target name>
+   ```
+   
+   Refer to [here](./instance-type.md) to learn how to create different instance types.
 
 1. Git clone preview Github repo and switch to simple-train-cli directory
 
