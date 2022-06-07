@@ -1,8 +1,26 @@
-# Azure Machine Learning anywhere with Kubernetes (AzureML anywhere)
+# Configure Kubernetes cluster for Azure Machine Learning
 
-As part of Azure Machine Learning (AzureML) service capabilities, AzureML anywhere extends AzureML service capabilities seamlessly from Azure cloud setting to any infrastructure across on-premises, multicloud, and the edge. With a simple AzureML extension deployment, you can instantly onboard your teams of ML professionals with productivity tools for full ML lifecycle, and have access to both Azure managed compute and customer managed Kubernetes anywhere. Your teams of ML professionals are flexible to build, train, and deploy models wherever and whenever business requires so and get consistent ML experience across different infrastructures.
+As part of Azure Machine Learning (AzureML) service capabilities, AzureML Kubernetes extends AzureML service capabilities seamlessly from Azure cloud setting to any infrastructure across on-premises, multicloud, and the edge. With a simple AzureML extension deployment, you can instantly onboard your teams of ML professionals with productivity tools for full ML lifecycle, and have access to both Azure managed compute and customer managed Kubernetes anywhere. Your teams of ML professionals are flexible to build, train, and deploy models wherever and whenever business requires so and get consistent ML experience across different infrastructures.
+
+You can easily bring AzureML capabilities to your Kubernetes cluster from cloud or on-premises by deploying AzureML extension.
+
+- For Azure Kubernetes Service (AKS) in Azure, deploy AzureML extension to the AKS directly. For more information, see [Deploy and manage cluster extensions for Azure Kubernetes Service (AKS)](https://docs.microsoft.com/en-us/azure/aks/cluster-extensions).
+- For Kubernetes clusters on-premises or from other cloud providers, you can connect the cluster with Azure Arc, then deploy AzureML extension. For more information, see [Azure Arc-enabled Kubernetes](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/overview).
 
 This repository is intended to serve as an information hub for customers and partners who are interested in Azure Machine Learning anywhere with Kubernetes. Use this repository for onboarding and testing instructions as well as an avenue to provide feedback, issues, enhancement requests and stay up to date as the product evolves. 
+
+## Why use Azure Machine Learning Kubernetes?
+
+AzureML Kubernetes is customer fully configured and managed compute for machine learning. It can be used as both [training compute target](https://docs.microsoft.com/en-us/azure/machine-learning/concept-compute-target#train) and [inference compute target](https://docs.microsoft.com/en-us/azure/machine-learning/concept-compute-target#deploy). It provides the following benefits:
+
+- Harness existing heterogeneous or homogeneous Kubernetes cluster, with CPUs or GPUs.
+- Share the same Kubernetes cluster in multiple AzureML Workspaces across region.
+- Use the same Kubernetes cluster for different machine learning purposes, including model training, batch scoring, and real-time inference.
+- Secure network communication between the cluster and cloud via Azure Private Link and Private Endpoint.
+- Isolate team projects and machine learning workloads with Kubernetes node selector and namespace.
+- Target certain types of compute nodes and CPU/Memory/GPU resource allocation for training and inference workloads. 
+- Connect with custom data sources for machine learning workloads using Kubernetes PV and PVC. 
+
 
 ## Prerequisites
 
@@ -66,17 +84,28 @@ If customers are running an unsupported Kubernetes version, they will be asked t
 
 ### [Frequently Asked Questions](./docs/faq.md)
 
-### [Release notes](./docs/release-notes.md) 
+<!-- ### [Release notes](./docs/release-notes.md)  -->
 
 ### [Limitations and known issues](./docs/limitations-and-known-issues.md)
 
-## Examples
+<!-- ## Examples
 
 path|status|
 -|-
 [deploy-safe-rollout-kubernetes-online-endpoints.sh](https://github.com/Azure/azureml-examples/blob/main/cli/deploy-safe-rollout-kubernetes-online-endpoints.sh)|[![deploy-safe-rollout-kubernetes-online-endpoints](https://github.com/Azure/azureml-examples/workflows/cli-scripts-deploy-safe-rollout-kubernetes-online-endpoints/badge.svg?branch=main)](https://github.com/Azure/azureml-examples/actions/workflows/cli-scripts-deploy-safe-rollout-kubernetes-online-endpoints.yml)
 |[kubernetes-online-endpoints-safe-rollout](https://github.com/Azure/azureml-examples/blob/sdk-preview/sdk/endpoints/online/kubernetes/kubernetes-online-endpoints-safe-rollout.ipynb)|[![kubernetes-online-endpoints-safe-rollout](https://github.com/Azure/azureml-examples/actions/workflows/sdk-endpoints-online-kubernetes-kubernetes-online-endpoints-safe-rollout.yml/badge.svg?branch=main)](https://github.com/Azure/azureml-examples/actions/workflows/sdk-endpoints-online-kubernetes-kubernetes-online-endpoints-safe-rollout.yml)|
-|[kubernetes-online-endpoints-simple-deployment](https://github.com/Azure/azureml-examples/blob/sdk-preview/sdk/endpoints/online/kubernetes/kubernetes-online-endpoints-simple-deployment.ipynb)|[![kubernetes-online-endpoints-simple-deployment](https://github.com/Azure/azureml-examples/actions/workflows/sdk-endpoints-online-kubernetes-kubernetes-online-endpoints-simple-deployment.yml/badge.svg?branch=main)](https://github.com/Azure/azureml-examples/actions/workflows/sdk-endpoints-online-kubernetes-kubernetes-online-endpoints-simple-deployment.yml)|
+|[kubernetes-online-endpoints-simple-deployment](https://github.com/Azure/azureml-examples/blob/sdk-preview/sdk/endpoints/online/kubernetes/kubernetes-online-endpoints-simple-deployment.ipynb)|[![kubernetes-online-endpoints-simple-deployment](https://github.com/Azure/azureml-examples/actions/workflows/sdk-endpoints-online-kubernetes-kubernetes-online-endpoints-simple-deployment.yml/badge.svg?branch=main)](https://github.com/Azure/azureml-examples/actions/workflows/sdk-endpoints-online-kubernetes-kubernetes-online-endpoints-simple-deployment.yml)| -->
+
+## Get more examples
+
+All AzureML examples can be found in [https://github.com/Azure/azureml-examples.git](https://github.com/Azure/azureml-examples).
+
+For any AzureML example, you only need to update the compute target name to your own Kubernetes compute target, then you are all done. 
+* Explore training job samples with CLI v2 - [https://github.com/Azure/azureml-examples/tree/main/cli/jobs](https://github.com/Azure/azureml-examples/tree/main/cli/jobs)
+* Explore model deployment with online endpoint samples with CLI v2 - [https://github.com/Azure/azureml-examples/tree/main/cli/endpoints/online/kubernetes](https://github.com/Azure/azureml-examples/tree/main/cli/endpoints/online/kubernetes)
+* Explore batch endpoint samples with CLI v2 - [https://github.com/Azure/azureml-examples/tree/main/cli/endpoints/batch](https://github.com/Azure/azureml-examples/tree/main/cli/endpoints/batch)
+* Explore training job samples with SDK v2 -[https://github.com/Azure/azureml-examples/tree/main/sdk/jobs](https://github.com/Azure/azureml-examples/tree/main/sdk/jobs)
+* Explore model deployment with online endpoint samples with SDK v2 -[https://github.com/Azure/azureml-examples/tree/main/sdk/endpoints/online/kubernetes](https://github.com/Azure/azureml-examples/tree/main/sdk/endpoints/online/kubernetes)
 
 ## Support
 

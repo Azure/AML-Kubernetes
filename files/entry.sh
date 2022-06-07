@@ -1,6 +1,6 @@
 #!/bin/bash
 
-AZ_K8S_EXTENSION_VERSION='1.2.1'
+AZ_K8S_EXTENSION_VERSION='1.2.2'
 AZ_CONNECTED_K8S_VERSION='1.2.8'
 
 az extension add --name connectedk8s --version $AZ_CONNECTED_K8S_VERSION

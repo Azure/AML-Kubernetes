@@ -1,6 +1,6 @@
 # Create a compute target - attach AKS or Arc cluster to AML workspace
 
-## Pre-requesitie
+## Pre-requisite
 
 Azure Machine Learning workspace defaults to have a system-assigned managed identity to access Azure ML resources. The steps are completed if the system assigned default setting is on. 
 
@@ -94,9 +94,9 @@ It is easy to attach Azure Arc-enabled Kubernetes cluster to AML workspace, you 
 
 
 
-## Create compute target via AML Python SDK
+## Create compute target via Python
 
-You can also attach AKS or Arc cluster and create KubernetesCompute target easily via AML Python SDK 1.30 or above.
+You can also attach AKS or Arc cluster and create KubernetesCompute target easily via AML Python SDK v1 1.30 or above.
 
 Following Python code snippets shows how you can easily attach an kubernetes cluster and create a compute target with Managed Identity enabled.
 
