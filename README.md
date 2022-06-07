@@ -2,10 +2,10 @@
 
 As part of Azure Machine Learning (AzureML) service capabilities, AzureML Kubernetes extends AzureML service capabilities seamlessly from Azure cloud setting to any infrastructure across on-premises, multicloud, and the edge. With a simple AzureML extension deployment, you can instantly onboard your teams of ML professionals with productivity tools for full ML lifecycle, and have access to both Azure managed compute and customer managed Kubernetes anywhere. Your teams of ML professionals are flexible to build, train, and deploy models wherever and whenever business requires so and get consistent ML experience across different infrastructures.
 
-For any of a Kubernetes cluster in cloud or on-premises, you can easily bring your cluster to AzureML as a compute target by deploying AzureML extension to the cluster,
+You can easily bring AzureML capabilities to your Kubernetes cluster from cloud or on-premises by deploying AzureML extension.
 
-- For Azure Kubernetes Servce (AKS) in Azure, you can deploy AzureML extension to it directly. See [Deploy and manage cluster extensions for Azure Kubernetes Service (AKS)](https://docs.microsoft.com/en-us/azure/aks/cluster-extensions).
-- For Kubernetes clusters on-premises or from other cloud providers, you can connect the cluster with Azure Arc, then deploy AzureML extension. See [Azure Arc-enabled Kubernetes](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/overview).
+- For Azure Kubernetes Service (AKS) in Azure, deploy AzureML extension to the AKS directly. For more information, see [Deploy and manage cluster extensions for Azure Kubernetes Service (AKS)](https://docs.microsoft.com/en-us/azure/aks/cluster-extensions).
+- For Kubernetes clusters on-premises or from other cloud providers, you can connect the cluster with Azure Arc, then deploy AzureML extension. For more information, see [Azure Arc-enabled Kubernetes](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/overview).
 
 This repository is intended to serve as an information hub for customers and partners who are interested in Azure Machine Learning anywhere with Kubernetes. Use this repository for onboarding and testing instructions as well as an avenue to provide feedback, issues, enhancement requests and stay up to date as the product evolves. 
 
@@ -13,13 +13,14 @@ This repository is intended to serve as an information hub for customers and par
 
 AzureML Kubernetes is customer fully configured and managed compute for machine learning. It can be used as both [training compute target](https://docs.microsoft.com/en-us/azure/machine-learning/concept-compute-target#train) and [inference compute target](https://docs.microsoft.com/en-us/azure/machine-learning/concept-compute-target#deploy). It provides the following benefits:
 
-- Harness existing hetreogenious or homogeneous Kubernetes cluster, with CPUs or GPUs.
-- Share the same Kubernetes cluster in multiple AzureML Workspace across region.
-- Use the compute for model training, batch inference, and real-time inference purposes.
-- Secure the network coummunication between the cluster and cloud with Azure Private Link and Private Endpoint.
+- Harness existing heterogeneous or homogeneous Kubernetes cluster, with CPUs or GPUs.
+- Share the same Kubernetes cluster in multiple AzureML Workspaces across region.
+- Use the same Kubernetes cluster for different machine learning purposes, including model training, batch scoring, and real-time inference.
+- Secure network communication between the cluster and cloud via Azure Private Link and Private Endpoint.
 - Isolate team projects and machine learning workloads with Kubernetes node selector and namespace.
 - Target certain types of compute nodes and CPU/Memory/GPU resource allocation for training and inference workloads. 
-- Connect with data sources from Azure, on-premises or other clouds for training workloads.
+- Connect with custom data sources for machine learning workloads using Kubernetes PV and PVC. 
+
 
 ## Prerequisites
 
