@@ -206,12 +206,14 @@ If you setup private endpoint for your workspace, it's important to test its ava
     ```
 
 ### Prometheus operator <a name="prom-op"></a>
-Promtheus operator is an open source framework to help build metric monitoring system in kubernetes. AzureML extension also utilizes promtheus operator to help customer monitor resource utilization of jobs. The monitoring components include , Promtheus, CAdvisor, 
-Promtheus operator
-Promtheus
-CAdvisor
-kube-state-metrics
-dcgm-exporter
+[Promtheus operator](https://github.com/prometheus-operator/prometheus-operator) is an open source framework to help build metric monitoring system in kubernetes. AzureML extension also utilizes promtheus operator to help customer monitor resource utilization of jobs. The following lists the open source components used for collecting metrics in AzureML extension:
+1. Promtheus operator serves to make running Prometheus on top of Kubernetes as easy as possible, while preserving Kubernetes-native configuration options.
+1. Promtheus serves to collect, calculate and upload metrics. 
+1. CAdvisor is an open-source agent integrated into the kubelet binary that monitors resource usage and analyzes the performance of containers. CAdvisor produces the original metrics.
+1. Kube-state-metrics (KSM) generates metrics about the state of the objects in Kubernetes. Those metrics are used for performing correlation operations.
+1. Dcgm-exporter is used for collecting gpu metrics. Please refer to [DCGM exporter](#dcgm) for more information.
+If prometheus operator has been installed in cluster by other service, there will be a confliction between   
+
 ### Inference V1 <a name="inference-v1"></a>
 
 
