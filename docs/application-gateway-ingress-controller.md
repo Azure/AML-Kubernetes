@@ -64,7 +64,7 @@ Save the above ingress resource as `ing-azureml-fe.yaml`.
 
 4. [Create an inference job and invoke](https://github.com/Azure/AML-Kubernetes/blob/master/docs/simple-flow.md).
 
-    *NOTE:* Replace the ip of scoring_uri with public address of the Application Gateway before invoking.
+    *NOTE:* Replace the ip in scoring_uri with public address of the Application Gateway before invoking.
 
 ## Expose services over HTTPS
 
@@ -115,4 +115,4 @@ Save the above ingress resource as `ing-azureml-fe.yaml`.
 
 4. [Create an inference job and invoke](https://github.com/Azure/AML-Kubernetes/blob/master/docs/simple-flow.md).
 
-    *NOTE:* Replace the protocol and ip of scoring_uri with https and domain pointing to the Application Gateway before invoking.
+    *NOTE:* Replace the protocol and ip in scoring_uri with https and domain pointing to the Application Gateway before invoking.

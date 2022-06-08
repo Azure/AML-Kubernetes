@@ -63,7 +63,7 @@ Save the above ingress resource as `ing-azureml-fe.yaml`.
 
 4. [Create an inference job and invoke](https://github.com/Azure/AML-Kubernetes/blob/master/docs/simple-flow.md).
 
-    *NOTE:* Replace the ip of scoring_uri with public address of the Nginx Ingress Controller before invoking.
+    *NOTE:* Replace the ip in scoring_uri with public address of the Nginx Ingress Controller before invoking.
 
 ## Expose services over HTTPS
 
@@ -100,7 +100,7 @@ Save the above ingress resource as `ing-azureml-fe.yaml`.
             pathType: Prefix
     ```
 
-    *NOTE:* Replace `<domain>` and `<ingress-secret-name>` in the above Ingress Resource with the domain pointing to the ingress controller and name of your secret. Store the above Ingress Resource in a file name `ing-azureml-fe-tls.yaml`.
+    *NOTE:* Replace `<domain>` and `<ingress-secret-name>` in the above Ingress Resource with the domain pointing to the Nginx ingress controller and name of your secret. Store the above Ingress Resource in a file name `ing-azureml-fe-tls.yaml`.
 
 1. Deploy ing-azureml-fe-tls.yaml by running
 
@@ -114,4 +114,4 @@ Save the above ingress resource as `ing-azureml-fe.yaml`.
 
 4. [Create an inference job and invoke](https://github.com/Azure/AML-Kubernetes/blob/master/docs/simple-flow.md).
 
-    *NOTE:* Replace the protocol and ip of scoring_uri with https and domain pointing to the Nginx Ingress Controller before invoking.
+    *NOTE:* Replace the protocol and ip in scoring_uri with https and domain pointing to the Nginx Ingress Controller before invoking.
