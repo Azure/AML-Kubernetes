@@ -206,13 +206,51 @@ If you setup private endpoint for your workspace, it's important to test its ava
     ```
 
 ### Prometheus operator <a name="prom-op"></a>
-[Promtheus operator](https://github.com/prometheus-operator/prometheus-operator) is an open source framework to help build metric monitoring system in kubernetes. AzureML extension also utilizes promtheus operator to help customer monitor resource utilization of jobs. The following lists the open source components used for collecting metrics in AzureML extension:
+[Promtheus operator](https://github.com/prometheus-operator/prometheus-operator) is an open source framework to help build metric monitoring system in kubernetes. AzureML extension also utilizes promtheus operator to help monitor resource utilization of jobs. The following lists the open source components used for collecting metrics in AzureML extension:
 1. Promtheus operator serves to make running Prometheus on top of Kubernetes as easy as possible, while preserving Kubernetes-native configuration options.
 1. Promtheus serves to collect, calculate and upload metrics. 
 1. CAdvisor is an open-source agent integrated into the kubelet binary that monitors resource usage and analyzes the performance of containers. CAdvisor produces the original metrics.
 1. Kube-state-metrics (KSM) generates metrics about the state of the objects in Kubernetes. Those metrics are used for performing correlation operations.
 1. Dcgm-exporter is used for collecting gpu metrics. Please refer to [DCGM exporter](#dcgm) for more information.
-If prometheus operator has been installed in cluster by other service, there will be a confliction between   
+
+If prometheus operator has already been installed in cluster by other service, you can specify ```installPromOp=false``` to disable prometheus operator in AzureML extension side to avoid conflictions between two prometheus operators.
+In this case, all prometheus instances will be managed by the existing promtheus operator. And to make sure prometheus works properly, the following things need to be paid attention when you disable promtheus operator in Azureml extension side.
+1. Check if prometheus in azureml namespace is managed by prometheus operator. In some scenarios, prometheus operator is set to only monitor some specific namespaces. If so, please make sure azureml namespace is in the white list. Refer to [command flags](https://github.com/prometheus-operator/prometheus-operator/blob/b475b655a82987eca96e142fe03a1e9c4e51f5f2/cmd/operator/main.go#L165) for more information.
+2. Check if kubelete-service is enabled in prometheus operator. Kubelet-service contains all the endpoints of kubelet. Refer to [command flags](https://github.com/prometheus-operator/prometheus-operator/blob/b475b655a82987eca96e142fe03a1e9c4e51f5f2/cmd/operator/main.go#L149) for more information. And also need to make sure that kubelet-service has a label named k8s-app and it's value is kubelet
+3. Create ServiceMonitor for kubelet-service. Find the name and namespace of kubelet-service. Run the following command with variables replaced:
+    ```bash
+    cat << EOF | kubectl apply -f -
+    apiVersion: monitoring.coreos.com/v1
+    kind: ServiceMonitor
+    metadata:
+      name: prom-kubelet
+      namespace: azureml
+      labels:
+        release: "<extension-name>"     # Please replace to your Azureml extension name
+    spec:
+      endpoints:
+      - port: https-metrics
+        scheme: https
+        path: /metrics/cadvisor
+        honorLabels: true
+        tlsConfig:
+          caFile: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+          insecureSkipVerify: true
+        bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+        relabelings:
+        - sourceLabels:
+          - __metrics_path__
+          targetLabel: metrics_path
+      jobLabel: k8s-app
+      namespaceSelector:
+        matchNames:
+        - "<namespace-of-your-kubelet-service>"  # Please change this to the same namespace of your kubelet-service
+      selector:
+        matchLabels:
+          k8s-app: kubelet    # Please make sure your kubelet-service has a label named k8s-app and it's value is kubelet
+
+    EOF
+    ```
 
 ### Inference V1 <a name="inference-v1"></a>
 
