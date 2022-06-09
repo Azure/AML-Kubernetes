@@ -10,7 +10,6 @@ This document is used to help customer solve problems when using AzureML extensi
     * [How to validate private workspace endpoint](#valid-private-workspace)
     * [DCGM exporter](#dcgm)
     * [Prometheus operator](#prom-op)
-    * [Inference V1](#inference-v1)
     * [Error: Timed out or status not populated](#error-timeout)
     * [Error: Failed pre-install: pod healthcheck failed](#error-healthcheck-failed)
     * [Error: Resources cannot be imported](#error-cannot-imported)
@@ -24,7 +23,7 @@ This document is used to help customer solve problems when using AzureML extensi
 
 ## Extension Installation Guide
 ### How is AzureML extension installed <a name="how-is-extension-installed"></a>
-AzureML extension is released as a helm chart and installed by Helm V3. By default, all resources of AzureML extension are installed in azureml namespace. Currently, we don't find a way customise the installation error messages for a helm chart. The error message user received is the original error message returned by helm. This is why sometimes vague error messages are returned. But you can utilize the [built-in health check job](#healthcheck) or the following commands to help you debug. You could get more detail Azureml extension information at [Install AzureML extension](./deploy-extension.md). 
+AzureML extension is released as a helm chart and installed by Helm V3. By default, all resources of AzureML extension are installed in azureml namespace. The error message user received is the original error message returned by helm. This is why sometimes vague error messages are returned. But you can utilize the [built-in health check job](#healthcheck) or the following commands to help you debug. You could get more detail Azureml extension information at [Install AzureML extension](./deploy-extension.md). 
 ```bash
 # check helm chart status
 helm list -a -n azureml
@@ -53,21 +52,15 @@ kubectl get configmap -n azureml arcml-healthcheck --output="jsonpath={.data.rep
 kubectl get configmap -n azureml arcml-healthcheck --output="jsonpath={.data.reports-pre-rollback}"
 # get the report in pre-delete step
 kubectl get configmap -n azureml arcml-healthcheck --output="jsonpath={.data.reports-pre-delete}"
-
-# for versions that is older than 1.0.88 the commands should be those
-# get a summary of the report
-kubectl get configmap -n azureml arcml-healthcheck --output="jsonpath={.data.status-test}"
-# get detailed information of the report
-kubectl get configmap -n azureml arcml-healthcheck --output="jsonpath={.data.reports-test}
 ```
 > Note: When running "helm test" command, Error like "unable to get pod logs for healthcheck-config: pods 'healthcheck-config' not found" should be ignored. 
 ### Inference HA <a name="inference-ha"></a>
-For the high availability of inference service, azureml-fe agent will be deployed to three different nodes by default. Azureml-fe agent is used for load balancing, cooperative routing and security authentication. It's very important, especially for production environment. For a single azureml-fe agent, it requires about 0.5 cpu and 500Mi memory. Inference HA is enabled by default and requires at least 3 nodes to run, so, in many test scenarios, installation will fail due to insufficient resources.  
+For the high availability of inference service, azureml-fe agent will be deployed to three different nodes by default. Azureml-fe agent is used for load balancing, cooperative routing and security authentication. It's very important, especially for production environment. For a single azureml-fe agent, it requires about 0.5 cpu and 500Mi memory. Inference HA is enabled by default and requires at least 3 nodes to run, so, in many test scenarios, installation will fail due to insufficient resources. Set ```inferenceRouterHA``` flag to ```false``` to disable Inference HA.
 
 The phenomenon that this kind of issue may lead to is that some ```azureml-fe``` pods are pending on scheduling and error message of the pod could be like **"0/1 nodes are available: 1 node(s) didn't match pod anti-affinity rules"**.
 
 ### Inference router service type  <a name="inference-service-type"></a>
-According to the cluster configuration and testing scenarios, you may need different ways to expose our inference scoring services. you can specify ```loadBalancer``` and ```nodePort``` service type with ```inferenceRouterServiceType``` flag. And you can enable internal loadBalancer with ```internalLoadBalancerProvider``` flag, but internal loadBalancer is only supported by AKS cluster currently. 
+According to the cluster configuration and testing scenarios, you may need different ways to expose our inference scoring services. you can specify ```loadBalancer```, ```clusterIP``` and ```nodePort``` service type with ```inferenceRouterServiceType``` flag. And you can enable internal loadBalancer with ```internalLoadBalancerProvider``` flag, but internal loadBalancer is only supported by AKS cluster currently. 
 
 Please note that ```loadBalancer``` is not supported by raw k8s, like Minikube and Kind. Usually, ```loadBalancer``` are implemented by cloud provider, like AKS, GKE and EKS. If you are trying to use ```loadBalancer``` in a cluster which doesn't support ```loadBalancer```, you may get timeout error from cli and ```LOAD_BALANCER_NOT_SUPPORT``` error from healthcheck report. If you find that inference-operator pod is crashed and azureml-fe service is in pending or unhealthy state, it is likely that you are using the wrong service type or your cluster has something wrong to support the service type you specified. 
 
@@ -99,7 +92,7 @@ If user have their own volcano suite installed, they can set `volcanoScheduler.e
 See this [issue](https://github.com/volcano-sh/volcano/issues/1680).
 
 ### How to validate private workspace endpoint  <a name="valid-private-workspace"></a>
-If you setup private endpoint for your workspace, it's important to test its availability before using it. Otherwise, it may cause unknown errors, like installation errors. You can follow the steps below to test if the private workspace endpoint is available in your cluster.
+If you setup private endpoint for your workspace, it's important to test its availability before using it. Otherwise, it may cause unknown errors, like installation errors. You can follow the steps below to test if the private workspace endpoint is available in your cluster. For how to setup private link with AzureML extension, please refer to [private link](./private-link.md)
 1. The format of private workspace endpoint should be like this ```{workspace_id}.workspace.{region}.api.azureml.ms```. You can find workspace id and region in your workspace portal or through ```az ml workspace``` command.
 1. Prepare a pod that can run ```curl``` and ```nslookup``` commands. If you have AzureML extension installed and enabled Inference features, azureml-fe pod is a good choice.
 1. Login into the pod. Taking azureml-fe as an example, you need to run ```kubectl exec -it -n azureml $(kubectl get pod -n azureml | grep azureml-fe | awk '{print $1}' | head -1) bash``` 
@@ -251,14 +244,6 @@ In this case, all prometheus instances will be managed by the existing promtheus
 
     EOF
     ```
-
-### Inference V1 <a name="inference-v1"></a>
-
-
-### Conflicting operation in progress <a name="inference-v1"></a>
-Message: Update failed for this resource, as there is a conflicting operation in progress. Please try after sometime
-
-
 
 ### Error: Timed out or status not populated <a name="error-timeout"></a>
 If installation is pending on some resources or process for more than 15 minutes, it will throw out error like the followings. For example, it may be due to insufficient CPU, memory and nodes. Or because the loadbalancer cannot be assigned an public IP address. In this case, please run [HealthCheck](#healthcheck) to get more debug information. ```status not populated``` error is a known Arc error. It can be triggered by timeout error. In order to avoid ```status not populated``` error as much as possible, you can manaually upgrade the arc agents to the latest version by running ```az connectedk8s upgrade --subscription <subscription> -g <resource-group> -n <name>```. If you cluster is not connected through Arc, that is Azureml extension is installed directly in a raw managed AKS, Arc agents will be upgraded automatically.
