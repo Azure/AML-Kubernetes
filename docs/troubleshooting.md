@@ -226,13 +226,13 @@ CustomResourceDefinition "jobs.batch.volcano.sh" in namespace "" exists and cann
 ```
 
 Follow the steps below to mitigate the issue.
-* If the conflict resource is ClusterRole "azureml-fe-role", ClusterRoleBinding "azureml-fe-binding", ServiceAccount "azureml-fe", Deployment "azureml-fe" or other resource related to "azureml-fe", please check if you have Inference AKS v1 installed in your cluster. If yes, please contact us for migration solution ([Support](./../README.md#support)). If not, please follow the steps below.
+* If the conflict resource is ClusterRole "azureml-fe-role", ClusterRoleBinding "azureml-fe-binding", ServiceAccount "azureml-fe", Deployment "azureml-fe" or other resource related to "azureml-fe", please check if you have Inference AKS V1 installed in your cluster. If yes, you need to clean up all resources related to Inference AKS V1 first by following this [doc](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-create-attach-kubernetes?tabs=python%2Cakscreate#delete-azureml-fe-related-resources), or contact us for migration solution ([Support](./../README.md#support)). If not, please follow the steps below.
 * Check who owns the problematic resources and if the resource can be deleted or modified. 
 * If the resource is used only by AzureML extension and can be deleted, we can manually add labels to mitigate the issue. Taking the previous error message as an example, you can run commands ```kubectl label crd jobs.batch.volcano.sh "app.kubernetes.io/managed-by=Helm" ``` and ```kubectl annotate crd jobs.batch.volcano.sh "meta.helm.sh/release-namespace=azureml" "meta.helm.sh/release-name=<extension-name>"```. Please replace \<extension-name\> with your own extension name. By setting labels and annotations to the resource, it means the resource is managed by helm and owned by AzureML extension. 
-* If the resource is also used by other components in your cluster and can't be modified. Please refer to [doc](./deploy-extension.md#review-azureml-deployment-configuration-settings) to see if there is a flag to disable the resource from AzureML extension side. For example, if it's a resource of [Volcano Scheduler](https://github.com/volcano-sh/volcano) and Volcano Scheduler has been installed in your cluster, you can set ```volcanoScheduler.enable=false``` flag to disable it to avoid the confliction or follow [Skip installation of volcano in the extension](#skip-volcano).
+* If the resource is also used by other components in your cluster and can't be modified. Please refer to [doc](./deploy-extension.md#review-azureml-deployment-configuration-settings) to see if there is a flag to disable the conflict resource from AzureML extension side. For example, if it's a resource of [Volcano Scheduler](https://github.com/volcano-sh/volcano) and Volcano Scheduler has been installed in your cluster, you can set ```volcanoScheduler.enable=false``` flag to disable it to avoid the confliction or follow [Skip installation of volcano in the extension](#skip-volcano).
 
 ### Error: cannot re-use a name that is still in use <a name="error-reuse-name"></a>
-This means the extension name you specified already exists. Run ```helm list -Aa``` to list all helm chart in your cluster. If the name is used by other helm chart, you need to use another name. If the name is used by Azureml extension, it depends. You can try to uninstall the extension and reinstall it if possible. Or maybe you need to wait for about an hour and try again after the unknown operation is completed.
+This means the extension name you specified already exists. Run ```helm list -Aa``` to list all helm chart in your cluster. If the name is used by other helm chart, you need to use another name. If the name is used by Azureml extension, you can try to uninstall the extension and reinstall it if possible. Or you need to wait for about an hour and try again.
 
 ### Error: Earlier operation for the helm chart is still in progress <a name="error-operation-in-progress"></a>
 You need to wait for about an hour and try again after the unknown operation is completed.
@@ -242,7 +242,6 @@ This happens when an uninstallation operation is unfinished and another installt
 
 ### Error: Failed in download the Chart path not found <a name="error-chart-not-found"></a>
 Most likely, you specified the wrong extension version. Or the ```--release-train``` flag and ```--version``` flag doesn't match. Please try the default value to mitigate this.
-
 
 ### Error Code of HealthCheck  <a name="healthcheck-error-code"></a>
 This table shows how to troubleshoot the error codes returned by the HealthCheck report. For error codes lower than E45000, this is a critical error, which means that some problems must be solved before continuing the installation. For error codes larger than E45000, this is a diagnostic error, which requires further manual analysis of the log to identify the problem.
