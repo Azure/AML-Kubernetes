@@ -92,47 +92,7 @@ If user have their own volcano suite installed, they can set `volcanoScheduler.e
 See this [issue](https://github.com/volcano-sh/volcano/issues/1680).
 
 ### How to validate private workspace endpoint  <a name="valid-private-workspace"></a>
-If you setup private endpoint for your workspace, it's important to test its availability before using it. Otherwise, it may cause unknown errors, like installation errors. You can follow the steps below to test if the private workspace endpoint is available in your cluster. For how to setup private link with AzureML extension, please refer to [private link](./private-link.md)
-1. The format of private workspace endpoint should be like this ```{workspace_id}.workspace.{region}.api.azureml.ms```. You can find workspace id and region in your workspace portal or through ```az ml workspace``` command.
-1. Prepare a pod that can run ```curl``` and ```nslookup``` commands. If you have AzureML extension installed and enabled Inference features, azureml-fe pod is a good choice.
-1. Login into the pod. Taking azureml-fe as an example, you need to run ```kubectl exec -it -n azureml $(kubectl get pod -n azureml | grep azureml-fe | awk '{print $1}' | head -1) bash``` 
-1. If you don't configure proxy, just run ```nslookup {workspace_id}.workspace.{region}.api.azureml.ms```. If private link from cluster to workspace is set correctly, dns lookup will response an internal IP in VNET. The response should be something like this:
-    ```
-    Server:         10.0.0.10
-    Address:        10.0.0.10:53
-
-    Non-authoritative answer:
-    ***
-
-    Non-authoritative answer:
-    ***
-    ```
-1. If you have proxy configured, please run ```curl https://{workspace_id}.workspace.{region}.api.azureml.ms/metric/v2.0/subscriptions/{subscription}/resourceGroups/{resource_group}/providers/Microsoft.MachineLearningServices/workspaces/{workspace_name}/api/2.0/prometheus/post -X POST -x {proxy_address} -d {} -v -k```. If you configured proxy and workspace with private link correctly, you can see it's trying to connect to an internal IP, and get response with http 401 (which is expected as you don't provide token for runhistory). The response should be something like this:
-    ```
-    Note: Unnecessary use of -X or --request, POST is already inferred. 
-    * Trying 172.29.1.81:443... 
-    * Connected to ***.workspace.eastus.api.azureml.ms (172.29.1.81) port 443 (#0) 
-    * ALPN, offering h2 
-    * ALPN, offering http/l.l 
-
-    ***
-    {
-        "error": { 
-            "code": "UserError",
-            "severity": null, 
-            "message": "Bearer token not provided.", 
-            "messageFornat": null, 
-            "messageParameters": null, 
-            "innerError": { 
-                "code": "AuthorizationError",
-                "innerError": null
-            }
-            "debuglnfo" : null, 
-            "additionallnfo" :  null 
-        }
-        ***
-    }
-    ```
+If you setup private endpoint for your workspace, it's important to test its availability before using it. Otherwise, it may cause unknown errors, like installation errors. You can follow the steps below to test if the private workspace endpoint is available in your cluster. Follow this [doc](./private-link.md#private-link-issue) to valid private link. For how to setup private link with AzureML extension, please refer to [private link](./private-link.md).
 
 ### DCGM exporter <a name="dcgm"></a>
 [Dcgm-exporter](https://github.com/NVIDIA/dcgm-exporter) is the official tool recommended by NVIDIA for collecting GPU metrics. We have integrated it into Azureml extension. But, by default, dcgm-exporter is not enabled, and no GPU metrics are collected. You can specify ```installDcgmExporter``` flag to ```true``` to enable it. As it's NVIDIA's official tool, you may already have it installed in your GPU cluster. So, you can follow the steps below to integrate your dcgm-exporter into Azureml extension. Another thing to note is that dcgm-exporter allows user to config which metrics to expose. So, for Azureml extension, please make sure ```DCGM_FI_DEV_GPU_UTIL```, ```DCGM_FI_DEV_FB_FREE``` and ```DCGM_FI_DEV_FB_USED``` metris are exposed. 
