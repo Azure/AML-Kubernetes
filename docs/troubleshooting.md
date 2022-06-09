@@ -8,8 +8,8 @@ This document is used to help customer solve problems when using AzureML extensi
     * [Inference router service type](#inference-service-type)
     * [Skip installation of volcano in the extension](#skip-volcano)
     * [How to validate private workspace endpoint](#valid-private-workspace)
-    * [DCGM exporter](#dcgm)
     * [Prometheus operator](#prom-op)
+    * [DCGM exporter](#dcgm)
     * [Error: Timed out or status not populated](#error-timeout)
     * [Error: Failed pre-install: pod healthcheck failed](#error-healthcheck-failed)
     * [Error: Resources cannot be imported](#error-cannot-imported)
@@ -92,10 +92,58 @@ If user have their own volcano suite installed, they can set `volcanoScheduler.e
 See this [issue](https://github.com/volcano-sh/volcano/issues/1680).
 
 ### How to validate private workspace endpoint  <a name="valid-private-workspace"></a>
-If you setup private endpoint for your workspace, it's important to test its availability before using it. Otherwise, it may cause unknown errors, like installation errors. You can follow the steps below to test if the private workspace endpoint is available in your cluster. Follow this [doc](./private-link.md#private-link-issue) to valid private link. For how to setup private link with AzureML extension, please refer to [private link](./private-link.md).
+If you setup private endpoint for your workspace, it's important to test its availability before using it. Otherwise, it may cause unknown errors, like installation errors. You can follow this [doc](./private-link.md#private-link-issue) to test if the private workspace endpoint is available in your cluster. For how to setup private link with AzureML extension, please refer to [private link](./private-link.md).
+
+
+### Prometheus operator <a name="prom-op"></a>
+[Promtheus operator](https://github.com/prometheus-operator/prometheus-operator) is an open source framework to help build metric monitoring system in kubernetes. AzureML extension also utilizes promtheus operator to help monitor resource utilization of jobs. The following lists the open source components used for collecting metrics in AzureML extension:
+1. Promtheus operator serves to make running Prometheus on top of Kubernetes as easy as possible, while preserving Kubernetes-native configuration options.
+1. Promtheus serves to collect, calculate and upload metrics. 
+1. CAdvisor is an open-source agent integrated into the kubelet binary that monitors resource usage and analyzes the performance of containers. CAdvisor produces the original metrics.
+1. Kube-state-metrics (KSM) generates metrics about the state of the objects in Kubernetes. Those metrics are used for performing correlation operations.
+1. Dcgm-exporter is used for collecting gpu metrics. Please refer to [DCGM exporter](#dcgm) for more information.
+
+If prometheus operator has already been installed in cluster by other service, you can specify ```installPromOp=false``` to disable prometheus operator in AzureML extension side to avoid conflictions between two prometheus operators.
+In this case, all prometheus instances will be managed by the existing promtheus operator. And to make sure prometheus works properly, the following things need to be paid attention when you disable promtheus operator in Azureml extension side.
+1. Check if prometheus in azureml namespace is managed by prometheus operator. In some scenarios, prometheus operator is set to only monitor some specific namespaces. If so, please make sure azureml namespace is in the white list. Refer to [command flags](https://github.com/prometheus-operator/prometheus-operator/blob/b475b655a82987eca96e142fe03a1e9c4e51f5f2/cmd/operator/main.go#L165) for more information.
+2. Check if kubelete-service is enabled in prometheus operator. Kubelet-service contains all the endpoints of kubelet. Refer to [command flags](https://github.com/prometheus-operator/prometheus-operator/blob/b475b655a82987eca96e142fe03a1e9c4e51f5f2/cmd/operator/main.go#L149) for more information. And also need to make sure that kubelet-service has a label named k8s-app and it's value is kubelet
+3. Create ServiceMonitor for kubelet-service. Run the following command with variables replaced:
+    ```bash
+    cat << EOF | kubectl apply -f -
+    apiVersion: monitoring.coreos.com/v1
+    kind: ServiceMonitor
+    metadata:
+      name: prom-kubelet
+      namespace: azureml
+      labels:
+        release: "<extension-name>"     # Please replace to your Azureml extension name
+    spec:
+      endpoints:
+      - port: https-metrics
+        scheme: https
+        path: /metrics/cadvisor
+        honorLabels: true
+        tlsConfig:
+          caFile: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+          insecureSkipVerify: true
+        bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+        relabelings:
+        - sourceLabels:
+          - __metrics_path__
+          targetLabel: metrics_path
+      jobLabel: k8s-app
+      namespaceSelector:
+        matchNames:
+        - "<namespace-of-your-kubelet-service>"  # Please change this to the same namespace of your kubelet-service
+      selector:
+        matchLabels:
+          k8s-app: kubelet    # Please make sure your kubelet-service has a label named k8s-app and it's value is kubelet
+
+    EOF
+    ```
 
 ### DCGM exporter <a name="dcgm"></a>
-[Dcgm-exporter](https://github.com/NVIDIA/dcgm-exporter) is the official tool recommended by NVIDIA for collecting GPU metrics. We have integrated it into Azureml extension. But, by default, dcgm-exporter is not enabled, and no GPU metrics are collected. You can specify ```installDcgmExporter``` flag to ```true``` to enable it. As it's NVIDIA's official tool, you may already have it installed in your GPU cluster. So, you can follow the steps below to integrate your dcgm-exporter into Azureml extension. Another thing to note is that dcgm-exporter allows user to config which metrics to expose. So, for Azureml extension, please make sure ```DCGM_FI_DEV_GPU_UTIL```, ```DCGM_FI_DEV_FB_FREE``` and ```DCGM_FI_DEV_FB_USED``` metris are exposed. 
+[Dcgm-exporter](https://github.com/NVIDIA/dcgm-exporter) is the official tool recommended by NVIDIA for collecting GPU metrics. We have integrated it into Azureml extension. But, by default, dcgm-exporter is not enabled, and no GPU metrics are collected. You can specify ```installDcgmExporter``` flag to ```true``` to enable it. As it's NVIDIA's official tool, you may already have it installed in your GPU cluster. If so, you can follow the steps below to integrate your dcgm-exporter into Azureml extension. Another thing to note is that dcgm-exporter allows user to config which metrics to expose. For Azureml extension, please make sure ```DCGM_FI_DEV_GPU_UTIL```, ```DCGM_FI_DEV_FB_FREE``` and ```DCGM_FI_DEV_FB_USED``` metris are exposed. 
 
 1. Make sure you have Aureml extension and dcgm-exporter installed successfully. Dcgm-exporter can be installed by [Dcgm-exporter helm chart](https://github.com/NVIDIA/dcgm-exporter) or [Gpu-operator helm chart](https://github.com/NVIDIA/gpu-operator)
 
@@ -155,53 +203,6 @@ If you setup private endpoint for your workspace, it's important to test its ava
       endpoints:
       - port: "metrics"
         path: "/metrics"
-    EOF
-    ```
-
-### Prometheus operator <a name="prom-op"></a>
-[Promtheus operator](https://github.com/prometheus-operator/prometheus-operator) is an open source framework to help build metric monitoring system in kubernetes. AzureML extension also utilizes promtheus operator to help monitor resource utilization of jobs. The following lists the open source components used for collecting metrics in AzureML extension:
-1. Promtheus operator serves to make running Prometheus on top of Kubernetes as easy as possible, while preserving Kubernetes-native configuration options.
-1. Promtheus serves to collect, calculate and upload metrics. 
-1. CAdvisor is an open-source agent integrated into the kubelet binary that monitors resource usage and analyzes the performance of containers. CAdvisor produces the original metrics.
-1. Kube-state-metrics (KSM) generates metrics about the state of the objects in Kubernetes. Those metrics are used for performing correlation operations.
-1. Dcgm-exporter is used for collecting gpu metrics. Please refer to [DCGM exporter](#dcgm) for more information.
-
-If prometheus operator has already been installed in cluster by other service, you can specify ```installPromOp=false``` to disable prometheus operator in AzureML extension side to avoid conflictions between two prometheus operators.
-In this case, all prometheus instances will be managed by the existing promtheus operator. And to make sure prometheus works properly, the following things need to be paid attention when you disable promtheus operator in Azureml extension side.
-1. Check if prometheus in azureml namespace is managed by prometheus operator. In some scenarios, prometheus operator is set to only monitor some specific namespaces. If so, please make sure azureml namespace is in the white list. Refer to [command flags](https://github.com/prometheus-operator/prometheus-operator/blob/b475b655a82987eca96e142fe03a1e9c4e51f5f2/cmd/operator/main.go#L165) for more information.
-2. Check if kubelete-service is enabled in prometheus operator. Kubelet-service contains all the endpoints of kubelet. Refer to [command flags](https://github.com/prometheus-operator/prometheus-operator/blob/b475b655a82987eca96e142fe03a1e9c4e51f5f2/cmd/operator/main.go#L149) for more information. And also need to make sure that kubelet-service has a label named k8s-app and it's value is kubelet
-3. Create ServiceMonitor for kubelet-service. Find the name and namespace of kubelet-service. Run the following command with variables replaced:
-    ```bash
-    cat << EOF | kubectl apply -f -
-    apiVersion: monitoring.coreos.com/v1
-    kind: ServiceMonitor
-    metadata:
-      name: prom-kubelet
-      namespace: azureml
-      labels:
-        release: "<extension-name>"     # Please replace to your Azureml extension name
-    spec:
-      endpoints:
-      - port: https-metrics
-        scheme: https
-        path: /metrics/cadvisor
-        honorLabels: true
-        tlsConfig:
-          caFile: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
-          insecureSkipVerify: true
-        bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
-        relabelings:
-        - sourceLabels:
-          - __metrics_path__
-          targetLabel: metrics_path
-      jobLabel: k8s-app
-      namespaceSelector:
-        matchNames:
-        - "<namespace-of-your-kubelet-service>"  # Please change this to the same namespace of your kubelet-service
-      selector:
-        matchLabels:
-          k8s-app: kubelet    # Please make sure your kubelet-service has a label named k8s-app and it's value is kubelet
-
     EOF
     ```
 
