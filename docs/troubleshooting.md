@@ -232,7 +232,7 @@ Follow the steps below to mitigate the issue.
 * If the resource is also used by other components in your cluster and can't be modified. Please refer to [doc](./deploy-extension.md#review-azureml-deployment-configuration-settings) to see if there is a flag to disable the conflict resource from AzureML extension side. For example, if it's a resource of [Volcano Scheduler](https://github.com/volcano-sh/volcano) and Volcano Scheduler has been installed in your cluster, you can set ```volcanoScheduler.enable=false``` flag to disable it to avoid the confliction or follow [Skip installation of volcano in the extension](#skip-volcano).
 
 ### Error: cannot re-use a name that is still in use <a name="error-reuse-name"></a>
-This means the extension name you specified already exists. Run ```helm list -Aa``` to list all helm chart in your cluster. If the name is used by other helm chart, you need to use another name. If the name is used by Azureml extension, you can try to uninstall the extension and reinstall it if possible. Or you need to wait for about an hour and try again.
+This means the extension name you specified already exists. Run ```helm list -Aa``` to list all helm chart in your cluster. If the name is used by other helm chart, you need to use another name. If the name is used by Azureml extension, you can try to uninstall the extension and reinstall it if possible. Or you need to wait for about an hour and try again later.
 
 ### Error: Earlier operation for the helm chart is still in progress <a name="error-operation-in-progress"></a>
 You need to wait for about an hour and try again after the unknown operation is completed.
@@ -241,7 +241,7 @@ You need to wait for about an hour and try again after the unknown operation is 
 This happens when an uninstallation operation is unfinished and another installtion operation is triggered. You can run ```az k8s-extension show``` command to check the provision status of extension and make sure extension has been uninstalled before taking other actions.
 
 ### Error: Failed in download the Chart path not found <a name="error-chart-not-found"></a>
-Most likely, you specified the wrong extension version. Or the ```--release-train``` flag and ```--version``` flag doesn't match. Please try the default value to mitigate this.
+Most likely, you specified the wrong extension version. Or the ```--release-train``` flag and ```--version``` flag doesn't match. You need to make sure the version or the release-train you specified really exists. Or you don't specify ```--version``` flag to use the default value to mitigate this error.
 
 ### Error Code of HealthCheck  <a name="healthcheck-error-code"></a>
 This table shows how to troubleshoot the error codes returned by the HealthCheck report. For error codes lower than E45000, this is a critical error, which means that some problems must be solved before continuing the installation. For error codes larger than E45000, this is a diagnostic error, which requires further manual analysis of the log to identify the problem.
