@@ -8,6 +8,7 @@ This document is used to help customer solve problems when using AzureML extensi
     * [Inference router service type](#inference-service-type)
     * [Skip installation of volcano in the extension](#skip-volcano)
     * [How to validate private workspace endpoint](#valid-private-workspace)
+    * [Prometheus operator](#prom-op)
     * [DCGM exporter](#dcgm)
     * [Error: Timed out or status not populated](#error-timeout)
     * [Error: Failed pre-install: pod healthcheck failed](#error-healthcheck-failed)
@@ -22,7 +23,7 @@ This document is used to help customer solve problems when using AzureML extensi
 
 ## Extension Installation Guide
 ### How is AzureML extension installed <a name="how-is-extension-installed"></a>
-AzureML extension is released as a helm chart and installed by Helm V3. By default, all resources of AzureML extension are installed in azureml namespace. Currently, we don't find a way customise the installation error messages for a helm chart. The error message user received is the original error message returned by helm. This is why sometimes vague error messages are returned. But you can utilize the [built-in health check job](#healthcheck) or the following commands to help you debug. You could get more detail Azureml extension information at [Install AzureML extension](./deploy-extension.md). 
+AzureML extension is released as a helm chart and installed by Helm V3. By default, all resources of AzureML extension are installed in azureml namespace. The error message user received is the original error message returned by helm. This is why sometimes vague error messages are returned. But you can utilize the [built-in health check job](#healthcheck) or the following commands to help you debug. You could get more detail Azureml extension information at [Install AzureML extension](./deploy-extension.md). 
 ```bash
 # check helm chart status
 helm list -a -n azureml
@@ -51,21 +52,15 @@ kubectl get configmap -n azureml arcml-healthcheck --output="jsonpath={.data.rep
 kubectl get configmap -n azureml arcml-healthcheck --output="jsonpath={.data.reports-pre-rollback}"
 # get the report in pre-delete step
 kubectl get configmap -n azureml arcml-healthcheck --output="jsonpath={.data.reports-pre-delete}"
-
-# for versions that is older than 1.0.88 the commands should be those
-# get a summary of the report
-kubectl get configmap -n azureml arcml-healthcheck --output="jsonpath={.data.status-test}"
-# get detailed information of the report
-kubectl get configmap -n azureml arcml-healthcheck --output="jsonpath={.data.reports-test}
 ```
 > Note: When running "helm test" command, Error like "unable to get pod logs for healthcheck-config: pods 'healthcheck-config' not found" should be ignored. 
 ### Inference HA <a name="inference-ha"></a>
-For the high availability of inference service, azureml-fe agent will be deployed to three different nodes by default. Azureml-fe agent is used for load balancing, cooperative routing and security authentication. It's very important, especially for production environment. For a single azureml-fe agent, it requires about 0.5 cpu and 500Mi memory. Inference HA is enabled by default and requires at least 3 nodes to run, so, in many test scenarios, installation will fail due to insufficient resources.  
+For the high availability of inference service, azureml-fe agent will be deployed to three different nodes by default. Azureml-fe agent is used for load balancing, cooperative routing and security authentication. It's very important, especially for production environment. For a single azureml-fe agent, it requires about 0.5 cpu and 500Mi memory. Inference HA is enabled by default and requires at least 3 nodes to run, so, in many test scenarios, installation will fail due to insufficient resources. Set ```inferenceRouterHA``` flag to ```false``` to disable Inference HA.
 
 The phenomenon that this kind of issue may lead to is that some ```azureml-fe``` pods are pending on scheduling and error message of the pod could be like **"0/1 nodes are available: 1 node(s) didn't match pod anti-affinity rules"**.
 
 ### Inference router service type  <a name="inference-service-type"></a>
-According to the cluster configuration and testing scenarios, you may need different ways to expose our inference scoring services. you can specify ```loadBalancer``` and ```nodePort``` service type with ```inferenceRouterServiceType``` flag. And you can enable internal loadBalancer with ```internalLoadBalancerProvider``` flag, but internal loadBalancer is only supported by AKS cluster currently. 
+According to the cluster configuration and testing scenarios, you may need different ways to expose our inference scoring services. you can specify ```loadBalancer```, ```clusterIP``` and ```nodePort``` service type with ```inferenceRouterServiceType``` flag. And you can enable internal loadBalancer with ```internalLoadBalancerProvider``` flag, but internal loadBalancer is only supported by AKS cluster currently. 
 
 Please note that ```loadBalancer``` is not supported by raw k8s, like Minikube and Kind. Usually, ```loadBalancer``` are implemented by cloud provider, like AKS, GKE and EKS. If you are trying to use ```loadBalancer``` in a cluster which doesn't support ```loadBalancer```, you may get timeout error from cli and ```LOAD_BALANCER_NOT_SUPPORT``` error from healthcheck report. If you find that inference-operator pod is crashed and azureml-fe service is in pending or unhealthy state, it is likely that you are using the wrong service type or your cluster has something wrong to support the service type you specified. 
 
@@ -97,50 +92,58 @@ If user have their own volcano suite installed, they can set `volcanoScheduler.e
 See this [issue](https://github.com/volcano-sh/volcano/issues/1680).
 
 ### How to validate private workspace endpoint  <a name="valid-private-workspace"></a>
-If you setup private endpoint for your workspace, it's important to test its availability before using it. Otherwise, it may cause unknown errors, like installation errors. You can follow the steps below to test if the private workspace endpoint is available in your cluster.
-1. The format of private workspace endpoint should be like this ```{workspace_id}.workspace.{region}.api.azureml.ms```. You can find workspace id and region in your workspace portal or through ```az ml workspace``` command.
-1. Prepare a pod that can run ```curl``` and ```nslookup``` commands. If you have AzureML extension installed and enabled Inference features, azureml-fe pod is a good choice.
-1. Login into the pod. Taking azureml-fe as an example, you need to run ```kubectl exec -it -n azureml $(kubectl get pod -n azureml | grep azureml-fe | awk '{print $1}' | head -1) bash``` 
-1. If you don't configure proxy, just run ```nslookup {workspace_id}.workspace.{region}.api.azureml.ms```. If private link from cluster to workspace is set correctly, dns lookup will response an internal IP in VNET. The response should be something like this:
-    ```
-    Server:         10.0.0.10
-    Address:        10.0.0.10:53
+If you setup private endpoint for your workspace, it's important to test its availability before using it. Otherwise, it may cause unknown errors, like installation errors. You can follow this [doc](./private-link.md#private-link-issue) to test if the private workspace endpoint is available in your cluster. For how to setup private link with AzureML extension, please refer to [private link](./private-link.md).
 
-    Non-authoritative answer:
-    ***
 
-    Non-authoritative answer:
-    ***
-    ```
-1. If you have proxy configured, please run ```curl https://{workspace_id}.workspace.{region}.api.azureml.ms/metric/v2.0/subscriptions/{subscription}/resourceGroups/{resource_group}/providers/Microsoft.MachineLearningServices/workspaces/{workspace_name}/api/2.0/prometheus/post -X POST -x {proxy_address} -d {} -v -k```. If you configured proxy and workspace with private link correctly, you can see it's trying to connect to an internal IP, and get response with http 401 (which is expected as you don't provide token for runhistory). The response should be something like this:
-    ```
-    Note: Unnecessary use of -X or --request, POST is already inferred. 
-    * Trying 172.29.1.81:443... 
-    * Connected to ***.workspace.eastus.api.azureml.ms (172.29.1.81) port 443 (#0) 
-    * ALPN, offering h2 
-    * ALPN, offering http/l.l 
+### Prometheus operator <a name="prom-op"></a>
+[Promtheus operator](https://github.com/prometheus-operator/prometheus-operator) is an open source framework to help build metric monitoring system in kubernetes. AzureML extension also utilizes promtheus operator to help monitor resource utilization of jobs. The following lists the open source components used for collecting metrics in AzureML extension:
+1. Promtheus operator serves to make running Prometheus on top of Kubernetes as easy as possible, while preserving Kubernetes-native configuration options.
+1. Promtheus serves to collect, calculate and upload metrics. 
+1. CAdvisor is an open-source agent integrated into the kubelet binary that monitors resource usage and analyzes the performance of containers. CAdvisor produces the original metrics.
+1. Kube-state-metrics (KSM) generates metrics about the state of the objects in Kubernetes. Those metrics are used for performing correlation operations.
+1. Dcgm-exporter is used for collecting gpu metrics. Please refer to [DCGM exporter](#dcgm) for more information.
 
-    ***
-    {
-        "error": { 
-            "code": "UserError",
-            "severity": null, 
-            "message": "Bearer token not provided.", 
-            "messageFornat": null, 
-            "messageParameters": null, 
-            "innerError": { 
-                "code": "AuthorizationError",
-                "innerError": null
-            }
-            "debuglnfo" : null, 
-            "additionallnfo" :  null 
-        }
-        ***
-    }
+If prometheus operator has already been installed in cluster by other service, you can specify ```installPromOp=false``` to disable prometheus operator in AzureML extension side to avoid conflictions between two prometheus operators.
+In this case, all prometheus instances will be managed by the existing promtheus operator. And to make sure prometheus works properly, the following things need to be paid attention when you disable promtheus operator in Azureml extension side.
+1. Check if prometheus in azureml namespace is managed by prometheus operator. In some scenarios, prometheus operator is set to only monitor some specific namespaces. If so, please make sure azureml namespace is in the white list. Refer to [command flags](https://github.com/prometheus-operator/prometheus-operator/blob/b475b655a82987eca96e142fe03a1e9c4e51f5f2/cmd/operator/main.go#L165) for more information.
+2. Check if kubelete-service is enabled in prometheus operator. Kubelet-service contains all the endpoints of kubelet. Refer to [command flags](https://github.com/prometheus-operator/prometheus-operator/blob/b475b655a82987eca96e142fe03a1e9c4e51f5f2/cmd/operator/main.go#L149) for more information. And also need to make sure that kubelet-service has a label named k8s-app and it's value is kubelet
+3. Create ServiceMonitor for kubelet-service. Run the following command with variables replaced:
+    ```bash
+    cat << EOF | kubectl apply -f -
+    apiVersion: monitoring.coreos.com/v1
+    kind: ServiceMonitor
+    metadata:
+      name: prom-kubelet
+      namespace: azureml
+      labels:
+        release: "<extension-name>"     # Please replace to your Azureml extension name
+    spec:
+      endpoints:
+      - port: https-metrics
+        scheme: https
+        path: /metrics/cadvisor
+        honorLabels: true
+        tlsConfig:
+          caFile: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+          insecureSkipVerify: true
+        bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+        relabelings:
+        - sourceLabels:
+          - __metrics_path__
+          targetLabel: metrics_path
+      jobLabel: k8s-app
+      namespaceSelector:
+        matchNames:
+        - "<namespace-of-your-kubelet-service>"  # Please change this to the same namespace of your kubelet-service
+      selector:
+        matchLabels:
+          k8s-app: kubelet    # Please make sure your kubelet-service has a label named k8s-app and it's value is kubelet
+
+    EOF
     ```
 
 ### DCGM exporter <a name="dcgm"></a>
-[Dcgm-exporter](https://github.com/NVIDIA/dcgm-exporter) is the official tool recommended by NVIDIA for collecting GPU metrics. We have integrated it into Azureml extension. But, by default, dcgm-exporter is not enabled, and no GPU metrics are collected. You can specify ```installDcgmExporter``` flag to ```true``` to enable it. As it's NVIDIA's official tool, you may already have it installed in your GPU cluster. So, you can follow the steps below to integrate your dcgm-exporter into Azureml extension. Another thing to note is that dcgm-exporter allows user to config which metrics to expose. So, for Azureml extension, please make sure ```DCGM_FI_DEV_GPU_UTIL```, ```DCGM_FI_DEV_FB_FREE``` and ```DCGM_FI_DEV_FB_USED``` metris are exposed. 
+[Dcgm-exporter](https://github.com/NVIDIA/dcgm-exporter) is the official tool recommended by NVIDIA for collecting GPU metrics. We have integrated it into Azureml extension. But, by default, dcgm-exporter is not enabled, and no GPU metrics are collected. You can specify ```installDcgmExporter``` flag to ```true``` to enable it. As it's NVIDIA's official tool, you may already have it installed in your GPU cluster. If so, you can follow the steps below to integrate your dcgm-exporter into Azureml extension. Another thing to note is that dcgm-exporter allows user to config which metrics to expose. For Azureml extension, please make sure ```DCGM_FI_DEV_GPU_UTIL```, ```DCGM_FI_DEV_FB_FREE``` and ```DCGM_FI_DEV_FB_USED``` metris are exposed. 
 
 1. Make sure you have Aureml extension and dcgm-exporter installed successfully. Dcgm-exporter can be installed by [Dcgm-exporter helm chart](https://github.com/NVIDIA/dcgm-exporter) or [Gpu-operator helm chart](https://github.com/NVIDIA/gpu-operator)
 
@@ -223,13 +226,13 @@ CustomResourceDefinition "jobs.batch.volcano.sh" in namespace "" exists and cann
 ```
 
 Follow the steps below to mitigate the issue.
-* If the conflict resource is ClusterRole "azureml-fe-role", ClusterRoleBinding "azureml-fe-binding", ServiceAccount "azureml-fe", Deployment "azureml-fe" or other resource related to "azureml-fe", please check if you have Inference AKS v1 installed in your cluster. If yes, please contact us for migration solution ([Support](./../README.md#support)). If not, please follow the steps below.
+* If the conflict resource is ClusterRole "azureml-fe-role", ClusterRoleBinding "azureml-fe-binding", ServiceAccount "azureml-fe", Deployment "azureml-fe" or other resource related to "azureml-fe", please check if you have Inference AKS V1 installed in your cluster. If yes, you need to clean up all resources related to Inference AKS V1 first by following this [doc](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-create-attach-kubernetes?tabs=python%2Cakscreate#delete-azureml-fe-related-resources), or contact us for migration solution ([Support](./../README.md#support)). If not, please follow the steps below.
 * Check who owns the problematic resources and if the resource can be deleted or modified. 
 * If the resource is used only by AzureML extension and can be deleted, we can manually add labels to mitigate the issue. Taking the previous error message as an example, you can run commands ```kubectl label crd jobs.batch.volcano.sh "app.kubernetes.io/managed-by=Helm" ``` and ```kubectl annotate crd jobs.batch.volcano.sh "meta.helm.sh/release-namespace=azureml" "meta.helm.sh/release-name=<extension-name>"```. Please replace \<extension-name\> with your own extension name. By setting labels and annotations to the resource, it means the resource is managed by helm and owned by AzureML extension. 
-* If the resource is also used by other components in your cluster and can't be modified. Please refer to [doc](./deploy-extension.md#review-azureml-deployment-configuration-settings) to see if there is a flag to disable the resource from AzureML extension side. For example, if it's a resource of [Volcano Scheduler](https://github.com/volcano-sh/volcano) and Volcano Scheduler has been installed in your cluster, you can set ```volcanoScheduler.enable=false``` flag to disable it to avoid the confliction or follow [Skip installation of volcano in the extension](#skip-volcano).
+* If the resource is also used by other components in your cluster and can't be modified. Please refer to [doc](./deploy-extension.md#review-azureml-deployment-configuration-settings) to see if there is a flag to disable the conflict resource from AzureML extension side. For example, if it's a resource of [Volcano Scheduler](https://github.com/volcano-sh/volcano) and Volcano Scheduler has been installed in your cluster, you can set ```volcanoScheduler.enable=false``` flag to disable it to avoid the confliction or follow [Skip installation of volcano in the extension](#skip-volcano).
 
 ### Error: cannot re-use a name that is still in use <a name="error-reuse-name"></a>
-This means the extension name you specified already exists. Run ```helm list -Aa``` to list all helm chart in your cluster. If the name is used by other helm chart, you need to use another name. If the name is used by Azureml extension, it depends. You can try to uninstall the extension and reinstall it if possible. Or maybe you need to wait for about an hour and try again after the unknown operation is completed.
+This means the extension name you specified already exists. Run ```helm list -Aa``` to list all helm chart in your cluster. If the name is used by other helm chart, you need to use another name. If the name is used by Azureml extension, you can try to uninstall the extension and reinstall it if possible. Or you need to wait for about an hour and try again later.
 
 ### Error: Earlier operation for the helm chart is still in progress <a name="error-operation-in-progress"></a>
 You need to wait for about an hour and try again after the unknown operation is completed.
@@ -238,8 +241,7 @@ You need to wait for about an hour and try again after the unknown operation is 
 This happens when an uninstallation operation is unfinished and another installtion operation is triggered. You can run ```az k8s-extension show``` command to check the provision status of extension and make sure extension has been uninstalled before taking other actions.
 
 ### Error: Failed in download the Chart path not found <a name="error-chart-not-found"></a>
-Most likely, you specified the wrong extension version. Or the ```--release-train``` flag and ```--version``` flag doesn't match. Please try the default value to mitigate this.
-
+Most likely, you specified the wrong extension version. Or the ```--release-train``` flag and ```--version``` flag doesn't match. You need to make sure the version or the release-train you specified really exists. Or you don't specify ```--version``` flag to use the default value to mitigate this error.
 
 ### Error Code of HealthCheck  <a name="healthcheck-error-code"></a>
 This table shows how to troubleshoot the error codes returned by the HealthCheck report. For error codes lower than E45000, this is a critical error, which means that some problems must be solved before continuing the installation. For error codes larger than E45000, this is a diagnostic error, which requires further manual analysis of the log to identify the problem.
@@ -247,12 +249,15 @@ This table shows how to troubleshoot the error codes returned by the HealthCheck
 |Error Code |Error Message | Description |
 |--|--|--|
 |E40000 | UNKNOWN_ERROR | Unknown error happened. Need to check HealthCheck logs to identify the problem. |
-|E40001 | LOAD_BALANCER_NOT_SUPPORT | Load balancer is not supported by your cluster. Please refer to [Service type of inference scoring endpoint](#inference-service-type) for solution |
+|E40001 | LOAD_BALANCER_NOT_SUPPORT | Load balancer is not supported by your cluster. Please refer to [Inference router service type](#inference-service-type) for solution |
 |E40002 | INSUFFICIENT_NODE | The healthy nodes are insufficient. Maybe your node selector is not set properly. Or you may need to disable [Inference HA](#inference-ha)|
-|E40003 | INTERNAL_LOAD_BALANCER_NOT_SUPPORT | Currently, internal load balancer is only supported by AKS. Please refer to [Service type of inference scoring endpoint](#inference-service-type) |
-|E40004 | INVALID_SSL_SETTING | The SSL settings for extension installation is invalid. Please make sure both SSL key and certificate are provided, and check the integrity of the SSL key and certificate. Also, the CNAME should be compatible with the certificate. You can refer to [Validate SSL settings](#check-ssl-key-cert) for further information. |
+|E40003 | INTERNAL_LOAD_BALANCER_NOT_SUPPORT | Currently, internal load balancer is only supported by AKS. Please refer to [Inference router service type](#inference-service-type) |
+|E40004 | AZUREML_FE_DEPLOYMENT_NOT_FOUND | ```azureml-fe``` or ```azureml-fe-v2``` deployment is not available. It's a critical error |
+|E40005 | AZUREML_FE_SCALE_UP_TIMEOUT | ```azureml-fe``` deployment scale up timeout|
+|E40006 | AZUREML_FE_UPDATE_REPLICAS_FAILED | ```azureml-fe``` deployment update replicas failed |
+|E40007 | INVALID_SSL_SETTING | The SSL settings for extension installation is invalid. Please make sure both SSL key and certificate are provided, and check the integrity of the SSL key and certificate. Also, the CNAME should be compatible with the certificate. You can refer to [Validate SSL settings](#check-ssl-key-cert) for further information. |
 |E45001 | AGENT_UNHEALTHY |There are unhealty resources of AzureML extension. Resources checked by this checker are Pod, Job, Deployment, Daemonset and StatufulSet. From the HealthCheck logs, you can find out which resource is unhealthy. |
-|E45002 | PROMETHEUS_CONFLICT | Please refer to [Reuse Prometheus](#prometheus) |
+|E45002 | PROMETHEUS_CONFLICT | Please refer to [Prometheus operator](#prom-op) |
 |E45003 | BAD_NETWORK_CONNECTIVITY | Please follow [network-requirements](./network-requirements.md) to check network connectivity. If you are using private link for workspace or other resources, you can refer to doc [private-link](./private-link.md)  |
 |E45004 | AZUREML_FE_ROLE_CONFLICT | There exists an "azureml-fe-role" cluster role, but it doesn't belong Azureml extension. Usually, this is because Inference AKS V1 has been installed in your cluster. Please contact us for migration solution. [Support](./../README.md#support)|
 |E45005 | AZUREML_FE_DEPLOYMENT_CONFLICT | There exists an "azureml-fe" deployment, but it doesn't belong Azureml extension. Usually, this is because Inference AKS V1 has been installed in your cluster. Please contact us for migration solution. [Support](./../README.md#support)|
@@ -308,20 +313,20 @@ Check your proxy setting and check whether 127.0.0.1 was added to proxy-skip-ran
 ## Inference Guide
 ### InferencingClientCallFailed: The k8s-extension of the Kubernetes cluster is not connectable.
 
-Reattach your compute to the cluster and then try again. If it is still not working, use "kubectl get po -n azureml" to check the relayserver* pods are running. 
+Reattach your compute to the cluster and then try again. If it is still not working, use "kubectl get po -n azureml" to check whether the relayserver* pods are running. 
 
 ### How to check sslCertPemFile and sslKeyPemFile is correct? <a name="check-ssl-key-cert"></a>
 
-Below commands could be used to validate. Expect the second command return "RSA key ok" without prompting you for passphrase.
+Below commands could be used to run sanity check for your cert and key. Expect the second command return "RSA key ok" without prompting you for password.
 ```yaml
-openssl x509 -in cert.pem -text -noout 
-openssl rsa -in key.pem -check -noout
+openssl x509 -in cert.pem -noout -text  
+openssl rsa -in key.pem -noout -check 
 ```
 
-Below commands could be used to verify whether sslCertPemFile and sslKeyPemFile match:
+Below commands could be used to verify whether sslCertPemFile and sslKeyPemFile are matched:
 ```yaml
-openssl x509 -noout -modulus -in cert.pem 
-openssl rsa -noout -modulus -in key.pem 
+openssl x509  -in cert.pem -noout -modulus | md5sum 
+openssl rsa -in key.pem -noout -modulus  | md5sum 
 ```
 
 
