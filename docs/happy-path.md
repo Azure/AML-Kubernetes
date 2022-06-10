@@ -22,7 +22,7 @@ After the connection, a ```Kubernetes - Azure Arc``` will be created under your 
 Run ```az extension add -n k8s-extension``` to add ```k8s-extension``` in Azure CLI, then run the following command to install AzureML extension on the Arc cluster created in previous step.
 
 ```azurecli
-az k8s-extension create --subscription <subscription-id> --resource-group <resource-group> --cluster-type connectedClusters --cluster-name <arc-cluster-name> --extension-type Microsoft.AzureML.Kubernetes --name arcml-extension --scope cluster --config enableTraining=True enableInference=True allowInsecureConnections=True inferenceLoadBalancerHA=False privateEndpointNodeport=True
+az k8s-extension create --subscription <subscription-id> --resource-group <resource-group> --cluster-type connectedClusters --cluster-name <arc-cluster-name> --extension-type Microsoft.AzureML.Kubernetes --name arcml-extension --scope cluster --config enableTraining=True enableInference=True allowInsecureConnections=True inferenceRouterHA=False inferenceRouterServiceType=clusterIP
 ```
 * ```--cluster-name``` : Name of Arc-connected cluster. Azure can't directly perceive and operate your on-prem cluster and it can only operate your cluster through Arc, so cluster name is your Arc-connected cluster name.
 * ```--cluster-type``` : "connectedClusters" means it's a Arc-connected cluster.
@@ -33,29 +33,8 @@ az k8s-extension create --subscription <subscription-id> --resource-group <resou
   * ```enableTraining``` : Enable training feature.
   * ```enableInference``` : Enable inference feature.
   * ```allowInsecureConnections``` : For inference feature, the http endpoints of model deployment are exposed for scoring. Explicitly setting this flag to true allows insecure connection to those http endpoints. Otherwise, ```sslCertPemFile``` and ```sslKeyPemFile``` must be provided for secure connections.
-  * ```inferenceLoadBalancerHA``` : <span style="color:red">THIS FLAG IS VERY IMPORTANT!</span> To ensure the availability of inference scoring services, HA feature is enabled by default. But it requires at least 3 nodes to do so. Disable HA can make you successfully install AzureML extension.
-  * ```privateEndpointNodeport``` : <span style="color:red">THIS FLAG IS VERY IMPORTANT!</span> By default, inference will use public loadbalancer to expose scoring services. But loadbalancer is not supported by most non-cloud provided K8s. Setting this flag to true makes scoring services exposed as a ```NodePort``` service.
-
-   > **How to valid if public loadbalancer is supported by your cluster**:
-   > * Run the following command to create a loadbalancer:
-   > ```bash 
-   > cat << EOF | kubectl apply -f -
-   > apiVersion: v1
-   > kind: Service
-   > metadata:
-   >   name: my-service
-   > spec:
-   >   selector:
-   >     app: MyApp
-   >   ports:
-   >     - protocol: TCP
-   >       port: 80
-   >       targetPort: 9376
-   >   type: LoadBalancer
-   > EOF
-   > ```
-   > * Use ```kubectl get service my-service``` to show service status. If ```EXTERNAL-IP``` is not assigned or in ```pending``` status, public loadbalancer is supported in your cluster.
-   > * For more information, please refer to [K8s Service](https://kubernetes.io/docs/concepts/services-networking/service).
+  * ```inferenceRouterHA``` : <span style="color:red">THIS FLAG IS VERY IMPORTANT!</span> To ensure the availability of inference scoring services, HA feature is enabled by default. But it requires at least 3 nodes to do so. Disable HA can make you successfully install AzureML extension.
+  * ```inferenceRouterServiceType``` : <span style="color:red">THIS FLAG IS VERY IMPORTANT!</span> By default, inference will use public loadbalancer to expose scoring services. But loadbalancer is not supported by most non-cloud provided K8s. Setting this flag to clusterIP makes scoring services exposed as a ```clusterIP``` service.
 
 ### 3. Check extension status and debug
 After the installation, you can check the extension status from Arc cluster portal. In the left navigation sidebar of Arc cluster portal, there is a Extensions option. You can also directly check extension instance by running ```helm list -Aa``` or ```kubectl get pod -n azureml``` in your local cluster.
@@ -68,10 +47,10 @@ AKS is an Azure resources and managed by Azure. And we have two ways to install 
 * Directly install in AKS
   * Run the follow command
       ```azurecli
-      az k8s-extension create --subscription <subscription-id> --resource-group <resource-group> --cluster-type managedClusters --cluster-name <AKS-cluster-name> --extension-type Microsoft.AzureML.Kubernetes --name arcml-extension --scope cluster --config enableTraining=True enableInference=True allowInsecureConnections=True
+      az k8s-extension create --subscription <subscription-id> --resource-group <resource-group> --cluster-type managedClusters --cluster-name <AKS-cluster-name> --extension-type Microsoft.AzureML.Kubernetes --name arcml-extension --scope cluster --config enableTraining=True enableInference=True allowInsecureConnections=True inferenceRouterServiceType=loadBalancer
       ```
     * ```--cluster-name```: Name of your **<span style="color:orange">AKS cluster**</span>.
-    * ```--cluster-type```: Extension is installed in AKS directly, so the cluster type is **<span style="color:orange">managedClusters**</span>.
+    * ```--cluster-type```: Extension is installed in AKS directly, so the cluster type is **<span style="color:orange">managedClusters**</span>, not **<span style="color:orange">connectedClusters**</span>.
     * ```--config```: Enable both training and inference features and allow insecure connections.
 * Install through Arc. **This way treats AKS as an on-prem cluster and is very similar to the Minikube way, except that you don't have extra parameters to handle resource limitation**.
   1. Connect AKS with command below
@@ -80,10 +59,10 @@ AKS is an Azure resources and managed by Azure. And we have two ways to install 
       ```
   2. Then install extension
       ```azurecli
-      az k8s-extension create --subscription <subscription-id> --resource-group <resource-group> --cluster-type connectedClusters  --cluster-name <arc-cluster-name> --extension-type Microsoft.AzureML.Kubernetes  --name arcml-extension --scope cluster --config enableTraining=True enableInference=True allowInsecureConnections=True
+      az k8s-extension create --subscription <subscription-id> --resource-group <resource-group> --cluster-type connectedClusters  --cluster-name <arc-cluster-name> --extension-type Microsoft.AzureML.Kubernetes  --name arcml-extension --scope cluster --config enableTraining=True enableInference=True allowInsecureConnections=True inferenceRouterServiceType=loadBalancer
       ```
      * ```--cluster-name```: Name of your **<span style="color:orange">Arc cluster**</span>.
      * ```--cluster-type```: Extension is installed through Arc cluster, so the cluster type is **<span style="color:orange">connectedClusters**</span>.
      * ```--config```: Enable both training and inference features and allow insecure connections.
 
-   > Note: Don't confuse these two ways, and **don't try both ways on the same cluster**. For example, you first install extension directly in a AKS, and then uninstall the extension. But after that, you want to connect the same AKS to Arc and install extension. There is a high probability that your operation will fail.
+   > Note: Don't confuse these two ways, and **don't try both ways on the same cluster**. For example, you first install extension directly in a AKS, and then uninstall the extension. After that, you want to connect the same AKS to Arc and install extension. There is a high probability that your operation will fail.
