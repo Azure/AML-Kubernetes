@@ -313,20 +313,20 @@ Check your proxy setting and check whether 127.0.0.1 was added to proxy-skip-ran
 ## Inference Guide
 ### InferencingClientCallFailed: The k8s-extension of the Kubernetes cluster is not connectable.
 
-Reattach your compute to the cluster and then try again. If it is still not working, use "kubectl get po -n azureml" to check the relayserver* pods are running. 
+Reattach your compute to the cluster and then try again. If it is still not working, use "kubectl get po -n azureml" to check whether the relayserver* pods are running. 
 
 ### How to check sslCertPemFile and sslKeyPemFile is correct? <a name="check-ssl-key-cert"></a>
 
-Below commands could be used to validate. Expect the second command return "RSA key ok" without prompting you for passphrase.
+Below commands could be used to run sanity check for your cert and key. Expect the second command return "RSA key ok" without prompting you for password.
 ```yaml
-openssl x509 -in cert.pem -text -noout 
-openssl rsa -in key.pem -check -noout
+openssl x509 -in cert.pem -noout -text  
+openssl rsa -in key.pem -noout -check 
 ```
 
-Below commands could be used to verify whether sslCertPemFile and sslKeyPemFile match:
+Below commands could be used to verify whether sslCertPemFile and sslKeyPemFile are matched:
 ```yaml
-openssl x509 -noout -modulus -in cert.pem 
-openssl rsa -noout -modulus -in key.pem 
+openssl x509  -in cert.pem -noout -modulus | md5sum 
+openssl rsa -in key.pem -noout -modulus  | md5sum 
 ```
 
 
