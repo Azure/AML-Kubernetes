@@ -176,7 +176,7 @@ Use ```k8s-extension create``` CLI command to deploy AzureML extension, review l
    | ```sslCertPemFile```, ```sslKeyPemFile``` |Path to SSL certificate and key file (PEM-encoded), required for AzureML extension deployment with inference HTTPS endpoint support, when  ``allowInsecureConnections`` is set to False. | N/A| Optional |  Optional |
 
 ## Next Step
-- [Attach Kubernetes cluster to AzureML workspace and create a compute target](./docs/attach-compute.md)
+- [Attach Kubernetes cluster to AzureML workspace and create a compute target](/attach-compute.md)
    
 
 
