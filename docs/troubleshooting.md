@@ -303,7 +303,7 @@ AzureML Kubernetes job failed. 400:{"Msg":"Encountered an error when attempting 
 It should be network issue. Please follow [Private Link troubleshooting section](https://github.com/Azure/AML-Kubernetes/blob/master/docs/private-link.md) to check your network settings. 
 
 ### ServiceError: Job pod get stuck in Init state
-If the job runs longer than you expected and you find job pod get stuck in Init state with the this warning ```Unable to attach or mount volumes: *** failed to get plugin from volumeSpec for volume ***-blobfuse-*** err=no volume plugin matched```, this is a known issue. Beacuse Azureml extension doesn't support download mode for input data currently. Please change to mount mode for your input data to mitigate the issue.
+If the job runs longer than you expected and you find job pods get stuck in Init state with the this warning ```Unable to attach or mount volumes: *** failed to get plugin from volumeSpec for volume ***-blobfuse-*** err=no volume plugin matched```, this is a known issue. Beacuse Azureml extension doesn't support download mode for input data currently. Please change to mount mode for your input data to mitigate the issue.
 
 ### ServiceError: AzureML Kubernetes job failed
 Error message is:
@@ -331,5 +331,4 @@ Below commands could be used to verify whether sslCertPemFile and sslKeyPemFile 
 openssl x509  -in cert.pem -noout -modulus | md5sum 
 openssl rsa -in key.pem -noout -modulus  | md5sum 
 ```
-
 
