@@ -93,22 +93,22 @@ jobs:
       timeout-minutes: 30
     
     # run training test cases
-    - name: run examples/training/simple-train-cli/job.yml
-      run: bash .github/amlarc-tool.sh run_cli_job examples/training/simple-train-cli/job.yml
-      continue-on-error: true
-      timeout-minutes: 30
-    - name: prepare jupyter dependency
-      run: |
-        bash .github/amlarc-tool.sh generate_workspace_config
-        bash .github/amlarc-tool.sh install_jupyter_dependency
-      continue-on-error: true
-      timeout-minutes: 30
-    - name: run examples/training/simple-train-sdk/img-classification-training.ipynb
-      run: |
-        export AMLARC_COMPUTE_NAME=githubtest
-        bash .github/amlarc-tool.sh run_jupyter_test examples/training/simple-train-sdk/img-classification-training.ipynb
-      continue-on-error: true
-      timeout-minutes: 30
+    # - name: run examples/training/simple-train-cli/job.yml
+    #   run: bash .github/amlarc-tool.sh run_cli_job examples/training/simple-train-cli/job.yml
+    #   continue-on-error: true
+    #   timeout-minutes: 30
+    # - name: prepare jupyter dependency
+    #   run: |
+    #     bash .github/amlarc-tool.sh generate_workspace_config
+    #     bash .github/amlarc-tool.sh install_jupyter_dependency
+    #   continue-on-error: true
+    #   timeout-minutes: 30
+    # - name: run examples/training/simple-train-sdk/img-classification-training.ipynb
+    #   run: |
+    #     export AMLARC_COMPUTE_NAME=githubtest
+    #     bash .github/amlarc-tool.sh run_jupyter_test examples/training/simple-train-sdk/img-classification-training.ipynb
+    #   continue-on-error: true
+    #   timeout-minutes: 30
 
     # run inference test cases
     - name: run examples/inference/simple-flow/endpoint.yml
