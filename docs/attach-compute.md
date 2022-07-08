@@ -153,4 +153,4 @@ List of resource ids for the user assigned identity. e.g. ['subscriptions/\<sub 
 ## Next Step
 - [Create and select different instance types for training and inferencing workloads](./instance-type.md)
 - [Update Managed Identity and Assign roles to Managed Identity](./managed-identity.md)
-- [Train image classification model with AzureML CLI v2](./docs/simple-train-cli.md)
+- [Train image classification model with AzureML CLI v2](./simple-train-cli.md)
