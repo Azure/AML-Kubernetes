@@ -69,10 +69,10 @@ jobs:
         pip --version
         az version
         az ml -h || true
-        az upgrade --all --yes
-        az extension add -n connectedk8s --yes
-        az extension add -n k8s-extension --yes
-        az extension add -n ml --yes
+        az upgrade --all --yes || true
+        az extension add -n connectedk8s --yes  || true
+        az extension add -n k8s-extension --yes || true
+        az extension add -n ml --yes || true
         az version
         az ml -h
       timeout-minutes: 30
