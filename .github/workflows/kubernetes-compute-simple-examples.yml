@@ -65,8 +65,8 @@ jobs:
     - name: install tools
       run: |
         set -x
-        python -v
-        pip -v
+        python --version
+        pip --version
         az version
         az ml -h || true
         az upgrade --all --yes
