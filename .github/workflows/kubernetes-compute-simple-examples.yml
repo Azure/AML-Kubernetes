@@ -63,7 +63,14 @@ jobs:
       with:
         python-version: "3.8"
     - name: install tools
-      run: bash .github/amlarc-tool.sh install_tools
+      run: |
+        set -e
+        python -v
+        pip -v
+        az version
+        az ml -h || true
+        bash .github/amlarc-tool.sh install_tools
+        az ml -h
       timeout-minutes: 30
     - name: azure login
       uses: azure/login@v1
@@ -71,17 +78,17 @@ jobs:
         creds: ${{secrets.AMLARC_SP_CREDS}}
       timeout-minutes: 30
     # provision resources
-    - name: setup_aks
-      run: bash .github/amlarc-tool.sh setup_aks
-      timeout-minutes: 30
-    - name: connect_arc
-      run: bash .github/amlarc-tool.sh connect_arc
-      timeout-minutes: 30
-    - name: install_extension
-      run: |
-        export EXTENSION_SETTINGS="enableTraining=True enableInference=True inferenceRouterServiceType=loadBalancer allowInsecureConnections=True"
-        bash .github/amlarc-tool.sh install_extension
-      timeout-minutes: 30
+    # - name: setup_aks
+    #   run: bash .github/amlarc-tool.sh setup_aks
+    #   timeout-minutes: 30
+    # - name: connect_arc
+    #   run: bash .github/amlarc-tool.sh connect_arc
+    #   timeout-minutes: 30
+    # - name: install_extension
+    #   run: |
+    #     export EXTENSION_SETTINGS="enableTraining=True enableInference=True inferenceRouterServiceType=loadBalancer allowInsecureConnections=True"
+    #     bash .github/amlarc-tool.sh install_extension
+    #   timeout-minutes: 30
     - name: setup_workspace
       run: bash .github/amlarc-tool.sh setup_workspace
       timeout-minutes: 30
