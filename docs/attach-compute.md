@@ -8,7 +8,7 @@ Otherwise, if a user-assigned managed identity is specified in Azure Machine Lea
 
 |Azure resource name |Role to be assigned|Description|
 |--|--|--|
-|Azure Relay|Azure Relay Owner|Only applicable for Arc-enabled Kubernetes cluster. Azure Relay is not created for AKS cluster without Arc connected.|
+|Azure Relay|Azure Relay Owner|Only applicable for Arc-enabled Kubernetes cluster. Azure Relay is not created for AKS cluster without Arc connection.|
 |Azure Arc-enabled Kubernetes|Reader|Applicable for both Arc-enabled Kubernetes cluster and AKS cluster.|
 
 Azure Relay resource is created during the extension deployment under the same Resource Group as the Arc-enabled Kubernetes cluster.
