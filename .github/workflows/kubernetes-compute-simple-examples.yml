@@ -11,7 +11,7 @@ on:
       AMLARC_RELEASE_TRAIN:
         description: 'Release version: experimental, staging or stable'
         required: false
-        default: 'staging'
+        default: 'stable'
       REINSTALL_EXTENSION:
         description: 'Whether to reinstall extension: true or false'
         required: false
@@ -37,7 +37,7 @@ jobs:
       RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }}
       KEY_VAULT_NAME: ${{ secrets.KEY_VAULT_NAME }}
       LOCATION: eastus
-      RELEASE_TRAIN: staging
+      RELEASE_TRAIN: stable
       REINSTALL_EXTENSION: true
 
       MIN_SUCCESS_NUM: 3
