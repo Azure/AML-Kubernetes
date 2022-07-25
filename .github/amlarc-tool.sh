@@ -718,7 +718,6 @@ show_mdm_container(){
 
 stop_mdm_container(){
     show_mdm_container
-    docker logs $CONTAINER_NAME
     docker stop $CONTAINER_NAME
     docker rm -f $CONTAINER_NAME
     show_mdm_container
