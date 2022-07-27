@@ -146,9 +146,9 @@ jobs:
         
         echo "$res"
         if [ "$res" == "[8]" ] ; then
-            echo "[JobStatus] $WS_DIR/endpoint.yml completed" | tee -a $RESULT_FILE
+            echo "[JobStatus] $WS_DIR/endpoint.yml Completed" | tee -a $RESULT_FILE
         else
-            echo "[JobStatus] $WS_DIR/endpoint.yml failed" | tee -a $RESULT_FILE
+            echo "[JobStatus] $WS_DIR/endpoint.yml Failed" | tee -a $RESULT_FILE
         fi
       continue-on-error: true
       timeout-minutes: 30
