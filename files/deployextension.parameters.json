@@ -46,8 +46,8 @@
         },
         "nodeSelector": {
             "value": {
-                "nodeSelector.<customized key 0>": "<customized key 0>",
-                "nodeSelector.<customized key 1>": "<customized key 1>"
+                "nodeSelector.<customized key 0>": "<customized value 0>",
+                "nodeSelector.<customized key 1>": "<customized value 1>"
             },
             "metadata": {
                 "description": "This field is optional"
