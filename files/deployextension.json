@@ -1,0 +1,190 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "extensionName": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+        },
+        "autoUpgradeMinorVersion": {
+            "type": "bool",
+            "defaultValue": false
+        },
+        "enableTraining": {
+            "type": "bool",
+            "defaultValue": false
+        },
+        "enableInference": {
+            "type": "bool",
+            "defaultValue": false
+        },
+        "allowInsecureConnections": {
+            "type": "bool",
+            "defaultValue": false
+        },
+        "aksResourceId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256
+        },
+        "aksLocation": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+        },
+        "inferenceRouterServiceType": {
+            "type": "string",
+            "allowedValues": [
+                "LoadBalancer",
+                "NodePort",
+                "ClusterIP"
+            ],
+            "defaultValue": ""
+        },
+        "internalLoadBalancerProvider": {
+            "type": "string",
+            "defaultValue": "azure"
+        },
+        "inferenceRouterHA": {
+            "type": "bool",
+            "defaultValue": true
+        },
+        "installNvidiaDevicePlugin": {
+            "type": "bool",
+            "defaultValue": false
+        },
+        "installPromOp": {
+            "type": "bool",
+            "defaultValue": true
+        },
+        "installVolcano": {
+            "type": "bool",
+            "defaultValue": true
+        },
+        "installDcgmExporter": {
+            "type": "bool",
+            "defaultValue": false
+        },
+        "nodeSelector": {
+            "type": "object",
+            "metadata": {
+                "description": "use {\"nodeSelector.key1\":\"value1\", \"nodeSelector.key2\":\"value2\"} correspondingly."
+            },
+            "defaultValue": {}
+        },
+        "sslCname": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "sslSecret": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "sslCertificate": {
+            "type": "securestring",
+            "metadata": {
+                "description": "base64 encoded ssl certificate content"
+            },
+            "defaultValue": ""
+        },
+        "sslKey": {
+            "type": "securestring",
+            "metadata": {
+                "description": "base64 encoded ssl private key content"
+            },
+            "defaultValue": ""
+        }
+    },
+    "functions": [
+        {
+            "namespace": "default",
+            "members": {
+                "boolToString": {
+                    "parameters": [
+                        {
+                            "name": "boolValue",
+                            "type": "bool"
+                        }
+                    ],
+                    "output": {
+                        "type": "string",
+                        "value": "[if(parameters('boolValue'), 'True', 'False')]"
+                    }
+                },
+                "getAksName": {
+                    "parameters": [
+                        {
+                            "name": "aksResourceId",
+                            "type": "string"
+                        }
+                    ],
+                    "output": {
+                        "type": "string",
+                        "value": "[last(split(parameters('aksResourceId'), '/'))]"
+                    }
+                }
+            }
+        }
+    ],
+    "variables": {
+        "baseSettings": {
+            "enableTraining": "[default.boolToString(parameters('enableTraining'))]",
+            "enableInference": "[default.boolToString(parameters('enableInference'))]",
+            "clusterPurpose": "FastProd",
+            "cluster_name": "[parameters('aksResourceId')]",
+            "domain": "[parameters('aksLocation')]",
+            "jobSchedulerLocation": "[parameters('aksLocation')]",
+            "cluster_name_friendly": "[default.getAksName(parameters('aksResourceId'))]",
+            "clusterId": "[parameters('aksResourceId')]",
+            "prometheus.prometheusSpec.externalLabels.cluster_name": "[parameters('aksResourceId')]",
+            "servicebus.enabled": "false",
+            "relayserver.enabled": "false",
+            "nginxIngress.enabled": "true",
+            "installNvidiaDevicePlugin": "[default.boolToString(parameters('installNvidiaDevicePlugin'))]",
+            "installPromOp": "[default.boolToString(parameters('installPromOp'))]",
+            "installVolcano": "[default.boolToString(parameters('installVolcano'))]",
+            "installDcgmExporter": "[default.boolToString(parameters('installDcgmExporter'))]"
+        },
+        "isInternalLoadBalancer": "[equals(parameters('internalLoadBalancerProvider'), 'azure')]",
+        "isNodePort": "[equals(parameters('inferenceRouterServiceType'), 'NodePort')]",
+        "inferenceBase": {
+            "allowInsecureConnections": "[default.boolToString(parameters('allowInsecureConnections'))]",
+            "inferenceRouterServiceType": "[parameters('inferenceRouterServiceType')]",
+            "internalLoadBalancerProvider": "[parameters('internalLoadBalancerProvider')]",
+            "inferenceRouterHA": "[default.boolToString(parameters('inferenceRouterHA'))]"
+        },
+        "internalLoadBalancerSettings": "[union(variables('inferenceBase'), if(variables('isNodePort'), createObject('scoringFe.serviceType.nodePort', variables('isNodePort')), createObject('scoringFe.serviceType.internalLoadBalancer', variables('isInternalLoadBalancer'))))]",
+        "sslSettingBase": {
+            "sslCname": "[parameters('sslCname')]"
+        },
+        "sslSetting": "[if(empty(parameters('sslSecret')), variables('sslSettingBase'), createObject('sslCname', parameters('sslCname'), 'scoringFe.sslSecret', parameters('sslSecret')))]",
+        "inferenceSettings": "[if(parameters('allowInsecureConnections'), variables('internalLoadBalancerSettings'), union(variables('internalLoadBalancerSettings'), variables('sslSetting')))]",
+        "configSettings": "[if(parameters('enableInference'), union(variables('baseSettings'), variables('inferenceSettings')), variables('baseSettings'))]",
+        "configSettingsWithNodeSelector": "[union(variables('configSettings'), parameters('nodeSelector'))]",
+        "configProtectedSettings": "[if(and(not(parameters('allowInsecureConnections')), empty(parameters('sslSecret'))), createObject('scoringFe.sslCert', parameters('sslCertificate'), 'scoringFe.sslKey', parameters('sslKey')), null())]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.KubernetesConfiguration/extensions",
+            "apiVersion": "2022-03-01",
+            "name": "[parameters('extensionName')]",
+            "scope": "[parameters('aksResourceId')]",
+            "identity": {
+                "type": "SystemAssigned"
+            },
+            "properties": {
+                "autoUpgradeMinorVersion": "[parameters('autoUpgradeMinorVersion')]",
+                "configurationProtectedSettings": "[variables('configProtectedSettings')]",
+                "configurationSettings": "[variables('configSettingsWithNodeSelector')]",
+                "extensionType": "microsoft.azureml.kubernetes",
+                "releaseTrain": "stable",
+                "scope": {
+                    "cluster": {
+                        "releaseNamespace": "azureml"
+                    }
+                }
+            }
+        }
+    ]
+}

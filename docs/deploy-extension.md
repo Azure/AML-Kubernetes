@@ -175,6 +175,13 @@ Use ```k8s-extension create``` CLI command to deploy AzureML extension, review l
    |--|--|--|--|--|
    | ```sslCertPemFile```, ```sslKeyPemFile``` |Path to SSL certificate and key file (PEM-encoded), required for AzureML extension deployment with inference HTTPS endpoint support, when  ``allowInsecureConnections`` is set to False. | N/A| Optional |  Optional |
 
+## Use ARM Template to Deploy Extension (Optional)
+Extension on managed cluster can be deployed with ARM template. A sample template can be found from [deployextension.json](../files/deployextension.json), with a demo parameter file [deployextension.parameters.json](../files/deployextension.parameters.json)
+<br/> To leverage the sample deployment template, edit the parameter file with correct value, then run the following command:
+```
+az deployment group create --name <ARM deployment name> --resource-group <resource group name> --template-file deployextension.json --parameters deployextension.parameters.json
+```
+More information about how to use ARM template can be found from [ARM template doc](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/)
 ## Next Step
 - [Attach Kubernetes cluster to AzureML workspace and create a compute target](attach-compute.md)
    

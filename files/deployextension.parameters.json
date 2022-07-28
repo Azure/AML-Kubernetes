@@ -1,0 +1,69 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "extensionName": {
+            "value": ""
+        },
+        "autoUpgradeMinorVersion": {
+            "value": false
+        },
+        "enableTraining": {
+            "value": true
+        },
+        "enableInference": {
+            "value": true
+        },
+        "allowInsecureConnections": {
+            "value": false
+        },
+        "aksResourceId": {
+            "value": "/subscriptions/00000000-0000-0000-0000-000000000000/resourcegroups/foo/providers/Microsoft.ContainerService/managedClusters/bar"
+        },
+        "aksLocation": {
+            "value": "eastus"
+        },
+        "inferenceRouterServiceType": {
+            "value": "LoadBalancer"
+        },
+        "internalLoadBalancerProvider": {
+            "value": "azure"
+        },
+        "inferenceRouterHA": {
+            "value": true
+        },
+        "installNvidiaDevicePlugin": {
+            "value": false
+        },
+        "installPromOp": {
+            "value": true
+        },
+        "installVolcano": {
+            "value": true
+        },
+        "installDcgmExporter": {
+            "value": false
+        },
+        "nodeSelector": {
+            "value": {
+                "nodeSelector.<customized key 0>": "<customized value 0>",
+                "nodeSelector.<customized key 1>": "<customized value 1>"
+            },
+            "metadata": {
+                "description": "This field is optional"
+            }
+        },
+        "sslCname": {
+            "value": "foo.bar.com"
+        },
+        "sslSecret": {
+            "value": ""
+        },
+        "sslCertificate": {
+            "value": "<base64 encoded certificate pem content>"
+        },
+        "sslKey": {
+            "value": "<base64 encoded private key pem content>"
+        }
+    }
+}
