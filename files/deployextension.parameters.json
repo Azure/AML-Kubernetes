@@ -45,7 +45,13 @@
             "value": false
         },
         "nodeSelector": {
-            "value": {}
+            "value": {
+                "nodeSelector.<customized key 0>": "<customized key 0>",
+                "nodeSelector.<customized key 1>": "<customized key 1>"
+            },
+            "metadata": {
+                "description": "This field is optional"
+            }
         },
         "sslCname": {
             "value": "foo.bar.com"
