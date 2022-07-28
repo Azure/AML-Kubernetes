@@ -107,7 +107,9 @@ jobs:
     
     # run training test cases
     - name: run examples/training/simple-train-cli/job.yml
-      run: bash .github/amlarc-tool.sh run_cli_job examples/training/simple-train-cli/job.yml -c githubtest
+      run: |
+        bash .github/amlarc-tool.sh run_cli_job examples/training/simple-train-cli/job.yml -c githubtest -it defaultinstancetype
+        cat examples/training/simple-train-cli/job.yml
       continue-on-error: true
       timeout-minutes: 30
     - name: prepare jupyter dependency
