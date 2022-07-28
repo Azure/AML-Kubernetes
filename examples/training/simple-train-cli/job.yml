@@ -1,7 +1,7 @@
 experiment_name: Tutorial-sklearn-mnist
 code: ./src
 command: python train.py --data-folder ./mnist-data --regularization 0.5
-environment: azureml:AzureML-sklearn-0.24-ubuntu18.04-py37-cpu:7
+environment: azureml:AzureML-sklearn-0.24-ubuntu18.04-py37-cpu@latest
 compute: azureml:tailwind-k8s
 resources:
   instance_type: <your instance type>
