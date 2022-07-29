@@ -41,7 +41,7 @@ jobs:
       REINSTALL_EXTENSION: true
 
       FILE_TICKET: true
-      REPOSITORY: https://github.com/Azure/azureml-examples
+      REPOSITORY: https://github.com/Azure/AML-Kubernetes
       WORKFLOW: https://github.com/Azure/AML-Kubernetes/actions/workflows/kubernetes-compute-simple-examples.yml
 
     steps:
