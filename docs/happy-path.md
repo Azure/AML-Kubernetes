@@ -1,17 +1,17 @@
 # Installation Instructions
 AzureML extension can be easily installed with a single ```az k8s-extension create``` command. But according to your needs and deployment scenarios, different parameters and pre-checkings should be paid attention to, like K8s distro, cluster resources, networking, security, storage and AML features. 
 
-For a quick try scenario, please try the following two happy paths with [Minikube](#install-with-minikube) and [AKS](#install-with-aks) clusters respectively. For special production needs, please refer to [doc](./deploy-extension.md). For any errors or failures, please refer to [Trouble Shooting](./troubleshooting.md).
+For a quick try scenario, please try the following two happy paths with [Minikube](#install-with-minikube) and [AKS](#install-with-aks) clusters respectively. For special production needs, please refer to [doc](./deploy-extension.md). For any errors or failures, please refer to [TroubleShooting](./troubleshooting.md).
 
 * [Install with Minikube](#install-with-minikube)
 * [Install with AKS](#install-with-aks)
-* [Trouble Shooting](./troubleshooting.md)
+* [TroubleShooting](./troubleshooting.md)
 
 ## Install with Minikube
 Assuming that you have a local K8s cluster created by [Minikube](https://minikube.sigs.k8s.io/docs/start/) and have [kubectl](https://kubernetes.io/docs/tasks/tools/) , [helm](https://helm.sh/docs/intro/install/) and [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli) tools installed. **<span style="color:orange">Check and make sure your cluster have at least 4 vCPU cores and 8GB memory**</span> by running ```kubectl describe node```, because ARC agents and AzureML extension agents needs around 2 vCPU cores and 3GB memory to run. **<span style="color:orange">This example mainly shows how to install AzureML extension with limited resources for test purpose**</span>.
 
 ### 1. Connect your cluster to Azure by Arc
-On-prem cluster needs to be connected to Azure before it can use AzureML service. Run the command below to connect your cluster. For detailed usage and trouble shooting of ARC, please refer to [Azure Arc-enabled Kubernetes](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/overview)
+On-prem cluster needs to be connected to Azure before it can use AzureML service. Run the command below to connect your cluster. For detailed usage and troubleshooting of ARC, please refer to [Azure Arc-enabled Kubernetes](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/overview)
 
 ```azurecli
 az connectedk8s connect --subscription <subscription-id> --resource-group <resource-group> --location <location> --name <arc-cluster-name>

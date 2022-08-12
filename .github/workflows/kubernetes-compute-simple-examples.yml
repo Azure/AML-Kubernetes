@@ -57,24 +57,6 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: "3.8"
-    - name: upgrade cli to 2.38
-      run: |
-        sudo apt-get update
-        sudo apt-get install ca-certificates curl apt-transport-https lsb-release gnupg
-
-        curl -sL https://packages.microsoft.com/keys/microsoft.asc |
-            gpg --dearmor |
-            sudo tee /etc/apt/trusted.gpg.d/microsoft.gpg > /dev/null
-
-        AZ_REPO=`lsb_release -cs`
-        echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" |
-            sudo tee /etc/apt/sources.list.d/azure-cli.list
-
-        sudo apt-get update
-        apt-cache policy azure-cli
-        sudo apt-get install azure-cli=2.38.0-1~$AZ_REPO  -y
-
-        az version
     - name: install tools
       run: bash .github/amlarc-tool.sh install_tools
       timeout-minutes: 30

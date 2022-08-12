@@ -132,7 +132,7 @@ How to get relayServerConnectionString:
 To install with custom Azure relay, please use the parameters highlighted below when installing the k8s-extension:
 az k8s-extension create --cluster-type connectedClusters --cluster-name plaks-Arc --resource-group youhuaPrivateLink --name amlcompute --extension-type Microsoft.AzureML.Kubernetes --scope cluster --configuration-settings enableTraining=True enableInference=True allowInsecureConnections=True  relayserver.hybridConnectionResourceID="/subscriptions/4aaa645c-5ae2-4ae9-a17a-84b9023bc56a/resourceGroups/youhuaPrivateLink/providers/Microsoft.Relay/namespaces/yhpltest/HybridConnections/relaytest" --configuration-protected-settings relayServerConnectionString="Endpoint=sb://yhpltest.servicebus.windows.net/;SharedAccessKeyName=azureml_rw;SharedAccessKey=****EntityPath=relaytest" --debug
 
-## Trouble shooting
+## Troubleshooting
 
 ### Private Link issue
 We could use the method below to check private link setup by logging into one pod in the k8s cluster and then check related network settings.
