@@ -1,4 +1,4 @@
-# Azure Arc-enabled Machine Learning Trouble Shooting
+# Azure Arc-enabled Machine Learning Troubleshooting
 This document is used to help customer solve problems when using AzureML extension. 
 
 * [Extension Installation Guide](#extension-installation-guide)
