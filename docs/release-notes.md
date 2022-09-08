@@ -5,6 +5,7 @@ New features are released at a biweekly cadance.
 Version 1.1.9
 * Improved health check logic
 * Fixed some bugs
+* Uploading health check logs with kusto client
 
 **Jun 23, 2022 Release**
 
