@@ -1,9 +1,9 @@
 ## Meet network requirements
-Clusters running behind an outbound proxy server or firewall need additional network configurations. Fulfill [Azure Arc network requirements](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/quickstart-connect-cluster?tabs=azure-cli#meet-network-requirement) needed by Azure Arc agents. 
+Clusters running behind an outbound proxy server or firewall need additional network configurations. 
+- For Azure Arc enabled Kubernetes, fulfill [Azure Arc network requirements](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/quickstart-connect-cluster?tabs=azure-cli#meet-network-requirement) needed by Azure Arc agents. If the cluster has an outbound proxy,  make sure that `127.0.0.1` and `localhost` are added to `--proxy-skip-range` when connecting with Azure Arc.
+- For AKS customer without Azure Arc connection, fullfill [AKS cluster extension network requirements](https://docs.microsoft.com/en-us/azure/aks/limit-egress-traffic#cluster-extensions).
 
-Considering the parameter --proxy-skip-range when installing Arc, please make sure that `127.0.0.1` and `localhost` are added for ArcML.
-
-Besides that, the following outbound URLs are required for Azure Machine Learning,
+Besides, the following outbound URLs are required for Azure Machine Learning,
 
 | Outbound Endpoint| Port | Description|Training |Inference |
 |--|--|--|--|--|
