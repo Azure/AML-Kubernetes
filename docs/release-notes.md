@@ -1,5 +1,11 @@
 New features are released at a biweekly cadance. 
 
+**Aug 29, 2022 Release**
+
+Version 1.1.9
+* Improved health check logic
+* Fixed some bugs
+
 **Jun 23, 2022 Release**
 
 Version 1.1.6
