@@ -39,6 +39,7 @@ jobs:
       LOCATION: eastus
       RELEASE_TRAIN: stable
       REINSTALL_EXTENSION: true
+      CLUSTER_TYPE: managedClusters
 
       FILE_TICKET: true
       REPOSITORY: https://github.com/Azure/AML-Kubernetes
@@ -69,9 +70,9 @@ jobs:
     - name: setup_aks
       run: bash .github/amlarc-tool.sh setup_aks
       timeout-minutes: 30
-    - name: connect_arc
-      run: bash .github/amlarc-tool.sh connect_arc
-      timeout-minutes: 30
+    # - name: connect_arc
+    #   run: bash .github/amlarc-tool.sh connect_arc
+    #   timeout-minutes: 30
     - name: install_extension
       run: |
         export EXTENSION_SETTINGS="enableTraining=True enableInference=True inferenceRouterServiceType=loadBalancer allowInsecureConnections=True"
