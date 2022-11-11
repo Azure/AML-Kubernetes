@@ -320,6 +320,9 @@ setup_compute(){
 }
 
 setup_instance_type(){
+    
+    get_kubeconfig
+
     INSTANCE_TYPE_NAME="${1:-$INSTANCE_TYPE_NAME}"
     CPU="${2:-$CPU}"
     MEMORY="${3:-$MEMORY}"
