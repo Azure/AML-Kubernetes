@@ -132,11 +132,11 @@ setup_identity(){
 }
 
 get_identity_id(){
-    az identity create \
+    az identity show \
         --subscription $SUBSCRIPTION \
         --resource-group $RESOURCE_GROUP \
-        --name $IDENTITY_NAME
-        --query 'id'
+        --name $IDENTITY_NAME \
+        --query 'id' \
         --output tsv
 }
 
