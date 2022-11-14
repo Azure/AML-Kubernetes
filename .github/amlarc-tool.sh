@@ -13,6 +13,9 @@ export SUBSCRIPTION="${SUBSCRIPTION:-subscription}"
 export RESOURCE_GROUP="${RESOURCE_GROUP:-amlarc-examples-rg}"  
 export LOCATION="${LOCATION:-eastus}"
 
+# Identity
+export IDENTITY_NAME="${IDENTITY_NAME:-amlarcgithubidentity}"
+
 # AKS
 export AKS_CLUSTER_PREFIX="${AKS_CLUSTER_PREFIX:-amlarc-aks}"
 export VM_SKU="${VM_SKU:-Standard_D4s_v3}"
@@ -119,6 +122,22 @@ setup_resource_group(){
         --subscription $SUBSCRIPTION \
         -l "$LOCATION" \
         -n "$RESOURCE_GROUP" 
+}
+
+setup_identity(){
+    az identity create \
+        --subscription $SUBSCRIPTION \
+        --resource-group $RESOURCE_GROUP \
+        --name $IDENTITY_NAME
+}
+
+get_identity_id(){
+    az identity show \
+        --subscription $SUBSCRIPTION \
+        --resource-group $RESOURCE_GROUP \
+        --name $IDENTITY_NAME \
+        --query 'id' \
+        --output tsv
 }
 
 # setup AKS
@@ -320,6 +339,9 @@ setup_compute(){
 }
 
 setup_instance_type(){
+
+    get_kubeconfig
+
     INSTANCE_TYPE_NAME="${1:-$INSTANCE_TYPE_NAME}"
     CPU="${2:-$CPU}"
     MEMORY="${3:-$MEMORY}"
