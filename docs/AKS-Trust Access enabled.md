@@ -5,13 +5,16 @@ Right now, we support the integration with Trusted Access enabled AKS which is s
 -	If your AKS cluster has an [Authorized IP range enabled to access the API server](https://learn.microsoft.com/en-us/azure/aks/api-server-authorized-ip-ranges), enable the AzureML control plane IP ranges for the AKS cluster is not required anymore. 
 This article is to guide you how to integrate AKS cluster in above two scenarios with AzureML for both model training and model inferencing.
 
-Since this feature is still in preview stage, you can provide your information in this [form](https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR9S7K-kdeMpBoc3jEmzkKMVUREwxSjhQTVNaM1I4RlVENklYQ1hRTFFSTC4u) to gain access to the feature.
+
 
 ## Prerequisites
 
-1.  An existing AKS cluster which has disabled local account, or has enabled authorized IP range.
+1.  To gain access this AKS new feature that is still in privare preview, you can provide your information in this [form](https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR9S7K-kdeMpBoc3jEmzkKMVUREwxSjhQTVNaM1I4RlVENklYQ1hRTFFSTC4u) to add to whitelist.
+
+2. An existing AKS cluster which has disabled local account, or has enabled authorized IP range.
     - If you are using an AKS cluster has an authorized IP range enabled to access the API Server, you will no longer need to manually enable the AzureML control plane IP ranges with enabled Trust Access. In addition, you can also remove the added Azureml IP range.
-2.	If you are using Kubernetes compute in v2 stack, the AzureML extension should have been deployed to AKS cluster.
+
+3.	If you are using [Kubernetes compute v2](https://learn.microsoft.com/en-us/azure/machine-learning/how-to-attach-kubernetes-anywhere), the AzureML extension should have been deployed to AKS cluster.
 
 Please follow the steps below to enable Trust Access in your AKS clusters.
 
