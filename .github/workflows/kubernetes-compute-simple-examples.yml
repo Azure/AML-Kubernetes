@@ -31,7 +31,7 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     env:
       SUBSCRIPTION: ${{ secrets.SUBSCRIPTION }}
       RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }}
