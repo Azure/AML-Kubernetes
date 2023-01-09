@@ -13,7 +13,7 @@ Once you get confirmation of preview feature access from Microsoft, you can enab
 - Create AzureML role binding in AKS cluster with following AzureML CLI commmand. **Note**: AzureML role binding is per workspace, if your AKS cluster is shared among multiple workspace, you must create AzureML role binding for each workspace.
 
 ```shell
-    az aks trustedaccess rolebinding create –resource group <resource-group> --cluster-name <cluster-name> --name <rolebinding-name> --source-resource-id /subscriptions/ <subscriptions-id> /resourceGroups/ <resource-group> /providers/Microsoft.MachineLearningServices/workspaces/< workspaces-name> --roles Microsoft.MachineLearningServices/workspaces/mlworkload
+    az aks trustedaccess rolebinding create –resource group <resource-group> --cluster-name <cluster-name> --name <rolebinding-name> --source-resource-id /subscriptions/<subscriptions-id>/resourceGroups/<resource-group>/providers/Microsoft.MachineLearningServices/workspaces/<workspaces-name> --roles Microsoft.MachineLearningServices/workspaces/mlworkload
 
 ``` 
 - Verify that ```Microsoft.MachineLearningServices/workspaces/mlworkload``` role binding is created in AKS cluster:
