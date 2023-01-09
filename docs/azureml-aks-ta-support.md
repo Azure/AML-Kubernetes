@@ -7,7 +7,7 @@ Built-upon AKS Trusted Access (preview) feature, AzureML now supports access to 
 To preview this feature in AzureML, please ensure to fulfill following prerequisites:
 - Sign up preview [here](https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR9S7K-kdeMpBoc3jEmzkKMVUREwxSjhQTVNaM1I4RlVENklYQ1hRTFFSTC4u)
 - You have an AKS cluster with one of above special configurations
-- You have installed AzureML extension according to [documentation] (https://aka.ms/amlarc/doc)
+- You have installed AzureML extension according to [documentation](https://aka.ms/amlarc/doc)
 
 Once you get confirmation of preview feature access from Microsoft, you can enable AzureML access to your AKS cluster with following steps:
 - Create AzureML role binding in AKS cluster with following AzureML CLI commmand. **Note**: AzureML role binding is per workspace, if your AKS cluster is shared among multiple workspace, you must create AzureML role binding for each workspace.
