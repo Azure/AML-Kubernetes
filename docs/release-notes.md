@@ -1,15 +1,24 @@
-New features are released at a biweekly cadance. 
+New features are released at a biweekly cadance.
+
+**Dec 27, 2022 Release**
+
+Version 1.1.17
+* Move the Fluent-bit from DaemonSet to sidecars 
+* Add MDC support
+* Refine error messages
+* Support cluster mode (windows, linux) jobs
+* Bugfixes
 
 **Aug 29, 2022 Release**
 
 Version 1.1.9
 * Improved health check logic
-* Fixed some bugs
+* Bugfixes
 
 **Jun 23, 2022 Release**
 
 Version 1.1.6
-* Bugs fix
+* Bugfixes
 
 **Jun 15, 2022 Release**
 
@@ -20,7 +29,7 @@ Version 1.1.5
 * Updated security context usage
 * Updated inference scorefe to v2
 * Updated to use Volcano as training job scheduler
-* Bugs fix
+* Bugfixes
 
 **Oct 14, 2021 Release**
 
