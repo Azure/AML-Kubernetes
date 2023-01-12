@@ -162,7 +162,7 @@
         "inferenceSettings": "[if(parameters('allowInsecureConnections'), variables('internalLoadBalancerSettings'), union(variables('internalLoadBalancerSettings'), variables('sslSetting')))]",
         "configSettings": "[if(parameters('enableInference'), union(variables('baseSettings'), variables('inferenceSettings')), variables('baseSettings'))]",
         "configSettingsWithNodeSelector": "[union(variables('configSettings'), parameters('nodeSelector'))]",
-        "configProtectedSettings": "[if(and(not(parameters('allowInsecureConnections')), empty(parameters('sslSecret'))), createObject('scoringFe.sslCert', parameters('sslCertificate'), 'scoringFe.sslKey', parameters('sslKey')), null())]"
+        "configProtectedSettings": "[if(and(not(parameters('allowInsecureConnections')), empty(parameters('sslSecret'))), createObject('scoringFe.sslCert', parameters('sslCertificate'), 'scoringFe.sslKey', parameters('sslKey')), '')]"
     },
     "resources": [
         {
