@@ -95,7 +95,7 @@ For workspace default ACR, please enable firewall exception on allow trusted Mic
 More documentation for a private link container registry is provided here: https://docs.microsoft.com/en-us/azure/container-registry/container-registry-private-link#set-up-private-endpoint---portal-recommended.
 Configure compute cluster for building image in your vnet. https://docs.microsoft.com/en-us/azure/machine-learning/how-to-secure-workspace-vnet?tabs=pe#enable-azure-container-registry-acr
 
-Please note the admin user of your ARC should be enabled. Trainging job is using this crediental to access your ACR. If you don't want to enable admin user, a workaround can be found in this document: https://learn.microsoft.com/en-us/azure/machine-learning/how-to-identity-based-service-authentication?tabs=cli#scenario-azure-container-registry-without-admin-user
+Please note the admin user of your ARC should be enabled. Trainging job is using this crediental to access your ACR. If you don't want to enable admin user, you need to enable compute identity and manually assign ACRPull role to compute identity. You can find more information in this document: https://learn.microsoft.com/en-us/azure/machine-learning/how-to-identity-based-service-authentication?tabs=cli#scenario-azure-container-registry-without-admin-user
 
 ### Azure Keyvault
 Azure Machine Learning uses an associated Key Vault instance to store the following credentials:
