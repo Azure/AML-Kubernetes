@@ -582,7 +582,7 @@ EOF
 }
 
 install_jupyter_dependency(){
-    pip install jupyter
+    pip install jupyter==7.4.9
     pip install notebook 
     ipython kernel install --name "amlarc" --user
     pip install matplotlib numpy scikit-learn==0.22.1 numpy joblib glob2
