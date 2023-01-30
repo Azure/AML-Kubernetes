@@ -52,6 +52,7 @@ jobs:
         echo "LOCATION=${{ github.event.inputs.TEST_REGION }}" | tee -a $GITHUB_ENV
         echo "RELEASE_TRAIN=${{ github.event.inputs.AMLARC_RELEASE_TRAIN }}" | tee -a $GITHUB_ENV
         echo "REINSTALL_EXTENSION=${{ github.event.inputs.REINSTALL_EXTENSION }}" | tee -a $GITHUB_ENV
+        echo "FILE_TICKET=${{ github.event.inputs.FILE_TICKET }}" | tee -a $GITHUB_ENV
     - name: check out repo
       uses: actions/checkout@v2
     - name: setup python
