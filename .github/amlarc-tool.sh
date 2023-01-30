@@ -582,7 +582,6 @@ EOF
 }
 
 install_jupyter_dependency(){
-    pip list || true
     pip install jupyter-client==7.4.9
     pip install jupyter==1.0.0
     pip install notebook 
