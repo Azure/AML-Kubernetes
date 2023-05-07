@@ -1,0 +1,12 @@
+apiVersion: amlarc.azureml.com/v1
+kind: QuotaOverride
+metadata:
+  labels:
+    app.kubernetes.io/name: quotaoverride
+    app.kubernetes.io/instance: <name>
+  name: <name>
+spec:
+  tierOverrides:
+    <tierOverrides>
+  userIdentifiers:
+    <userIdentifiers>
