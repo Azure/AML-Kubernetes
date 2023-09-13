@@ -3,7 +3,6 @@
 Built-upon [AKS Trusted Access (preview) feature](https://learn.microsoft.com/azure/aks/trusted-access-feature), AzureML now supports access to AKS clusters with following special configurations:
 - AKS cluster with local account disabled
 - AKS cluster with authorized IP range
-- AKS cluster and AzureML workspace are under different subscriptions (cross subscription support)
 
 To preview this feature in AzureML, please ensure to fulfill following prerequisites:
 - You have an AKS cluster with one of above special configurations
