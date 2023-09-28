@@ -1,5 +1,3 @@
-Sure, here is a possible better version of the markdown document:
-
 # Enable training job and online endpoint in legacy AKSCompute (Preview)
 
 ## Introduction
