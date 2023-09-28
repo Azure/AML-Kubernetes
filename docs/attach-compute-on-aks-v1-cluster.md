@@ -1,27 +1,42 @@
 Sure, here is a possible better version of the markdown document:
 
-# How to use an existing AKS v1 compute as a v2 Kubernetes compute (Preview)
+# Enable training job and online endpoint in legacy AKSCompute (Preview)
 
 ## Introduction
 
-Azure Machine Learning (AML) supports two types of Kubernetes compute targets: AKS v1 and Kubernetes v2. AKS v1 compute is a managed AKS cluster that can only run inference workloads. Kubernetes v2 compute is a generic Kubernetes cluster that can run both training and inference workloads, and supports Azure Arc-enabled Kubernetes clusters.
+Azure Machine Learning (AML) supports two types of Kubernetes compute targets: AKSCompute and Kubernetes compute.
 
-If you have an existing AKS cluster that is already attached as an AKS v1 compute to your AML workspace, you may want to use it as a Kubernetes v2 compute as well, without creating a new cluster. This document will guide you through the steps to achieve this. By using an existing AKS v1 compute as a Kubernetes v2 compute, you can leverage the benefits of both types of compute targets, such as:
+AKSCompute refers to an AKS cluster that is either attached to or created within an AzureML workspace (legacy approach). Its primary function is to facilitate the deployment of models as web services exclusively, by using UI, CLI v1 or SDK v1.
 
-- Reduce the cost and complexity of managing multiple clusters
-- Use the same cluster for both training and inference scenarios
-- Take advantage of the features and capabilities of Kubernetes v2 compute
+On the other hand, Kubernetes compute, which is our new v2 stack, signifies a Kubernetes cluster for AKS or any Kubernetes cluster provided by on-prem or other third parties, attached to an AzureML workspace. This setup allows for the execution of both training jobs and the establishment of online endpoints for model inferencing.
 
+Refer to this document for more details: [AKSCompute vs Kubernetes Compute](https://learn.microsoft.com/en-us/azure/machine-learning/how-to-attach-kubernetes-anywhere?view=azureml-api-2#kubernetescompute-and-legacy-akscompute)
+
+If you possess an existing AKS cluster currently attached as a legacy AKSCompute to your AzureML workspace, you might consider utilizing it as a new Kubernetes Compute in v2 stack. This move not only allows you to gain availability to all the functionalities such as training jobs, pipeline, real-time or batch online endpoint within AzureML, but it also ensures support for all future feature updates, as well as eliminating the need to create a new cluster. This document provides a step-by-step guide to assist you in accomplishing this. The advantages of employing an existing AKSCompute as a KubernetesCompute include:
+
+- Minimizing the cost and complexity of managing multiple clusters
+- Using the identical cluster for both training and inference scenarios
+- Harnessing the features and capabilities inherent in the Kubernetes v2 compute.
+
+## Limitations
+* Currently, this feature is only supported in East US and East US 2.
+* Only attached AKSCompute is supported. Created AKSCompute is not supported.
+* The deployment "azureml-fe" in the default namespace must have been upgraded to v2. Normally, this deployment is upgraded automatically. However, the upgrade may fail due to some reasons, such as cluster access issues or deliberate update blocking.
+* The cluster must install the AzureML extension as managed cluster, instead of an Arc-Kubernetes cluster. Refer to this section for more details: [Step 2](#step-2-install-the-extension-with-extra-configuration)
+* The scoring URL for AKSCompute and the scoring URL for Kubernetes compute are not segregated. This means that both deployments can access and serve the models and online deployments that are registered on either compute. This may cause some confusion or conflicts when deploying or consuming models on different computes.
+* When attaching Kubernetes compute, the namespace should not be the same as the AKSCompute's namespace. Otherwise, the online deploymentes on Kubernetes compute may conflict with the webservices on AKSCompute. The namespace for v1 compute follows the pattern: `azureml-<workspace-name>`.
 ## Prerequisites
 
 Before you begin, make sure you have the following:
 
 - An AKS cluster that is already attached as an AKS v1 compute to your AML workspace.
-- The Microsoft.AzureML.Kubernetes extension type registered in your subscription. You can use the following command to register it:
+- To check if the cluster is capable of being upgraded, run the following command to see if the "azureml-fe" deployment has been upgraded to v2:
 
-```bash
-az provider register --namespace Microsoft.AzureML.Kubernetes --wait
-```
+    ```bash
+    kubectl get pod -l azuremlappname=azureml-fe -l azuremlappversion=v2
+    ```
+    The output should indicate that pods running in v2 exist. For example:
+    ![get-pod-output](./../pics/check_scoringfe_v2_output.png)
 
 ## Steps
 
@@ -39,26 +54,13 @@ You should see a message like this:
 deployment.apps/azureml-fe annotated
 ```
 
-### Step 2: Install the extension with extra configuration
+### Step 2: Install the extension
+Refer to this document for more details: [Deploy AzureML extension to your Kubernetes cluster](./deploy-extension.md)
 
-When installing the extension, you need to provide an extra configuration "scoringFe.enableUpgrade=true" to enable the upgrade feature. This configuration will allow the extension to install on a cluster with an existing azureml-fe. Here's an example command with this extra configuration:
-
+The cluster type must be managedClusters. Do not connect the cluster to Azure Arc. The following is an example of the command:
 ```bash
-az k8s-extension create --name <extension-name> --extension-type Microsoft.AzureML.Kubernetes --config enableTraining=True enableInference=True inferenceRouterServiceType=LoadBalancer scoringFe.enableUpgrade=true --config-protected sslCertPemFile=<file-path-to-cert-PEM> sslCertKeyFile=<file-path-to-cert-KEY> --cluster-type managedClusters --cluster-name <your-cluster-name> --resource-group <your-RG-name> --scope cluster
+az k8s-extension create --name <extension-name> --extension-type Microsoft.AzureML.Kubernetes --config enableTraining=True enableInference=True inferenceRouterServiceType=LoadBalancer allowInsecureConnections=True inferenceRouterHA=False --cluster-type managedClusters --cluster-name <your-AKS-cluster-name> --resource-group <your-RG-name> --scope cluster
 ```
+### Step 3: Attach the cluster to the workspace as a Kubernetes compute
 
-You can check the status of the extension installation by using this command:
-
-```bash
-az k8s-extension show --name <extension-name> --cluster-type connectedClusters --cluster-name <your-connected-cluster-name> --resource-group <your-RG-name>
-```
-More details about installing the extension can be found in this document: [Deploy AzureML extension to your Kubernetes cluster](./deploy-extension.md)
-
-### Step 3: Attach the cluster to the workspace as a v2 Kubernetes compute
-
-After installing the extension, you can attach the cluster to your workspace as a v2 Kubernetes compute as normal. You can use the Azure ML CLI, the Azure ML Studio UI, or the Azure ML Python SDK to do this. For more details, you can refer to this document: [Attach Kubernetes cluster to AzureML workspace and create a compute target](./attach-compute.md)
-
-## Limitations
-
-* The scoring URL for v1 compute and the scoring URL for v2 compute are not segregated. This means that both deployments can access and serve the models and online deployments that are registered on either compute. This may cause some confusion or conflicts when deploying or consuming models on different computes.
-* When attaching v2 Kubernetes compute, the namespace should not be the same as the v1 compute's namespace. Otherwise, the online deploymentes on v2 compute may conflict with the webservices on v1 compute. The namespace for v1 compute follows the pattern: `azureml-<workspace-name>`.
+After installing the extension, you can attach the cluster to your workspace as a Kubernetes compute as normal. You can use the Azure ML CLI, the Azure ML Studio UI, or the Azure ML Python SDK to do this. For more details, you can refer to this document: [Attach Kubernetes cluster to AzureML workspace and create a compute target](./attach-compute.md)
