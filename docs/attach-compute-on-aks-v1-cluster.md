@@ -17,7 +17,7 @@ If you possess an existing AKS cluster currently attached as a legacy AKSCompute
 - Harnessing the features and capabilities inherent in the Kubernetes v2 compute.
 
 ## Limitations
-* Currently, this feature is only supported in East US and East US 2.
+* The AKS cluster must be in a region supports Azure Arc enabled Kubernetes. Check from [here](https://azure.microsoft.com/en-us/explore/global-infrastructure/products-by-region/).
 * Only attached AKSCompute is supported. Created AKSCompute is not supported.
 * The deployment "azureml-fe" in the default namespace must have been up to date. Normally, this deployment is upgraded automatically. However, the upgrade may fail due to some reasons, such as cluster access issues or deliberate update blocking.
 * The cluster must install the AzureML extension as managed cluster, instead of an Arc-Kubernetes cluster. Refer to this section for more details: [Step 2](#step-2-install-the-extension-with-extra-configuration)
@@ -76,13 +76,19 @@ Before you begin, make sure you have the following:
 
 ## Steps
 
-### Step 1: Install the extension
-Refer to this document for more details: [Deploy AzureML extension to your Kubernetes cluster](./deploy-extension.md)
+### Step 1: Install the extension with extra configuration
+When installing the extension, you need to provide an extra configuration "scoringFe.enableUpgrade=true" to enable the upgrade feature. This configuration will allow the extension to install on a cluster with an existing azureml-fe. Here's an example command with this extra configuration:
 
-The cluster type must be managedClusters. Do not connect the cluster to Azure Arc. The following is an example of the command:
 ```bash
-az k8s-extension create --name <extension-name> --extension-type Microsoft.AzureML.Kubernetes --config enableTraining=True enableInference=True inferenceRouterServiceType=LoadBalancer allowInsecureConnections=True inferenceRouterHA=False --cluster-type managedClusters --cluster-name <your-AKS-cluster-name> --resource-group <your-RG-name> --scope cluster
+az k8s-extension create --name <extension-name> --extension-type Microsoft.AzureML.Kubernetes --config enableTraining=True enableInference=True inferenceRouterServiceType=LoadBalancer scoringFe.enableUpgrade=true --config-protected sslCertPemFile=<file-path-to-cert-PEM> sslCertKeyFile=<file-path-to-cert-KEY> --cluster-type managedClusters --cluster-name <your-cluster-name> --resource-group <your-RG-name> --scope cluster
 ```
+
+You can check the status of the extension installation by using this command:
+
+```bash
+az k8s-extension show --name <extension-name> --cluster-type connectedClusters --cluster-name <your-connected-cluster-name> --resource-group <your-RG-name>
+```
+More details about installing the extension can be found in this document: [Deploy AzureML extension to your Kubernetes cluster](./deploy-extension.md)
 ### Step 2: Attach the cluster to the workspace as a Kubernetes compute
 
 After installing the extension, you can attach the cluster to your workspace as a Kubernetes compute as normal. You can use the Azure ML CLI, the Azure ML Studio UI, or the Azure ML Python SDK to do this. For more details, you can refer to this document: [Attach Kubernetes cluster to AzureML workspace and create a compute target](./attach-compute.md)
