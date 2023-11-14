@@ -5,7 +5,7 @@ Built-upon [AKS Trusted Access (preview) feature](https://learn.microsoft.com/az
 - AKS cluster with authorized IP range
 - Private AKS with public FQDN configuration
 
-Announcement! This feature will be enabled in the *westcentralus* region at the end of November 2023, and in all other regions in December.
+📣 Announcement! This feature will be enabled in the *westcentralus* region at the end of November 2023 👏🎉, and in all other regions in December.
 
 To preview this feature in AzureML, please ensure to fulfill following prerequisites:
 - You have an AKS cluster with one of above special configurations
