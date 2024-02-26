@@ -1,31 +1,18 @@
 # AzureML access to AKS clusters with special configurations
 
-Built-upon [AKS Trusted Access (preview) feature](https://learn.microsoft.com/azure/aks/trusted-access-feature), AzureML now supports access to AKS clusters with following special configurations:
+Built-upon [AKS Trusted Access feature](https://learn.microsoft.com/azure/aks/trusted-access-feature), AzureML now supports access to AKS clusters with following special configurations:
 - AKS cluster with local account disabled
 - AKS cluster with authorized IP range
 - Private AKS with public FQDN configuration
 
-📣 Announcement! This feature will be enabled in the *westcentralus* region at the end of November 2023 👏🎉, and in all other regions in December.
+📣 This feature has been deployed in the *westcentralus*,*eastus2*,*centralus*,*southcentralus*, and *westeurope* regions 👏🎉, in all other regions in the middle of April.
 
-To preview this feature in AzureML, please ensure to fulfill following prerequisites:
-- You have an AKS cluster with one of above special configurations
-- You have installed AzureML extension according to [documentation](https://aka.ms/amlarc/doc)
-
-Once you get confirmation of preview feature access from Microsoft, you can enable AzureML access to your AKS cluster with following steps:
-- Create AzureML role binding in AKS cluster with following AzureML CLI commmand. **Note**: AzureML role binding is per workspace, if your AKS cluster is shared among multiple workspace, you must create AzureML role binding for each workspace.
-
-```shell
-    az aks trustedaccess rolebinding create –resource group <resource-group> --cluster-name <cluster-name> --name <rolebinding-name> --source-resource-id /subscriptions/<subscriptions-id>/resourceGroups/<resource-group>/providers/Microsoft.MachineLearningServices/workspaces/<workspaces-name> --roles Microsoft.MachineLearningServices/workspaces/mlworkload
-
-``` 
-- Verify that ```Microsoft.MachineLearningServices/workspaces/mlworkload``` role binding is created in AKS cluster:
+Once the feature is deplyed to your regions, you could (re/)attach your compute to enable it; you can verify if the feature has been enabled on your AKS cluster with following steps:
+- Verify that ```Microsoft.MachineLearningServices/workspaces/mlworkload``` role binding is created in AKS cluster. **Note**: AzureML role binding is per workspace, if your AKS cluster is shared among multiple workspace, you should have AzureML role binding for each workspace.
 ```shell
     az aks trustedaccess rolebinding list --resource-group <resource-group> --cluster-name <cluster-name>
 ```
-- Follow [documentation](https://aka.ms/amlarc/doc) to attach AKS cluster to workspace and create a new compute target. This new compute target will leverage AKS Trusted Access feature and access AKS cluster with above special configurations.
-
 > <span style="color:orange">**Notes**:</span> 
 > 
 > * If you have any existing compute targets created before AzureML role binding was created, those compute targets will not work with AKS cluster with above special configurations. Please detach those existing compute targets to avoid any issues.
 > * This role binding does not work with legacy AksCompute (AKS inference cluster).
-
