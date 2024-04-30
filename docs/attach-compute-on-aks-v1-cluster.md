@@ -30,11 +30,24 @@ Before you begin, make sure you have the following:
 
 - kubectl tools: [Install and Set Up kubectl](https://kubernetes.io/docs/tasks/tools/)
 - az cli: [Install Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli)
-- AML v1 cli extension: [Install Azure ML CLI extension](https://learn.microsoft.com/en-us/azure/machine-learning/reference-azure-machine-learning-cli?view=azureml-api-1)
 
 ## Steps
 
-### Step 1: Install the extension with extra configuration
+### Step 1: Add an annotation to the existing deployment
+
+You need to add an annotation "azureml-fe-enable-upgrade"=true to the existing deployment "azureml-fe" in the default namespace. You can use the following command to add this annotation:
+
+```bash
+kubectl annotate deployment azureml-fe azureml-fe-enable-upgrade=true
+```
+
+You should see a message like this:
+
+```bash
+deployment.apps/azureml-fe annotated
+```
+
+### Step 2: Install the extension with extra configuration
 When installing the extension, you need to provide an extra configuration "scoringFe.enableUpgrade=true" to enable the upgrade feature. This configuration will allow the extension to install on a cluster with an existing azureml-fe. Here's an example command with this extra configuration:
 
 ```bash
@@ -47,6 +60,6 @@ You can check the status of the extension installation by using this command:
 az k8s-extension show --name <extension-name> --cluster-type connectedClusters --cluster-name <your-connected-cluster-name> --resource-group <your-RG-name>
 ```
 More details about installing the extension can be found in this document: [Deploy AzureML extension to your Kubernetes cluster](./deploy-extension.md)
-### Step 2: Attach the cluster to the workspace as a Kubernetes compute
+### Step 3: Attach the cluster to the workspace as a Kubernetes compute
 
 After installing the extension, you can attach the cluster to your workspace as a Kubernetes compute as normal. You can use the Azure ML CLI, the Azure ML Studio UI, or the Azure ML Python SDK to do this. For more details, you can refer to this document: [Attach Kubernetes cluster to AzureML workspace and create a compute target](./attach-compute.md)
