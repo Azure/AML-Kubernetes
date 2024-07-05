@@ -5,7 +5,7 @@ Built-upon [AKS Trusted Access feature](https://learn.microsoft.com/azure/aks/tr
 - AKS cluster with authorized IP range
 - Private AKS with public FQDN configuration
 
-📣 This feature has been deployed in the *westcentralus*,*eastus2*,*centralus*,*southcentralus*, and *westeurope* regions 👏🎉, in all other regions in the middle of April.
+📣 This feature has been deployed in the public cloud(AzureCloud). AzureUSGovernment, AzureChinaCloud and AirGap clouds have not enabled this feature.
 
 Once the feature is deplyed to your regions, you could (re/)attach your compute to enable it; you can verify if the feature has been enabled on your AKS cluster with following steps:
 - Verify that ```Microsoft.MachineLearningServices/workspaces/mlworkload``` role binding is created in AKS cluster. **Note**: AzureML role binding is per workspace, if your AKS cluster is shared among multiple workspace, you should have AzureML role binding for each workspace.
